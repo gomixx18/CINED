@@ -10,16 +10,16 @@ if (isset($_POST["INVAgregarInvestigador"])) {
     $pass = "123";
 
 
-<<<<<<< HEAD
+
     $connection = mysqli_connect("localhost", "root", "", "uned_db");
-=======
+
     $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
->>>>>>> origin/master
+
 
     if ($connection) {
         $sentenciaSQL = "INSERT INTO ieinvestigadores (id, nombre, apellido1, apellido2, password, correo) VALUES (" . $id . ", '" . $nombre . "', '" . $ap1 . "', '" . $ap2 . "', '" . $pass . "', '" . $correo . "')";
         $resultado = mysqli_query($connection, $sentenciaSQL);
-<<<<<<< HEAD
+
         $sentenciaSQLexist = "SELECT * FROM usuarios where id= ". $id;
         $resultadoExist = mysqli_query($connection, $sentenciaSQLexist);
         if(mysqli_num_rows($resultadoExist) == 0){
@@ -30,8 +30,8 @@ if (isset($_POST["INVAgregarInvestigador"])) {
             $sentenciaSQLusarios = "UPDATE usuarios SET investigador = true WHERE id= ". $id;
             $resultadoUsuarios = mysqli_query($connection, $sentenciaSQLusarios); 
         }
-=======
->>>>>>> origin/master
+
+
         mysqli_close($connection);
     }
 
@@ -48,16 +48,15 @@ if (isset($_POST["INVAgregarCoordinador"])) {
     $pass = "123";
 
 
-<<<<<<< HEAD
+
     $connection = mysqli_connect("localhost", "root", "", "uned_db");
-=======
+
     $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
->>>>>>> origin/master
 
     if ($connection) {
         $sentenciaSQL = "INSERT INTO iecoordinadoresinvestigacion (id, nombre, apellido1, apellido2, password, correo) VALUES (" . $id . ", '" . $nombre . "', '" . $ap1 . "', '" . $ap2 . "', '" . $pass . "', '" . $correo . "')";
         $resultado = mysqli_query($connection, $sentenciaSQL);
-<<<<<<< HEAD
+
         $sentenciaSQLexist = "SELECT * FROM usuarios where id= ". $id;
         $resultadoExist = mysqli_query($connection, $sentenciaSQLexist);
         if(mysqli_num_rows($resultadoExist) == 0){
@@ -68,8 +67,8 @@ if (isset($_POST["INVAgregarCoordinador"])) {
             $sentenciaSQLusarios = "UPDATE usuarios SET coordinadorinvestigacion = true WHERE id= ". $id;
             $resultadoUsuarios = mysqli_query($connection, $sentenciaSQLusarios); 
         }
-=======
->>>>>>> origin/master
+
+
         mysqli_close($connection);
     }
 
@@ -87,16 +86,16 @@ if (isset($_POST["INVAgregarEvaluador"])) {
     $pass = "123";
 
 
-<<<<<<< HEAD
+
     $connection = mysqli_connect("localhost", "root", "", "uned_db");
-=======
+
     $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
->>>>>>> origin/master
+
 
     if ($connection) {
         $sentenciaSQL = "INSERT INTO ieevaluadores (id, nombre, apellido1, apellido2, password, correo) VALUES (" . $id . ", '" . $nombre . "', '" . $ap1 . "', '" . $ap2 . "', '" . $pass . "', '" . $correo . "')";
         $resultado = mysqli_query($connection, $sentenciaSQL);
-<<<<<<< HEAD
+
         $sentenciaSQLexist = "SELECT * FROM usuarios where id= ". $id;
         $resultadoExist = mysqli_query($connection, $sentenciaSQLexist);
         if(mysqli_num_rows($resultadoExist) == 0){
@@ -107,8 +106,8 @@ if (isset($_POST["INVAgregarEvaluador"])) {
             $sentenciaSQLusarios = "UPDATE usuarios SET evaluador = true WHERE id= ". $id;
             $resultadoUsuarios = mysqli_query($connection, $sentenciaSQLusarios); 
         }
-=======
->>>>>>> origin/master
+
+
         mysqli_close($connection);
     }
 
@@ -127,16 +126,16 @@ if (isset($_POST["INVAgregarMiembro"])) {
   
 
 
-<<<<<<< HEAD
+
     $connection = mysqli_connect("localhost", "root", "", "uned_db");
-=======
+
     $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
->>>>>>> origin/master
+
 
     if ($connection) {
         $sentenciaSQL = "INSERT INTO iemiembroscomiex (id, nombres, apellido1, apellido2, correo) VALUES (" . $id . ", '" . $nombre . "', '" . $ap1 . "', '" . $ap2  . "', '" . $correo . "')";
         $resultado = mysqli_query($connection, $sentenciaSQL);
-<<<<<<< HEAD
+
         $sentenciaSQLexist = "SELECT * FROM usuarios where id= ". $id;
         $resultadoExist = mysqli_query($connection, $sentenciaSQLexist);
         if(mysqli_num_rows($resultadoExist) == 0){
@@ -147,8 +146,8 @@ if (isset($_POST["INVAgregarMiembro"])) {
             $sentenciaSQLusarios = "UPDATE usuarios SET miembrocomiex = true WHERE id= ". $id;
             $resultadoUsuarios = mysqli_query($connection, $sentenciaSQLusarios); 
         }
-=======
->>>>>>> origin/master
+
+
         mysqli_close($connection);
     }
 
@@ -163,11 +162,11 @@ if (isset($_POST["INVAgregarLinea"])) {
     $id = $_POST["id"];
 
 
-<<<<<<< HEAD
+
     $connection = mysqli_connect("localhost", "root", "", "uned_db");
-=======
+
     $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
->>>>>>> origin/master
+
 
     if ($connection) {
         $sentenciaSQL = "INSERT INTO lineasinvestigacion (codigo, nombre) VALUES (" . $id . ", '" . $nombre . "')";
@@ -186,11 +185,11 @@ if (isset($_POST["INVAgregarCarrera"])) {
     $id = $_POST["id"];
 
 
-<<<<<<< HEAD
+
     $connection = mysqli_connect("localhost", "root", "", "uned_db");
-=======
+
     $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
->>>>>>> origin/master
+
 
     if ($connection) {
         $sentenciaSQL = "INSERT INTO carreras (codigo, nombre) VALUES (" . $id . ", '" . $nombre . "')";
@@ -206,11 +205,11 @@ if (isset($_POST["INVAgregarCarrera"])) {
 if (isset($_POST["INVAgregarCatedra"])) {
     $nombre = $_POST["nombre"];
     $id = $_POST["id"];
-<<<<<<< HEAD
+
     $connection = mysqli_connect("localhost", "root", "", "uned_db");
-=======
+
     $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
->>>>>>> origin/master
+
 
     if ($connection) {
         $sentenciaSQL = "INSERT INTO catedras (codigo, nombre) VALUES (" . $id . ", '" . $nombre . "')";

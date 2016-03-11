@@ -10,11 +10,11 @@ if (isset($_POST["TFGagregarEstudiante"])) {
     $pass = "123";
 
 
-<<<<<<< HEAD
+
      $connection = mysqli_connect("localhost", "root", "", "uned_db");
-=======
+
      $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
->>>>>>> origin/master
+
  
     if ($connection) {
         $sentenciaSQL = "INSERT INTO tfgestudiantes (id, nombre, apellido1, apellido2, password, correo) VALUES (". $id .", '". $nombre ."', '". $ap1 ."', '". $ap2 ."', '".$pass ."', '". $correo ."')";
@@ -49,11 +49,11 @@ if (isset($_POST["TFGagregarDirector"])) {
     $pass = "123";
 
 
-<<<<<<< HEAD
+
      $connection = mysqli_connect("localhost", "root", "", "uned_db");
-=======
+
      $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
->>>>>>> origin/master
+
  
     if ($connection) {
         $sentenciaSQL = "INSERT INTO tfgdirectores (id, nombre, apellido1, apellido2, password, correo, titulo, especialidad) VALUES (". $id .", '". $nombre ."', '". $ap1 ."', '". $ap2 ."', '".$pass ."', '". $correo ."', '".$titulo ."', '".$especialidad ."')";
@@ -86,11 +86,11 @@ if (isset($_POST["TFGagregarEncargado"])) {
     $pass = "123";
 
 
-<<<<<<< HEAD
+
      $connection = mysqli_connect("localhost", "root", "", "uned_db");
-=======
+
      $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
->>>>>>> origin/master
+
  
     if ($connection) {
         $sentenciaSQL = "INSERT INTO tfgencargados (id, nombre, apellido1, apellido2, password, correo) VALUES (". $id .", '". $nombre ."', '". $ap1 ."', '". $ap2 ."', '".$pass ."', '". $correo ."')";
@@ -125,11 +125,11 @@ if (isset($_POST["TFGagregarAsesor"])) {
     $pass = "123";
 
 
-<<<<<<< HEAD
+
      $connection = mysqli_connect("localhost", "root", "", "uned_db");
-=======
+
      $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
->>>>>>> origin/master
+
  
     if ($connection) {
         $sentenciaSQL = "INSERT INTO tfgasesores (id, nombre, apellido1, apellido2, password, correo, especialidad) VALUES (". $id .", '". $nombre ."', '". $ap1 ."', '". $ap2 ."', '".$pass ."', '". $correo ."', '".$especialidad ."')";
@@ -162,11 +162,11 @@ if (isset($_POST["TFGagregarMiembroComision"])) {
     $pass = "123";
 
 
-<<<<<<< HEAD
+
      $connection = mysqli_connect("localhost", "root", "", "uned_db");
-=======
+
      $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
->>>>>>> origin/master
+
  
     if ($connection) {
         $sentenciaSQL = "INSERT INTO tfgmiembroscomision (id, nombre, apellido1, apellido2, password, correo) VALUES (". $id .", '". $nombre ."', '". $ap1 ."', '". $ap2 ."', '".$pass ."', '". $correo ."')";
@@ -195,11 +195,11 @@ if (isset($_POST["TFGAgregarModalidad"])) {
     $codigo = $_POST["codigo"];
 
 
-<<<<<<< HEAD
+
     $connection = mysqli_connect("localhost", "root", "", "uned_db");
-=======
+
     $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
->>>>>>> origin/master
+
 
     if ($connection) {
         $sentenciaSQL = "INSERT INTO modalidades (codigo, nombre) VALUES (" . $codigo . ", '" . $nombre . "')";
