@@ -10,7 +10,11 @@ if (isset($_POST["INVModificarInvestigador"])) {
     $pass = "123";
 
 
+<<<<<<< HEAD
     $connection = mysqli_connect("localhost", "root", "", "uned_db");
+=======
+    $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
+>>>>>>> origin/master
 
     if ($connection) {
 
@@ -31,7 +35,11 @@ if (isset($_POST["INVModificarCoordinador"])) {
     $pass = "123";
 
 
+<<<<<<< HEAD
     $connection = mysqli_connect("localhost", "root", "", "uned_db");
+=======
+    $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
+>>>>>>> origin/master
 
     if ($connection) {
 
@@ -53,7 +61,11 @@ if (isset($_POST["INVModificarEvaluador"])) {
     $pass = "123";
 
 
+<<<<<<< HEAD
     $connection = mysqli_connect("localhost", "root", "", "uned_db");
+=======
+    $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
+>>>>>>> origin/master
 
     if ($connection) {
 
@@ -75,7 +87,11 @@ if (isset($_POST["INVModificarMiembro"])) {
     $pass = "123";
 
 
+<<<<<<< HEAD
     $connection = mysqli_connect("localhost", "root", "", "uned_db");
+=======
+    $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
+>>>>>>> origin/master
 
     if ($connection) {
 
@@ -92,7 +108,11 @@ if (isset($_POST["INVModificarLinea"])) {
     $nombre = $_POST["nombre"];
     $id = $_POST["id"];
     
+<<<<<<< HEAD
     $connection = mysqli_connect("localhost", "root", "", "uned_db");
+=======
+    $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
+>>>>>>> origin/master
 
     if ($connection) {
 
@@ -109,7 +129,11 @@ if (isset($_POST["INVModificarCarrera"])) {
     $nombre = $_POST["nombre"];
     $id = $_POST["id"];
     
+<<<<<<< HEAD
     $connection = mysqli_connect("localhost", "root", "", "uned_db");
+=======
+    $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
+>>>>>>> origin/master
 
     if ($connection) {
 
@@ -125,7 +149,11 @@ if (isset($_POST["INVModificarCatedra"])) {
     $nombre = $_POST["nombre"];
     $id = $_POST["id"];
     
+<<<<<<< HEAD
     $connection = mysqli_connect("localhost", "root", "", "uned_db");
+=======
+    $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
+>>>>>>> origin/master
 
     if ($connection) {
 
