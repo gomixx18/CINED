@@ -12,7 +12,7 @@ $id = $_POST["id"];
 $pass = $_POST["password"];
 
 
-$connection = mysqli_connect("localhost", "root", "", "uned_db");
+$connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
 
 if ($connection) {
     $sentenciaSQLexist = "SELECT * FROM usuarios where id= " . $id . " AND password= '" . $pass . "'";
