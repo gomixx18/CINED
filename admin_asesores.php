@@ -79,7 +79,6 @@
                                                     <th>Nombre</th>
                                                     <th>Primer Apellido</th>
                                                     <th>Segundo Apellido</th>
-                                                    <th>Titulo</th>
                                                     <th>Especialidad</th> 
                                                     <th>Correo</th>
                                                     <th>Acción</th>
@@ -87,12 +86,12 @@
                                             </thead>
                                             <tbody>
                                                 <?php
-                                                $connection = mysqli_connect("localhost", "root", "cined123", "unedtfg");
+                                                $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
                                                 if (!$connection) {
                                                     exit("<label class='error'>Error de conexión</label>");
                                                 }
 
-                                                $query = mysqli_query($connection, "SELECT * FROM asesores");
+                                                $query = mysqli_query($connection, "SELECT * FROM tfgasesores");
 
 
                                                 while ($data = mysqli_fetch_assoc($query)) {
@@ -101,7 +100,6 @@
                                                     echo "<td>" . $data["nombre"] . "</td>";
                                                     echo "<td>" . $data["apellido1"] . "</td>";
                                                     echo "<td>" . $data["apellido2"] . "</td>";
-                                                    echo "<td>" . $data["titulo"] . "</td>";
                                                     echo "<td>" . $data["especialidad"] . "</td>";
                                                     echo "<td>" . $data["correo"] . "</td>";
                                                     echo "<td>" . "<button type='submit' data-toggle='modal' class='btn btn-primary'
@@ -119,7 +117,6 @@
                                                     <th>Nombre</th>
                                                     <th>Primer Apellido</th>
                                                     <th>Segundo Apellido</th>
-                                                    <th>Titulo</th>
                                                     <th>Especialidad</th>
                                                     <th>Correo</th>
                                                     <th>Acción</th>
@@ -220,17 +217,16 @@
                         <div class="row">
                             <div class=""><h3 class="m-t-none m-b"> <i class="fa fa-plus-square-o"></i> Agregar Asesor</h3>
                                 <form role="form" id="frm_agregar_estudiante" method="POST" action="funcionalidad/TFGagregar.php">
-                                    <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Identificacion</label></i> <input required type="text" placeholder="Identificacion" class="form-control" name="id" ></div>
+                                    <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Identificación</label></i> <input required type="text" placeholder="Identificacion" class="form-control" name="id" ></div>
                                     <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Nombre</label> </i> <input required type="text" placeholder="Nombre" class="form-control" name="nombre" ></div>
                                     <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Primer Apellido</label></i> <input required type="text" placeholder="Primer Apellido" class="form-control"  name="apellido1" ></div>
                                     <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Segundo Apellido</label></i> <input required type="text" placeholder="Segundo Apellido" class="form-control" name="apellido2" ></div>
-                                    <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Titulo</label></i> <input required type="text" placeholder="Titulo" class="form-control" name="titulo" ></div>
                                     <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Especialidad</label></i> <input required type="text" placeholder="Especialidad" class="form-control" name="especialidad" ></div>
                                     <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Correo</label></i> <input required type="email" placeholder="Correo" class="form-control" name="correo" ></div>
 
                                     <div>
                                         <label class=""> <i class="fa fa-exclamation-circle"> Rellene los datos obligatorios.</i></label><br> 
-                                        <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit" name="TFGagregarAsesor"><strong>Registar</strong></button>
+                                        <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit" name="TFGagregarAsesor"><strong>Registrar</strong></button>
                                         <button type="button" data-dismiss="modal" class="btn btn-sm btn-secundary pull-right m-t-n-xs" style="margin-right: 20px;" ><strong>Cancelar</strong></button>
 
 
@@ -250,7 +246,7 @@
                         <div class="row">
                             <div class=""><h3 class="m-t-none m-b"> <i class="fa fa-plus-square-o"></i> Modificar Asesor</h3>
                                 <form role="form" id="frm_agregar_estudiante" method="POST" action="funcionalidad/TFGModificar.php">
-                                    <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Identificacion</label></i> <input name="id" id="id" required type="text" placeholder="Identificacion" class="form-control" readonly></div>
+                                    <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Identificación</label></i> <input name="id" id="id" required type="text" placeholder="Identificacion" class="form-control" readonly></div>
                                     <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Nombre</label> </i> <input name="nombre" id="nombre" required type="text" placeholder="Nombre" class="form-control"></div>
                                     <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Primer Apellido</label></i> <input name="apellido1" id="apellido1" required type="text" placeholder="Primer Apellido" class="form-control"></div>
                                     <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Segundo Apellido</label></i> <input name="apellido2" id="apellido2" required type="text" placeholder="Segundo Apellido" class="form-control"></div>

@@ -18,11 +18,6 @@ and open the template in the editor.
 
         <link href="css/animate.css" rel="stylesheet">
         <link href="css/style.css" rel="stylesheet">
-
-
-
-
-
         <link href="css/plugins/summernote/summernote.css" rel="stylesheet">
         <link href="css/plugins/summernote/summernote-bs3.css" rel="stylesheet">
 
@@ -30,10 +25,6 @@ and open the template in the editor.
         include 'navegacion/nav-lateral.php';
         ?>
     </head>
-
-
-
-
     <body class="">
 
         <div id="wrapper">
@@ -51,25 +42,14 @@ and open the template in the editor.
                         <div class="col-lg-12">
                             <div class="ibox float-e-margins">
 
-                                <div class="ibox-title">
+                                <div class="ibox-title panel-heading panel-success">
                                     <h5>Consulta Específica TFG</h5>
 
                                     <div class="ibox-tools">
                                         <a class="collapse-link">
                                             <i class="fa fa-chevron-up"></i>
                                         </a>
-                                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                            <i class="fa fa-wrench"></i>
-                                        </a>
-                                        <ul class="dropdown-menu dropdown-user">
-                                            <li><a href="#">Config option 1</a>
-                                            </li>
-                                            <li><a href="#">Config option 2</a>
-                                            </li>
-                                        </ul>
-                                        <a class="close-link">
-                                            <i class="fa fa-times"></i>
-                                        </a>
+                                       
                                     </div>
                                 </div>
                                 <div class="ibox-content">
@@ -177,23 +157,11 @@ and open the template in the editor.
                                         <div class="row">
                                             <div class="col-lg-12">
                                                 <div class="ibox collapsed">
-                                                    <div class="ibox-title">
+                                                    <div class="ibox-title panel panel-primary">
                                                         <h5>Etapa #1. Tema</h5>
                                                         <div class="ibox-tools">
                                                             <a class="collapse-link">
                                                                 <i class="fa fa-chevron-up"></i>
-                                                            </a>
-                                                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                                                <i class="fa fa-wrench"></i>
-                                                            </a>
-                                                            <ul class="dropdown-menu dropdown-user">
-                                                                <li><a href="#">Config option 1</a>
-                                                                </li>
-                                                                <li><a href="#">Config option 2</a>
-                                                                </li>
-                                                            </ul>
-                                                            <a class="close-link">
-                                                                <i class="fa fa-times"></i>
                                                             </a>
                                                         </div>
                                                     </div>
@@ -214,11 +182,11 @@ and open the template in the editor.
                                                                         <div class="col-lg-5 col-lg-offset-1">
                                                                             <div class="form-group">
                                                                                 <label class="control-label">Comisión TFG</label>
-                                                                                <input id="input-1" type="file" class="file">
+                                                                                <input id="input-1" type="file" class ="btn btn-primary btn-outline">
                                                                             </div>
                                                                             <div class="form-group">
                                                                                 <label class="control-label">Director TFG</label>
-                                                                                <input id="input-1" type="file" class="file">
+                                                                                <input id="input-1" type="file" class ="btn btn-primary btn-outline">
                                                                             </div>
                                                                             
                                                                         </div>
@@ -226,11 +194,11 @@ and open the template in the editor.
 
                                                                             <div class="form-group">
                                                                                 <label class="control-label">Asesor 2</label>
-                                                                                <input id="input-1" type="file" class="file">
+                                                                                <input id="input-1" type="file" class=" btn btn-primary btn-outline">
                                                                             </div>
                                                                             <div class="form-group">
                                                                                 <label class="control-label">Asesor 1</label>
-                                                                                <input id="input-1" type="file" class="file">
+                                                                                <input id="input-1" type="file"  class ="btn btn-primary btn-outline">
                                                                             </div>
 
                                                                         </div>
@@ -239,8 +207,8 @@ and open the template in the editor.
 
                                                                         <div class="col-lg-offset-8">
                                                                             <div class="form-group">
-                                                                                <input id="input-1" type="button" class="btn btn-primary" value="Guardar Archivo">
-                                                                                <input id="input-1" type="button" class="btn btn-primary" value="Registro de Archivos">
+                                                                                <input id="input-1" type="button" class="btn btn-primary btn-outline" value="Guardar Archivo">
+                                                                                <input id="input-1" type="button" class="btn btn-success" value="Registro de Archivos">
                                                                             </div>
 
                                                                         </div>
@@ -277,15 +245,7 @@ and open the template in the editor.
                                                                                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                                                                                             <i class="fa fa-wrench"></i>
                                                                                         </a>
-                                                                                        <ul class="dropdown-menu dropdown-user">
-                                                                                            <li><a href="#">Config option 1</a>
-                                                                                            </li>
-                                                                                            <li><a href="#">Config option 2</a>
-                                                                                            </li>
-                                                                                        </ul>
-                                                                                        <a class="close-link">
-                                                                                            <i class="fa fa-times"></i>
-                                                                                        </a>
+                                                                                       
                                                                                     </div>
                                                                                 </div>
                                                                                 <div class="ibox-content no-padding">
@@ -437,23 +397,11 @@ and open the template in the editor.
                                         <div class="row">
                                             <div class="col-lg-12">
                                                 <div class="ibox collapsed">
-                                                    <div class="ibox-title">
+                                                    <div class="ibox-title panel panel-warning">
                                                         <h5>Etapa #2. Ante Proyecto</h5>
                                                         <div class="ibox-tools">
                                                             <a class="collapse-link">
                                                                 <i class="fa fa-chevron-up"></i>
-                                                            </a>
-                                                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                                                <i class="fa fa-wrench"></i>
-                                                            </a>
-                                                            <ul class="dropdown-menu dropdown-user">
-                                                                <li><a href="#">Config option 1</a>
-                                                                </li>
-                                                                <li><a href="#">Config option 2</a>
-                                                                </li>
-                                                            </ul>
-                                                            <a class="close-link">
-                                                                <i class="fa fa-times"></i>
                                                             </a>
                                                         </div>
                                                     </div>
@@ -474,11 +422,11 @@ and open the template in the editor.
                                                                         <div class="col-lg-5 col-lg-offset-1">
                                                                             <div class="form-group">
                                                                                 <label class="control-label">Comisión TFG</label>
-                                                                                <input id="input-1" type="file" class="file">
+                                                                                <input id="input-1" type="file" class ="btn btn-primary btn-outline">
                                                                             </div>
                                                                             <div class="form-group">
                                                                                 <label class="control-label">Director TFG</label>
-                                                                                <input id="input-1" type="file" class="file">
+                                                                                <input id="input-1" type="file" class ="btn btn-primary btn-outline">
                                                                             </div>
                                                                             
                                                                         </div>
@@ -486,11 +434,11 @@ and open the template in the editor.
 
                                                                             <div class="form-group">
                                                                                 <label class="control-label">Asesor 2</label>
-                                                                                <input id="input-1" type="file" class="file">
+                                                                                <input id="input-1" type="file" class ="btn btn-primary btn-outline">
                                                                             </div>
                                                                             <div class="form-group">
                                                                                 <label class="control-label">Asesor 1</label>
-                                                                                <input id="input-1" type="file" class="file">
+                                                                                <input id="input-1" type="file" class ="btn btn-primary btn-outline">
                                                                             </div>
 
                                                                         </div>
@@ -499,8 +447,8 @@ and open the template in the editor.
 
                                                                         <div class="col-lg-offset-8">
                                                                             <div class="form-group">
-                                                                                <input id="input-1" type="button" class="btn btn-primary" value="Guardar Archivo">
-                                                                                <input id="input-1" type="button" class="btn btn-primary" value="Registro de Archivos">
+                                                                                <input id="input-1" type="button" class="btn btn-primary btn-outline" value="Guardar Archivo">
+                                                                                <input id="input-1" type="button" class="btn btn-info btn-outline" value="Registro de Archivos">
                                                                             </div>
 
                                                                         </div>
@@ -697,23 +645,11 @@ and open the template in the editor.
                                         <div class="row">
                                             <div class="col-lg-12">
                                                 <div class="ibox collapsed">
-                                                    <div class="ibox-title">
+                                                    <div class="ibox-title panel panel-danger">
                                                         <h5>Etapa #3. Entrega Final</h5>
                                                         <div class="ibox-tools">
                                                             <a class="collapse-link">
                                                                 <i class="fa fa-chevron-up"></i>
-                                                            </a>
-                                                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                                                <i class="fa fa-wrench"></i>
-                                                            </a>
-                                                            <ul class="dropdown-menu dropdown-user">
-                                                                <li><a href="#">Config option 1</a>
-                                                                </li>
-                                                                <li><a href="#">Config option 2</a>
-                                                                </li>
-                                                            </ul>
-                                                            <a class="close-link">
-                                                                <i class="fa fa-times"></i>
                                                             </a>
                                                         </div>
                                                     </div>
@@ -734,11 +670,11 @@ and open the template in the editor.
                                                                         <div class="col-lg-5 col-lg-offset-1">
                                                                             <div class="form-group">
                                                                                 <label class="control-label">Comisión TFG</label>
-                                                                                <input id="input-1" type="file" class="file">
+                                                                                <input id="input-1" type="file" class ="btn btn-primary btn-outline">
                                                                             </div>
                                                                             <div class="form-group">
                                                                                 <label class="control-label">Director TFG</label>
-                                                                                <input id="input-1" type="file" class="file">
+                                                                                <input id="input-1" type="file" class ="btn btn-primary btn-outline">
                                                                             </div>
                                                                             
                                                                         </div>
@@ -746,11 +682,11 @@ and open the template in the editor.
 
                                                                             <div class="form-group">
                                                                                 <label class="control-label">Asesor 2</label>
-                                                                                <input id="input-1" type="file" class="file">
+                                                                                <input id="input-1" type="file" class ="btn btn-primary btn-outline">
                                                                             </div>
                                                                             <div class="form-group">
                                                                                 <label class="control-label">Asesor 1</label>
-                                                                                <input id="input-1" type="file" class="file">
+                                                                                <input id="input-1" type="file" class ="btn btn-primary btn-outline">
                                                                             </div>
 
                                                                         </div>
@@ -1010,7 +946,7 @@ and open the template in the editor.
             <script src="js/plugins/jeditable/jquery.jeditable.js"></script>
 
             <script src="js/plugins/dataTables/datatables.min.js"></script>
-
+            <script src="js/plugins/metisMenu/jquery.metisMenu.js" type="text/javascript"></script>
             <!-- Custom and plugin javascript -->
             <script src="js/inspinia.js"></script>
             <script src="js/plugins/pace/pace.min.js"></script>

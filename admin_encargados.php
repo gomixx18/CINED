@@ -85,12 +85,12 @@
                                             <tbody>
                                                
                                                 <?php
-                                                $connection = mysqli_connect("localhost", "root", "cined123", "unedtfg");
+                                                $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
                                                 if (!$connection) {
                                                     exit("<label class='error'>Error de conexión</label>");
                                                 }
 
-                                                $query = mysqli_query($connection, "SELECT * FROM encargadostfg");
+                                                $query = mysqli_query($connection, "SELECT * FROM tfgencargados");
 
 
                                                 while ($data = mysqli_fetch_assoc($query)) {

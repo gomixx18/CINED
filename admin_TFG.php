@@ -33,7 +33,7 @@
                                 <strong>Consulta de TFG</strong>
                             </li>
                             <li>
-                                <a data-toggle="modal" href="#modal-form">Registrar Proyecto de TFG</a>
+                                <a href="agregar_proyecto_tfg.php">Registrar Proyecto de TFG</a>
                             </li>
 
                         </ol>
@@ -98,6 +98,7 @@
                                                     <th>Título</th>
                                                     <th>Carrera</th>
                                                     <th>Línea de Investigación</th>
+                                                    <th>Acción</th> 
                                                     <th>Acción</th> 
                                                 </tr>
                                             </tfoot>

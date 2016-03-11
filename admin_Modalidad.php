@@ -77,27 +77,36 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr class="gradeX">
-                                                    <td>1</td>
-                                                    <td>Modalidad 1</td>
-                                                     <td><button type="submit" data-toggle="modal" class="btn btn-primary"
-                                                                data-target="#mod-form" nombre=" Modalidad 1
-                                                                " >Modificar</button></td>
-                                                </tr>
-                                                <tr class="gradeX">
-                                                    <td>1</td>
-                                                    <td>Modalidad 2</td>
-                                                     <td><button type="submit" data-toggle="modal" class="btn btn-primary"
-                                                                data-target="#mod-form" nombre=" Modalidad 2
-                                                                " >Modificar</button></td>
-                                                </tr>
+                                                
+                                                
+                                            <?php
+                                                $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
+                                                if (!$connection) {
+                                                    exit("<label class='error'>Error de conexión</label>");
+                                                }
+
+                                                $query = mysqli_query($connection, "SELECT * FROM modalidades");
+
+
+                                                while ($data = mysqli_fetch_assoc($query)) {
+                                                    echo "<tr>";
+                                                    echo "<td>" . $data["codigo"] . "</td>";
+                                                    echo "<td>" . $data["nombre"] . "</td>";
+                                                    echo "<td>" . "<button type='submit' data-toggle='modal' class='btn btn-primary'
+                                                                data-target='#mod-form' id = '" . $data["codigo"] . "' nombre = '" . $data["nombre"] . "' > Modificar</button></td> ";
+                                                    echo "</tr>";
+                                                }
+
+                                                mysqli_close($connection);
+                                                ?>    
+                                                
                                             </tbody>
                                             <tfoot>
                                                 <tr>
                                                     <th>Código</th>
                                                     <th>Nombre</th>
                                                     <th>Acción</th>
-                                                        
+
                                                 </tr>
                                             </tfoot>
                                         </table>
@@ -184,7 +193,7 @@
                     "New row",
                     "New row",
                     "New row"
-                    ]);
+                ]);
 
             }
         </script>
@@ -194,15 +203,15 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class=""><h3 class="m-t-none m-b"> <i class="fa fa-plus-square-o"></i> Agregar Modalidad</h3>
-                                <form role="form" id="frm_agregar_extension">
-                                    <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Nombre de Modalidad</label></i> <input required type="text" placeholder="Nombre" class="form-control"></div>
+                                <form role="form" id="frm_agregar_modalidad"  method="POST" action="funcionalidad/TFGagregar.php">
                                     
+                                    <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Código</label></i> <input required type="text" placeholder="Código" class="form-control" name="codigo"></div>
+                                    <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Nombre de Modalidad</label></i> <input required type="text" placeholder="Nombre" class="form-control" name="nombre"></div>
+
                                     <div>
                                         <label class=""> <i class="fa fa-exclamation-circle"> Rellene los datos obligatorios.</i></label><br> 
-                                        <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"><strong>Registar</strong></button>
+                                        <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit" name="TFGAgregarModalidad"><strong>Registrar</strong></button>
                                         <button type="button" data-dismiss="modal" class="btn btn-sm btn-secundary pull-right m-t-n-xs" style="margin-right: 20px;" ><strong>Cancelar</strong></button>
-
-
                                     </div>
                                 </form>
                             </div>
@@ -218,11 +227,14 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class=""><h3 class="m-t-none m-b"> <i class="fa fa-plus-square-o"></i> Modificar Modalidad</h3>
-                                <form role="form" id="frm_agregar_estudiante">
+                                <form role="form" id="frm_agregar_modalidad" method="POST" action="funcionalidad/TFGModificar.php">
+                                  
+                                    <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Código</label></i> <input required type="text" placeholder="Código" class="form-control" name="codigo"></div>
                                     <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Nombre</label> </i> <input name="nombre" id="nombre" required type="text" placeholder="Nombre" class="form-control"></div>                                    
+                                    
                                     <div>
                                         <label class=""> <i class="fa fa-exclamation-circle"> Rellene los datos obligatorios.</i></label><br> 
-                                        <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"><strong>Modificar</strong></button>
+                                        <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit" name="TFGModificarModalidad"><strong>Modificar</strong></button>
                                         <button type="button" data-dismiss="modal" class="btn btn-sm btn-secundary pull-right m-t-n-xs" style="margin-right: 20px;" ><strong>Cancelar</strong></button>
 
 

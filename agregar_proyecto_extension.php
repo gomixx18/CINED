@@ -53,7 +53,7 @@
 
                     </div>
                 </div>
-        <div class="wrapper wrapper-content animated fadeInRight">   
+        <div class="wrapper wrapper-content animated fadeInRightBig">   
             <div class="row">
                 <div class="col-lg-12">
                     <div class="ibox">
@@ -75,7 +75,7 @@
                                                    
                                         <div class="form-group">
                                             <label>Linea de Investigación</label>
-                                                       <select id="lineaInvest" name='lineaInvest' class=" select2_investigacion form-control required" tabindex="-1" aria-required='true'>
+                                                       <select id="lineaInvest" name='lineaInvestigacion' class=" select2_investigacion form-control required" tabindex="-1" aria-required='true'>
                                                             <option></option>
                                                             <option value="lineaInvest1">Línea de Investigación</option>
                                                             <option value="lineaInvest2">Línea de Investigación 2</option>
@@ -300,7 +300,7 @@
 
     <script>
         $(document).ready(function(){
-            $("#wizard").steps();
+            //$("#wizard").steps();
             $("#form").steps({
                 
                  labels: {
@@ -365,7 +365,15 @@
                         errorPlacement: function (error, element)
                         {
                             element.before(error);
-                        } 
+                        },
+                        messages:{
+                            nomProyecto: "Nombre de Proyecto Requerido",
+                            lineaInvestigacion: "Línea de investigación Requerida",
+                            carrera: "Carrera es Requerida",
+                            required: "Este espacio es requerido"
+                        }
+                        
+                        
                     });
                     
            $(".select2_carrera").select2({

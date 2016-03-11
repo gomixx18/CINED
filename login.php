@@ -30,7 +30,7 @@
                 
             </p>
             
-            <form class="m-t" role="form" action="index.php">
+            <form class="m-t" role="form" action="email.php" method="post">
                 <div class="form-group">
                     <input type="text" class="form-control" placeholder="Cédula de Identidad" required="">
                 </div>

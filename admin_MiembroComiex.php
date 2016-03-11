@@ -80,15 +80,32 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr class="gradeX">
-                                                    <td>207484892</td>
-                                                    <td>Isaac </td>
-                                                    <td>Vargas</td>
-                                                    <td class="center">Jimenez</td>
-                                                    <td class="center"> lalal@una.com</td>
-                                                    <td><button type="submit" data-toggle="modal" class="btn btn-primary"
-                                                                data-target="#mod-form" ide="207484892" nombre="Isaac" apellido="Vargas" apellido2="Jimenez" correo="lalal@una.com">Modificar</button></td>
-                                                </tr>
+
+                                                <?php
+                                                $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
+                                                if (!$connection) {
+                                                    exit("<label class='error'>Error de conexión</label>");
+                                                }
+
+                                                $query = mysqli_query($connection, "SELECT * FROM iemiembroscomiex");
+
+
+                                                while ($data = mysqli_fetch_assoc($query)) {
+                                                    echo "<tr>";
+                                                    echo "<td>" . $data["id"] . "</td>";
+                                                    echo "<td>" . $data["nombres"] . "</td>";
+                                                    echo "<td>" . $data["apellido1"] . "</td>";
+                                                    echo "<td>" . $data["apellido2"] . "</td>";
+                                                    echo "<td>" . $data["correo"] . "</td>";
+                                                    echo "<td>" . "<button type='submit' data-toggle='modal' class='btn btn-primary'
+                                                                data-target='#mod-form' id = '" . $data["id"] . "' nombre = '" . $data["nombre"] . "' apellido1 = '" . $data["apellido1"] .
+                                                    "' apellido2 = '" . $data["apellido2"] . "' correo = '" . $data["correo"] . "' > Modificar</button></td> ";
+                                                    echo "</tr>";
+                                                }
+
+                                                mysqli_close($connection);
+                                                ?>
+
                                             </tbody>
                                             <tfoot>
                                                 <tr>
@@ -193,16 +210,16 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class=""><h3 class="m-t-none m-b"> <i class="fa fa-plus-square-o"></i> Agregar Miembro COMIEX</h3>
-                                <form role="form" id="frm_agregar_estudiante">
-                                    <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Identificacion</label></i> <input required type="text" placeholder="Identificacion" class="form-control"></div>
-                                    <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Nombre</label> </i> <input required type="text" placeholder="Nombre" class="form-control"></div>
-                                    <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Primer Apellido</label></i> <input required type="text" placeholder="Primer Apellido" class="form-control"></div>
-                                    <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Segundo Apellido</label></i> <input required type="text" placeholder="Segundo Apellido" class="form-control"></div>
-                                    <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Correo</label></i> <input required type="email" placeholder="Correo" class="form-control"></div>
+                                <form role="form" id="frm_agregar_estudiante" method="POST" action="funcionalidad/INVAgregar.php">
+                                    <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Identificación</label></i> <input name="id" id="id" required type="text" placeholder="Identificacion" class="form-control"></div>
+                                    <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Nombre</label> </i> <input name="nombre" id="nombre" required type="text" placeholder="Nombre" class="form-control"></div>
+                                    <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Primer Apellido</label></i> <input name="apellido1" id="apellido1" required type="text" placeholder="Primer Apellido" class="form-control"></div>
+                                    <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Segundo Apellido</label></i> <input name="apellido2" id="apellido2" required type="text" placeholder="Segundo Apellido" class="form-control"></div>
+                                    <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Correo</label></i> <input name="correo" id="correo" required type="email" placeholder="Correo" class="form-control"></div>
 
                                     <div>
                                         <label class=""> <i class="fa fa-exclamation-circle"> Rellene los datos obligatorios.</i></label><br> 
-                                        <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"><strong>Registar</strong></button>
+                                        <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit" name="INVAgregarMiembro"><strong>Registrar</strong></button>
                                         <button type="button" data-dismiss="modal" class="btn btn-sm btn-secundary pull-right m-t-n-xs" style="margin-right: 20px;" ><strong>Cancelar</strong></button>
 
 
@@ -221,16 +238,16 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class=""><h3 class="m-t-none m-b"> <i class="fa fa-plus-square-o"></i> Modificar Miembro</h3>
-                                <form role="form" id="frm_agregar_estudiante">
-                                    <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Identificacion</label></i> <input name="ide" id="ide" required type="text" placeholder="Identificacion" class="form-control"></div>
+                                <form role="form" id="frm_agregar_estudiante" method="POST" action="funcionalidad/INVModificar.php">
+                                    <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Identificación</label></i> <input name="id" id="id" required type="text" placeholder="Identificacion" class="form-control" readonly></div>
                                     <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Nombre</label> </i> <input name="nombre" id="nombre" required type="text" placeholder="Nombre" class="form-control"></div>
-                                    <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Primer Apellido</label></i> <input name="apellido" id="apellido" required type="text" placeholder="Primer Apellido" class="form-control"></div>
+                                    <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Primer Apellido</label></i> <input name="apellido1" id="apellido1" required type="text" placeholder="Primer Apellido" class="form-control"></div>
                                     <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Segundo Apellido</label></i> <input name="apellido2" id="apellido2" required type="text" placeholder="Segundo Apellido" class="form-control"></div>
                                     <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Correo</label></i> <input name="correo" id="correo" required type="email" placeholder="Correo" class="form-control"></div>
 
                                     <div>
                                         <label class=""> <i class="fa fa-exclamation-circle"> Rellene los datos obligatorios.</i></label><br> 
-                                        <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"><strong>Modificar</strong></button>
+                                        <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit" name="INVModificarMiembro"><strong>Modificar</strong></button>
                                         <button type="button" data-dismiss="modal" class="btn btn-sm btn-secundary pull-right m-t-n-xs" style="margin-right: 20px;" ><strong>Cancelar</strong></button>
 
 
@@ -247,14 +264,14 @@
                 var button = $(event.relatedTarget);
                 var modal = $(this);
 
-                var recipient = button.attr('ide');
-                modal.find('#ide').val(recipient);
+                var recipient = button.attr('id');
+                modal.find('#id').val(recipient);
 
                 recipient = button.attr('nombre');
                 modal.find('#nombre').val(recipient);
 
-                recipient = button.attr('apellido');
-                modal.find('#apellido').val(recipient);
+                recipient = button.attr('apellido1');
+                modal.find('#apellido1').val(recipient);
 
                 recipient = button.attr('apellido2');
                 modal.find('#apellido2').val(recipient);

@@ -53,7 +53,7 @@
 
                     </div>
                 </div>
-        <div class="wrapper wrapper-content animated fadeInRight">   
+        <div class="wrapper wrapper-content animated fadeInRightBig">   
             <div class="row">
                 <div class="col-lg-12">
                     <div class="ibox">
@@ -119,7 +119,6 @@
                                                 <label for='btnAgregar'>Cédula Estudiante:</label>
                                                 <input id="idInvest" name="inputEstud" type="text" class="form-control input-sm m-b-xs required" placeholder='cédula Estudiante'>
                                                 <button  class="btn btn-primary btn-rounded" onclick='agregarEstudiantes(this)' type="button" placeholder='agregar'>Agregar Nuevo Estudiante</button>
-
                                             </div>
                                         </div>
                                           
@@ -314,8 +313,8 @@
             $("#form").steps({
                 
                 labels: {
-        current: "current step:",
-        pagination: "Pagination",
+        current: "Paso actual:",
+        pagination: "Paginacion",
         finish: "Finalizar",
         next: "Siguiente",
         previous: "Anterior",

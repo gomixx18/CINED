@@ -77,31 +77,31 @@
 
 
                                                 <tr>
-                                                    <th>Identificación</th>
-                                                    <th>Nombre</th>
-                                                    <th>Primer Apellido</th>
-                                                    <th>Segundo Apellido</th>
-                                                    <th>Correo</th>
-                                                    <th>Acción</th>
+                                                    <th name="id">Identificación</th>
+                                                    <th name="nombre">Nombre</th>
+                                                    <th name="apellido1">Primer Apellido</th>
+                                                    <th name="apellido2">Segundo Apellido</th>
+                                                    <th name="correo">Correo</th>
+                                                    <th name="accion">Acción</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <?php
-                                                $connection = mysqli_connect("localhost", "root", "cined123", "unedtfg");
+                                                $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
                                                 if (!$connection) {
                                                     exit("<label class='error'>Error de conexión</label>");
                                                 }
 
-                                                $query = mysqli_query($connection, "SELECT * FROM estudiantes");
+                                                $query = mysqli_query($connection, "SELECT * FROM tfgestudiantes");
 
 
                                                 while ($data = mysqli_fetch_assoc($query)) {
                                                     echo "<tr>";
-                                                    echo "<td>" . $data["id"] . "</td>";
-                                                    echo "<td>" . $data["nombre"] . "</td>";
-                                                    echo "<td>" . $data["apellido1"] . "</td>";
-                                                    echo "<td>" . $data["apellido2"] . "</td>";
-                                                    echo "<td>" . $data["correo"] . "</td>";
+                                                    echo "<td name='id'>" . $data["id"] . "</td>";
+                                                    echo "<td name='nombre'>" . $data["nombre"] . "</td>";
+                                                    echo "<td name='apellido1'>" . $data["apellido1"] . "</td>";
+                                                    echo "<td name='apellido2'>" . $data["apellido2"] . "</td>";
+                                                    echo "<td name= 'correo'>" . $data["correo"] . "</td>";
                                                     echo "<td>" . "<button type='submit' data-toggle='modal' class='btn btn-primary'
                                                                 data-target='#mod-form' id = '" . $data["id"] . "' nombre = '" . $data["nombre"] . "' apellido1 = '" . $data["apellido1"] .
                                                     "' apellido2 = '" . $data["apellido2"] . "' correo = '" . $data["correo"] . "' > Modificar</button></td> ";
@@ -158,13 +158,37 @@
         <!-- Page-Level Scripts -->
         <script>
             $(document).ready(function () {
+               
+               function getFecha(){
+                
+                var meses = new Array ("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
+                $fecha = new Date();
+                $dia = $fecha.getDate();
+                $mes = $fecha.getMonth();
+                $anno = $fecha.getFullYear();
+                $hora = $fecha.getHours();
+                $minutos = $fecha.getMinutes();
+                $segundos = $fecha.getSeconds();
+                return $dia+"/"+meses[$mes]+'/'+$anno+' '+$hora+':'+$minutos+':'+$segundos;
+               };
+                
                 $('.dataTables-example').DataTable({
                     dom: '<"html5buttons"B>lTfgitp',
                     buttons: [
                         {extend: 'copy'},
                         {extend: 'csv'},
-                        {extend: 'excel', title: 'ExampleFile'},
-                        {extend: 'pdf', title: 'ExampleFile'},
+                        {extend: 'excel', title: 'Reporte de Estudiantes'},
+                        {extend: 'pdf', 
+                         title: 'Estudiantes Reporte',
+                         
+                         message: 'Reporte Generado el: '+getFecha(),
+                         exportOptions: {
+                           
+                            columns: [0,1,2,3,4] 
+                         },
+                           
+                         
+                        },
                         {extend: 'print',
                             customize: function (win) {
                                 $(win.document.body).addClass('white-bg');
@@ -174,42 +198,16 @@
                                         .addClass('compact')
                                         .css('font-size', 'inherit');
                             }
-                        }
+                        },
+                         
                     ]
-
                 });
 
-                /* Init DataTables */
-                var oTable = $('#editable').DataTable();
-
-                /* Apply the jEditable handlers to the table */
-                oTable.$('td').editable('../example_ajax.php', {
-                    "callback": function (sValue, y) {
-                        var aPos = oTable.fnGetPosition(this);
-                        oTable.fnUpdate(sValue, aPos[0], aPos[1]);
-                    },
-                    "submitdata": function (value, settings) {
-                        return {
-                            "row_id": this.parentNode.getAttribute('id'),
-                            "column": oTable.fnGetPosition(this)[2]
-                        };
-                    },
-                    "width": "90%",
-                    "height": "100%"
-                });
 
 
             });
 
-            function fnClickAddRow() {
-                $('#editable').dataTable().fnAddData([
-                    "Custom row",
-                    "New row",
-                    "New row",
-                    "New row",
-                    "New row"]);
-
-            }
+         
 
 
         </script>

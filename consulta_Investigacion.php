@@ -10,7 +10,7 @@ and open the template in the editor.
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <title>Consulta Específica Investigacion</title>
+        <title>Consulta Específica Investigación</title>
 
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
@@ -18,11 +18,6 @@ and open the template in the editor.
 
         <link href="css/animate.css" rel="stylesheet">
         <link href="css/style.css" rel="stylesheet">
-
-
-
-
-
         <link href="css/plugins/summernote/summernote.css" rel="stylesheet">
         <link href="css/plugins/summernote/summernote-bs3.css" rel="stylesheet">
 
@@ -41,7 +36,7 @@ and open the template in the editor.
                 <?php require 'navegacion/nav-superior.php' ?>
                 <div class="row wrapper border-bottom white-bg page-heading">
                     <div class="col-lg-10">
-                        <h2>Consulta Específica Investigacion</h2>
+                        <h2>Consulta Específica Investigación</h2>
 
                     </div>
 
@@ -52,7 +47,7 @@ and open the template in the editor.
                             <div class="ibox float-e-margins">
 
                                 <div class="ibox-title">
-                                    <h5>Consulta Específica Investigacion</h5>
+                                    <h5>Consulta Específica Investigación</h5>
 
                                     <div class="ibox-tools">
                                         <a class="collapse-link">
@@ -83,7 +78,7 @@ and open the template in the editor.
                                             <form role="form" >
 
                                                 <div class="form-group">
-                                                    <label>Titulo</label>
+                                                    <label>Título</label>
                                                     <input class="form-control" name="titulo" id="titulo" disabled>
 
                                                 </div>
@@ -94,7 +89,7 @@ and open the template in the editor.
                                                 </div>
 
                                                 <div class="form-group">
-                                                    <label>Linea de Investigacion</label>
+                                                    <label>Línea de Investigación</label>
                                                     <input class="form-control" placeholder="" name="papellido" id="papellido" disabled>
                                                 </div>
 
@@ -108,13 +103,13 @@ and open the template in the editor.
                                             <form role="form">
 
                                                 <div class="form-group">
-                                                    <label>Coordinador de Investigacion</label>
+                                                    <label>Coordinador de Investigación</label>
                                                     <input class="form-control" name="titulo" id="titulo" disabled>
 
                                                 </div>
 
                                                 <div class="form-group">
-                                                    <label>Catedra</label>
+                                                    <label>Cátedra</label>
                                                     <input class="form-control" placeholder="" name="carrera" id="carrera" disabled>
                                                 </div>
                                             </form>
@@ -170,20 +165,8 @@ and open the template in the editor.
                                                     <div class="ibox-title">
                                                         <h5>Etapa #1. Ante Proyecto</h5>
                                                         <div class="ibox-tools">
-                                                            <a class="collapse-link">
-                                                                <i class="fa fa-chevron-up"></i>
-                                                            </a>
                                                             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                                                                 <i class="fa fa-wrench"></i>
-                                                            </a>
-                                                            <ul class="dropdown-menu dropdown-user">
-                                                                <li><a href="#">Config option 1</a>
-                                                                </li>
-                                                                <li><a href="#">Config option 2</a>
-                                                                </li>
-                                                            </ul>
-                                                            <a class="close-link">
-                                                                <i class="fa fa-times"></i>
                                                             </a>
                                                         </div>
                                                     </div>
@@ -207,14 +190,14 @@ and open the template in the editor.
                                                                                 <input id="input-1" type="file" class="file">
                                                                             </div>
                                                                             <div class="form-group">
-                                                                                <label class="control-label">Evaluadores</label>
+                                                                                <label class="control-label">Miembros Comiex</label>
                                                                                 <input id="input-1" type="file" class="file">
                                                                             </div>
                                                                         </div>
                                                                         <div class="col-lg-5 col-lg-offset-1">
 
                                                                             <div class="form-group">
-                                                                                <label class="control-label">Asesores</label>
+                                                                                <label class="control-label">Evaluadores</label>
                                                                                 <input id="input-1" type="file" class="file">
                                                                             </div>
 
@@ -288,7 +271,7 @@ and open the template in the editor.
                                                                         <div class="col-lg-4">
                                                                             <div class="ibox float-e-margins">
                                                                                 <div class="ibox-title">
-                                                                                    <h5>Asesor 1</h5>
+                                                                                    <h5>Evaluador 1</h5>
                                                                                     <button id="edit" class="btn btn-primary btn-xs m-l-sm" onclick="edit2()" type="button">Edit</button>
                                                                                     <button id="save" class="btn btn-primary  btn-xs" onclick="save2()" type="button">Save</button>
                                                                                     <div class="ibox-tools">
@@ -323,7 +306,7 @@ and open the template in the editor.
                                                                         <div class="col-lg-4">
                                                                             <div class="ibox float-e-margins">
                                                                                 <div class="ibox-title">
-                                                                                    <h5>Asesor 2</h5>
+                                                                                    <h5>Evaluador 2</h5>
                                                                                     <button id="edit" class="btn btn-primary btn-xs m-l-sm" onclick="edit3()" type="button">Edit</button>
                                                                                     <button id="save" class="btn btn-primary  btn-xs" onclick="save3()" type="button">Save</button>
                                                                                     <div class="ibox-tools">
@@ -463,14 +446,14 @@ and open the template in the editor.
                                                                                 <input id="input-1" type="file" class="file">
                                                                             </div>
                                                                             <div class="form-group">
-                                                                                <label class="control-label">Evaluadores</label>
+                                                                                <label class="control-label">Miembros Comiex</label>
                                                                                 <input id="input-1" type="file" class="file">
                                                                             </div>
                                                                         </div>
                                                                         <div class="col-lg-5 col-lg-offset-1">
 
                                                                             <div class="form-group">
-                                                                                <label class="control-label">Asesores</label>
+                                                                                <label class="control-label">Evaluadores</label>
                                                                                 <input id="input-1" type="file" class="file">
                                                                             </div>
 
@@ -544,7 +527,7 @@ and open the template in the editor.
                                                                         <div class="col-lg-4">
                                                                             <div class="ibox float-e-margins">
                                                                                 <div class="ibox-title">
-                                                                                    <h5>Asesor 1</h5>
+                                                                                    <h5>Evaluador 1</h5>
                                                                                     <button id="edit" class="btn btn-primary btn-xs m-l-sm" onclick="edit2()" type="button">Edit</button>
                                                                                     <button id="save" class="btn btn-primary  btn-xs" onclick="save2()" type="button">Save</button>
                                                                                     <div class="ibox-tools">
@@ -579,7 +562,7 @@ and open the template in the editor.
                                                                         <div class="col-lg-4">
                                                                             <div class="ibox float-e-margins">
                                                                                 <div class="ibox-title">
-                                                                                    <h5>Asesor 2</h5>
+                                                                                    <h5>Evaluador 2</h5>
                                                                                     <button id="edit" class="btn btn-primary btn-xs m-l-sm" onclick="edit3()" type="button">Edit</button>
                                                                                     <button id="save" class="btn btn-primary  btn-xs" onclick="save3()" type="button">Save</button>
                                                                                     <div class="ibox-tools">
@@ -719,14 +702,14 @@ and open the template in the editor.
                                                                                 <input id="input-1" type="file" class="file">
                                                                             </div>
                                                                             <div class="form-group">
-                                                                                <label class="control-label">Evaluadores</label>
+                                                                                <label class="control-label">Miembros Comiex</label>
                                                                                 <input id="input-1" type="file" class="file">
                                                                             </div>
                                                                         </div>
                                                                         <div class="col-lg-5 col-lg-offset-1">
 
                                                                             <div class="form-group">
-                                                                                <label class="control-label">Asesores</label>
+                                                                                <label class="control-label">Evaluadores</label>
                                                                                 <input id="input-1" type="file" class="file">
                                                                             </div>
 
@@ -800,7 +783,7 @@ and open the template in the editor.
                                                                         <div class="col-lg-4">
                                                                             <div class="ibox float-e-margins">
                                                                                 <div class="ibox-title">
-                                                                                    <h5>Asesor 1</h5>
+                                                                                    <h5>Evaluador 1</h5>
                                                                                     <button id="edit" class="btn btn-primary btn-xs m-l-sm" onclick="edit2()" type="button">Edit</button>
                                                                                     <button id="save" class="btn btn-primary  btn-xs" onclick="save2()" type="button">Save</button>
                                                                                     <div class="ibox-tools">
@@ -835,7 +818,7 @@ and open the template in the editor.
                                                                         <div class="col-lg-4">
                                                                             <div class="ibox float-e-margins">
                                                                                 <div class="ibox-title">
-                                                                                    <h5>Asesor 2</h5>
+                                                                                    <h5>Evaluador 2</h5>
                                                                                     <button id="edit" class="btn btn-primary btn-xs m-l-sm" onclick="edit3()" type="button">Edit</button>
                                                                                     <button id="save" class="btn btn-primary  btn-xs" onclick="save3()" type="button">Save</button>
                                                                                     <div class="ibox-tools">
