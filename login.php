@@ -30,12 +30,12 @@
                 
             </p>
             
-            <form class="m-t" role="form" action="email.php" method="post">
+            <form class="m-t" role="form" action="funcionalidad/loginFuncionalidad.php" method="POST">
                 <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Cédula de Identidad" required="">
+                    <input type="text" class="form-control" placeholder="Cédula de Identidad" name="id" required="">
                 </div>
                 <div class="form-group">
-                    <input type="password" class="form-control" placeholder="Contraseña" required="">
+                    <input type="password" class="form-control" placeholder="Contraseña" name="password" required="">
                 </div>
                 <button type="submit" class="btn btn-primary block full-width m-b">Iniciar Sesión</button>
 
