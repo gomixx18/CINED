@@ -1,3 +1,14 @@
+
+<?php
+include 'clases/UsuarioSimple.php';
+include 'clases/UsuarioComplejo.php';
+include 'clases/UsuarioPermisos.php';
+include 'clases/UsuarioInvestigadorSimple.php';
+include 'clases/UsuarioInvestigadorComplejo.php';
+@session_start();
+$usuarioSesion = $_SESSION["user"];
+?>
+
 <nav class="navbar-default navbar-static-side" role="navigation">
                 <div class="sidebar-collapse">
                     <ul class="nav metismenu" id="side-menu">
@@ -6,13 +17,18 @@
                                     <img alt="image" class="img-circle" src="img/profile_small.jpg" />
                                 </span>
                                 <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                                    <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">William Mora</strong>
-                                        </span> <span class="text-muted text-xs block">Coordinador COMIEX <b class="caret"></b></span> </span> </a>
+                                    <span class="clear"> 
+                                        <span class="block m-t-xs"> <strong class="font-bold">
+                                            <?php
+                                                echo $usuarioSesion->getNombre() . " " . $usuarioSesion->getApellido1();
+                                            ?>
+                                            </strong>
+                                        </span> <span class="text-muted text-xs block">Art Director <b class="caret"></b></span> </span> </a>
                                 <ul class="dropdown-menu animated fadeInRight m-t-xs">
                                     <li><a href="profile.html">Perfil</a></li>
                                     
                                     <li class="divider"></li>
-                                    <li><a href="login.php">Cerrar Sesión</a></li>
+                                    <li><a href="login.html">Cerrar Sesión</a></li>
                                 </ul>
                             </div>
                             <div class="logo-element">

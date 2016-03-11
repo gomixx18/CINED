@@ -9,10 +9,10 @@ if (isset($_POST["TFGModificarEstudiante"])) {
     $correo = $_POST["correo"];
     $pass = "123";
 
-    $connection = mysqli_connect("localhost", "root", "cined123", "unedtfg");
+    $connection = mysqli_connect("localhost", "root", "", "uned_db");
     if ($connection) {
 
-        $sentenciaSQL = "UPDATE estudiantes SET nombre = '" . $nombre . "', apellido1 ='" . $ap1 . "', apellido2 ='" . $ap2 . "', correo ='" . $correo . "' WHERE id =" . $id . "";
+        $sentenciaSQL = "UPDATE tfgestudiantes SET nombre = '" . $nombre . "', apellido1 ='" . $ap1 . "', apellido2 ='" . $ap2 . "', correo ='" . $correo . "' WHERE id =" . $id . "";
         $resultado = mysqli_query($connection, $sentenciaSQL);
         mysqli_close($connection);
     }
@@ -29,10 +29,10 @@ if (isset($_POST["TFGModificarDirector"])) {
     $especialidad = $_POST["especialidad"];
     $correo = $_POST["correo"];
 
-    $connection = mysqli_connect("localhost", "root", "cined123", "unedtfg");
+    $connection = mysqli_connect("localhost", "root", "", "uned_db");
     if ($connection) {
 
-        $sentenciaSQL = "UPDATE directorestfg SET nombre = '" . $nombre . "', apellido1 ='" . $ap1 . "', apellido2 ='" . $ap2 . "', titulo ='" . $titulo .  "', especialidad ='" . $especialidad .   "', correo ='" . $correo . "' WHERE id =" . $id . "";
+        $sentenciaSQL = "UPDATE tfgdirectores SET nombre = '" . $nombre . "', apellido1 ='" . $ap1 . "', apellido2 ='" . $ap2 . "', titulo ='" . $titulo .  "', especialidad ='" . $especialidad .   "', correo ='" . $correo . "' WHERE id =" . $id . "";
         $resultado = mysqli_query($connection, $sentenciaSQL);
         mysqli_close($connection);
     }
@@ -46,10 +46,10 @@ if (isset($_POST["TFGModificarEncargado"])) {
     $ap1 = $_POST["apellido1"];
     $ap2 = $_POST["apellido2"];
     $correo = $_POST["correo"];
-    $connection = mysqli_connect("localhost", "root", "cined123", "unedtfg");
+    $connection = mysqli_connect("localhost", "root", "", "uned_db");
     if ($connection) {
 
-        $sentenciaSQL = "UPDATE encargadostfg SET nombre = '" . $nombre . "', apellido1 ='" . $ap1 . "', apellido2 ='" . $ap2 . "', correo ='" . $correo . "' WHERE id =" . $id . "";
+        $sentenciaSQL = "UPDATE tfgencargados SET nombre = '" . $nombre . "', apellido1 ='" . $ap1 . "', apellido2 ='" . $ap2 . "', correo ='" . $correo . "' WHERE id =" . $id . "";
         $resultado = mysqli_query($connection, $sentenciaSQL);
         mysqli_close($connection);
     }
@@ -65,10 +65,10 @@ if (isset($_POST["TFGModificarAsesor"])) {
     $especialidad = $_POST["especialidad"];
     $correo = $_POST["correo"];
 
-    $connection = mysqli_connect("localhost", "root", "cined123", "unedtfg");
+    $connection = mysqli_connect("localhost", "root", "", "uned_db");
     if ($connection) {
 
-        $sentenciaSQL = "UPDATE asesores SET nombre = '" . $nombre . "', apellido1 ='" . $ap1 . "', apellido2 ='" . $ap2 . "', titulo ='" . $titulo .  "', especialidad ='" . $especialidad .   "', correo ='" . $correo . "' WHERE id =" . $id . "";
+        $sentenciaSQL = "UPDATE tfgasesores SET nombre = '" . $nombre . "', apellido1 ='" . $ap1 . "', apellido2 ='" . $ap2 . "', titulo ='" . $titulo .  "', especialidad ='" . $especialidad .   "', correo ='" . $correo . "' WHERE id =" . $id . "";
         $resultado = mysqli_query($connection, $sentenciaSQL);
         mysqli_close($connection);
     }
@@ -82,12 +82,26 @@ if (isset($_POST["TFGModificarMiembroComision"])) {
     $ap1 = $_POST["apellido1"];
     $ap2 = $_POST["apellido2"];
     $correo = $_POST["correo"];
-    $connection = mysqli_connect("localhost", "root", "cined123", "unedtfg");
+    $connection = mysqli_connect("localhost", "root", "", "uned_db");
     if ($connection) {
 
-        $sentenciaSQL = "UPDATE miembroscomisiontfg SET nombre = '" . $nombre . "', apellido1 ='" . $ap1 . "', apellido2 ='" . $ap2 . "', correo ='" . $correo . "' WHERE id =" . $id . "";
+        $sentenciaSQL = "UPDATE tfgmiembroscomision SET nombre = '" . $nombre . "', apellido1 ='" . $ap1 . "', apellido2 ='" . $ap2 . "', correo ='" . $correo . "' WHERE id =" . $id . "";
         $resultado = mysqli_query($connection, $sentenciaSQL);
         mysqli_close($connection);
     }
     header("Location: ../admin_comisionTFG.php");
+}
+
+if (isset($_POST["TFGModificarModalidad"])) {
+    $nombre = $_POST["nombre"];
+    $id = $_POST["codigo"];
+
+    $connection = mysqli_connect("localhost", "root", "", "uned_db");
+    if ($connection) {
+
+        $sentenciaSQL = "UPDATE modalidades SET nombre = '" . $nombre . "', id ='" . $id . "' WHERE id =" . $id . "";
+        $resultado = mysqli_query($connection, $sentenciaSQL);
+        mysqli_close($connection);
+    }
+    header("Location: ../admin_Modalidad.php");
 }

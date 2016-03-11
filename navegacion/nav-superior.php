@@ -1,3 +1,10 @@
+
+<?php
+
+@session_start();
+$usuarioSesion = $_SESSION["user"];
+?>
+
 <div class="row border-bottom">
     <nav class="navbar navbar-static-top  " role="navigation" style="margin-bottom: 0">
         <div class="navbar-header">
@@ -6,12 +13,16 @@
         </div>
         <ul class="nav navbar-top-links navbar-right">
             <li>
-                <span class="m-r-sm text-muted welcome-message">William Mora</span>
+                <span class="m-r-sm text-muted welcome-message">
+                <?php
+                    echo $usuarioSesion->getNombre() . " " . $usuarioSesion->getApellido1() . " " . $usuarioSesion->getApellido2();
+                ?>
+                </span>
             </li>
 
 
             <li>
-                <a href="login.php">
+                <a href="login.html">
                     <i class="fa fa-sign-out"></i> Cerrar Sesión
                 </a>
             </li>
