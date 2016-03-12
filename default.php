@@ -17,8 +17,8 @@ echo $date;
 
 ?>
 
-    <form action="prueba.php" method="post" enctype="multipart/from-data">
-        <input type="file" name="file"/>
+    <form action="funcionalidad/CargarArchivoBlobTFG.php"  method="post" enctype="multipart/form-data">
+        <input type="file" name="file" id="file"/>
         <input type="submit"/>
     </form>
 </body>
