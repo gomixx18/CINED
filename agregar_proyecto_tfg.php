@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Administración TFG</title>
+    <title>Registrar TFG</title>
 
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
@@ -58,7 +58,7 @@
                 <div class="col-lg-12">
                     <div class="ibox">
                         <div class="ibox-title">
-                            <h5>Registrar Nuevo Trabajo Final de Graduacion</h5>
+                            <h5>Registrar Nuevo Trabajo Final de Graduación</h5>
                         </div>
                         <div class="ibox-content">
 
@@ -74,7 +74,7 @@
                                             </div>
                                                    
                                         <div class="form-group">
-                                            <label>Linea de Investigación</label>
+                                            <label>Línea de Investigación</label>
                                                        <select id="lineaInvest" name='lineaInvest' class=" select2_investigacion form-control required" tabindex="-1" aria-required='true'>
                                                             <option></option>
                                                             <option value="lineaInvest1">Línea de Investigación</option>
@@ -267,9 +267,7 @@
                 </div>
             </div>
         <div class="footer">
-            <div class="pull-right">
-                10GB of <strong>250GB</strong> Free.
-            </div>
+            
             <div>
                 <strong>Universidad Nacional</strong> 2015-2016
             </div>
