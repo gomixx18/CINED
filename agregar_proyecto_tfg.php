@@ -75,33 +75,64 @@
                                                    
                                         <div class="form-group">
                                             <label>Línea de Investigación</label>
-                                                       <select id="lineaInvest" name='lineaInvest' class=" select2_investigacion form-control required" tabindex="-1" aria-required='true'>
+                                                <select id="lineaInvest" name='lineaInvest' class=" select2_investigacion form-control required" tabindex="-1" aria-required='true'>
                                                             <option></option>
-                                                            <option value="lineaInvest1">Línea de Investigación</option>
-                                                            <option value="lineaInvest2">Línea de Investigación 2</option>
-                                                            <option value="lineaInvest3">Línea de Investigación 3</option>
-                                                            <option value="lineaInvest4">Línea de Investigación 4</option>
-                                                         </select>
+                                                            
+                                                <?php
+                                                $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
+                                                if (!$connection) {
+                                                    exit("<label class='error'>Error de conexión</label>");
+                                                }
+
+                                                $query = mysqli_query($connection, "SELECT * FROM lineasinvestigacion");
+
+
+                                                while ($data = mysqli_fetch_assoc($query)) {
+                                                    
+                                                    echo "<option value=" . $data["codigo"] . ">".$data["nombre"]."</option>";
+
+                                                }
+                                                ?>
+                                                 </select>
                                         </div>
                                             
                                              <div class="form-group">                                              
                                                 <label>Carrera</label>
                                                 <select id="carrera" name='carrera' aria-required='true' class="select2_carrera form-control required" tabindex="-1">
                                                     <option></option>
-                                                    <option value="Carrera1">Carrera 1</option>
-                                                    <option value="Carrera2">Carrera 2</option>
-                                                    <option value="Carrera3">Carrera 3</option>
-                                                    <option value="Carrera4">Carrera 4</option>
+                                                    <?php
+                                               
+                                                if (!$connection) {
+                                                    exit("<label class='error'>Error de conexión</label>");
+                                                }
+
+                                                $query = mysqli_query($connection, "SELECT * FROM carreras");
+                                                while ($data = mysqli_fetch_assoc($query)) {
+                                                    echo "<option value=" . $data["codigo"]. ">".$data["nombre"]."</option>";
+                                                }
+
+                                                
+                                                ?>
                                                 </select>           
                                         </div> 
                                              <div class="form-group">                                              
                                                 <label>Modalidad</label>
                                                 <select id="modalidad" name='modalidad' aria-required='true' class="select2_modalidad form-control required" tabindex="-1">
                                                     <option></option>
-                                                    <option value="Carrera1">Modalidad 1</option>
-                                                    <option value="Carrera2">Modalidad 2</option>
-                                                    <option value="Carrera3">Modalida 3</option>
-                                                    <option value="Carrera4">Modalida 4</option>
+                                                     <?php
+                                                $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
+                                                if (!$connection) {
+                                                    exit("<label class='error'>Error de conexión</label>");
+                                                }
+
+                                                $query = mysqli_query($connection, "SELECT * FROM modalidades");
+                                                while ($data = mysqli_fetch_assoc($query)) {
+                                                    echo "<option value=" . $data["codigo"]. ">".$data["nombre"]."</option>";
+                                                }
+
+                                                mysqli_close($connection);
+                                                ?>
+                                                </select>       
                                                 </select>           
                                         </div> 
                                         </div>
