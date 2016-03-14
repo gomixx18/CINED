@@ -229,8 +229,9 @@
                             <div class=""><h3 class="m-t-none m-b"> <i class="fa fa-plus-square-o"></i> Modificar Modalidad</h3>
                                 <form role="form" id="frm_agregar_modalidad" method="POST" action="funcionalidad/TFGModificar.php">
                                   
-                                    <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Código</label></i> <input required type="text" placeholder="Código" class="form-control" name="codigo"></div>
-                                    <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Nombre</label> </i> <input name="nombre" id="nombre" required type="text" placeholder="Nombre" class="form-control"></div>                                    
+                                    <div class="form-group"> <label>Código</label></i> 
+                                    <input required type="text" required="" placeholder="Código" class="form-control" name="codigo"></div>
+                                    <div class="form-group"> <label>Nombre</label> </i> <input name="nombre" id="nombre" required type="text" placeholder="Nombre" class="form-control"></div>                                    
                                     
                                     <div>
                                         <label class=""> <i class="fa fa-exclamation-circle"> Rellene los datos obligatorios.</i></label><br> 

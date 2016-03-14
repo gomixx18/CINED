@@ -123,7 +123,7 @@ if (isset($_POST["TFGModificarModalidad"])) {
 
     if ($connection) {
 
-        $sentenciaSQL = "UPDATE modalidades SET nombre = '" . $nombre . "', id ='" . $id . "' WHERE id =" . $id . "";
+        $sentenciaSQL = "UPDATE modalidades SET nombre = '" . $nombre . "', codigo ='" . $id . "' WHERE codigo =" . $id . "";
         $resultado = mysqli_query($connection, $sentenciaSQL);
         mysqli_close($connection);
     }
