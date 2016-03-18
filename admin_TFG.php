@@ -111,7 +111,7 @@
                     </div>
 
                     <div class="col-md-10"></div>
-                    <a data-toggle="modal" class="btn btn-primary" href="agregar_proyecto_tfg.php">Registrar Proyecto de TFG</a>
+                    <a class="btn btn-primary" href="agregar_proyecto_tfg.php">Registraar Proyecto de TFG</a>
 
                 </div>
 

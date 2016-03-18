@@ -1,4 +1,5 @@
 <?php
+require("../email.php");
 
 session_start();
 if (isset($_POST["TFGagregarEstudiante"])) {
@@ -7,13 +8,10 @@ if (isset($_POST["TFGagregarEstudiante"])) {
     $ap1 = $_POST["apellido1"];
     $ap2 = $_POST["apellido2"];
     $correo = $_POST["correo"];
-    $pass = "123";
-
-
-
-     $connection = mysqli_connect("localhost", "root", "", "uned_db");
-
-     $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
+    
+    $pass = "a" . substr(md5(microtime()), 1, 7);
+    $connection = mysqli_connect("localhost", "root", "", "uned_db");
+    $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
 
  
     if ($connection) {
@@ -31,9 +29,9 @@ if (isset($_POST["TFGagregarEstudiante"])) {
         }
         mysqli_close($connection);
     }
+    //*** -- validar mas adelante -- ***
+    newUserMail($id, $pass, $correo, $nombre);
 
-    
-   
     header("Location: ../admin_estudiante.php");
 }
 
@@ -46,9 +44,7 @@ if (isset($_POST["TFGagregarDirector"])) {
     $titulo = $_POST["titulo"];
     $especialidad = $_POST["especialidad"];
     $correo = $_POST["correo"];
-    $pass = "123";
-
-
+    $pass = "a" . substr(md5(microtime()), 1, 7);
 
      $connection = mysqli_connect("localhost", "root", "", "uned_db");
 
@@ -71,7 +67,8 @@ if (isset($_POST["TFGagregarDirector"])) {
         mysqli_close($connection);
     }
 
-    
+     //*** -- validar mas adelante -- ***
+    newUserMail($id, $pass, $correo, $nombre);
    
     header("Location: ../admin_directores.php");
 }
@@ -83,9 +80,7 @@ if (isset($_POST["TFGagregarEncargado"])) {
     $ap1 = $_POST["apellido1"];
     $ap2 = $_POST["apellido2"];
     $correo = $_POST["correo"];
-    $pass = "123";
-
-
+    $pass = "a" . substr(md5(microtime()), 1, 7);
 
      $connection = mysqli_connect("localhost", "root", "", "uned_db");
 
@@ -108,7 +103,8 @@ if (isset($_POST["TFGagregarEncargado"])) {
         mysqli_close($connection);
     }
 
-    
+     //*** -- validar mas adelante -- ***
+    newUserMail($id, $pass, $correo, $nombre);
    
     header("Location: ../admin_encargados.php");
 }
@@ -122,12 +118,9 @@ if (isset($_POST["TFGagregarAsesor"])) {
     $titulo = $_POST["titulo"];
     $especialidad = $_POST["especialidad"];
     $correo = $_POST["correo"];
-    $pass = "123";
-
-
+    $pass = $pass = "a" . substr(md5(microtime()), 1, 7);
 
      $connection = mysqli_connect("localhost", "root", "", "uned_db");
-
      $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
 
  
@@ -148,7 +141,8 @@ if (isset($_POST["TFGagregarAsesor"])) {
     }
 
     
-   
+    //*** -- validar mas adelante -- ***
+    newUserMail($id, $pass, $correo, $nombre);
     header("Location: ../admin_asesores.php");
 }
 
@@ -159,13 +153,9 @@ if (isset($_POST["TFGagregarMiembroComision"])) {
     $ap1 = $_POST["apellido1"];
     $ap2 = $_POST["apellido2"];
     $correo = $_POST["correo"];
-    $pass = "123";
-
-
-
-     $connection = mysqli_connect("localhost", "root", "", "uned_db");
-
-     $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
+    $pass = $pass = "a" . substr(md5(microtime()), 1, 7);
+    $connection = mysqli_connect("localhost", "root", "", "uned_db");
+    $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
 
  
     if ($connection) {
@@ -184,7 +174,8 @@ if (isset($_POST["TFGagregarMiembroComision"])) {
         mysqli_close($connection);
     }
 
-    
+    // ** validar **
+    newUserMail($id, $pass, $correo, $nombre);
    
     header("Location: ../admin_comisionTFG.php");
 }
