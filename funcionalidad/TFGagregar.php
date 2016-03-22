@@ -198,7 +198,5 @@ if (isset($_POST["TFGAgregarModalidad"])) {
         mysqli_close($connection);
     }
 
-
-
     header("Location: ../admin_Modalidad.php");
 }
