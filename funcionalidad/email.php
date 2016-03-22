@@ -1,5 +1,6 @@
 <?php
-require("PHPMailer/PHPMailerAutoload.php");
+require("../PHPMailer/PHPMailerAutoload.php");
+
 
 function sendMail($email, $name, $subject, $body, $wordWrap) {
 

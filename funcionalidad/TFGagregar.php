@@ -1,5 +1,5 @@
 <?php
-require("../email.php");
+require("../funcionalidad/email.php");
 
 session_start();
 if (isset($_POST["TFGagregarEstudiante"])) {

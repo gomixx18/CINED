@@ -30,14 +30,14 @@ include 'elements.php';
                 var expRegNombre = new RegExp(expr);
                //var expRegNombre = /^[a_z][a_zA_Z]{4}$/; 
                  
-                alert(expRegNombre);
-                alert(newP);
+                //alert(expRegNombre);
+               // alert(newP);
                 if (!expRegNombre.test(newP)) {
                     bandera = false;
                     document.getElementById("newP").value = "";
                 }
-                alert(bandera);
-                return bandera;
+               // alert(bandera);
+                //return bandera;
             }
  
         </script>
