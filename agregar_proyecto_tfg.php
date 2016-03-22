@@ -69,7 +69,7 @@
                                     <div class="row">
                                         <div class="col-lg-6">
                                             <div class="form-group">
-                                                <label>Nombre Trabajo</label>
+                                                <label>Titulo</label>
                                                 <input id="nomProyecto" name="nomProyecto" type="text" class="form-control required">
                                             </div>
                                                    
@@ -156,16 +156,16 @@
                                     </div>
                                 </fieldset>
                                 
-                                 <h1>Coordinador del Trabajo</h1>
+                                 <h1>Director del TFG</h1>
                                 <fieldset>
-                                    <h2>Agregar Coordinador</h2>
-                                    <h3>Coordinador: *</h3>
+                                    <h2>Agregar Director del TFG</h2>
+                                    <h3>Director:</h3>
                                     <div class="form-group">
                                 
                        <div class="ibox-content">
                           
-                             <input type="text" class="form-control input-sm m-b-xs" id="filterCoord"
-                                   placeholder="Buscar Coordinador">
+                            <input type="text" class="form-control input-sm m-b-xs" id="filterCoord"
+                                   placeholder="Buscar Director">
 
                             <table class="footable table table-stripped" data-page-size="8" data-filter=#filterCoord>
                                 <thead>

@@ -398,7 +398,7 @@ and open the template in the editor.
                                             <div class="col-lg-12">
                                                 <div class="ibox collapsed">
                                                     <div class="ibox-title panel panel-warning">
-                                                        <h5>Etapa #2. Ante Proyecto</h5>
+                                                        <h5>Etapa #2. Ante Proyecto o Propuesta</h5>
                                                         <div class="ibox-tools">
                                                             <a class="collapse-link">
                                                                 <i class="fa fa-chevron-up"></i>

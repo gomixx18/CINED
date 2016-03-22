@@ -1,3 +1,4 @@
 *.png
 pyrus.phar.txt
 /nbproject/private/
+nbproject/private/private.xml
