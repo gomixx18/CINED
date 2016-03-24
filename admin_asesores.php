@@ -79,6 +79,8 @@
                                                     <th>Nombre</th>
                                                     <th>Primer Apellido</th>
                                                     <th>Segundo Apellido</th>
+                                                    <th>Teléfono</th>
+                                                    <th>Título</th>
                                                     <th>Especialidad</th> 
                                                     <th>Correo</th>
                                                     <th>Acción</th>
@@ -100,11 +102,13 @@
                                                     echo "<td>" . $data["nombre"] . "</td>";
                                                     echo "<td>" . $data["apellido1"] . "</td>";
                                                     echo "<td>" . $data["apellido2"] . "</td>";
+                                                    echo "<td>" . $data["telefono"] . "</td>";
+                                                    echo "<td>" . $data["titulo"] . "</td>";
                                                     echo "<td>" . $data["especialidad"] . "</td>";
                                                     echo "<td>" . $data["correo"] . "</td>";
                                                     echo "<td>" . "<button type='submit' data-toggle='modal' class='btn btn-primary'
                                                                 data-target='#mod-form' id = '" . $data["id"] . "' nombre = '" . $data["nombre"] . "' apellido1 = '" . $data["apellido1"] . "' titulo = '" . $data["titulo"].
-                                                     "' especialidad = '" . $data["especialidad"]."' apellido2 = '" . $data["apellido2"] . "' correo = '" . $data["correo"] . "' > Modificar</button></td> ";
+                                                     "' especialidad = '" . $data["especialidad"]."' apellido2 = '" . $data["apellido2"]. "' telefono = '" . $data["telefono"].  "' correo = '" . $data["correo"] . "' > Modificar</button></td> ";
                                                     echo "</tr>";
                                                 }
 
@@ -117,6 +121,8 @@
                                                     <th>Nombre</th>
                                                     <th>Primer Apellido</th>
                                                     <th>Segundo Apellido</th>
+                                                    <th>Teléfono</th>
+                                                    <th>Título</th>
                                                     <th>Especialidad</th>
                                                     <th>Correo</th>
                                                     <th>Acción</th>
@@ -221,6 +227,8 @@
                                     <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Nombre</label> </i> <input required type="text" placeholder="Nombre" class="form-control" name="nombre" ></div>
                                     <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Primer Apellido</label></i> <input required type="text" placeholder="Primer Apellido" class="form-control"  name="apellido1" ></div>
                                     <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Segundo Apellido</label></i> <input required type="text" placeholder="Segundo Apellido" class="form-control" name="apellido2" ></div>
+                                    <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Teléfono</label></i> <input required type="text" placeholder="Especialidad" class="form-control" name="especialidad" ></div>
+                                    <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Título</label></i> <input name="titulo" id="titulo" required type="text" placeholder="Titulo" class="form-control"></div>
                                     <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Especialidad</label></i> <input required type="text" placeholder="Especialidad" class="form-control" name="especialidad" ></div>
                                     <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Correo</label></i> <input required type="email" placeholder="Correo" class="form-control" name="correo" ></div>
 
@@ -250,9 +258,13 @@
                                     <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Nombre</label> </i> <input name="nombre" id="nombre" required type="text" placeholder="Nombre" class="form-control"></div>
                                     <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Primer Apellido</label></i> <input name="apellido1" id="apellido1" required type="text" placeholder="Primer Apellido" class="form-control"></div>
                                     <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Segundo Apellido</label></i> <input name="apellido2" id="apellido2" required type="text" placeholder="Segundo Apellido" class="form-control"></div>
-                                    <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Titulo</label></i> <input name="titulo" id="titulo" required type="text" placeholder="Titulo" class="form-control"></div>
+                                    <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Teléfono</label></i> <input name="titulo" id="titulo" required type="text" placeholder="Titulo" class="form-control"></div> 
+                                    <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Título</label></i> <input name="titulo" id="titulo" required type="text" placeholder="Titulo" class="form-control"></div>
                                     <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Especialidad</label></i> <input name="especialidad" id="especialidad" required type="text" placeholder="Especialidad" class="form-control"></div>
                                     <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Correo</label></i> <input name="correo" id="correo" required type="email" placeholder="Correo" class="form-control"></div>
+
+                                    //activar o desactivar
+                                    <input type="checkbox" checked data-toggle="toggle">
 
                                     <div>
                                         <label class=""> <i class="fa fa-exclamation-circle"> Rellene los datos obligatorios.</i></label><br> 
