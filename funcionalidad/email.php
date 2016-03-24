@@ -25,8 +25,8 @@ function sendMail($email, $name, $subject, $body, $wordWrap) {
     return $mail->send();
 }
  
-function newUserMail($username, $clave, $email, $name) {
-    $link = "http://cined.cloudapp.net/change_pass.php";
+function newUserMail($id, $clave, $email, $name) {
+    $link = "http://cined.cloudapp.net/change_pass.php?usuario=" . $id;
     //$ref = "changePass.php?usuario=". $_POST["username"];
     $subject = "Sus credenciales de ingreso";
     $body = "Usted ha sido registrado en el sistema CINED. </br> Su clave es: " . $clave

@@ -9,7 +9,7 @@ include 'elements.php';
 ?>
 <html>
     <head>
-        <title>Password Change</title>
+        <title>Cambio de Contraseña</title>
         <meta charset="UTF-8">
          <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
         <script src="js/bootstrap.js" type="text/javascript"></script>
@@ -19,23 +19,20 @@ include 'elements.php';
     </head>
     <body>
         <body>
+        <?php
+         $userGet = $_GET['usuario'];
+         $flag = $_GET['resultado'];
         
+        ?>
         <script>
             function validar() {
                 alert('voy a validar');
                 var bandera = true;
                 newP = document.getElementById("newP").value;
-                expr = document.getElementById("expr").value;
-               // var expRegNombre = /^[ a-zA-Z]{1,}$/;     
-                var expRegNombre = new RegExp(expr);
-               //var expRegNombre = /^[a_z][a_zA_Z]{4}$/; 
-                 
-                //alert(expRegNombre);
-               // alert(newP);
-                if (!expRegNombre.test(newP)) {
-                    bandera = false;
-                    document.getElementById("newP").value = "";
-                }
+                cedula = document.getElementById("ced").value;
+              
+                alert(cedula);
+             
                // alert(bandera);
                 //return bandera;
             }
@@ -46,33 +43,33 @@ include 'elements.php';
             <div id="container">
                 <div class="panel panel-default" id="panel1">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Change Password</h3>
+                        <h3 class="panel-title">Cambiar Contraseña</h3>
                     </div>
                     <div class="panel-body">
                         <fieldset id="formularioAddUser">                     
                             <form method="POST" action="funcionalidad/cambioContrasena.php" class="form-horizontal" onsubmit="return validar()">
  
-                                <input type="hidden" name="userGet" value="<?= $userGet ?>" >
-                                <input type="hidden" id="expr" value="<?= $expresionRegular ?>" >
+                                <input type="hidden" id="ced" name="userGet" value="<?= $userGet ?>" >
+                                
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label">Old Password</label>
+                                    <label class="col-sm-2 control-label">Contraseña Anterior</label>
                                     <div class="col-sm-6">
                                         <input type="password" class="form-control" id="oldP" name="oldP" placeholder="Old Password">
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label">New Password</label>
+                                    <label class="col-sm-2 control-label">Contraseña Nueva</label>
                                     <div class="col-sm-6">
                                         <input type="password" class="form-control" id="newP" name="newP" placeholder="New Password">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-sm-offset-2 col-sm-10">
-                                        <button type="submit" name="modifyPass" class="btn btn-default">Save changes</button>
+                                        <button type="submit" name="modifyPass" class="btn btn-default">Guardar</button>
  
                                     </div>
                                 </div>
-                                Note. The key must always start with a lowercase letter.
+                               
                             </form>
                         </fieldset>
                     </div>
