@@ -79,6 +79,7 @@
                                                     <th>Primer Apellido</th>
                                                     <th>Segundo Apellido</th>
                                                     <th>Correo</th>
+                                                    <th>Estado</th>
                                                     <th>Acción</th>
                                                 </tr>
                                             </thead>
@@ -99,9 +100,15 @@
                                                     echo "<td>" . $data["apellido1"] . "</td>";
                                                     echo "<td>" . $data["apellido2"] . "</td>";
                                                     echo "<td>" . $data["correo"] . "</td>";
+                                                     if($data["estado"] == '1'){
+                                                        echo "<td>Activo</td>";
+                                                    }
+                                                    else{
+                                                        echo "<td>Inactivo</td>";
+                                                    }
                                                     echo "<td>" . "<button type='submit' data-toggle='modal' class='btn btn-primary'
                                                                 data-target='#mod-form' id = '" . $data["id"] . "' nombre = '" . $data["nombre"] . "' apellido1 = '" . $data["apellido1"] .
-                                                    "' apellido2 = '" . $data["apellido2"] . "' correo = '" . $data["correo"] . "' > Modificar</button></td> ";
+                                                    "' apellido2 = '" . $data["apellido2"] . "'activo = '" . $data["estado"]. "' correo = '" .  $data["correo"] . "' > Modificar</button></td> ";
                                                     echo "</tr>";
                                                 }
 
@@ -117,6 +124,7 @@
                                                     <th>Primer Apellido</th>
                                                     <th>Segundo Apellido</th>
                                                     <th>Correo</th>
+                                                    <th>Estado</th>
                                                     <th>Acción</th>
                                                 </tr>
                                             </tfoot>
@@ -222,7 +230,7 @@
                                     <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Correo</label></i> <input name="correo" id="correo" required type="email" placeholder="Correo" class="form-control"></div>
 
                                     <div>
-                                        <label class=""> <i class="fa fa-exclamation-circle"> Rellene los datos obligatorios.</i></label><br> 
+                                        <label class=""> <i class="fa fa-exclamation-circle"> Rellene los datos obligatorios.</i></label><br>
                                         <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit" name="INVAgregarCoordinador"><strong>Registrar</strong></button>
                                         <button type="button" data-dismiss="modal" class="btn btn-sm btn-secundary pull-right m-t-n-xs" style="margin-right: 20px;" ><strong>Cancelar</strong></button>
 
@@ -242,6 +250,7 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class=""><h3 class="m-t-none m-b"> <i class="fa fa-plus-square-o"></i> Modificar Coordinador</h3>
+                                 <h4 id="tituloEstado" style='color: red'>Usuario inactivo</h4>
                                 <form role="form" id="frm_agregar_estudiante" method="POST" action="funcionalidad/INVModificar.php">
                                     <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Identificación</label></i> <input name="id" id="id" required type="text" placeholder="Identificacion" class="form-control" readonly></div>
                                     <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Nombre</label> </i> <input name="nombre" id="nombre" required type="text" placeholder="Nombre" class="form-control"></div>
@@ -250,7 +259,9 @@
                                     <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Correo</label></i> <input name="correo" id="correo" required type="email" placeholder="Correo" class="form-control"></div>
 
                                     <div>
-                                        <label class=""> <i class="fa fa-exclamation-circle"> Rellene los datos obligatorios.</i></label><br> 
+                                        <label class=""> <i class="fa fa-exclamation-circle"> Rellene los datos obligatorios.</i></label><br> <br>
+                                        <button class="btn btn-sm btn-danger pull-left m-t-n-xs" type="submit" id="desactivar" name="desactivarCoordinadorInv"><i class="fa fa-warning"></i><strong> Desactivar</strong></button>
+                                        <button class="btn btn-sm btn-info pull-left m-t-n-xs" type="submit" name="activarCoordinadorInv" id="activar" ><i class="fa fa-check-circle"></i><strong> Activar</strong></button>
                                         <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit" name="INVModificarCoordinador"><strong>Modificar</strong></button>
                                         <button type="button" data-dismiss="modal" class="btn btn-sm btn-secundary pull-right m-t-n-xs" style="margin-right: 20px;" ><strong>Cancelar</strong></button>
 
@@ -267,8 +278,10 @@
             $('#mod-form').on('show.bs.modal', function (event) {
                 var button = $(event.relatedTarget);
                 var modal = $(this);
-
+                var btn1 = modal.find('#desactivar');
                 var recipient = button.attr('id');
+                var t = modal.find('#tituloEstado');
+                var d = modal.find('#activar');
                 modal.find('#id').val(recipient);
 
                 recipient = button.attr('nombre');
@@ -282,6 +295,17 @@
 
                 recipient = button.attr('correo');
                 modal.find('#correo').val(recipient);
+                
+                recipient = button.attr('activo');
+                if (recipient === '1') {
+                    t.hide();
+                    btn1.show();
+                    d.hide();
+                } else {
+                    t.show();
+                    btn1.hide();
+                    d.show();
+                }
             });
         </script>
     </body>

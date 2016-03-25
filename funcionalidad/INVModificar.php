@@ -9,10 +9,7 @@ if (isset($_POST["INVModificarInvestigador"])) {
     $correo = $_POST["correo"];
     $pass = "123";
 
-
-
     $connection = mysqli_connect("localhost", "root", "", "uned_db");
-
     $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
 
 
@@ -85,11 +82,7 @@ if (isset($_POST["INVModificarMiembro"])) {
     $ap2 = $_POST["apellido2"];
     $correo = $_POST["correo"];
     $pass = "123";
-
-
-
     $connection = mysqli_connect("localhost", "root", "", "uned_db");
-
     $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
 
 
@@ -163,4 +156,108 @@ if (isset($_POST["INVModificarCatedra"])) {
         mysqli_close($connection);
     }
     header("Location: ../admin_Catedras.php");
+}
+//Desactivacion de Usuarios
+if (isset($_POST["desactivarMiembroComiex"])) {
+    
+    $id = $_POST["id"];
+   
+    $connection = mysqli_connect("localhost", "root", "", "uned_db");
+    $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
+
+    if ($connection) {
+        $sentenciaSQL = "UPDATE iemiembroscomiex SET estado = 0 WHERE id ='" . $id . "'";
+        $resultado = mysqli_query($connection, $sentenciaSQL);
+        mysqli_close($connection);
+    }
+    header("Location: ../admin_MiembroComiex.php");
+}
+if (isset($_POST["desactivarInvestigador"])) {
+    
+    $id = $_POST["id"];
+    $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
+
+    if ($connection) {
+        $sentenciaSQL = "UPDATE ieinvestigadores SET estado = 0 WHERE id ='" . $id . "'";
+        $resultado = mysqli_query($connection, $sentenciaSQL);
+        mysqli_close($connection);
+    }
+    header("Location: ../admin_investigador.php");
+}
+if (isset($_POST["desactivarEvaluador"])) {
+    
+    $id = $_POST["id"];
+   
+    $connection = mysqli_connect("localhost", "root", "", "uned_db");
+    $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
+
+    if ($connection) {
+        $sentenciaSQL = "UPDATE ieevaluadores SET estado = 0 WHERE id ='" . $id . "'";
+        $resultado = mysqli_query($connection, $sentenciaSQL);
+        mysqli_close($connection);
+    }
+    header("Location: ../admin_evaluador.php");
+}
+if (isset($_POST["desactivarCoordinadorInv"])) {
+    
+    $id = $_POST["id"];
+    $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
+
+    if ($connection) {
+        $sentenciaSQL = "UPDATE iecoordinadoresinvestigacion SET estado = 0 WHERE id ='" . $id . "'";
+        $resultado = mysqli_query($connection, $sentenciaSQL);
+        mysqli_close($connection);
+    }
+    header("Location: ../admin_coordinadorInv.php");
+}
+//Activar usuarios
+if (isset($_POST["activarMiembroComiex"])) {
+    
+    $id = $_POST["id"];
+    $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
+
+    if ($connection) {
+        $sentenciaSQL = "UPDATE iemiembroscomiex SET estado = 1 WHERE id ='" . $id . "'";
+        $resultado = mysqli_query($connection, $sentenciaSQL);
+        mysqli_close($connection);
+    }
+    header("Location: ../admin_MiembroComiex.php");
+}
+if (isset($_POST["activarInvestigador"])) {
+    
+    $id = $_POST["id"];
+    $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
+
+    if ($connection) {
+        $sentenciaSQL = "UPDATE ieinvestigadores SET estado = 1 WHERE id ='" . $id . "'";
+        $resultado = mysqli_query($connection, $sentenciaSQL);
+        mysqli_close($connection);
+    }
+    header("Location: ../admin_investigador.php");
+}
+if (isset($_POST["activarEvaluador"])) {
+    
+    $id = $_POST["id"];
+   
+    $connection = mysqli_connect("localhost", "root", "", "uned_db");
+    $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
+
+    if ($connection) {
+        $sentenciaSQL = "UPDATE ieevaluadores SET estado = 1 WHERE id ='" . $id . "'";
+        $resultado = mysqli_query($connection, $sentenciaSQL);
+        mysqli_close($connection);
+    }
+    header("Location: ../admin_evaluador.php");
+}
+if (isset($_POST["activarCoordinadorInv"])) {
+    
+    $id = $_POST["id"];
+    $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
+
+    if ($connection) {
+        $sentenciaSQL = "UPDATE iecoordinadoresinvestigacion SET estado = 1 WHERE id ='" . $id . "'";
+        $resultado = mysqli_query($connection, $sentenciaSQL);
+        mysqli_close($connection);
+    }
+    header("Location: ../admin_coordinadorInv.php");
 }

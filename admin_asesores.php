@@ -11,7 +11,6 @@
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
         <link href="css/plugins/dataTables/datatables.min.css" rel="stylesheet">
-
         <link href="css/animate.css" rel="stylesheet">
         <link href="css/style.css" rel="stylesheet">
         <?php
@@ -83,6 +82,7 @@
                                                     <th>Título</th>
                                                     <th>Especialidad</th> 
                                                     <th>Correo</th>
+                                                    <th>Estado</th>
                                                     <th>Acción</th>
                                                 </tr>
                                             </thead>
@@ -106,9 +106,15 @@
                                                     echo "<td>" . $data["titulo"] . "</td>";
                                                     echo "<td>" . $data["especialidad"] . "</td>";
                                                     echo "<td>" . $data["correo"] . "</td>";
+                                                     if($data["estado"] == '1'){
+                                                        echo "<td>Activo</td>";
+                                                    }
+                                                    else{
+                                                        echo "<td>Inactivo</td>";
+                                                    }
                                                     echo "<td>" . "<button type='submit' data-toggle='modal' class='btn btn-primary'
-                                                                data-target='#mod-form' id = '" . $data["id"] . "' nombre = '" . $data["nombre"] . "' apellido1 = '" . $data["apellido1"] . "' titulo = '" . $data["titulo"].
-                                                     "' especialidad = '" . $data["especialidad"]."' apellido2 = '" . $data["apellido2"]. "' telefono = '" . $data["telefono"].  "' correo = '" . $data["correo"] . "' > Modificar</button></td> ";
+                                                                data-target='#mod-form' id = '" . $data["id"] . "' nombre = '" . $data["nombre"] . "' apellido1 = '" . $data["apellido1"] . "' titulo = '" . $data["titulo"] .
+                                                    "' especialidad = '" . $data["especialidad"] . "' apellido2 = '" . $data["apellido2"] . "'activo = '" . $data["estado"] . "' telefono = '" . $data["telefono"] . "' correo = '" . $data["correo"] . "' > Modificar</button></td> ";
                                                     echo "</tr>";
                                                 }
 
@@ -125,6 +131,7 @@
                                                     <th>Título</th>
                                                     <th>Especialidad</th>
                                                     <th>Correo</th>
+                                                    <th>Estado</th>
                                                     <th>Acción</th>
                                                 </tr>
                                             </tfoot>
@@ -153,7 +160,6 @@
         <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
         <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
         <script src="js/plugins/jeditable/jquery.jeditable.js"></script>
-
         <script src="js/plugins/dataTables/datatables.min.js"></script>
 
         <!-- Custom and plugin javascript -->
@@ -227,7 +233,7 @@
                                     <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Nombre</label> </i> <input required type="text" placeholder="Nombre" class="form-control" name="nombre" ></div>
                                     <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Primer Apellido</label></i> <input required type="text" placeholder="Primer Apellido" class="form-control"  name="apellido1" ></div>
                                     <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Segundo Apellido</label></i> <input required type="text" placeholder="Segundo Apellido" class="form-control" name="apellido2" ></div>
-                                    <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Teléfono</label></i> <input required type="text" placeholder="Especialidad" class="form-control" name="especialidad" ></div>
+                                    <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Teléfono</label></i> <input required type="text" placeholder="Teléfono" class="form-control" name="telefono" id="telefono" ></div>
                                     <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Título</label></i> <input name="titulo" id="titulo" required type="text" placeholder="Titulo" class="form-control"></div>
                                     <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Especialidad</label></i> <input required type="text" placeholder="Especialidad" class="form-control" name="especialidad" ></div>
                                     <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Correo</label></i> <input required type="email" placeholder="Correo" class="form-control" name="correo" ></div>
@@ -253,21 +259,21 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class=""><h3 class="m-t-none m-b"> <i class="fa fa-plus-square-o"></i> Modificar Asesor</h3>
+                                 <h4 id="tituloEstado" style='color: red'>Usuario inactivo</h4>
                                 <form role="form" id="frm_agregar_estudiante" method="POST" action="funcionalidad/TFGModificar.php">
                                     <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Identificación</label></i> <input name="id" id="id" required type="text" placeholder="Identificacion" class="form-control" readonly></div>
                                     <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Nombre</label> </i> <input name="nombre" id="nombre" required type="text" placeholder="Nombre" class="form-control"></div>
                                     <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Primer Apellido</label></i> <input name="apellido1" id="apellido1" required type="text" placeholder="Primer Apellido" class="form-control"></div>
                                     <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Segundo Apellido</label></i> <input name="apellido2" id="apellido2" required type="text" placeholder="Segundo Apellido" class="form-control"></div>
-                                    <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Teléfono</label></i> <input name="titulo" id="titulo" required type="text" placeholder="Titulo" class="form-control"></div> 
-                                    <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Título</label></i> <input name="titulo" id="titulo" required type="text" placeholder="Titulo" class="form-control"></div>
+                                    <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Teléfono</label></i> <input name="telefono" id="telefono" required type="text" placeholder="Teléfono" class="form-control"></div> 
+                                    <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Título</label></i> <input name="titulo" id="titulo" required type="text" placeholder="Título" class="form-control"></div>
                                     <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Especialidad</label></i> <input name="especialidad" id="especialidad" required type="text" placeholder="Especialidad" class="form-control"></div>
                                     <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Correo</label></i> <input name="correo" id="correo" required type="email" placeholder="Correo" class="form-control"></div>
-
-                                    //activar o desactivar
-                                    <input type="checkbox" checked data-toggle="toggle">
-
                                     <div>
-                                        <label class=""> <i class="fa fa-exclamation-circle"> Rellene los datos obligatorios.</i></label><br> 
+                                        <label class=""> <i class="fa fa-exclamation-circle"> Rellene los datos obligatorios.</i></label><br><br> 
+
+                                        <button class="btn btn-sm btn-danger pull-left m-t-n-xs" type="submit" name="desactivarAsesor" id="desactivar" ><i class="fa fa-warning"></i><strong> Desactivar</strong></button>
+                                        <button class="btn btn-sm btn-info pull-left m-t-n-xs" type="submit" name="activarAsesor" id="activar" ><i class="fa fa-check-circle"></i><strong> Activar</strong></button>
                                         <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit" name="TFGModificarAsesor"><strong>Modificar</strong></button>
                                         <button type="button" data-dismiss="modal" class="btn btn-sm btn-secundary pull-right m-t-n-xs" style="margin-right: 20px;" ><strong>Cancelar</strong></button>
 
@@ -284,8 +290,10 @@
             $('#mod-form').on('show.bs.modal', function (event) {
                 var button = $(event.relatedTarget);
                 var modal = $(this);
-
+                var btn1 = modal.find('#desactivar');
                 var recipient = button.attr('id');
+                var t = modal.find('#tituloEstado');
+                var d = modal.find('#activar');
                 modal.find('#id').val(recipient);
 
                 recipient = button.attr('nombre');
@@ -305,6 +313,22 @@
 
                 recipient = button.attr('correo');
                 modal.find('#correo').val(recipient);
+                
+                recipient = button.attr('telefono');
+                modal.find('#telefono').val(recipient);
+
+                recipient = button.attr('activo');
+                
+                if (recipient === '1') {
+                    d.hide();
+                    t.hide();
+                    btn1.show();
+                } else {
+                    t.show();
+                    d.show();
+                    btn1.hide();
+                }
+
             });
         </script>
 
