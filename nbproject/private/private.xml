@@ -4,16 +4,19 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/inetpub/wwwroot/CINED/clases/UsuarioComplejo.php</file>
-            <file>file:/C:/inetpub/wwwroot/CINED/funcionalidad/cambioContrasena.php</file>
+            <file>file:/C:/inetpub/wwwroot/CINED/olvido_contrasena.php</file>
             <file>file:/C:/inetpub/wwwroot/CINED/navegacion/nav-lateral.php</file>
             <file>file:/C:/inetpub/wwwroot/CINED/funcionalidad/email.php</file>
-            <file>file:/C:/inetpub/wwwroot/CINED/agregar_proyecto_tfg.php</file>
-            <file>file:/C:/inetpub/wwwroot/CINED/clases/UsuarioSimple.php</file>
-            <file>file:/C:/inetpub/wwwroot/CINED/change_pass.php</file>
-            <file>file:/C:/inetpub/wwwroot/CINED/funcionalidad/loginFuncionalidad.php</file>
+            <file>file:/C:/inetpub/wwwroot/CINED/admin_comisionTFG.php</file>
             <file>file:/C:/inetpub/wwwroot/CINED/admin_asesores.php</file>
+            <file>file:/C:/inetpub/wwwroot/CINED/funcionalidad/TFGModificar.php</file>
             <file>file:/C:/inetpub/wwwroot/CINED/clases/UsuarioPermisos.php</file>
             <file>file:/C:/inetpub/wwwroot/CINED/funcionalidad/TFGagregar.php</file>
+            <file>file:/C:/inetpub/wwwroot/CINED/funcionalidad/cambioContrasena.php</file>
+            <file>file:/C:/inetpub/wwwroot/CINED/agregar_proyecto_tfg.php</file>
+            <file>file:/C:/inetpub/wwwroot/CINED/clases/UsuarioSimple.php</file>
+            <file>file:/C:/inetpub/wwwroot/CINED/funcionalidad/loginFuncionalidad.php</file>
+            <file>file:/C:/inetpub/wwwroot/CINED/login.php</file>
         </group>
     </open-files>
 </project-private>

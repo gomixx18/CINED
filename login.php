@@ -39,7 +39,7 @@
                 </div>
                 <button type="submit" class="btn btn-primary block full-width m-b">Iniciar Sesión</button>
 
-                <a href="#"><small>Olvidó su contraseña?</small></a>
+                <a href="olvido_contrasena.php"><small>Olvidó su contraseña?</small></a>
                 
             </form>
             <p class="m-t"> <small>Escuela de Informática, Universidad Nacional  &copy; 2015-2016</small> </p>

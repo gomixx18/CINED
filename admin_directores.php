@@ -306,6 +306,10 @@
 
                 recipient = button.attr('apellido2');
                 modal.find('#apellido2').val(recipient);
+                
+                 recipient = button.attr('telefono');
+                modal.find('#telefono').val(recipient);
+
 
                 recipient = button.attr('titulo');
                 modal.find('#titulo').val(recipient);

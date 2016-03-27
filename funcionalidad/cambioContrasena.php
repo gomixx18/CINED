@@ -1,5 +1,6 @@
 <?php
 
+
 session_start();
 if (isset($_POST["modifyPass"])) {
 
@@ -12,14 +13,14 @@ if (isset($_POST["modifyPass"])) {
     if ($connection) {
         $sentencia = "UPDATE usuarios SET password= '" . $newPass . "' WHERE id= '" . $userID . "'"
                 . "AND password='" . $oldPass . "'";
-        
+
         $resultado = mysqli_query($connection, $sentencia);
         mysqli_close($connection);
-        
     } else {
         echo "No se pudo conectar con la base de datos.";
     }
 
     header("Location: ../login.php");
 }
+
 ?>

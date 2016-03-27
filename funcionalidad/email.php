@@ -2,10 +2,10 @@
 require("../PHPMailer/PHPMailerAutoload.php");
 
 
-function sendMail($email, $name, $subject, $body, $wordWrap) {
+function sendMail($email, $subject, $body, $wordWrap) {
 
 	$mail = new PHPMailer(); 
-	$recipient = "brendaruizm@hotmail.com";
+	$recipient = $email;
 	$mail->IsSMTP(); // enable SMTP
 	$mail->SMTPDebug = 1; // debugging: 1 = errors and messages, 2 = messages only
 	$mail->SMTPAuth = true; // authentication enabled
@@ -25,13 +25,14 @@ function sendMail($email, $name, $subject, $body, $wordWrap) {
     return $mail->send();
 }
  
-function newUserMail($id, $clave, $email, $name) {
+function newUserMail($id, $clave, $email) {
     $link = "http://cined.cloudapp.net/change_pass.php?usuario=" . $id;
     //$ref = "changePass.php?usuario=". $_POST["username"];
-    $subject = "Sus credenciales de ingreso";
+    $subject = "CINED - Credenciales de usuario";
     $body = "Usted ha sido registrado en el sistema CINED. </br> Su clave es: " . $clave
             . " </br> Por favor ingrese al siguiente enlace para cambiar su clave: <a href='" . $link . "'>Click Here</a>";
-    return sendMail($email, $name, $subject, $body, 50);
+    return sendMail($email, $subject, $body, 50);
 }
+
  
 ?>

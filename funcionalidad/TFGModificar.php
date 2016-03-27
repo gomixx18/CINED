@@ -215,15 +215,14 @@ if (isset($_POST["activarAsesor"])) {
     }
     header("Location: ../admin_asesores.php");
 }
-if (isset($_POST["activarComisionTFG"])) {
+if (isset($_POST["activarMiembroComision"])) {
     
     $id = $_POST["id"];
-    $connection = mysqli_connect("localhost", "root", "", "uned_db");
     $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
 
     if ($connection) {
 
-        $sentenciaSQL = "UPDATE tfgmiembroscomision SET estado = 1 WHERE id ='" . $id . "'";
+        $sentenciaSQL = "UPDATE tfgmiembroscomision SET estado = 1 WHERE id =" . $id;
         $resultado = mysqli_query($connection, $sentenciaSQL);
         mysqli_close($connection);
     }
