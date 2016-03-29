@@ -174,7 +174,7 @@
 
 .wizard > .content > .body ul > li
 {
-    display: list-item;
+    display: inline;
 }
 
 .wizard > .content > .body > iframe
