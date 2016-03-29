@@ -1,4 +1,5 @@
-var contador = 1;
+var contador = 2;
+var vector = [1, 0, 0, 0, 0, 0 ];
 
 function agregarInvest() {
         
@@ -17,26 +18,75 @@ function eliminarInvest(event) {
     if(contador > 1){
         contador-- ;
     }
-    
-    
-    
-    
+       
 }
 
 
-function agregarEstudiantes() {
-        var aux = $("#estudiantes").length;
+
+function selectEstudiantes() {
+   
+   
+        var aux = $('input:radio[name=radEstudiante]:checked').val();
+        if(aux !== undefined){
+            var text = $.trim($("#idEstudiante1").val());
+            if(text.length < 1 ){
+                $("#idEstudiante1").val(aux)
+            }else{
+                agregarEstudiantes2(aux);
+            }
+        }
+        
+        
+}
+
+function agregarEstudiantes2( id) {
+
+
+        var aux = $("#estudiantes").find("div").length;
+        
+    
         if(aux<6){
-        $("#estudiantes").append("<div id=\"divEstud"+contador+"\" class=\"form-group\"><label  for=\"inputEstud"+contador+"\">Cédula Estudiante:</label name=\"inputestud"+contador+"\"><input id=\"idEStudiante" + contador + "\" class=\"form-control input-sm m-b-xs required\" placeholder=\"cédula Estudiante\" name=\"idEstudiante" + contador + " id=\"idEstudiante" + contador + "\"> \n\
-         <button id=\"divEstud" + contador + "\" type=\"button\" class=\"btn btn-danger btn-rounded \" onclick=\"eliminarEstudiantes(this)\">Eliminar Estudiante</button></div>");
+        numero= asignarID();
+        var s = '<div id="divEstud'+numero+'" class="form-group"> <label for="btnAgregar">Cédula Estudiante:</label> <input id="idEstudiante'+numero+'" value="'+id+'" name="nameEstudiante'+numero+'" type="text" class="form-control input-sm m-b-xs required" placeholder="Cédula Estudiante"><button id="divEstud'+numero+'" name="btnEstudiante'+numero+'" class="btn btn-danger btn-rounded" onclick="eliminarEstudiantes(this)" type="button" >Eliminar Estudiante</button></div>';
+        $("#estudiantes").append(s);
         contador++;
+        
+    }
+}
+
+function agregarEstudiantes() {
+    
+        var aux = $("#estudiantes").find("div").length;
+        
+    
+        if(aux<6){
+        numero= asignarID();
+        var s = '<div id="divEstud'+numero+'" class="form-group"> <label for="btnAgregar">Cédula Estudiante:</label> <input id="idEstudiante'+numero+'" name="nameEstudiante'+numero+'" type="text" class="form-control input-sm m-b-xs required" placeholder="Cédula Estudiante"><button id="divEstud'+numero+'" name="btnEstudiante'+numero+'" class="btn btn-danger btn-rounded" onclick="eliminarEstudiantes(this)" type="button" >Eliminar Estudiante</button></div>';
+        $("#estudiantes").append(s);
+        contador++;
+        
     }
 }
 
 function eliminarEstudiantes(event) {
-    $("div").remove("#"+event.id);
     
+    var s= (event.id).toString();
+    $("div").remove("#"+event.id);
+    var num = (s.substr( s.length-1, s.length ));
+    vector[parseInt(num) - 1] = 0;
+
     
 }
 
+
+function asignarID(){
+  
+        for (x=1; x < vector.length; x++){
+            if(vector[x] === 0){
+                vector[x]=1;
+                return x + 1;
+            }
+        }  
+    
+}
 
