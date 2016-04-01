@@ -278,38 +278,38 @@
 
                                                 <div class="ibox-content">
 
-                                                    <input type="text" class="form-control input-sm m-b-xs" id="filterCoord"
-                                                           placeholder="Buscar Encargado">
+                                                    <div class="table-responsive">
+                                                        <table class="table table-striped table-bordered table-hover dataTables-example">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Identificación</th>
+                                                                    <th>Nombre</th>
+                                                                    <th>Primer Apellido</th>
+                                                                    <th>Segundo Apellido</th>                            
+                                                                    <th>Seleccionado</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
 
-                                                    <table class="footable table table-stripped" data-page-size="8" data-filter=#filterCoord>
-                                                        <thead>
-                                                            <tr>
-                                                                <th>Identificación</th>
-                                                                <th>Nombre</th>
-                                                                <th>Primer Apellido</th>
-                                                                <th>Segundo Apellido</th>                            
-                                                                <th>Seleccionado</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-
-                                                            <?php
-                                                            $query = mysqli_query($connection, "SELECT * FROM tfgencargados");
+                                                                <?php
+                                                                $query = mysqli_query($connection, "SELECT * FROM tfgencargados");
 
 
-                                                            while ($data = mysqli_fetch_assoc($query)) {
-                                                                echo "<tr>";
-                                                                echo "<td>" . $data["id"] . "</td>";
-                                                                echo "<td>" . $data["nombre"] . "</td>";
-                                                                echo "<td>" . $data["apellido1"] . "</td>";
-                                                                echo "<td>" . $data["apellido2"] . "</td>";
-                                                                echo '<td class="center"><div class="i-checks"><input type="radio" value="' . $data["id"] . '" name="radEncargado" required></div></td>';
-                                                                echo "</tr>";
-                                                            }
-                                                            ?>
+                                                                while ($data = mysqli_fetch_assoc($query)) {
+                                                                    echo "<tr>";
+                                                                    echo "<td>" . $data["id"] . "</td>";
+                                                                    echo "<td>" . $data["nombre"] . "</td>";
+                                                                    echo "<td>" . $data["apellido1"] . "</td>";
+                                                                    echo "<td>" . $data["apellido2"] . "</td>";
+                                                                    echo '<td class="center"><div class="i-checks"><input type="radio" value="' . $data["id"] . '" name="radEncargado" required></div></td>';
+                                                                    echo "</tr>";
+                                                                }
+                                                                ?>
 
 
-                                                    </table>
+                                                        </table>
+
+                                                    </div>
                                                 </div>
                                             </div>
                                         </fieldset>
@@ -323,42 +323,42 @@
 
                                                 <div class="ibox-content">
 
-                                                    <input type="text" class="form-control input-sm m-b-xs" id="filterCoord"
-                                                           placeholder="Buscar Director">
+                                                    <div class="table-responsive">
 
-                                                    <table class="footable table table-stripped" data-page-size="8" data-filter=#filterCoord>
-                                                        <thead>
-                                                            <tr>
-                                                                <th>Identificación</th>
-                                                                <th>Nombre</th>
-                                                                <th>Primer Apellido</th>
-                                                                <th>Segundo Apellido</th>
-                                                                <th>Titulo</th>
-                                                                <th>Especialidad</th>                        
-                                                                <th>Seleccionado</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
+                                                        <table class="table table-striped table-bordered table-hover dataTables-example">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Identificación</th>
+                                                                    <th>Nombre</th>
+                                                                    <th>Primer Apellido</th>
+                                                                    <th>Segundo Apellido</th>
+                                                                    <th>Titulo</th>
+                                                                    <th>Especialidad</th>                        
+                                                                    <th>Seleccionado</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
 
-                                                            <?php
-                                                            $query = mysqli_query($connection, "SELECT * FROM tfgdirectores");
-
-
-                                                            while ($data = mysqli_fetch_assoc($query)) {
-                                                                echo "<tr>";
-                                                                echo "<td>" . $data["id"] . "</td>";
-                                                                echo "<td>" . $data["nombre"] . "</td>";
-                                                                echo "<td>" . $data["apellido1"] . "</td>";
-                                                                echo "<td>" . $data["apellido2"] . "</td>";
-                                                                echo "<td>" . $data["titulo"] . "</td>";
-                                                                echo "<td>" . $data["especialidad"] . "</td>";
-                                                                echo '<td class="center"><div class="i-checks"><input type="radio" value="' . $data["id"] . '" name="radCoord" required></div></td>';
-                                                                echo "</tr>";
-                                                            }
-                                                            ?>
+                                                                <?php
+                                                                $query = mysqli_query($connection, "SELECT * FROM tfgdirectores");
 
 
-                                                    </table>
+                                                                while ($data = mysqli_fetch_assoc($query)) {
+                                                                    echo "<tr>";
+                                                                    echo "<td>" . $data["id"] . "</td>";
+                                                                    echo "<td>" . $data["nombre"] . "</td>";
+                                                                    echo "<td>" . $data["apellido1"] . "</td>";
+                                                                    echo "<td>" . $data["apellido2"] . "</td>";
+                                                                    echo "<td>" . $data["titulo"] . "</td>";
+                                                                    echo "<td>" . $data["especialidad"] . "</td>";
+                                                                    echo '<td class="center"><div class="i-checks"><input type="radio" value="' . $data["id"] . '" name="radCoord" required></div></td>';
+                                                                    echo "</tr>";
+                                                                }
+                                                                ?>
+
+
+                                                        </table>
+                                                    </div>
                                                 </div>
                                             </div>
 
@@ -374,48 +374,60 @@
 
                                                 <div class="ibox-content">
 
-                                                    <input type="text" class="form-control input-sm m-b-xs" id="filter"
-                                                           placeholder="Buscar Asesor">
+                                                    <div class="table-responsive">
 
-                                                    <table class=" table table-stripped" data-page-size="8" data-filter=#filter>
-                                                        <thead>
-                                                            <tr>
-                                                                <th>Identificación</th>
-                                                                <th>Nombre</th>
-                                                                <th>Primer Apellido</th>
-                                                                <th>Segundo Apellido</th>
-                                                                <th>Titulo</th>
-                                                                <th>Especialidad</th>                        
-                                                                <th>Seleccionado</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <?php
-                                                            $query = mysqli_query($connection, "SELECT * FROM tfgasesores");
+                                                        <table class="table table-striped table-bordered table-hover dataTables-example">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Identificación</th>
+                                                                    <th>Nombre</th>
+                                                                    <th>Primer Apellido</th>
+                                                                    <th>Segundo Apellido</th>
+                                                                    <th>Titulo</th>
+                                                                    <th>Especialidad</th>                        
+                                                                    <th>Seleccionado</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <?php
+                                                                $query = mysqli_query($connection, "SELECT * FROM tfgasesores");
 
 
-                                                            while ($data = mysqli_fetch_assoc($query)) {
-                                                                echo "<tr>";
-                                                                echo "<td>" . $data["id"] . "</td>";
-                                                                echo "<td>" . $data["nombre"] . "</td>";
-                                                                echo "<td>" . $data["apellido1"] . "</td>";
-                                                                echo "<td>" . $data["apellido2"] . "</td>";
-                                                                echo "<td>" . $data["titulo"] . "</td>";
-                                                                echo "<td>" . $data["especialidad"] . "</td>";
-                                                                echo '<td class="center"><div class="i-checks"><input type="radio" value="' . $data["id"] . '" name="radAsesor1" required></div></td>';
-                                                                echo "</tr>";
-                                                            }
-                                                            ?>
-                                                    </table>
+                                                                while ($data = mysqli_fetch_assoc($query)) {
+                                                                    echo "<tr>";
+                                                                    echo "<td>" . $data["id"] . "</td>";
+                                                                    echo "<td>" . $data["nombre"] . "</td>";
+                                                                    echo "<td>" . $data["apellido1"] . "</td>";
+                                                                    echo "<td>" . $data["apellido2"] . "</td>";
+                                                                    echo "<td>" . $data["titulo"] . "</td>";
+                                                                    echo "<td>" . $data["especialidad"] . "</td>";
+                                                                    echo '<td class="center"><div class="i-checks"><input type="radio" value="' . $data["id"] . '" name="radAsesor1" required></div></td>';
+                                                                    echo "</tr>";
+                                                                }
+                                                                ?>
+                                                        </table>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <h3>Agregar Asesor 2: </h3>
+                                                
                                                 <div class="ibox-content">
-                                                    <input type="text" class="form-control input-sm m-b-xs" id="filter2" placeholder="Buscar Asesor">
-                                                    <div class="i-checks"><br><label for="b">Ninguno: &nbsp;</label><input type="radio" value="ninguno" name="radAsesor2" checked>  </div>
-                                                    <table class="footable table table-stripped" data-page-size="8" data-filter=#filter2>
-                                                        <thead>
+                                                    <div class="i-checks"><br><label for="b">Ninguno: &nbsp;</label><input type="radio" value="ninguno" name="radAsesor2" checked="" ></div><br>
+                                                    <div class="table-responsive">
+                                                        <table class="table table-striped table-bordered table-hover dataTables-example">
+                                                         <thead>
+                                                                <tr>
+                                                                    <th>Identificación</th>
+                                                                    <th>Nombre</th>
+                                                                    <th>Primer Apellido</th>
+                                                                    <th>Segundo Apellido</th>
+                                                                    <th>Titulo</th>
+                                                                    <th>Especialidad</th>                        
+                                                                    <th>Seleccionado</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
                                                             <?php
                                                             $query = mysqli_query($connection, "SELECT * FROM tfgasesores");
 
@@ -435,7 +447,10 @@
                                                             
                                                             mysqli_close($connection);
                                                             ?>
+                                                                
+                                                             </tbody>
                                                     </table>
+                                                    </div>
                                                 </div>
                                             </div>            
 
