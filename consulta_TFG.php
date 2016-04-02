@@ -168,46 +168,50 @@ and open the template in the editor.
                                                     <div class="ibox-content">
 
                                                         <!-- archivos -->
+                                                          <?php if( $permisosSesion->getDirectortfg()|| $permisosSesion->getAsesortfg() || $permisosSesion->getMiembocomisiontfg()){?>
                                                         <div class="col-lg-12">
                                                             <div class="panel panel-default">
                                                                 <div class="panel-body">
 
                                                                     <div class="row">
-
+                                                                      
                                                                         <div class="col-lg-12 ">
                                                                             <label>Archivos</label>
                                                                             <br/><br/>
 
                                                                         </div>
-                                                                        <div class="col-lg-5 col-lg-offset-1">
+                                                                                 <?php if($permisosSesion->getMiembocomisiontfg() || $permisosSesion->getDirectortfg()){?>
+                                                                        <div class="col-lg-6 col-lg-offset-1">
+                                                                             <?php if($permisosSesion->getMiembocomisiontfg()) {?>
                                                                             <div class="form-group">
                                                                                 <label class="control-label">Comisión TFG</label>
-                                                                                <input id="input-1" type="file" class ="btn btn-primary btn-outline">
+                                                                                <input id="archivoComisionEtapa1" type="file" class ="btn btn-primary btn-outline">
                                                                             </div>
+                                                                             <?php } ?>
+                                                                            <?php if($permisosSesion->getDirectortfg()) {?>
                                                                             <div class="form-group">
                                                                                 <label class="control-label">Director TFG</label>
-                                                                                <input id="input-1" type="file" class ="btn btn-primary btn-outline">
+                                                                                <input id="archivoDirectorEtapa1" type="file" class ="btn btn-primary btn-outline">
                                                                             </div>
+                                                                            <?php }?>
                                                                             
                                                                         </div>
-                                                                        <div class="col-lg-5 col-lg-offset-1">
+                                                                                 <?php } ?>
+                                                                        <?php if($permisosSesion->getAsesortfg()) {?>
+                                                                        <div class="col-lg-6 col-lg-offset-1">
 
                                                                             <div class="form-group">
                                                                                 <label class="control-label">Asesor 2</label>
                                                                                 <input id="input-1" type="file" class=" btn btn-primary btn-outline">
                                                                             </div>
-                                                                            <div class="form-group">
-                                                                                <label class="control-label">Asesor 1</label>
-                                                                                <input id="input-1" type="file"  class ="btn btn-primary btn-outline">
-                                                                            </div>
-
                                                                         </div>
+                                                                        <?php } ?>
                                                                     </div>
                                                                     <div class="row">
 
                                                                         <div class="col-lg-offset-8">
                                                                             <div class="form-group">
-                                                                                <input id="input-1" type="button" class="btn btn-primary btn-outline" value="Guardar Archivo">
+                                                                                <input id="input-1" type="button" class="btn btn-primary btn-outline" value="Guardar Archivo" onclick="funcionalidad/CargarArchivoBlobTFG.php">
                                                                                 <input id="input-1" type="button" class="btn btn-success" value="Registro de Archivos">
                                                                             </div>
 
@@ -217,6 +221,7 @@ and open the template in the editor.
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                                                 <?php } ?>
                                                         <!-- fin archivos -->
 
                                                         <!-- comentarios -->
@@ -408,47 +413,51 @@ and open the template in the editor.
                                                     <div class="ibox-content">
 
                                                         <!-- archivos -->
+                                                        <?php if( $permisosSesion->getDirectortfg()|| $permisosSesion->getAsesortfg() || $permisosSesion->getMiembocomisiontfg()){?>
                                                         <div class="col-lg-12">
                                                             <div class="panel panel-default">
                                                                 <div class="panel-body">
 
                                                                     <div class="row">
-
+                                                                      
                                                                         <div class="col-lg-12 ">
                                                                             <label>Archivos</label>
                                                                             <br/><br/>
 
                                                                         </div>
-                                                                        <div class="col-lg-5 col-lg-offset-1">
+                                                                                 <?php if($permisosSesion->getMiembocomisiontfg() || $permisosSesion->getDirectortfg()){?>
+                                                                        <div class="col-lg-6 col-lg-offset-1">
+                                                                             <?php if($permisosSesion->getMiembocomisiontfg()) {?>
                                                                             <div class="form-group">
                                                                                 <label class="control-label">Comisión TFG</label>
-                                                                                <input id="input-1" type="file" class ="btn btn-primary btn-outline">
+                                                                                <input id="archivoComisionEtapa1" type="file" class ="btn btn-primary btn-outline">
                                                                             </div>
+                                                                             <?php } ?>
+                                                                            <?php if($permisosSesion->getDirectortfg()) {?>
                                                                             <div class="form-group">
                                                                                 <label class="control-label">Director TFG</label>
-                                                                                <input id="input-1" type="file" class ="btn btn-primary btn-outline">
+                                                                                <input id="archivoDirectorEtapa1" type="file" class ="btn btn-primary btn-outline">
                                                                             </div>
+                                                                            <?php }?>
                                                                             
                                                                         </div>
-                                                                        <div class="col-lg-5 col-lg-offset-1">
+                                                                                 <?php } ?>
+                                                                        <?php if($permisosSesion->getAsesortfg()) {?>
+                                                                        <div class="col-lg-6 col-lg-offset-1">
 
                                                                             <div class="form-group">
                                                                                 <label class="control-label">Asesor 2</label>
-                                                                                <input id="input-1" type="file" class ="btn btn-primary btn-outline">
+                                                                                <input id="input-1" type="file" class=" btn btn-primary btn-outline">
                                                                             </div>
-                                                                            <div class="form-group">
-                                                                                <label class="control-label">Asesor 1</label>
-                                                                                <input id="input-1" type="file" class ="btn btn-primary btn-outline">
-                                                                            </div>
-
                                                                         </div>
+                                                                        <?php } ?>
                                                                     </div>
                                                                     <div class="row">
 
                                                                         <div class="col-lg-offset-8">
                                                                             <div class="form-group">
-                                                                                <input id="input-1" type="button" class="btn btn-primary btn-outline" value="Guardar Archivo">
-                                                                                <input id="input-1" type="button" class="btn btn-info btn-outline" value="Registro de Archivos">
+                                                                                <input id="input-1" type="button" class="btn btn-primary btn-outline" value="Guardar Archivo" onclick="funcionalidad/CargarArchivoBlobTFG.php">
+                                                                                <input id="input-1" type="button" class="btn btn-success" value="Registro de Archivos">
                                                                             </div>
 
                                                                         </div>
@@ -457,6 +466,7 @@ and open the template in the editor.
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                                                 <?php } ?>
                                                         <!-- fin archivos -->
 
                                                         <!-- comentarios -->
@@ -656,47 +666,51 @@ and open the template in the editor.
                                                     <div class="ibox-content">
 
                                                         <!-- archivos -->
+                                                         <?php if( $permisosSesion->getDirectortfg()|| $permisosSesion->getAsesortfg() || $permisosSesion->getMiembocomisiontfg()){?>
                                                         <div class="col-lg-12">
                                                             <div class="panel panel-default">
                                                                 <div class="panel-body">
 
                                                                     <div class="row">
-
+                                                                      
                                                                         <div class="col-lg-12 ">
                                                                             <label>Archivos</label>
                                                                             <br/><br/>
 
                                                                         </div>
-                                                                        <div class="col-lg-5 col-lg-offset-1">
+                                                                                 <?php if($permisosSesion->getMiembocomisiontfg() || $permisosSesion->getDirectortfg()){?>
+                                                                        <div class="col-lg-6 col-lg-offset-1">
+                                                                             <?php if($permisosSesion->getMiembocomisiontfg()) {?>
                                                                             <div class="form-group">
                                                                                 <label class="control-label">Comisión TFG</label>
-                                                                                <input id="input-1" type="file" class ="btn btn-primary btn-outline">
+                                                                                <input id="archivoComisionEtapa1" type="file" class ="btn btn-primary btn-outline">
                                                                             </div>
+                                                                             <?php } ?>
+                                                                            <?php if($permisosSesion->getDirectortfg()) {?>
                                                                             <div class="form-group">
                                                                                 <label class="control-label">Director TFG</label>
-                                                                                <input id="input-1" type="file" class ="btn btn-primary btn-outline">
+                                                                                <input id="archivoDirectorEtapa1" type="file" class ="btn btn-primary btn-outline">
                                                                             </div>
+                                                                            <?php }?>
                                                                             
                                                                         </div>
-                                                                        <div class="col-lg-5 col-lg-offset-1">
+                                                                                 <?php } ?>
+                                                                        <?php if($permisosSesion->getAsesortfg()) {?>
+                                                                        <div class="col-lg-6 col-lg-offset-1">
 
                                                                             <div class="form-group">
                                                                                 <label class="control-label">Asesor 2</label>
-                                                                                <input id="input-1" type="file" class ="btn btn-primary btn-outline">
+                                                                                <input id="input-1" type="file" class=" btn btn-primary btn-outline">
                                                                             </div>
-                                                                            <div class="form-group">
-                                                                                <label class="control-label">Asesor 1</label>
-                                                                                <input id="input-1" type="file" class ="btn btn-primary btn-outline">
-                                                                            </div>
-
                                                                         </div>
+                                                                        <?php } ?>
                                                                     </div>
                                                                     <div class="row">
 
                                                                         <div class="col-lg-offset-8">
                                                                             <div class="form-group">
-                                                                                <input id="input-1" type="button" class="btn btn-primary" value="Guardar Archivo">
-                                                                                <input id="input-1" type="button" class="btn btn-primary" value="Registro de Archivos">
+                                                                                <input id="input-1" type="button" class="btn btn-primary btn-outline" value="Guardar Archivo" onclick="funcionalidad/CargarArchivoBlobTFG.php">
+                                                                                <input id="input-1" type="button" class="btn btn-success" value="Registro de Archivos">
                                                                             </div>
 
                                                                         </div>
@@ -705,6 +719,7 @@ and open the template in the editor.
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                                                 <?php } ?>
                                                         <!-- fin archivos -->
 
                                                         <!-- comentarios -->
