@@ -1,8 +1,12 @@
 <!DOCTYPE html>
+<?php 
+    @session_start();
+    @session_destroy();
+?>
 <html>
 
 <head>
-
+    
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -29,7 +33,6 @@
             <p>
                 
             </p>
-            
             <form class="m-t" role="form" action="funcionalidad/loginFuncionalidad.php" method="POST">
                 <div class="form-group">
                     <input type="text" class="form-control" placeholder="Cédula de Identidad" name="id" required="">

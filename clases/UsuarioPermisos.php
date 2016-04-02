@@ -83,7 +83,7 @@ class UsuarioPermisos {
         return $this->investigador;
     }
 
-    function getCoordinadorinvestigacion() {
+    function getCoordinadorInvestigacion() {
         return $this->coordinadorinvestigacion;
     }
 
