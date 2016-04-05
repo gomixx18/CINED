@@ -6,6 +6,9 @@ include 'clases/UsuarioPermisos.php';
 include 'clases/UsuarioInvestigadorSimple.php';
 include 'clases/UsuarioInvestigadorComplejo.php';
 @session_start();
+if(!isset($_SESSION['user'])){
+    header("Location: login.php");
+}
 $usuarioSesion = $_SESSION["user"];
 $usuarioPermisos = $_SESSION['permisos'];
 ?>

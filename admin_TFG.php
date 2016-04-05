@@ -1,4 +1,8 @@
 <!DOCTYPE html>
+
+<?php 
+
+?>
 <html>
 
     <head>
@@ -83,14 +87,15 @@
                                                     <th>Acción</th>
                                                 </tr>
                                             </thead>
-                                            
+                                            <?php if($usuarioPermisos->getEncargadotfg() || $usuarioPermisos->getCoordinadorinvestigacion()){?>
                                             <row>
                                                 <div class="form-group">
                                                     Busqueda por identificación de estudiante
-                                                    <input id="estudiante" name="estudiante" type="text" >
-                                                    <input id="btnestudiante" name="btnestudiante" type="button" value="Buscar" >
+                                                    <input id="estudiante" style="height: 30px" name="estudiante" type="text" >
+                                                    <input id="btnestudiante" class="btn btn-primary" name="btnestudiante" type="button" value="Buscar" >
                                                 </div>
                                             </row>
+                                            <?php } ?>
                                             <tbody>
 
                                                 
@@ -101,14 +106,24 @@
                                                 if (!$connection) {
                                                     exit("<label class='error'>Error de conexión</label>");
                                                 }
-
-                                                $query = mysqli_query($connection, "SELECT tfg.codigo, tfg.titulo, lineasinvestigacion.nombre as lineainvestigacion, 
+                                                if($usuarioPermisos->getEncargadotfg() || $usuarioPermisos->getCoordinadorinvestigacion()){
+                                                    $query = mysqli_query($connection, "SELECT tfg.codigo, tfg.titulo, lineasinvestigacion.nombre as lineainvestigacion, 
                                                                                     carreras.nombre as carrera, tfg.estado, modalidades.nombre as modalidad
                                                                                     FROM tfg, lineasinvestigacion, carreras, modalidades
                                                                                     where tfg.lineainvestigacion = lineasinvestigacion.codigo and
                                                                                     tfg.carrera = carreras.codigo and tfg.modalidad = modalidades.codigo");
-
-
+                                                }else{
+                                                    if($usuarioPermisos->getEstudiante()){
+                                                     $query = mysqli_query($connection,"SELECT tfg.codigo, tfg.titulo, lineasinvestigacion.nombre as lineainvestigacion, 
+                                                                                    carreras.nombre as carrera, tfg.estado, modalidades.nombre as modalidad
+                                                                                    FROM tfg, lineasinvestigacion, carreras, modalidades, tfgrealizan, tfgestudiantes
+                                                                                    where tfg.lineainvestigacion = lineasinvestigacion.codigo and
+                                                                                    tfg.carrera = carreras.codigo and tfg.modalidad = modalidades.codigo and tfg.codigo = tfgrealizan.tfg and tfgestudiantes.id = tfgrealizan.estudiante and tfgrealizan.estudiante =".$usuarioSesion->getID());
+                                                    }
+//                                                    if($usuarioPermisos->getDirector()){
+//                                                        
+//                                                    }
+                                                }
                                                 while ($data = mysqli_fetch_assoc($query)) {
                                                     echo "<tr>";
                                                     echo "<td>" . $data["codigo"] . "</td>";
@@ -127,8 +142,9 @@
                                                                  id = '" . $data["codigo"] . "' > Consultar</button></td> ";
                                                     echo "</tr>";
                                                     echo "</form>";
-                                                }
-
+                                                    }
+                                                
+                                             
                                                 mysqli_close($connection);
                                                 ?>    
 
