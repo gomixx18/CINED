@@ -32,7 +32,7 @@ class UsuarioPermisos {
             $directortfg, $miembocomisiontfg, $investigador, $coordinadorinvestigacion, $evaluador, $miembrocomiex) {
 
         $this->id = $id;
-        $this->passworod = $password;
+        $this->password = $password;
         $this->estudiante = $estudiante;
         $this->encargadotfg = $encargadotfg;
         $this->asesortfg = $asesortfg;
@@ -75,7 +75,7 @@ class UsuarioPermisos {
         return $this->directortfg;
     }
 
-    function getMiembocomisiontfg() {
+    function getMiembrocomisiontfg() {
         return $this->miembrocomisiontfg;
     }
 

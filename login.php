@@ -1,4 +1,13 @@
 <!DOCTYPE html>
+
+
+<?php 
+session_start();
+
+if(isset($_SESSION['permisos'])){
+    session_destroy();  
+}
+?>
 <html>
 
 <head>
