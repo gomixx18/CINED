@@ -11,77 +11,55 @@ include 'elements.php';
     <head>
         <title>Cambio de Contraseña</title>
         <meta charset="UTF-8">
-         <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
-        <script src="js/bootstrap.js" type="text/javascript"></script>
-        <link rel="stylesheet" href="css/bootstrap.min.css">
-        <link href="css/mycss.css" rel="stylesheet" type="text/css"/>
-        <link href='https://fonts.googleapis.com/css?family=Montserrat:700' rel='stylesheet' type='text/css'>
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
+        <script src="js/jquery-2.1.1.js"></script>
+        <link href="css/animate.css" rel="stylesheet">
+        <link href="css/style.css" rel="stylesheet">
     </head>
-    <body>
-        <body>
+    
+    <body class="gray-bg">
         <?php
-         $userGet = $_GET['usuario'];
-         $flag = $_GET['resultado'];
-        
+        $userGet = $_GET['usuario'];
+        $flag = $_GET['resultado'];
         ?>
-        <script>
-            function validar() {
-                alert('voy a validar');
-                var bandera = true;
-                newP = document.getElementById("newP").value;
-                cedula = document.getElementById("ced").value;
-              
-                alert(cedula);
-             
-               // alert(bandera);
-                //return bandera;
-            }
- 
-        </script>
-        <div class="wrapper">
- 
-            <div id="container">
-                <div class="panel panel-default" id="panel1">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Cambiar Contraseña</h3>
-                    </div>
-                    <div class="panel-body">
-                        <fieldset id="formularioAddUser">                     
-                            <form method="POST" action="funcionalidad/cambioContrasena.php" class="form-horizontal" onsubmit="return validar()">
- 
-                                <input type="hidden" id="ced" name="userGet" value="<?= $userGet ?>" >
-                                
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">Contraseña Anterior</label>
-                                    <div class="col-sm-6">
-                                        <input type="password" class="form-control" id="oldP" name="oldP" placeholder="Old Password">
+
+        <div class="passwordBox animated fadeInDown">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="ibox-content">
+
+                        <h2 class="font-bold">Cambiar Contraseña</h2>
+
+                        <div class="row">
+                            <div class="col-lg-14">
+                                <form method="POST" action="funcionalidad/cambioContrasena.php" class="form-horizontal" onsubmit="return validar()">
+
+                                    <input type="hidden" id="ced" name="userGet" value="<?= $userGet ?>" >
+
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label">Contraseña Anterior</label>
+                                        <div class="col-sm-6">
+                                            <input type="password" class="form-control" id="oldP" name="oldP" placeholder="">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">Contraseña Nueva</label>
-                                    <div class="col-sm-6">
-                                        <input type="password" class="form-control" id="newP" name="newP" placeholder="New Password">
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label">Contraseña Nueva</label>
+                                        <div class="col-sm-6">
+                                            <input type="password" class="form-control" id="newP" name="newP" placeholder="">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-sm-offset-2 col-sm-10">
-                                        <button type="submit" name="modifyPass" class="btn btn-default">Guardar</button>
- 
-                                    </div>
-                                </div>
-                               
-                            </form>
-                        </fieldset>
+                                    <button type="submit" name="modifyPass" class="btn btn-primary center-block">Guardar</button>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-<?php
-footer();
-?>
- 
- 
- 
- 
+
+
+
+
+
     </body>
 </html>

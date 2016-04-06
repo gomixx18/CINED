@@ -13,6 +13,7 @@ if (isset($_POST["modifyPass"])) {
     if ($connection) {
         $sentencia = "UPDATE usuarios SET password= '" . $newPass . "' WHERE id= '" . $userID . "'"
                 . "AND password='" . $oldPass . "'";
+        //cambiar en otras tablas
 
         $resultado = mysqli_query($connection, $sentencia);
         mysqli_close($connection);

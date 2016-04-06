@@ -21,7 +21,7 @@ if ($connection) {
             $resultadoEspecifico = mysqli_query($connection, $sentenciaSQLespecifica);
             $row = mysqli_fetch_assoc($resultadoEspecifico);
             $correo = $row['correo'];
-            newUserMail($id, $pass, $correo);
+            $newUserMail($id, $pass, $correo);
         }
         if ($usuario['asesortfg']) {
             $sentenciaSQLespecifica = "SELECT correo FROM tfgasesores where id= " . $id;
