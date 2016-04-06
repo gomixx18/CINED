@@ -102,7 +102,11 @@
                                                     exit("<label class='error'>Error de conexión</label>");
                                                 }
 
-                                                $query = mysqli_query($connection, "SELECT * FROM tfg");
+                                                $query = mysqli_query($connection, "SELECT tfg.codigo, tfg.titulo, lineasinvestigacion.nombre as lineainvestigacion, 
+                                                                                    carreras.nombre as carrera, tfg.estado, modalidades.nombre as modalidad
+                                                                                    FROM tfg, lineasinvestigacion, carreras, modalidades
+                                                                                    where tfg.lineainvestigacion = lineasinvestigacion.codigo and
+                                                                                    tfg.carrera = carreras.codigo and tfg.modalidad = modalidades.codigo");
 
 
                                                 while ($data = mysqli_fetch_assoc($query)) {

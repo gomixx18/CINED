@@ -7,6 +7,7 @@ include 'clases/UsuarioInvestigadorSimple.php';
 include 'clases/UsuarioInvestigadorComplejo.php';
 @session_start();
 $usuarioSesion = $_SESSION["user"];
+$usuarioPermisos = $_SESSION['permisos'];
 ?>
 
 <nav class="navbar-default navbar-static-side" role="navigation">
@@ -36,9 +37,13 @@ $usuarioSesion = $_SESSION["user"];
                             </div>
                         </li>
                         <li>
-                            <a href="index.html"><i class="fa fa-fw fa-book"></i> <span class="nav-label">TFG</span> <span class="fa arrow"></span></a>
+                              <?php if($usuarioPermisos->getEncargadotfg() || $usuarioPermisos->getCoordinadorinvestigacion() || $usuarioPermisos->getEstudiante()||
+                                             $usuarioPermisos->getDirectortfg()|| $usuarioPermisos->getAsesortfg() || $usuarioPermisos->getMiembrocomisiontfg()){ ?>
+                            <a href="index.php"><i class="fa fa-fw fa-book"></i> <span class="nav-label">TFG</span> <span class="fa arrow"></span></a>
                             <ul id="tfg_principal" class="nav nav-second-level collapse">
+                                 <?php if($usuarioPermisos->getEncargadotfg() || $usuarioPermisos->getCoordinadorinvestigacion()){?>
                                 <li>
+                                  
                                     <a href="javascript:;" data-toggle="collapse" data-target="#tfg_admin"> Administración de Usuarios<i class="fa fa-fw fa-caret-down"></i></a>                                  
                                     <ul id="tfg_admin" class="nav nav-third-level collapse">
                                         <li>
@@ -57,20 +62,32 @@ $usuarioSesion = $_SESSION["user"];
                                             <a href="admin_comisionTFG.php">Miembros de Comisión de TFG</a>
                                         </li>
                                     </ul>
+                                            
                                 </li>
-
+                                 <?php }?>
+                               
+                                <?php if($usuarioPermisos->getEncargadotfg() || $usuarioPermisos->getCoordinadorinvestigacion() || $usuarioPermisos->getEstudiante() ||
+                                        $usuarioPermisos->getAsesortfg()|| $usuarioPermisos->getDirectortfg()||$usuarioPermisos->getMiembrocomisiontfg()){ ?>     
                                 <li>
                                     <a href="admin_TFG.php">Administración de TFG</a>
                                 </li>
+                                <?php } ?>
+                                <?php if($usuarioPermisos->getEncargadotfg() || $usuarioPermisos->getCoordinadorinvestigacion()) {?>
                                 <li>
                                     <a href="admin_Modalidad.php" > Modalidades </a>
 
                                 </li>
+                                <?php }?>
                             </ul>
+                             
+                            <?php } ?>
                         <li>
+                            <?php if($usuarioPermisos->getEncargadotfg() || $usuarioPermisos->getCoordinadorinvestigacion() || $usuarioPermisos->getInvestigador()||
+                                             $usuarioPermisos->getEvaluador()|| $usuarioPermisos->getMiembrocomiex()){ ?>
                             <a href="index.html"><i class="fa fa-fw fa-book"></i> <span class="nav-label">Proyectos de Investigación</span> <span class="fa arrow"></span></a>
                             <ul id="inv_principal" class="nav nav-second-level collapse">
                                 <li>
+                                    <?php if($usuarioPermisos->getEncargadotfg() || $usuarioPermisos->getCoordinadorinvestigacion()){ ?>
                                     <a href="javascript:;" data-toggle="collapse" data-target="#inv_admin"> Administración de Usuarios<i class="fa fa-fw fa-caret-down"></i></a>                                  
                                     <ul id="inv_admin" class="nav nav-third-level collapse">
                                         <li>
@@ -88,17 +105,23 @@ $usuarioSesion = $_SESSION["user"];
                                         </li>
 
                                     </ul>
+                                    <?php } ?>
                                 </li>
+                                
                                 <li>
                                     <a href="admin_Investigacion.php">Administración de Proyectos de Investigación</a>
                                 </li>
 
                             </ul>
+                            <?php }?>
                         </li>
                         <li>
+                               <?php if($usuarioPermisos->getEncargadotfg() || $usuarioPermisos->getCoordinadorinvestigacion() || $usuarioPermisos->getInvestigador()||
+                                             $usuarioPermisos->getEvaluador()|| $usuarioPermisos->getMiembrocomiex()){ ?>
                             <a href="index.html"><i class="fa fa-fw fa-book"></i> <span class="nav-label">Proyectos de Extensión</span> <span class="fa arrow"></span></a>
                             <ul id="ext_principal" class="nav nav-second-level collapse">
                                 <li>
+                                     <?php if($usuarioPermisos->getEncargadotfg() || $usuarioPermisos->getCoordinadorinvestigacion()){ ?>
                                     <a href="javascript:;" data-toggle="collapse" data-target="#ext_admin"> Administración de Usuarios<i class="fa fa-fw fa-caret-down"></i></a>                                  
                                     <ul id="ext_admin" class="nav nav-third-level collapse">
                                         <li>
@@ -116,13 +139,16 @@ $usuarioSesion = $_SESSION["user"];
                                         </li>
 
                                     </ul>
+                                     <?php }?>
                                 </li>
                                 <li>
                                     <a href="admin_Extension.php">Administración de Proyectos de Extensión</a>
                                 </li>
                             </ul>
+                             <?php } ?>
                         </li>
                         <li>
+                            <?php if($usuarioPermisos->getEncargadotfg() || $usuarioPermisos->getCoordinadorinvestigacion()){ ?>
                             <a href="index.html"><i class="fa fa-fw fa-list"></i> <span class="nav-label">General</span> <span class="fa arrow"></span></a>
                             <ul id="ext_principal" class="nav nav-second-level collapse">
                                 <li>
@@ -135,8 +161,11 @@ $usuarioSesion = $_SESSION["user"];
                                 </li>
                                 
                             </ul>
+                            <?php } ?>
                         </li>
                         <li>
+                           <?php if($usuarioPermisos->getEncargadotfg() || $usuarioPermisos->getCoordinadorinvestigacion() || $usuarioPermisos->getMiembrocomiex()||
+                               $usuarioPermisos->getDirectortfg()|| $usuarioPermisos->getAsesortfg() || $usuarioPermisos->getMiembrocomisiontfg()|| $usuarioPermisos->getEvaluador()) {?>
                             <a href="index.html"><i class="fa fa-fw fa-list-alt"></i> <span class="nav-label">Reportes</span> <span class="fa arrow"></span></a>
                            <ul id="reportes" class="nav nav-second-level collapse">
                                 <li>
@@ -149,7 +178,8 @@ $usuarioSesion = $_SESSION["user"];
                                     <a href="ReportesExtension.php">Proyectos de Extensión</a>
                                 </li>
                             </ul>
+                            <?php } ?>
                         </li>
-                            </div>
-                            </nav>
+                        </div>
+                        </nav>
 

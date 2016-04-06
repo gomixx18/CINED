@@ -33,7 +33,7 @@
                                 <strong>Consulta de Investigación</strong>
                             </li>
                             <li>
-                                <a href="agregar_proyecto_investigacion.php">Registrar Proyecto de Investigación</a>
+                                <a  href="agregar_proyecto_investigacion.php">Registrar Proyecto de Investigación</a>
                             </li>
 
                         </ol>
@@ -69,6 +69,7 @@
                                 <div class="ibox-content">
 
                                     <div class="table-responsive">
+                                        <div id="divTabla">
                                         <table class="table table-striped table-bordered table-hover dataTables-example" >
                                             <thead>
                                                 <tr>
@@ -76,19 +77,60 @@
                                                     <th>Título</th>
                                                     <th>Carrera</th>
                                                     <th>Línea de Investigación</th>
+                                                    <th>Catedra</th>
+                                                    <th>Estado</th>
                                                     <th>Acción</th>
                                                     <th>Acción</th>
                                                 </tr>
                                             </thead>
+                                            
+                                            <row>
+                                                <div class="form-group">
+                                                    Busqueda por identificación de docente
+                                                    <input id="docente" name="docente" type="text" >
+                                                    <input id="btndocente" name="btndocente" type="button" value="Buscar" >
+                                                </div>
+                                            </row>
                                             <tbody>
-                                                <tr class="gradeX">
-                                                    <td>1</td>
-                                                    <td>Título</td>
-                                                    <td>Carrera </td>
-                                                    <td>Línea de Investigación 1 </td>
-                                                    <td><button class="btn btn-primary"> Modificar </button></td>
-                                                    <td><a href="consulta_Investigacion.php"><button class="btn btn-primary"> Consultar </button></a></td>
-                                                </tr>
+                                                
+                                                <?php
+                                                $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
+                                                if (!$connection) {
+                                                    exit("<label class='error'>Error de conexión</label>");
+                                                }
+
+                                                $query = mysqli_query($connection, "SELECT ieproyectos.codigo, ieproyectos.titulo, ieproyectos.estado, 
+                                                                                    lineasinvestigacion.nombre as lineainvestigacion, 
+                                                                                    carreras.nombre as carrera, catedras.nombre as catedra, ieproyectos.isExtension
+                                                                                    FROM ieproyectos, lineasinvestigacion, carreras, catedras
+                                                                                    where ieproyectos.lineainvestigacion = lineasinvestigacion.codigo and
+                                                                                    ieproyectos.carrera = carreras.codigo and ieproyectos.catedra = catedras.codigo
+                                                                                    and ieproyectos.isExtension = 0");
+
+                                                if($query){
+                                                while ($data = mysqli_fetch_assoc($query)) {
+                                                    echo "<tr>";
+                                                    echo "<td>" . $data["codigo"] . "</td>";
+                                                    echo "<td>" . $data["titulo"] . "</td>";
+                                                    echo "<td>" . $data["carrera"] . "</td>";
+                                                    echo "<td>" . $data["lineainvestigacion"] . "</td>";
+                                                    echo "<td>" . $data["catedra"] . "</td>";
+                                                    echo "<td>" . $data["estado"] . "</td>";
+                                                    echo "<td>" . "<button type='submit' data-toggle='modal' class='btn btn-primary'
+                                                                 id = '" . $data["codigo"] . "' > Modificar</button></td> ";
+
+
+                                                    echo "<form method= 'GET' action = 'consulta_TFG.php'>";
+                                                    echo "<input type='hidden' name='codigo' value= '" . $data["codigo"] . "'/> ";
+                                                    echo "<td>" . "<button type='submit' data-toggle='modal' class='btn btn-primary'
+                                                                 id = '" . $data["codigo"] . "' > Consultar</button></td> ";
+                                                    echo "</tr>";
+                                                    echo "</form>";
+                                                }
+                                                }
+
+                                                mysqli_close($connection);
+                                                ?>   
 
                                             </tbody>
                                             <tfoot>
@@ -97,11 +139,14 @@
                                                     <th>Título</th>
                                                     <th>Carrera</th>
                                                     <th>Línea de Investigación</th>
-                                                    <th>Acción</th> 
-                                                    <th>Acción</th> 
+                                                    <th>Catedra</th>
+                                                    <th>Estado</th>
+                                                    <th>Acción</th>
+                                                    <th>Acción</th>
                                                 </tr>
                                             </tfoot>
                                         </table>
+                                        </div>
                                     </div>
 
                                 </div>
@@ -110,7 +155,7 @@
                     </div>
 
                     <div class="col-md-10"></div>
-                    <a data-toggle="modal" class="btn btn-primary" href="#modal-form">Registrar Proyecto de Investigación</a>
+                    <a class="btn btn-primary" href="agregar_proyecto_investigacion.php">Registrar Proyecto de Investigación</a>
 
                 </div>
 
@@ -185,21 +230,38 @@
                     "New row",
                     "New row",
                     "New row"
-                    ]);
+                ]);
 
             }
+        </script>
+        
+        </script>
+	<script >
+
+
+            $(document).ready(function () {
+
+                $("#btndocente").click(function (evento) {
+                    evento.preventDefault();
+                    var val = $("#docente").val();
+                    $("#divTabla").load("tablas/tablaInvestigacion.php", {docente: val}, function () {
+
+                        
+                    });
+                });
+            });
         </script>
         <div id="modal-form" class="modal fade" aria-hidden="true" style="display: none;">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-body">
                         <div class="row">
-                            <div class=""><h3 class="m-t-none m-b"> <i class="fa fa-plus-square-o"></i> Agregar Proyecto de Investigación</h3>
-                                <form role="form" id="frm_agregar_investigacion">
+                            <div class=""><h3 class="m-t-none m-b"> <i class="fa fa-plus-square-o"></i> Agregar Proyecto de Extensión</h3>
+                                <form role="form" id="frm_agregar_extension">
                                     <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Título</label></i> <input required type="text" placeholder="Título" class="form-control"></div>
                                     <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Carrera</label> </i> <input required type="text" placeholder="Carrera" class="form-control"></div>
                                     <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Línea de Investigación</label></i> <input required type="text" placeholder="Línea de Investigación" class="form-control"></div>
-                                    
+
                                     <div>
                                         <label class=""> <i class="fa fa-exclamation-circle"> Rellene los datos obligatorios.</i></label><br> 
                                         <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"><strong>Registar</strong></button>

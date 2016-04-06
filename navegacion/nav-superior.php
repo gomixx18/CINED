@@ -22,7 +22,7 @@ $usuarioSesion = $_SESSION["user"];
 
 
             <li>
-                <a href="logout.php">
+                <a href="login.php">
                     <i class="fa fa-sign-out"></i> Cerrar Sesión
                 </a>
             </li>

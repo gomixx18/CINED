@@ -19,10 +19,10 @@ $fechaInicio = $fechaArrayInicio[2] . "-" . $fechaArrayInicio[1] . "-" . $fechaA
 $fechaArrayFinal = explode('/', trim($fechaArray[1]));
 $fechaFinal = $fechaArrayFinal[2] . "-" . $fechaArrayFinal[1] . "-" . $fechaArrayFinal[0];
 
-$arrayEstudiantes = array();
+$arrayDocentes = array();
 for ($i = 1; $i < 7; $i++) {
     if (isset($_POST["nameEstudiante" . $i])) {
-        array_push($arrayEstudiantes, $_POST["nameEstudiante" . $i]);
+        array_push($arrayDocentes, $_POST["nameEstudiante" . $i]);
     }
 }
 
@@ -49,17 +49,17 @@ if ($connection) {
     }
     $resultadoCambioConsecutivo = mysqli_query($connection, $sqlcambioConsecutivo); 
 
-    $sqlTFG = "INSERT INTO tfg (codigo, titulo, directortfg, encargadotfg, lineainvestigacion, carrera, estado, modalidad, fechaInicio, fechaFinal) VALUES ('" . $codigo . "', '" . $titulo . "', '" . $director . "', '" . $encargado . "', '" . $lineaInvestigacion . "', '" . $carrera . "', 'Activo', '" . $modalidad . "', '" . $fechaInicio . "', '" . $fechaFinal . "')";
-    $resultadoTFG = mysqli_query($connection, $sqlTFG); // ingresar TFG
+    $sqExtension = "INSERT INTO tfg (codigo, titulo, directortfg, encargadotfg, lineainvestigacion, carrera, estado, modalidad, fechaInicio, fechaFinal) VALUES ('" . $codigo . "', '" . $titulo . "', '" . $director . "', '" . $encargado . "', '" . $lineaInvestigacion . "', '" . $carrera . "', 'Activo', '" . $modalidad . "', '" . $fechaInicio . "', '" . $fechaFinal . "')";
+    $resultadoTFG = mysqli_query($connection, $sqExtension); // ingresar TFG
 
 
     
 
     // insertar estudiantes
     
-    foreach ($arrayEstudiantes as $estudiante){
-        $sqlEstudiantes= "INSERT INTO tfgrealizan (estudiante, tfg) VALUES ('".$estudiante."', '".$codigo."')";
-        $resultadoEstudiantes = mysqli_query($connection, $sqlEstudiantes);
+    foreach ($arrayDocentes as $docente){
+        $sqlDocentes= "INSERT INTO tfgrealizan (estudiante, tfg) VALUES ('".$docente."', '".$codigo."')";
+        $resultadoDocentes = mysqli_query($connection, $sqlDocentes);
     }
 
     
@@ -73,8 +73,8 @@ if ($connection) {
      }
      
     // ligar asesores
-    $sqlAsesor1 = "INSERT INTO tfgasesoran (asesor, tfg) VALUES ('".$asesor1."', '".$codigo."')";
-    $resultadoAsesor1 = mysqli_query($connection, $sqlAsesor1);
+    $sqlEvaluador1 = "INSERT INTO tfgasesoran (asesor, tfg) VALUES ('".$asesor1."', '".$codigo."')";
+    $resultadoAsesor1 = mysqli_query($connection, $sqlEvaluador1);
     
     if($asesor2 != "ninguno" && $asesor1 != $asesor2){
         $sqlAsesor2 = "INSERT INTO tfgasesoran (asesor, tfg) VALUES ('".$asesor2."', '".$codigo."')";
@@ -82,7 +82,7 @@ if ($connection) {
     }
     
     //crear etapas probar                       
-    $sqlEtapas1 = "INSERT INTO tfgetapas (numero, estado, tfg) VALUES (1, 'En ejecución', '".$codigo."')";
+    $sqlEtapas1 = "INSERT INTO tfgetapas (numero, estado, tfg) VALUES (1, 'En ejecuci&oacuten', '".$codigo."')";
     $resultadoEtapas1 = mysqli_query($connection, $sqlEtapas1);
     $sqlEtapas2 = "INSERT INTO tfgetapas (numero, estado, tfg) VALUES (2, 'Inactiva', '".$codigo."')";
     $resultadoEtapas2 = mysqli_query($connection, $sqlEtapas2);
