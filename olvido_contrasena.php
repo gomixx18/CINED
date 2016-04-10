@@ -24,7 +24,7 @@
                     var cedula = $("#cedula").val();
                     var err = $("#result");
                    
-                    err = err.fadeOut();
+                    err = err.hide();
                     $('*').css('cursor','progress');
                     $.ajax({
                         url: "funcionalidad/recuperarContrasena.php",

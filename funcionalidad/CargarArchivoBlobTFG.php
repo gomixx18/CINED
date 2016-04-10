@@ -14,7 +14,10 @@ $blob_name = "files/".$nombre_archivo;
 
 try {
     //Upload blob
-    $blobRestProxy->createBlockBlob("421",$blob_name, $content);
+    $blobRestProxy->createBlockBlob("tfg",$blob_name, $content);
+    @session_start();
+     $_SESSION["error"] = "¡Se Cargo Correctamente el archivo!";
+    header("Location: ../navegacion/500.php");
 }
 catch(ServiceException $e){
    /* $code = $e->getCode();

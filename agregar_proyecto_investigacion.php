@@ -37,14 +37,14 @@
          <?php require 'navegacion/nav-superior.php' ?>
              <div class="row wrapper border-bottom white-bg page-heading">
                     <div class="col-lg-10">
-                        <h2>Administración de Proyectos de investigación</h2>
+                        <h2>Administración de Proyectos de Investigación</h2>
                         <ol class="breadcrumb">
 
                             <li class="active">
-                                <strong>Registrar Proyecto de investigación</strong>
+                                <strong>Registrar Proyecto de Investigación</strong>
                             </li>
                             <li>
-                                <a href="admin_Investigacion.php">Consultar Proyectos de investigación</a>
+                                <a href="admin_Investigacion.php">Consultar Proyectos de Investigación</a>
                             </li>
 
                         </ol>
@@ -104,11 +104,11 @@
                                     <h2>Agregar Investigadores</h2>
                                     <div class="row">
                                          
-                                        <div class="col-lg-6" id="investidadores">
+                                        <div class="col-lg-6" id="investigadores">
                                             <div class="form-group">
                                                 <label for='btnAgregar'>Cédula Investigador:</label>
-                                                <input id="idInvest" name="inputInvest" type="text" class="form-control input-sm m-b-xs required" placeholder='cédula investidador'>
-                                                <button  class="btn btn-primary btn-rounded" onclick='agregarInvest(this)' type="button" placeholder='agregar'>Agregar Nuevo Investigador</button>
+                                                <input id="idInvest" name="inputInvest" type="text" class="form-control input-sm m-b-xs required" placeholder=''>
+                                                <button  class="btn btn-primary btn-rounded" onclick='agregarInvest(this)' type="button" placeholder='Agregar'>Agregar Nuevo Investigador</button>
 
                                             </div>
                                         </div>

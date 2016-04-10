@@ -28,7 +28,7 @@
            
              <div class="panel panel-danger animated tada">
                 <div class="panel-heading">
-                    ERROR INTERNO
+                    AVISO
                 </div>
                 <div class="panel-body">
                     <p>
