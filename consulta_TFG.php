@@ -49,38 +49,56 @@ and open the template in the editor.
                                         <a class="collapse-link">
                                             <i class="fa fa-chevron-up"></i>
                                         </a>
-                                       
+
                                     </div>
                                 </div>
                                 <div class="ibox-content">
 
-                                    <!--aca lo de adentro del panel mas grande -->
+                                    <?php
+                                    $codigo = $_GET["codigo"];
+                                    $consulta = "select tfg.titulo, concat(tfgdirectores.nombre,' ',tfgdirectores.apellido1,' ',tfgdirectores.apellido2)as directortfg, 
+                                                concat(tfgencargados.nombre,' ',tfgencargados.apellido1,' ',tfgencargados.apellido2) as encargadotfg,
+                                                lineasinvestigacion.nombre as lineainvestigacion, carreras.nombre as carrera, modalidades.nombre as modalidad, tfg.estado
+                                                from tfgdirectores, tfg, tfgencargados,lineasinvestigacion,carreras,modalidades 
+                                                where tfgdirectores.id = directortfg and tfgencargados.id = encargadotfg and 
+                                                lineasinvestigacion.codigo = lineainvestigacion and carreras.codigo = carrera and modalidades.codigo = modalidad
+                                                and tfg.codigo ='". $codigo. "'";
 
-                                    <!--primera informacion -->
+                                    $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
+                                    if (!$connection) {
+                                        exit("<label class='error'>Error de conexión</label>");
+                                    }
+
+                                    $query = mysqli_query($connection, $consulta );
+                                    $data = mysqli_fetch_assoc($query);
+                                    etapas($codigo, $connection);
+                                    //echo $data["estado"];
+                                    ?> 
+
                                     <div class="row">
                                         <div class="col-lg-4 col-lg-offset-1">
 
                                             <form role="form" >
 
-                                                <div class="form-group">
+
+                                                <div class='form-group'>
                                                     <label>Titulo</label>
-                                                    <input class="form-control" name="titulo" id="titulo" disabled>
-
+                                                    <input class = 'form-control' name = 'titulo' id = 'titulo' value ='<?php echo $data["titulo"] ?>' disabled>
                                                 </div>
 
-                                                <div class="form-group">
+                                                <div class='form-group'>
                                                     <label>Carrera</label>
-                                                    <input class="form-control" placeholder="" name="carrera" id="carrera" disabled>
+                                                    <input class = 'form-control' name = 'carrera' id = 'carrera' value ='<?php echo $data["carrera"] ?>' disabled>
                                                 </div>
 
-                                                <div class="form-group">
+                                                <div class='form-group'>
                                                     <label>Modalidad</label>
-                                                    <input class="form-control" placeholder="" name="papellido" id="papellido" disabled>
+                                                    <input class = 'form-control' name = 'modalidad' id = 'modalidad' value ='<?php echo $data["modalidad"] ?>' disabled>
                                                 </div>
-                                                
-                                                <div class="form-group">
+
+                                                <div class='form-group'>
                                                     <label>Director de TFG</label>
-                                                    <input class="form-control" placeholder="" name="papellido" id="papellido" disabled>
+                                                    <input class = 'form-control' name = 'director' id = 'director' value ='<?php echo $data["directortfg"] ?>' disabled>
                                                 </div>
 
 
@@ -94,18 +112,13 @@ and open the template in the editor.
 
                                                 <div class="form-group">
                                                     <label>Encargado de TFG</label>
-                                                    <input class="form-control" name="titulo" id="titulo" disabled>
+                                                    <input class="form-control" name="Encargado" id="encargado" value= '<?php echo $data["encargadotfg"] ?>' disabled>
 
                                                 </div>
 
-                                                <div class="form-group">
-                                                    <label>Catedra</label>
-                                                    <input class="form-control" placeholder="" name="carrera" id="carrera" disabled>
-                                                </div>
-                                                
                                                 <div class="form-group">
                                                     <label>Linea de Investigación</label>
-                                                    <input class="form-control" placeholder="" name="carrera" id="carrera" disabled>
+                                                    <input class="form-control" placeholder="" name="linea" id="linea" value='<?php echo $data["lineainvestigacion"] ?>' disabled>
                                                 </div>
                                             </form>
 
@@ -120,276 +133,234 @@ and open the template in the editor.
                                             <div class="panel panel-default">
                                                 <div class="panel-body">
 
-
-                                                    <label>Investigadores</label>
+                                                    <label>Estudiantes</label>
                                                     <br/>
                                                     <br/>
+                                                    <?php
+                                                    $consulta2 = "select tfgestudiantes.id, concat(tfgestudiantes.nombre,' ',  tfgestudiantes.apellido1, ' ', tfgestudiantes.apellido2) as nombre 
+                                                                  from tfg,tfgestudiantes, tfgrealizan where tfg.codigo = tfgrealizan.tfg and tfgrealizan.estudiante = tfgestudiantes.id and tfg.codigo ='". $codigo. "'";
+                                                    $query2 = mysqli_query($connection, $consulta2);
 
-                                                    <div class="row">
-                                                        <div class="col-lg-6 col-lg-offset-1">
-                                                            <label>Nombre: Jose Pablo Villalobos </label>  
+                                                    while ($data2 = mysqli_fetch_assoc($query2)) {
+                                                        echo "<div class='row'>";
+                                                        echo "<div class='col-lg-6 col-lg-offset-1'>";
+                                                        echo "<label>Nombre: " . $data2["nombre"] . "</label>";
+                                                        echo "</div>";
+                                                        echo "<div class='col-lg-5'>";
+                                                        echo "<label>Cedula: " . $data2["id"] . "</label>";
+                                                        echo "</div>";
+                                                        echo "</div>";
+                                                    }
+                                                    ?> 
 
-                                                        </div>
-                                                        <div class="col-lg-5" >
-
-                                                            <label>Cedula: 45345</label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-lg-6 col-lg-offset-1">
-                                                            <label>Nombre: Jose Pablo Villalobos </label>  
-
-                                                        </div>
-                                                        <div class="col-lg-5" >
-
-                                                            <label>Cedula: 45345</label>
-                                                        </div>
-                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <!-- fin estudiantes -->
 
+                                    <?php
+                                    asesores($codigo, $connection);
+                                    ?>
+
 
                                     <!-- etapa 1 -->
-                                    <div class="wrapper wrapper-content animated fadeIn">
+                                    <div  class="wrapper wrapper-content animated fadeIn">
                                         <div class="row">
                                             <div class="col-lg-12">
-                                                <div class="ibox collapsed">
-                                                    <div class="ibox-title panel panel-primary">
+                                                <div  class="ibox collapsed">
+                                                    <div id="panelEstado1" class="ibox-title panel">
                                                         <h5>Etapa #1. Tema</h5>
-                                                        <div class="ibox-tools">
-                                                            <a class="collapse-link">
+                                                        <div id="collapse1" class="ibox-tools">
+                                                            <a id="col1" class="collapse-link">
                                                                 <i class="fa fa-chevron-up"></i>
                                                             </a>
                                                         </div>
-                                                    </div>
-                                                    <div class="ibox-content">
-
-                                                        <!-- archivos -->
-                                                        <div class="col-lg-12">
-                                                            <div class="panel panel-default">
-                                                                <div class="panel-body">
-
-                                                                    <div class="row">
-
-                                                                        <div class="col-lg-12 ">
-                                                                            <label>Archivos</label>
-                                                                            <br/><br/>
-
-                                                                        </div>
-                                                                        <div class="col-lg-5 col-lg-offset-1">
-                                                                            <div class="form-group">
-                                                                                <label class="control-label">Comisión TFG</label>
-                                                                                <input id="input-1" type="file" class ="btn btn-primary btn-outline">
-                                                                            </div>
-                                                                            <div class="form-group">
-                                                                                <label class="control-label">Director TFG</label>
-                                                                                <input id="input-1" type="file" class ="btn btn-primary btn-outline">
-                                                                            </div>
-                                                                            
-                                                                        </div>
-                                                                        <div class="col-lg-5 col-lg-offset-1">
-
-                                                                            <div class="form-group">
-                                                                                <label class="control-label">Asesor 2</label>
-                                                                                <input id="input-1" type="file" class=" btn btn-primary btn-outline">
-                                                                            </div>
-                                                                            <div class="form-group">
-                                                                                <label class="control-label">Asesor 1</label>
-                                                                                <input id="input-1" type="file"  class ="btn btn-primary btn-outline">
-                                                                            </div>
-
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="row">
-
-                                                                        <div class="col-lg-offset-8">
-                                                                            <div class="form-group">
-                                                                                <input id="input-1" type="button" class="btn btn-primary btn-outline" value="Guardar Archivo">
-                                                                                <input id="input-1" type="button" class="btn btn-success" value="Registro de Archivos">
-                                                                            </div>
-
-                                                                        </div>
-                                                                    </div>
-
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <!-- fin archivos -->
-
-                                                        <!-- comentarios -->
-                                                        <div class="col-lg-12">
-                                                            <div class="panel panel-default">
-                                                                <div class="panel-body">
-
-                                                                    <div class="row">
-
-                                                                        <div class="col-lg-12 ">
-                                                                            <label>Comentarios</label>
-                                                                            <br/><br/>
-
-                                                                        </div>
-
-                                                                        <div class="col-lg-4">
-                                                                            <div class="ibox float-e-margins">
-                                                                                <div class="ibox-title">
-                                                                                    <h5>Comision TFG</h5>
-                                                                                    <button id="edit" class="btn btn-primary btn-xs m-l-sm" onclick="edit1()" type="button">Edit</button>
-                                                                                    <button id="save" class="btn btn-primary  btn-xs" onclick="save1()" type="button">Save</button>
-                                                                                    <div class="ibox-tools">
-                                                                                        <a class="collapse-link">
-                                                                                            <i class="fa fa-chevron-up"></i>
-                                                                                        </a>
-                                                                                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                                                                            <i class="fa fa-wrench"></i>
-                                                                                        </a>
-                                                                                       
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="ibox-content no-padding">
-
-                                                                                    <div class="click1edit wrapper p-md">
-
-                                                                                        Escriba aqui su comentario...
-
-                                                                                    </div>
-
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-lg-4">
-                                                                            <div class="ibox float-e-margins">
-                                                                                <div class="ibox-title">
-                                                                                    <h5>Asesor 1</h5>
-                                                                                    <button id="edit" class="btn btn-primary btn-xs m-l-sm" onclick="edit2()" type="button">Edit</button>
-                                                                                    <button id="save" class="btn btn-primary  btn-xs" onclick="save2()" type="button">Save</button>
-                                                                                    <div class="ibox-tools">
-                                                                                        <a class="collapse-link">
-                                                                                            <i class="fa fa-chevron-up"></i>
-                                                                                        </a>
-                                                                                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                                                                            <i class="fa fa-wrench"></i>
-                                                                                        </a>
-                                                                                        <ul class="dropdown-menu dropdown-user">
-                                                                                            <li><a href="#">Config option 1</a>
-                                                                                            </li>
-                                                                                            <li><a href="#">Config option 2</a>
-                                                                                            </li>
-                                                                                        </ul>
-                                                                                        <a class="close-link">
-                                                                                            <i class="fa fa-times"></i>
-                                                                                        </a>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="ibox-content no-padding">
-
-                                                                                    <div class="click2edit wrapper p-md">
-
-                                                                                        Escriba aqui su comentario...
-
-                                                                                    </div>
-
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-lg-4">
-                                                                            <div class="ibox float-e-margins">
-                                                                                <div class="ibox-title">
-                                                                                    <h5>Asesor 2</h5>
-                                                                                    <button id="edit" class="btn btn-primary btn-xs m-l-sm" onclick="edit3()" type="button">Edit</button>
-                                                                                    <button id="save" class="btn btn-primary  btn-xs" onclick="save3()" type="button">Save</button>
-                                                                                    <div class="ibox-tools">
-                                                                                        <a class="collapse-link">
-                                                                                            <i class="fa fa-chevron-up"></i>
-                                                                                        </a>
-                                                                                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                                                                            <i class="fa fa-wrench"></i>
-                                                                                        </a>
-                                                                                        <ul class="dropdown-menu dropdown-user">
-                                                                                            <li><a href="#">Config option 1</a>
-                                                                                            </li>
-                                                                                            <li><a href="#">Config option 2</a>
-                                                                                            </li>
-                                                                                        </ul>
-                                                                                        <a class="close-link">
-                                                                                            <i class="fa fa-times"></i>
-                                                                                        </a>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="ibox-content no-padding">
-
-                                                                                    <div class="click3edit wrapper p-md">
-
-                                                                                        Escriba aqui su comentario...
-
-                                                                                    </div>
-
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
+                                                        <div id="etapa1" class="ibox-content">
+                                                            <!-- etapa 1 -->
+                                                            <!-- archivos -->
+                                                            <div class="col-lg-12">
+                                                                <div class="panel panel-default">
+                                                                    <div class="panel-body">
 
                                                                         <div class="row">
 
-                                                                            <div class="col-lg-3 col-lg-offset-9">
-                                                                                <div class="form-group">
+                                                                            <div class="col-lg-12 ">
+                                                                                <label>Archivos</label>
+                                                                                <br/><br/>
 
-                                                                                    <input id="input-1" type="button" class="btn btn-primary" value="Guardar Comentario">
+                                                                            </div>
+                                                                            <div class="col-lg-5 col-lg-offset-1">
+                                                                                <div class="form-group">
+                                                                                    <label class="control-label">Comisión TFG</label>
+                                                                                    <input id="input-1" type="file" class ="btn btn-primary btn-outline">
+                                                                                </div>
+                                                                                <div class="form-group">
+                                                                                    <label class="control-label">Director TFG</label>
+                                                                                    <input id="input-1" type="file" class ="btn btn-primary btn-outline">
+                                                                                </div>
+
+                                                                            </div>
+                                                                            <div class="col-lg-5 col-lg-offset-1">
+
+                                                                                <div class="form-group">
+                                                                                    <label class="control-label">Asesor 2</label>
+                                                                                    <input id="input-1" type="file" class=" btn btn-primary btn-outline">
+                                                                                </div>
+                                                                                <div class="form-group">
+                                                                                    <label class="control-label">Asesor 1</label>
+                                                                                    <input id="input-1" type="file"  class ="btn btn-primary btn-outline">
+                                                                                </div>
+
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row">
+
+                                                                            <div class="col-lg-offset-8">
+                                                                                <div class="form-group">
+                                                                                    <input id="input-1" type="button" class="btn btn-primary btn-outline" value="Guardar Archivo">
+                                                                                    <input id="input-1" type="button" class="btn btn-primary btn-outline" value="Registro de Archivos">
                                                                                 </div>
 
                                                                             </div>
                                                                         </div>
 
-
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                        <!-- fin comentarios -->
+                                                            <!-- fin archivos -->
 
-                                                        <!-- Estado  -->
+                                                            <!-- comentarios -->
+                                                            <div class="col-lg-12">
+                                                                <div class="panel panel-default">
+                                                                    <div class="panel-body">
 
+                                                                        <div class="row">
 
-                                                        <div class="row">
+                                                                            <div class="col-lg-12 ">
+                                                                                <label>Comentarios</label>
+                                                                                <br/><br/>
 
+                                                                            </div>
 
-                                                            <div class="col-lg-2 col-lg-offset-7">
-                                                                <div class="form-group">
-                                                                    <label class="control-label">Estado de Etapa:</label>
+                                                                            <div class="col-lg-4">
+                                                                                <div class="ibox float-e-margins">
+                                                                                    <div class="ibox-title">
+                                                                                        <h5>Comision TFG</h5>
+
+                                                                                        <button class="btn btn-primary btn-xs m-l-sm" onclick="edit1()" type="button">Edit</button>
+                                                                                        <button id="BM11" etapa="1" comentario="CM11" class="btn btn-primary  btn-xs" onclick="save1()" type="button">Save</button>
+                                                                                        <div class="ibox-tools">
+                                                                                            <a class="collapse-link">
+                                                                                                <i class="fa fa-chevron-up"></i>
+                                                                                            </a>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="ibox-content no-padding">
+                                                                                        <div id="CM11" class="click1edit wrapper p-md">
+                                                                                            <?php
+                                                                                            comentarioMiembro($codigo, 1, $connection);
+                                                                                            ?> 
+
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-lg-4">
+                                                                                <div class="ibox float-e-margins">
+                                                                                    <div class="ibox-title">
+                                                                                        <h5>Asesor 1</h5>
+                                                                                        <button class="btn btn-primary btn-xs m-l-sm" onclick="edit2()" type="button">Edit</button>
+                                                                                        <button id="BA11" etapa="1" comentario="CA11" class="btn btn-primary  btn-xs" onclick="save2()" type="button">Save</button>
+                                                                                        <div class="ibox-tools">
+                                                                                            <a class="collapse-link">
+                                                                                                <i class="fa fa-chevron-up"></i>
+                                                                                            </a>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="ibox-content no-padding">
+
+                                                                                        <div id="CA11" class="click2edit wrapper p-md">
+                                                                                            <?php
+                                                                                            comentarioAsesor($codigo, 1, $asesor1, $connection);
+                                                                                            ?>
+                                                                                        </div>
+
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-lg-4">
+                                                                                <div class="ibox float-e-margins">
+                                                                                    <div class="ibox-title">
+                                                                                        <h5>Asesor 2</h5>
+                                                                                        <button class="btn btn-primary btn-xs m-l-sm" onclick="edit3()" type="button">Edit</button>
+                                                                                        <button id="BA21" etapa="1" comentario="CA21" class="btn btn-primary  btn-xs" onclick="save3()" type="button">Save</button>
+                                                                                        <div class="ibox-tools">
+                                                                                            <a class="collapse-link">
+                                                                                                <i class="fa fa-chevron-up"></i>
+                                                                                            </a>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="ibox-content no-padding">
+
+                                                                                        <div id="CA21" class="click3edit wrapper p-md">
+                                                                                            <?php
+                                                                                            comentarioAsesor($codigo, 1, $asesor2, $connection);
+                                                                                            ?>
+                                                                                        </div>
+
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-lg-2">
-                                                                <div class="form-group">
+                                                            <!-- fin comentarios -->
+
+                                                            <!-- Estado  -->
+                                                            <div class="row">
 
 
-                                                                    <select class="form-control m-b" name="account">
-                                                                        <option>Aprobada</option>
-                                                                        <option>Aprobada con Observaciones</option>
-                                                                        <option>No Aprobada</option>    
-                                                                        <option>En ejecución</option>  
-                                                                    </select> 
-
+                                                                <div class="col-lg-2 col-lg-offset-7">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label">Estado de Etapa:</label>
+                                                                    </div>
                                                                 </div>
-                                                            </div>  
-                                                        </div>
-                                                        <div class="row"> 
-                                                            <div class="col-lg-2 col-lg-offset-9">
-                                                                <div class="form-group">
-                                                                    <input id="input-1" type="button" class="btn btn-primary" value="Guardar Cambios">
+                                                                <div class="col-lg-2">
+                                                                    <div class="form-group">
+
+
+                                                                        <select id="estado1" class="form-control m-b" name="account" onchange="pintandoPanels()">
+                                                                            <option value="Aprobada">Aprobada</option>
+                                                                            <option value="Aprobada con Observaciones">Aprobada con Observaciones</option>
+                                                                            <option value="No Aprobada">No Aprobada</option>    
+                                                                            <option value="En ejecución">En ejecución</option>  
+                                                                            <option value="Inactivo">Inactivo</option>
+                                                                        </select> 
+
+                                                                    </div>
+                                                                </div>  
+                                                            </div>
+                                                            <div class="row"> 
+                                                                <div class="col-lg-2 col-lg-offset-9">
+                                                                    <div class="form-group">
+                                                                        <input id="BE1" estado="estado1" etapa="1" type="button" class="btn btn-primary" value="Guardar Estado">
+                                                                    </div>
                                                                 </div>
                                                             </div>
+                                                            <!-- fin estado -->
+
+
+                                                            <!-- fin etapa 1 -->
                                                         </div>
-
-                                                        <!-- fin estado -->
-
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-
                                     </div>
-
                                     <!-- fin etapa 1 -->
 
                                     <!-- etapa 2 -->
@@ -397,16 +368,15 @@ and open the template in the editor.
                                         <div class="row">
                                             <div class="col-lg-12">
                                                 <div class="ibox collapsed">
-                                                    <div class="ibox-title panel panel-warning">
+                                                    <div id="panelEstado2" class="ibox-title panel ">
                                                         <h5>Etapa #2. Ante Proyecto o Propuesta</h5>
-                                                        <div class="ibox-tools">
-                                                            <a class="collapse-link">
+                                                        <div id="collapse2" class="ibox-tools">
+                                                            <a id="col2" class="collapse-link">
                                                                 <i class="fa fa-chevron-up"></i>
                                                             </a>
                                                         </div>
                                                     </div>
                                                     <div class="ibox-content">
-
                                                         <!-- archivos -->
                                                         <div class="col-lg-12">
                                                             <div class="panel panel-default">
@@ -428,7 +398,7 @@ and open the template in the editor.
                                                                                 <label class="control-label">Director TFG</label>
                                                                                 <input id="input-1" type="file" class ="btn btn-primary btn-outline">
                                                                             </div>
-                                                                            
+
                                                                         </div>
                                                                         <div class="col-lg-5 col-lg-offset-1">
 
@@ -458,7 +428,6 @@ and open the template in the editor.
                                                             </div>
                                                         </div>
                                                         <!-- fin archivos -->
-
                                                         <!-- comentarios -->
                                                         <div class="col-lg-12">
                                                             <div class="panel panel-default">
@@ -476,32 +445,20 @@ and open the template in the editor.
                                                                             <div class="ibox float-e-margins">
                                                                                 <div class="ibox-title">
                                                                                     <h5>Comision TFG</h5>
-                                                                                    <button id="edit" class="btn btn-primary btn-xs m-l-sm" onclick="edit1()" type="button">Edit</button>
-                                                                                    <button id="save" class="btn btn-primary  btn-xs" onclick="save1()" type="button">Save</button>
+                                                                                    <button  class="btn btn-primary btn-xs m-l-sm" onclick="edit1()" type="button">Edit</button>
+                                                                                    <button id="BM12" etapa="2" comentario="CM12" class="btn btn-primary  btn-xs" onclick="save1()" type="button">Save</button>
                                                                                     <div class="ibox-tools">
                                                                                         <a class="collapse-link">
                                                                                             <i class="fa fa-chevron-up"></i>
-                                                                                        </a>
-                                                                                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                                                                            <i class="fa fa-wrench"></i>
-                                                                                        </a>
-                                                                                        <ul class="dropdown-menu dropdown-user">
-                                                                                            <li><a href="#">Config option 1</a>
-                                                                                            </li>
-                                                                                            <li><a href="#">Config option 2</a>
-                                                                                            </li>
-                                                                                        </ul>
-                                                                                        <a class="close-link">
-                                                                                            <i class="fa fa-times"></i>
                                                                                         </a>
                                                                                     </div>
                                                                                 </div>
                                                                                 <div class="ibox-content no-padding">
 
-                                                                                    <div class="click1edit wrapper p-md">
-
-                                                                                        Escriba aqui su comentario...
-
+                                                                                    <div id="CM12" class="click1edit wrapper p-md">
+                                                                                        <?php
+                                                                                        comentarioMiembro($codigo, 2, $connection);
+                                                                                        ?> 
                                                                                     </div>
 
                                                                                 </div>
@@ -511,32 +468,20 @@ and open the template in the editor.
                                                                             <div class="ibox float-e-margins">
                                                                                 <div class="ibox-title">
                                                                                     <h5>Asesor 1</h5>
-                                                                                    <button id="edit" class="btn btn-primary btn-xs m-l-sm" onclick="edit2()" type="button">Edit</button>
-                                                                                    <button id="save" class="btn btn-primary  btn-xs" onclick="save2()" type="button">Save</button>
+                                                                                    <button  class="btn btn-primary btn-xs m-l-sm" onclick="edit2()" type="button">Edit</button>
+                                                                                    <button id="BA12" etapa="2" comentario="CA12" class="btn btn-primary  btn-xs" onclick="save2()" type="button">Save</button>
                                                                                     <div class="ibox-tools">
                                                                                         <a class="collapse-link">
                                                                                             <i class="fa fa-chevron-up"></i>
-                                                                                        </a>
-                                                                                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                                                                            <i class="fa fa-wrench"></i>
-                                                                                        </a>
-                                                                                        <ul class="dropdown-menu dropdown-user">
-                                                                                            <li><a href="#">Config option 1</a>
-                                                                                            </li>
-                                                                                            <li><a href="#">Config option 2</a>
-                                                                                            </li>
-                                                                                        </ul>
-                                                                                        <a class="close-link">
-                                                                                            <i class="fa fa-times"></i>
                                                                                         </a>
                                                                                     </div>
                                                                                 </div>
                                                                                 <div class="ibox-content no-padding">
 
-                                                                                    <div class="click2edit wrapper p-md">
-
-                                                                                        Escriba aqui su comentario...
-
+                                                                                    <div id="CA12" class="click2edit wrapper p-md">
+                                                                                        <?php
+                                                                                        comentarioAsesor($codigo, 2, $asesor1, $connection);
+                                                                                        ?>
                                                                                     </div>
 
                                                                                 </div>
@@ -546,48 +491,26 @@ and open the template in the editor.
                                                                             <div class="ibox float-e-margins">
                                                                                 <div class="ibox-title">
                                                                                     <h5>Asesor 2</h5>
-                                                                                    <button id="edit" class="btn btn-primary btn-xs m-l-sm" onclick="edit3()" type="button">Edit</button>
-                                                                                    <button id="save" class="btn btn-primary  btn-xs" onclick="save3()" type="button">Save</button>
+                                                                                    <button  class="btn btn-primary btn-xs m-l-sm" onclick="edit3()" type="button">Edit</button>
+                                                                                    <button id="BA22" etapa="2" comentario="CA22" class="btn btn-primary  btn-xs" onclick="save3()" type="button">Save</button>
                                                                                     <div class="ibox-tools">
                                                                                         <a class="collapse-link">
                                                                                             <i class="fa fa-chevron-up"></i>
-                                                                                        </a>
-                                                                                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                                                                            <i class="fa fa-wrench"></i>
-                                                                                        </a>
-                                                                                        <ul class="dropdown-menu dropdown-user">
-                                                                                            <li><a href="#">Config option 1</a>
-                                                                                            </li>
-                                                                                            <li><a href="#">Config option 2</a>
-                                                                                            </li>
-                                                                                        </ul>
-                                                                                        <a class="close-link">
-                                                                                            <i class="fa fa-times"></i>
                                                                                         </a>
                                                                                     </div>
                                                                                 </div>
                                                                                 <div class="ibox-content no-padding">
 
-                                                                                    <div class="click3edit wrapper p-md">
-
-                                                                                        Escriba aqui su comentario...
-
+                                                                                    <div id="CA22" class="click3edit wrapper p-md">
+                                                                                        <?php
+                                                                                        comentarioAsesor($codigo, 2, $asesor2, $connection);
+                                                                                        ?>
                                                                                     </div>
 
                                                                                 </div>
                                                                             </div>
                                                                         </div>
 
-                                                                        <div class="row">
-
-                                                                            <div class="col-lg-3 col-lg-offset-9">
-                                                                                <div class="form-group">
-
-                                                                                    <input id="input-1" type="button" class="btn btn-primary" value="Guardar Comentario">
-                                                                                </div>
-
-                                                                            </div>
-                                                                        </div>
 
 
                                                                     </div>
@@ -595,10 +518,7 @@ and open the template in the editor.
                                                             </div>
                                                         </div>
                                                         <!-- fin comentarios -->
-
                                                         <!-- Estado  -->
-
-
                                                         <div class="row">
 
 
@@ -611,11 +531,12 @@ and open the template in the editor.
                                                                 <div class="form-group">
 
 
-                                                                    <select class="form-control m-b" name="account">
-                                                                        <option>Aprobada</option>
-                                                                        <option>Aprobada con Observaciones</option>
-                                                                        <option>No Aprobada</option>    
-                                                                        <option>En ejecución</option>  
+                                                                    <select id="estado2" class="form-control m-b" name="account" onchange="pintandoPanels()">
+                                                                        <option value="Aprobada">Aprobada</option>
+                                                                        <option value="Aprobada con Observaciones">Aprobada con Observaciones</option>
+                                                                        <option value="No Aprobada">No Aprobada</option>    
+                                                                        <option value="En ejecución">En ejecución</option>  
+                                                                        <option value="Inactivo">Inactivo</option>
                                                                     </select> 
 
                                                                 </div>
@@ -624,11 +545,10 @@ and open the template in the editor.
                                                         <div class="row"> 
                                                             <div class="col-lg-2 col-lg-offset-9">
                                                                 <div class="form-group">
-                                                                    <input id="input-1" type="button" class="btn btn-primary" value="Guardar Cambios">
+                                                                    <input id="BE2" estado="estado2" etapa="2" type="button" class="btn btn-primary" value="Guardar Estado">
                                                                 </div>
                                                             </div>
                                                         </div>
-
                                                         <!-- fin estado -->
 
                                                     </div>
@@ -637,7 +557,7 @@ and open the template in the editor.
                                         </div>
 
                                     </div>
-                                    
+
                                     <!-- fin etapa 2 -->
 
                                     <!-- etapa 3 -->
@@ -645,16 +565,15 @@ and open the template in the editor.
                                         <div class="row">
                                             <div class="col-lg-12">
                                                 <div class="ibox collapsed">
-                                                    <div class="ibox-title panel panel-danger">
+                                                    <div id="panelEstado3" class="ibox-title panel ">
                                                         <h5>Etapa #3. Entrega Final</h5>
-                                                        <div class="ibox-tools">
-                                                            <a class="collapse-link">
+                                                        <div id="collapse3" class="ibox-tools">
+                                                            <a id="col3" class="collapse-link">
                                                                 <i class="fa fa-chevron-up"></i>
                                                             </a>
                                                         </div>
                                                     </div>
                                                     <div class="ibox-content">
-
                                                         <!-- archivos -->
                                                         <div class="col-lg-12">
                                                             <div class="panel panel-default">
@@ -676,7 +595,7 @@ and open the template in the editor.
                                                                                 <label class="control-label">Director TFG</label>
                                                                                 <input id="input-1" type="file" class ="btn btn-primary btn-outline">
                                                                             </div>
-                                                                            
+
                                                                         </div>
                                                                         <div class="col-lg-5 col-lg-offset-1">
 
@@ -695,8 +614,8 @@ and open the template in the editor.
 
                                                                         <div class="col-lg-offset-8">
                                                                             <div class="form-group">
-                                                                                <input id="input-1" type="button" class="btn btn-primary" value="Guardar Archivo">
-                                                                                <input id="input-1" type="button" class="btn btn-primary" value="Registro de Archivos">
+                                                                                <input id="input-1" type="button" class="btn btn-primary btn-outline" value="Guardar Archivo">
+                                                                                <input id="input-1" type="button" class="btn btn-primary btn-outline" value="Registro de Archivos">
                                                                             </div>
 
                                                                         </div>
@@ -706,7 +625,6 @@ and open the template in the editor.
                                                             </div>
                                                         </div>
                                                         <!-- fin archivos -->
-
                                                         <!-- comentarios -->
                                                         <div class="col-lg-12">
                                                             <div class="panel panel-default">
@@ -724,32 +642,21 @@ and open the template in the editor.
                                                                             <div class="ibox float-e-margins">
                                                                                 <div class="ibox-title">
                                                                                     <h5>Comision TFG</h5>
-                                                                                    <button id="edit" class="btn btn-primary btn-xs m-l-sm" onclick="edit1()" type="button">Edit</button>
-                                                                                    <button id="save" class="btn btn-primary  btn-xs" onclick="save1()" type="button">Save</button>
+                                                                                    <button  class="btn btn-primary btn-xs m-l-sm" onclick="edit1()" type="button">Edit</button>
+                                                                                    <button id="BM13" etapa="3" comentario="CM13" class="btn btn-primary  btn-xs" onclick="save1()" type="button">Save</button>
                                                                                     <div class="ibox-tools">
                                                                                         <a class="collapse-link">
                                                                                             <i class="fa fa-chevron-up"></i>
                                                                                         </a>
-                                                                                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                                                                            <i class="fa fa-wrench"></i>
-                                                                                        </a>
-                                                                                        <ul class="dropdown-menu dropdown-user">
-                                                                                            <li><a href="#">Config option 1</a>
-                                                                                            </li>
-                                                                                            <li><a href="#">Config option 2</a>
-                                                                                            </li>
-                                                                                        </ul>
-                                                                                        <a class="close-link">
-                                                                                            <i class="fa fa-times"></i>
-                                                                                        </a>
+
                                                                                     </div>
                                                                                 </div>
                                                                                 <div class="ibox-content no-padding">
 
-                                                                                    <div class="click1edit wrapper p-md">
-
-                                                                                        Escriba aqui su comentario...
-
+                                                                                    <div id="CM13" class="click1edit wrapper p-md">
+                                                                                        <?php
+                                                                                        comentarioMiembro($codigo, 3, $connection);
+                                                                                        ?> 
                                                                                     </div>
 
                                                                                 </div>
@@ -759,32 +666,21 @@ and open the template in the editor.
                                                                             <div class="ibox float-e-margins">
                                                                                 <div class="ibox-title">
                                                                                     <h5>Asesor 1</h5>
-                                                                                    <button id="edit" class="btn btn-primary btn-xs m-l-sm" onclick="edit2()" type="button">Edit</button>
-                                                                                    <button id="save" class="btn btn-primary  btn-xs" onclick="save2()" type="button">Save</button>
+                                                                                    <button  class="btn btn-primary btn-xs m-l-sm" onclick="edit2()" type="button">Edit</button>
+                                                                                    <button id="BA13" etapa="3" comentario="CA13" class="btn btn-primary  btn-xs" onclick="save2()" type="button">Save</button>
                                                                                     <div class="ibox-tools">
                                                                                         <a class="collapse-link">
                                                                                             <i class="fa fa-chevron-up"></i>
                                                                                         </a>
-                                                                                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                                                                            <i class="fa fa-wrench"></i>
-                                                                                        </a>
-                                                                                        <ul class="dropdown-menu dropdown-user">
-                                                                                            <li><a href="#">Config option 1</a>
-                                                                                            </li>
-                                                                                            <li><a href="#">Config option 2</a>
-                                                                                            </li>
-                                                                                        </ul>
-                                                                                        <a class="close-link">
-                                                                                            <i class="fa fa-times"></i>
-                                                                                        </a>
+
                                                                                     </div>
                                                                                 </div>
                                                                                 <div class="ibox-content no-padding">
 
-                                                                                    <div class="click2edit wrapper p-md">
-
-                                                                                        Escriba aqui su comentario...
-
+                                                                                    <div id="CA13" class="click2edit wrapper p-md">
+                                                                                        <?php
+                                                                                        comentarioAsesor($codigo, 3, $asesor1, $connection);
+                                                                                        ?>
                                                                                     </div>
 
                                                                                 </div>
@@ -794,62 +690,33 @@ and open the template in the editor.
                                                                             <div class="ibox float-e-margins">
                                                                                 <div class="ibox-title">
                                                                                     <h5>Asesor 2</h5>
-                                                                                    <button id="edit" class="btn btn-primary btn-xs m-l-sm" onclick="edit3()" type="button">Edit</button>
-                                                                                    <button id="save" class="btn btn-primary  btn-xs" onclick="save3()" type="button">Save</button>
+                                                                                    <button  class="btn btn-primary btn-xs m-l-sm" onclick="edit3()" type="button">Edit</button>
+                                                                                    <button id="BA23" etapa="3" comentario="CA23" class="btn btn-primary  btn-xs" onclick="save3()" type="button">Save</button>
                                                                                     <div class="ibox-tools">
                                                                                         <a class="collapse-link">
                                                                                             <i class="fa fa-chevron-up"></i>
                                                                                         </a>
-                                                                                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                                                                            <i class="fa fa-wrench"></i>
-                                                                                        </a>
-                                                                                        <ul class="dropdown-menu dropdown-user">
-                                                                                            <li><a href="#">Config option 1</a>
-                                                                                            </li>
-                                                                                            <li><a href="#">Config option 2</a>
-                                                                                            </li>
-                                                                                        </ul>
-                                                                                        <a class="close-link">
-                                                                                            <i class="fa fa-times"></i>
-                                                                                        </a>
+
                                                                                     </div>
                                                                                 </div>
                                                                                 <div class="ibox-content no-padding">
 
-                                                                                    <div class="click3edit wrapper p-md">
-
-                                                                                        Escriba aqui su comentario...
-
+                                                                                    <div id="CA23" class="click3edit wrapper p-md">
+                                                                                        <?php
+                                                                                        comentarioAsesor($codigo, 3, $asesor2, $connection);
+                                                                                        ?>
                                                                                     </div>
 
                                                                                 </div>
                                                                             </div>
                                                                         </div>
-
-                                                                        <div class="row">
-
-                                                                            <div class="col-lg-3 col-lg-offset-9">
-                                                                                <div class="form-group">
-
-                                                                                    <input id="input-1" type="button" class="btn btn-primary" value="Guardar Comentario">
-                                                                                </div>
-
-                                                                            </div>
-                                                                        </div>
-
-
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <!-- fin comentarios -->
-
                                                         <!-- Estado  -->
-
-
                                                         <div class="row">
-
-
                                                             <div class="col-lg-2 col-lg-offset-7">
                                                                 <div class="form-group">
                                                                     <label class="control-label">Estado de Etapa:</label>
@@ -859,11 +726,13 @@ and open the template in the editor.
                                                                 <div class="form-group">
 
 
-                                                                    <select class="form-control m-b" name="account">
-                                                                        <option>Aprobada</option>
-                                                                        <option>Aprobada con Observaciones</option>
-                                                                        <option>No Aprobada</option>    
-                                                                        <option>En ejecución</option>  
+                                                                    <select id="estado3" class="form-control m-b" name="account" onchange="pintandoPanels()">
+
+                                                                        <option value="Aprobada">Aprobada</option>
+                                                                        <option value="Aprobada con Observaciones">Aprobada con Observaciones</option>
+                                                                        <option value="No Aprobada">No Aprobada</option>    
+                                                                        <option value="En ejecución">En ejecución</option>  
+                                                                        <option value="Inactivo">Inactivo</option>
                                                                     </select> 
 
                                                                 </div>
@@ -872,28 +741,24 @@ and open the template in the editor.
                                                         <div class="row"> 
                                                             <div class="col-lg-2 col-lg-offset-9">
                                                                 <div class="form-group">
-                                                                    <input id="input-1" type="button" class="btn btn-primary" value="Guardar Cambios">
+                                                                    <input id="BE3" estado="estado3" etapa="3" type="button" class="btn btn-primary" value="Guardar Estado">
                                                                 </div>
                                                             </div>
                                                         </div>
-
                                                         <!-- fin estado -->
-
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
 
                                     </div>
-                                    
+
                                     <!-- fin etapa 2 -->
 
 
 
                                     <!-- estado final -->
                                     <div class="row">
-
-
                                         <div class="col-lg-2 col-lg-offset-4">
                                             <div class="form-group">
                                                 <label class="control-label">Estado del TFG:</label>
@@ -901,10 +766,8 @@ and open the template in the editor.
                                         </div>
                                         <div class="col-lg-2">
                                             <div class="form-group">
-
-
-                                                <select class="form-control m-b" name="estadoGeneral">
-                                                    <option>Activo</option>
+                                                <select id="estadotfg" class="form-control m-b" name="estadotfg">
+                                                    <option >Activo</option>
                                                     <option>Inactivo</option>
                                                     <option>Finalizado</option>
                                                 </select> 
@@ -915,7 +778,7 @@ and open the template in the editor.
                                     <div class="row"> 
                                         <div class="col-lg-2 col-lg-offset-6">
                                             <div class="form-group">
-                                                <input id="input-1" type="button" class="btn btn-primary" value="Guardar Cambios">
+                                                <input id="BTFG" estado="estadotfg" type="button" class="btn btn-primary" value="Guardar Estado">
                                             </div>
                                         </div>
                                     </div>
@@ -951,50 +814,232 @@ and open the template in the editor.
             <script src="js/inspinia.js"></script>
             <script src="js/plugins/pace/pace.min.js"></script>
 
-
-
-
-
             <!-- SUMMERNOTE -->
             <script src="js/plugins/summernote/summernote.min.js"></script>
 
             <!-- Page-Level Scripts -->
+            <?php
+
+            function comentarioMiembro($cod, $eta, $conn) {
+                $consulta = "select comentario from tfgcomentarioscomision where etapa = " . $eta . " and tfg ='$cod'";
+                $query = mysqli_query($conn, $consulta);
+                $data = mysqli_fetch_assoc($query);
+                echo " " . $data["comentario"] . " ";
+            }
+
+            function comentarioAsesor($cod, $eta, $ide, $conn) {
+                $consulta = "select comentario from tfgcomentariosasesores where etapa = $eta and tfg ='$cod' and asesor = $ide";
+                $query = mysqli_query($conn, $consulta);
+                $data = mysqli_fetch_assoc($query);
+                echo " " . $data["comentario"] . " ";
+            }
+
+            function etapas($cod, $conn) {
+                $consulta = "select numero,estado from tfgetapas where tfg ='$cod'";
+                $query = mysqli_query($conn, $consulta);
+                while ($data = mysqli_fetch_assoc($query)) {
+                    $etapas = "etapa" . $data["numero"];
+                    global $$etapas;
+                    $$etapas = $data['estado'];
+                }
+            }
+
+            function asesores($cod, $conn) {
+                $consulta = "select tfgasesores.id from tfg,tfgasesores,"
+                        . "tfgasesoran where tfg.codigo = tfgasesoran.tfg and "
+                        . "tfgasesoran.asesor =  tfgasesores.id and tfg.codigo ='$cod'";
+
+                $query = mysqli_query($conn, $consulta);
+                $cont = 1;
+                while ($data = mysqli_fetch_assoc($query)) {
+                    $asesores = "asesor$cont";
+                    global $$asesores;
+                    $$asesores = $data["id"];
+                    $cont++;
+                }
+            }
+
+            function estadoTFG($cod, $conn) {
+                $consulta = "select comentario from tfgcomentariosasesores where etapa = $eta and tfg ='$cod' and asesor = $ide";
+                $query = mysqli_query($conn, $consulta);
+                $data = mysqli_fetch_assoc($query);
+            }
+            ?>
+
             <script>
+                                                                        String.prototype.trim = function () {
+                                                                            return this.replace(/^\s+|\s+$/g, "");
+                                                                        };
+                                                                        $(document).ready(function () {
+                                                                            $('.summernote').summernote();
+                                                                        });
+                                                                        var edit1 = function () {
+                                                                            $('.click1edit').summernote({focus: true});
+                                                                        };
+                                                                        var save1 = function () {
+                                                                            var aHTML = $('.click1edit').code(); //save HTML If you need(aHTML: array).
+                                                                            $('.click1edit').destroy();
+                                                                        };
+                                                                        var edit2 = function () {
+                                                                            $('.click2edit').summernote({focus: true});
+                                                                        };
+                                                                        var save2 = function () {
+                                                                            var aHTML = $('.click2edit').code(); //save HTML If you need(aHTML: array).
+                                                                            $('.click2edit').destroy();
+                                                                        };
+                                                                        var edit3 = function () {
+                                                                            $('.click3edit').summernote({focus: true});
+                                                                        };
+                                                                        var save3 = function () {
+                                                                            var aHTML = $('.click3edit').code(); //save HTML If you need(aHTML: array).
+                                                                            $('.click3edit').destroy();
+                                                                        };
+                                                                        $(document).ready(function () {
+                                                                            //init de botones
+                                                                            guardarComentarioMiembro("BM11");
+                                                                            guardarComentarioAsesor("BA11");
+                                                                            guardarComentarioAsesor("BA21");
+                                                                            guardarComentarioAsesor("BA12");
+                                                                            guardarComentarioAsesor("BA13");
+                                                                            guardarComentarioAsesor("BA22");
+                                                                            guardarComentarioAsesor("BA23");
+                                                                            guardarComentarioMiembro("BM12");
+                                                                            guardarComentarioMiembro("BM13");
+                                                                            guardarEstado("BE1");
+                                                                            guardarEstado("BE2");
+                                                                            guardarEstado("BE3");
+                                                                            guardarEstadoFin("BTFG");
+                                                                            //init de panels y otras cosas 
+                                                                            initSelects();
+                                                                            pintandoPanels();
+                                                                            inac(1);inac(2);inac(3);
+                                                                        });
+                                                                        //sets de informacion a la base de datos
+                                                                        function guardarComentarioAsesor(btn) { // btn boton del save para asesores
+                                                                            $("#" + btn).click(function (evento) {
+                                                                                evento.preventDefault();
+                                                                                var cod = "<?php echo $codigo?>";
+                                                                                var ide = <?php echo $usuarioSesion->getId() ?>;
+                                                                                var eta = $("#" + btn).attr("etapa");
+                                                                                var coment = $("#" + btn).attr("comentario");
+                                                                                var com = $("#" + coment).text();
+                                                                                com = com.trim();
+                                                                                $.get("funcionalidad/ComentarioAsesor.php", {comentario: com, tfg: cod, etapa: eta, id: ide}, function (data) {
+                                                                                    //alert(data);
+                                                                                }).fail(function () {
+                                                                                    //alert("error");
+                                                                                });
+                                                                            });
+                                                                        }
 
-                                                                                        $(document).ready(function () {
+                                                                        function guardarComentarioMiembro(btn) {
+                                                                            $("#" + btn).click(function (evento) {
+                                                                                evento.preventDefault();  
+                                                                                var cod = "<?php echo $codigo?>";
+                                                                                var ide = <?php echo $usuarioSesion->getId() ?>;
+                                                                                var eta = $("#" + btn).attr("etapa");
+                                                                                var coment = $("#" + btn).attr("comentario");
+                                                                                var com = $("#" + coment).text();
+                                                                                com = com.trim();
+                                                                                $.get("funcionalidad/ComentarioMiembro.php", {comentario: com, tfg: cod, etapa: eta, id: ide}, function (data) {
+                                                                                    //alert(data);
+                                                                                }).fail(function () {
+                                                                                    //alert("error");
+                                                                                });
+                                                                            });
+                                                                        }
 
-                                                                                            $('.summernote').summernote();
+                                                                        function guardarEstado(btn) { // btn boton de guardar la etapa 
+                                                                            $("#" + btn).click(function (evento) {
+                                                                                evento.preventDefault();
+                                                                                //alert("<?php echo $codigo ?>");
+                                                                                var cod = "<?php echo $codigo?>";
+                                                                                var eta = $("#" + btn).attr("etapa");
+                                                                                var est = $("#" + btn).attr("estado");
+                                                                                var estad = $("#" + est).val();
+                                                                                $.get("funcionalidad/TFGestado.php", {estado: estad, tfg: cod, etapa: eta}, function (data) {
+                                                                                    //alert(data);
+                                                                                }).fail(function () {
+                                                                                    //alert("error");
+                                                                                });
+                                                                                //etapa(estad, eta);
+                                                                            });
+                                                                        }
 
-                                                                                        });
-                                                                                        var edit1 = function () {
-                                                                                            $('.click1edit').summernote({focus: true});
-                                                                                        };
-                                                                                        var save1 = function () {
-                                                                                            var aHTML = $('.click1edit').code(); //save HTML If you need(aHTML: array).
-                                                                                            $('.click1edit').destroy();
-                                                                                        };
+                                                                        function guardarEstadoFin(btn) { // btn boton del guardar estado final
+                                                                            $("#" + btn).click(function (evento) {
+                                                                                evento.preventDefault();
+                                                                                var cod = "<?php echo $codigo?>";
+                                                                                var est = $("#" + btn).attr("estado");
+                                                                                var estad = $("#" + est).val();
+                                                                                $.get("funcionalidad/TFGestadoFin.php", {estado: estad, tfg: cod}, function (data) {
+                                                                                    //alert(data);
+                                                                                }).fail(function () {
+                                                                                    //alert("error");
+                                                                                });
+                                                                            });
+                                                                        }
 
 
-                                                                                        var edit2 = function () {
-                                                                                            $('.click2edit').summernote({focus: true});
-                                                                                        };
-                                                                                        var save2 = function () {
-                                                                                            var aHTML = $('.click2edit').code(); //save HTML If you need(aHTML: array).
-                                                                                            $('.click2edit').destroy();
-                                                                                        };
+                                                                        //pintar panels
+                                                                        var estados = {Aprobada: "panel-primary", AprobadaconObservaciones: "panel-warning",
+                                                                            NoAprobada: "panel-danger", Enejecución: "panel-success", Inactivo: "panel"};
+                                                                        var estadosant = {ant1: "<?php echo $etapa1 ?>", ant2: "<?php echo $etapa2 ?>", ant3: "<?php echo $etapa3 ?>"};
+                                                                        function pintando(estado, panel, estadoan, n) {
+                                                                            estado = estado.replace(/\s/g, "");
+                                                                            estadoan = estado.replace(/\s/g, "");
+                                                                            $("#" + panel).removeClass(estados[estadosant["ant" + n]] + "").addClass(estados[estado]);
+                                                                            //elimino el color anterior y inserto la clase del nuevo
+                                                                            estadosant["ant" + n] = estado;
+                                                                        }
+                                                                        function pintandoPanels() {
+                                                                            pintando($("#estado1").val(), "panelEstado1", estadosant["ant1"], 1);
+                                                                            pintando($("#estado2").val(), "panelEstado2", estadosant["ant2"], 2);
+                                                                            pintando($("#estado3").val(), "panelEstado3", estadosant["ant3"], 3);
+                                                                        }
+                                                                        function initSelects() {
+                                                                           // alert("<?php echo $etapa1 ?>");
+                                                                            $("#estado1").val("<?php echo $etapa1 ?>");
+                                                                            $("#estado2").val("<?php echo $etapa2 ?>");
+                                                                            $("#estado3").val("<?php echo $etapa3 ?>");
+                                                                            $("#estadotfg").val("<?php echo $data["estado"] ?>");
+                                                                        }
+                                                                        //metodo para que el usuario no pueda marcar la opcion de inactivo en una etapa
+                                                                        function inac(etapa) {
+                                                                            //alert(etapa);
+                                                                            $("#estado"+etapa).focus(function () {
+                                                                                $("#estado"+etapa + " option[value='Inactivo']").remove();
+                                                                                
+                                                                            });
+                                                                            $("#estado"+etapa).focus();
+                                                                            $("#estado"+etapa).focusout(function () {
+                                                                                $("#estado"+etapa).append("<option value='Inactivo'>Inactivo</option>");
+                                                                                
+                                                                            });
+                                                                        }
+                                                                        //metodo para habilitar/deshabilitar la siguiente etapa 
+                                                                        function etapa(opcion, etapasig) {
 
-                                                                                        var edit3 = function () {
-                                                                                            $('.click3edit').summernote({focus: true});
-                                                                                        };
-                                                                                        var save3 = function () {
-                                                                                            var aHTML = $('.click3edit').code(); //save HTML If you need(aHTML: array).
-                                                                                            $('.click3edit').destroy();
-                                                                                        };
+                                                                            etapasig++;
+                                                                            if (opcion === "Aprobada" || opcion === "Aprobada con Observaciones") {
+                                                                                alert("col" + etapasig);
+                                                                                
+                                                                                //$("#col" + etapasig).html("<i class='fa fa-chevron-up'> </i>");
 
 
-            </script>
+                                                                                /* $('#col'+etapasig).on('show hide', function () {
+                                                                                 $(this).css('height', 'auto');
+                                                                                 });
+                                                                                 $('#col'+etapasig).collapse({parent: true, toggle: true});*/
 
+                                                                            } else {
+                                                                                $("#col" + etapasig).remove();
+                                                                            }
 
+                                                                        }
+                                                                        
 
+            </script>                                                   
+        </div>
     </body>
 </html>
