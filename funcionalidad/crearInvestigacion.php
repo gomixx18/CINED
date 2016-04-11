@@ -83,7 +83,7 @@ if ($connection) {
     }
     
     //crear etapas probar                       
-    $sqlEtapas1 = "INSERT INTO ieetapas (numero, estado, proyecto) VALUES (1, 'En ejecuci&oacuten', '".$codigo."')";
+    $sqlEtapas1 = "INSERT INTO ieetapas (numero, estado, proyecto) VALUES (1, 'En ejecución', '".$codigo."')";
     $resultadoEtapas1 = mysqli_query($connection, $sqlEtapas1);
     $sqlEtapas2 = "INSERT INTO ieetapas (numero, estado, proyecto) VALUES (2, 'Inactiva', '".$codigo."')";
     $resultadoEtapas2 = mysqli_query($connection, $sqlEtapas2);

@@ -41,7 +41,7 @@ if ($connection) {
     if ($data["anno"] == $annoActual) {
         $numeroCambio = (int)$data["numero"] + 1;
         $sqlcambioConsecutivo = "UPDATE consecutivos SET numero= " . $numeroCambio . " WHERE tipo='TFG'";
-        $codigo = $data["numero"] ."-". $data["anno"] ."-". $carrera ."-". $modalidad ."-". $lineaInvestigacion ;
+        $codigo = "TFG-" . $data["numero"] ."-". $data["anno"] ."-". $carrera ."-". $modalidad ."-". $lineaInvestigacion ;
     } else {
         $annoCambio = (int)$annoActual;
         $sqlcambioConsecutivo = "UPDATE consecutivos SET numero= 1, anno = " . $annoCambio . " WHERE tipo='TFG'";
@@ -82,7 +82,7 @@ if ($connection) {
     }
     
     //crear etapas probar                       
-    $sqlEtapas1 = "INSERT INTO tfgetapas (numero, estado, tfg) VALUES (1, 'En ejecuci&oacuten', '".$codigo."')";
+    $sqlEtapas1 = "INSERT INTO tfgetapas (numero, estado, tfg) VALUES (1, 'En ejecución', '".$codigo."')";
     $resultadoEtapas1 = mysqli_query($connection, $sqlEtapas1);
     $sqlEtapas2 = "INSERT INTO tfgetapas (numero, estado, tfg) VALUES (2, 'Inactiva', '".$codigo."')";
     $resultadoEtapas2 = mysqli_query($connection, $sqlEtapas2);
