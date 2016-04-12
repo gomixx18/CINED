@@ -34,7 +34,6 @@ catch (RuntimeException $e){
 
 $nombre_archivo = $_FILES[$tipo]['name'];
 $archivo_bases = "https://almacenamientocined.blob.core.windows.net/tfg/".$ubicacionArchivo.$nombre_archivo;
-echo $archivo_bases;
 $content = fopen($_FILES[$tipo]["tmp_name"], "r");
 if($content){
    $_SESSION["error"] = "¡Hubo un error al cargar el archivo! FOPEN";
