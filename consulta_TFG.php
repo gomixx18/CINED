@@ -903,7 +903,7 @@ function uploadFile(){
 function progressHandler(event){
     
         $("#guardarArchivo1").addClass('disabled');
-        $("#guardarArchivo1").setAttributes('disabled','true');
+        $("#guardarArchivo1").attr('disabled','true');
 	_("loaded_n_total").innerHTML = "Subido "+event.loaded+" bytes de "+event.total;
 	var percent = (event.loaded / event.total) * 100;
 	_("progressBar").style.width = Math.round(percent)+"%"; 
