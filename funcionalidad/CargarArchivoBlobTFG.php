@@ -15,10 +15,9 @@ $codigo = $_POST['codigoTFG'];
 $etapa = $_POST['etapa'];
 $tipo = $_POST['tipo'];
 
-echo $codigo. " ". $etapa . " ". $tipo;
 if(!$codigo  || !$etapa || !$tipo){
-   // $_SESSION["error"] = "¡Hubo un error al cargar el archivo! POST_VARS";
-   // header("Location: ../navegacion/500.php");
+    $_SESSION["error"] = "¡Hubo un error al cargar el archivo! POST_VARS";
+    header("Location: ../navegacion/500.php");
 }
 $ubicacionArchivo = $codigo.'/ETAPA '.$etapa.'/'.$usuario.'/';
 
