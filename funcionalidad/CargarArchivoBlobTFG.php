@@ -9,6 +9,7 @@ use WindowsAzure\Common\ServicesBuilder;
 use WindowsAzure\Common\ServiceException;
 
 @session_start();
+date_default_timezone_set('America/Costa_Rica');
 $usuarioPermisos = $_SESSION['permisos'];
 $usuario = $_SESSION['user']->getId();
 $codigo = $_POST['codigoTFG'];
@@ -30,27 +31,59 @@ $blobRestProxy = ServicesBuilder::getInstance()->createBlobService($connectionSt
 catch (RuntimeException $e){
     $_SESSION["error"] = "¡Hubo un error al cargar el archivo! Conexion Rechazada";
     header("Location: ../navegacion/500.php");
+    exit();
 }
 
-$nombre_archivo = $_FILES[$tipo]['name'];
+$connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
+if (!$connection) {
+     $_SESSION["error"] = "¡Hubo un error al cargar el archivo! Conexión a base de datos";
+    header("Location: ../navegacion/500.php");
+    exit();
+}
+
+$nombre_archivo = $_FILES['archivo']['name'];
 $archivo_bases = "https://almacenamientocined.blob.core.windows.net/tfg/".$ubicacionArchivo.$nombre_archivo;
-$content = fopen($_FILES[$tipo]["tmp_name"], "r");
-if($content){
+$content = fopen($_FILES['archivo']["tmp_name"], "r");
+if(!$content){
    $_SESSION["error"] = "¡Hubo un error al cargar el archivo! FOPEN";
    header("Location: ../navegacion/500.php");
+   exit();
 }
 $blob_name = $ubicacionArchivo.$nombre_archivo;
 
 try {
     //Upload blob
     $blobRestProxy->createBlockBlob("tfg",$blob_name, $content);
-    @session_start();
-    header("Location: ../consulta_TFG.php?codigo=".$codigo);
+    $dt = new DateTime();
+    $fecha = $dt->format('Y-m-d H:i:s');
+    if ($tipo == "archivoDirector") {
+        $consulta = "INSERT INTO tfgarchivosdirectores (director, etapa, tfg, ruta, fecha) VALUES ( " . $usuario . " , " . $etapa .
+                " , '" . $codigo . "','" . $archivo_bases . "' ,'" . $fecha . "');";
+    }
+    if($tipo == 'archivoAsesor'){
+     $consulta  = "INSERT INTO tfgarchivosasesores (asesor, etapa, tfg, ruta, fecha) VALUES ( ".$usuario." , ".$etapa.
+                 " ,'".$codigo."','".$archivo_bases."','".$fecha."');";    
+    }
+    if($tipo == 'archivoMiembroComision'){
+       $consulta  = "INSERT INTO tfgarchivoscomision (miembrocomision, etapa, tfg, ruta, fecha) VALUES ( ".$usuario." , ".$etapa.
+                 " , '".$codigo."','".$archivo_bases."' ,'".$fecha."');";     
+    }
+    echo $consulta;
+    $resultado = mysqli_query($connection, $consulta);
+    echo $resultado;
+    if($resultado){
+        
+        @session_start();
+        header("Location: ../consulta_TFG.php?codigo=".$codigo);
+        exit();
+    }
+   
 }
 catch(ServiceException $e){
     @session_start(); 
     $_SESSION["error"] = "¡Error al Cargar el archivo!";
     header("Location: ../navegacion/500.php");
+    exit();
 
 }
 ?>

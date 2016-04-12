@@ -55,7 +55,9 @@ and open the template in the editor.
                                 <div class="ibox-content">
 
                                     <?php
+                                   
                                     $codigo = $_GET["codigo"];
+                                    
                                     $consulta = "select tfg.titulo, concat(tfgdirectores.nombre,' ',tfgdirectores.apellido1,' ',tfgdirectores.apellido2)as directortfg, 
                                                 concat(tfgencargados.nombre,' ',tfgencargados.apellido1,' ',tfgencargados.apellido2) as encargadotfg,
                                                 lineasinvestigacion.nombre as lineainvestigacion, carreras.nombre as carrera, modalidades.nombre as modalidad, tfg.estado
@@ -190,22 +192,20 @@ and open the template in the editor.
                                                                                 <br/><br/>
 
                                                                             </div>
+                                                                            
                                                                             <div class="col-lg-5 col-lg-offset-1">
                                                                                 <div class="form-group">
                                                                                     
                                                                                     <label class="control-label">Comisión TFG</label>
                                                                                     <input class = 'form-control' name = 'codigoTFG' id='codigoTFG' type="hidden" value='<?php echo $codigo ?>'>
                                                                                     <input class = 'form-control' name = 'etapa' id = 'etapa' value ='1' type="hidden">   
-                                                                                    <input class = 'form-control' name = 'tipo' id = 'tipo' value ='archivoDirector' type="hidden">   
-
-                                                                                    <input accept=".docx,.doc,.pdf" type="file" name="archivoDirector" id="archivoDirector" onchange="uploadFile()" class ="btn btn-primary btn-outline">
+                                                                                    <input class = 'form-control' name = 'tipo' id = 'tipo' value ='archivoMiembroComision' type="hidden">   
+                                                                                    <input accept=".docx,.doc,.pdf" type="file" name="archivo" id="archivo" onchange="uploadFile()" class ="btn btn-primary btn-outline">
                                                                                     <div hidden id="divProgress" class="progress progress-striped active">
                                                                                         <div  id="progressBar"   aria-valuemax="100" aria-valuemin="0" aria-valuenow="45" role="progressbar" class="progress-bar progress-bar-danger ">
-                                                                                            
                                                                                         </div>
                                                                                     </div>
-                                                                                   
-                                                                                    <h2 id="status"></h2>
+                                                                                    <h3 id="status"></h3>
                                                                                     <p id="loaded_n_total"></p>
                                                                                 </div>
                                                                                 <div class="form-group">
@@ -886,7 +886,7 @@ function uploadFile(){
     
        document.getElementById("divProgress").removeAttribute('hidden');
 
-	var file = _("archivoDirector").files[0];
+	var file = _("archivo").files[0];
 	// alert(file.name+" | "+file.size+" | "+file.type);
 	var formdata = new FormData();
 	formdata.append("archivo", file);
