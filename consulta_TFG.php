@@ -231,7 +231,7 @@ and open the template in the editor.
 
                                                                             <div class="col-lg-offset-8">
                                                                                 <div class="form-group">
-                                                                                    <input id="guardarArchivo1" type="submit" class="btn btn-primary btn-outline disabled" value="Guardar Archivo" >
+                                                                                    <input id="guardarArchivo1" type="submit" class="btn btn-primary btn-outline disabled" value="Guardar Archivo"disabled >
                                                                                     <input id="input-1" type="button" class="btn btn-primary btn-outline" value="Registro de Archivos">
                                                                                 </div>
                                                                             </div>
@@ -901,6 +901,9 @@ function uploadFile(){
 
 }
 function progressHandler(event){
+    
+        $("#guardarArchivo1").addClass('disabled');
+        $("#guardarArchivo1").setAttributes('disabled','true');
 	_("loaded_n_total").innerHTML = "Subido "+event.loaded+" bytes de "+event.total;
 	var percent = (event.loaded / event.total) * 100;
 	_("progressBar").style.width = Math.round(percent)+"%"; 
@@ -922,6 +925,7 @@ function progressHandler(event){
 function completeHandler(event){
 	_("status").innerHTML = event.target.responseText;
 	$("#guardarArchivo1").removeClass('disabled');
+        $("#guardarArchivo1").removeAttr('disabled')
 }
 function errorHandler(event){
 	_("status").innerHTML = "Subida Fallida";
