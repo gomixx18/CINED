@@ -107,7 +107,7 @@
                                             <div class="row">
                                                 <div class="col-lg-6">
                                                     <div class="form-group">
-                                                        <label>Título de TFG</label>
+                                                        <label>Titulo de TFG</label>
                                                         <input id="nomProyecto" name="tituloTFG" type="text" class="form-control required">
                                                     </div>
 
@@ -127,7 +127,7 @@
 
                                                             while ($data = mysqli_fetch_assoc($query)) {
 
-                                                                echo "<option value=" . $data["codigo"] . ">" . $data["nombre"] . "</option>";
+                                                                echo "<option value=" . $data["codigo"] . ">" . $data["nombre"]  . "</option>";
                                                             }
                                                             ?>
                                                         </select>
@@ -194,67 +194,70 @@
                                                                 <div class="ibox-title">
                                                                     <h5>Consulta de Estudiantes</h5>
 
-
+                                                                    
                                                                 </div>
                                                                 <div class="ibox-content">
 
                                                                     <div class="table-responsive">
                                                                         <div id="tablaEstudiantes">
-                                                                            <table class="table table-striped table-bordered table-hover dataTables-example" >
-                                                                                <thead>
+                                                                        <table class="table table-striped table-bordered table-hover dataTables-example" >
+                                                                            <thead>
 
 
-                                                                                    <tr>
-                                                                                        <th name="id">Identificación</th>
-                                                                                        <th name="nombre">Nombre</th>
-                                                                                        <th name="apellido1">Primer Apellido</th>
-                                                                                        <th name="apellido2">Segundo Apellido</th>
+                                                                                <tr>
+                                                                                    <th name="id">Identificación</th>
+                                                                                    <th name="nombre">Nombre</th>
+                                                                                    <th name="apellido1">Primer Apellido</th>
+                                                                                    <th name="apellido2">Segundo Apellido</th>
+                     
+                                                                                    <th name="accion">Acción</th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                                <?php
+                                                                               
 
-                                                                                        <th name="accion">Acción</th>
-                                                                                    </tr>
-                                                                                </thead>
-                                                                                <tbody>
-                                                                                    <?php
-                                                                                    $query = mysqli_query($connection, "SELECT * FROM tfgestudiantes");
-
-
-                                                                                    while ($data = mysqli_fetch_assoc($query)) {
-                                                                                        echo "<tr>";
-                                                                                        echo "<td name='id'>" . $data["id"] . "</td>";
-                                                                                        echo "<td name='nombre'>" . $data["nombre"] . "</td>";
-                                                                                        echo "<td name='apellido1'>" . $data["apellido1"] . "</td>";
-                                                                                        echo "<td name='apellido2'>" . $data["apellido2"] . "</td>";
-                                                                                        echo '<td class="center"><div class="i-checks"><input type="radio" value="' . $data["id"] . '" name="radEstudiante" ></div></td>';
-                                                                                        echo "</tr>";
-                                                                                    }
-                                                                                    ?>
+                                                                                $query = mysqli_query($connection, "SELECT * FROM tfgestudiantes");
 
 
-                                                                                </tbody>
-                                                                                <tfoot>
-                                                                                    <tr>
-                                                                                        <th>Identificación</th>
-                                                                                        <th>Nombre</th>
-                                                                                        <th>Primer Apellido</th>
-                                                                                        <th>Segundo Apellido</th>
+                                                                                while ($data = mysqli_fetch_assoc($query)) {
+                                                                                    echo "<tr>";
+                                                                                    echo "<td name='id'>" . $data["id"] . "</td>";
+                                                                                    echo "<td name='nombre'>" . $data["nombre"] . "</td>";
+                                                                                    echo "<td name='apellido1'>" . $data["apellido1"] . "</td>";
+                                                                                    echo "<td name='apellido2'>" . $data["apellido2"] . "</td>";
+                                                                                    echo '<td class="center"><div class="i-checks"><input type="radio" value="' . $data["id"] . '" name="radEstudiante" ></div></td>';
+                                                                                    echo "</tr>";
+                                                                                }
 
-                                                                                        <th>Acción</th>
-                                                                                    </tr>
-                                                                                </tfoot>
-                                                                            </table>
-                                                                        </div>
+                                                                                ?>
+
+
+                                                                            </tbody>
+                                                                            <tfoot>
+                                                                                <tr>
+                                                                                    <th>Identificación</th>
+                                                                                    <th>Nombre</th>
+                                                                                    <th>Primer Apellido</th>
+                                                                                    <th>Segundo Apellido</th>
+                                                                                 
+                                                                                    <th>Acción</th>
+                                                                                </tr>
+                                                                            </tfoot>
+                                                                        </table>
+                                                                       </div>
                                                                     </div>
                                                                     <button name="btnSelectEstu"  class="btn btn-primary btn-rounded" onclick='selectEstudiantes()' type="button" placeholder='agregar'>Asignar Estudiante</button>
                                                                     <a data-toggle="modal" class="btn btn-primary btn-rounded" href="#modal-form">Registrar Estudiante</a>
                                                                 </div>
-
+                                                                
                                                             </div>
-
+                                                            
                                                         </div>
 
                                                     </div>
                                                     <!-- fin tabla estudiantes -->
-
+                                                    
 
                                                 </div>
 
@@ -290,20 +293,20 @@
                                                         </thead>
                                                         <tbody>
 
-<?php
-$query = mysqli_query($connection, "SELECT * FROM tfgencargados");
+                                                            <?php
+                                                            $query = mysqli_query($connection, "SELECT * FROM tfgencargados");
 
 
-while ($data = mysqli_fetch_assoc($query)) {
-    echo "<tr>";
-    echo "<td>" . $data["id"] . "</td>";
-    echo "<td>" . $data["nombre"] . "</td>";
-    echo "<td>" . $data["apellido1"] . "</td>";
-    echo "<td>" . $data["apellido2"] . "</td>";
-    echo '<td class="center"><div class="i-checks"><input type="radio" value="' . $data["id"] . '" name="radEncargado" required></div></td>';
-    echo "</tr>";
-}
-?>
+                                                            while ($data = mysqli_fetch_assoc($query)) {
+                                                                echo "<tr>";
+                                                                echo "<td>" . $data["id"] . "</td>";
+                                                                echo "<td>" . $data["nombre"] . "</td>";
+                                                                echo "<td>" . $data["apellido1"] . "</td>";
+                                                                echo "<td>" . $data["apellido2"] . "</td>";
+                                                                echo '<td class="center"><div class="i-checks"><input type="radio" value="' . $data["id"] . '" name="radEncargado" required></div></td>';
+                                                                echo "</tr>";
+                                                            }
+                                                            ?>
 
 
                                                     </table>
@@ -330,34 +333,37 @@ while ($data = mysqli_fetch_assoc($query)) {
                                                                 <th>Nombre</th>
                                                                 <th>Primer Apellido</th>
                                                                 <th>Segundo Apellido</th>
-                                                                <th>Título</th>
+                                                                <th>Titulo</th>
                                                                 <th>Especialidad</th>                        
                                                                 <th>Seleccionado</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
 
-<?php
-$query = mysqli_query($connection, "SELECT * FROM tfgdirectores");
+                                                            <?php
+                                                            $query = mysqli_query($connection, "SELECT * FROM tfgdirectores");
 
 
-while ($data = mysqli_fetch_assoc($query)) {
-    echo "<tr>";
-    echo "<td>" . $data["id"] . "</td>";
-    echo "<td>" . $data["nombre"] . "</td>";
-    echo "<td>" . $data["apellido1"] . "</td>";
-    echo "<td>" . $data["apellido2"] . "</td>";
-    echo "<td>" . $data["titulo"] . "</td>";
-    echo "<td>" . $data["especialidad"] . "</td>";
-    echo '<td class="center"><div class="i-checks"><input type="radio" value="' . $data["id"] . '" name="radCoord" required></div></td>';
-    echo "</tr>";
-}
-?>
+                                                            while ($data = mysqli_fetch_assoc($query)) {
+                                                                echo "<tr>";
+                                                                echo "<td>" . $data["id"] . "</td>";
+                                                                echo "<td>" . $data["nombre"] . "</td>";
+                                                                echo "<td>" . $data["apellido1"] . "</td>";
+                                                                echo "<td>" . $data["apellido2"] . "</td>";
+                                                                echo "<td>" . $data["titulo"] . "</td>";
+                                                                echo "<td>" . $data["especialidad"] . "</td>";
+                                                                echo '<td class="center"><div class="i-checks"><input type="radio" value="' . $data["id"] . '" name="radCoord" required></div></td>';
+                                                                echo "</tr>";
+                                                            }
+                                                            ?>
 
 
                                                     </table>
                                                 </div>
                                             </div>
+
+
+
                                         </fieldset>
 
                                         <h1>Asesores del Trabajo</h1>
@@ -378,28 +384,28 @@ while ($data = mysqli_fetch_assoc($query)) {
                                                                 <th>Nombre</th>
                                                                 <th>Primer Apellido</th>
                                                                 <th>Segundo Apellido</th>
-                                                                <th>Título</th>
+                                                                <th>Titulo</th>
                                                                 <th>Especialidad</th>                        
                                                                 <th>Seleccionado</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-<?php
-$query = mysqli_query($connection, "SELECT * FROM tfgasesores");
+                                                            <?php
+                                                            $query = mysqli_query($connection, "SELECT * FROM tfgasesores");
 
 
-while ($data = mysqli_fetch_assoc($query)) {
-    echo "<tr>";
-    echo "<td>" . $data["id"] . "</td>";
-    echo "<td>" . $data["nombre"] . "</td>";
-    echo "<td>" . $data["apellido1"] . "</td>";
-    echo "<td>" . $data["apellido2"] . "</td>";
-    echo "<td>" . $data["titulo"] . "</td>";
-    echo "<td>" . $data["especialidad"] . "</td>";
-    echo '<td class="center"><div class="i-checks"><input type="radio" value="' . $data["id"] . '" name="radAsesor1" required></div></td>';
-    echo "</tr>";
-}
-?>
+                                                            while ($data = mysqli_fetch_assoc($query)) {
+                                                                echo "<tr>";
+                                                                echo "<td>" . $data["id"] . "</td>";
+                                                                echo "<td>" . $data["nombre"] . "</td>";
+                                                                echo "<td>" . $data["apellido1"] . "</td>";
+                                                                echo "<td>" . $data["apellido2"] . "</td>";
+                                                                echo "<td>" . $data["titulo"] . "</td>";
+                                                                echo "<td>" . $data["especialidad"] . "</td>";
+                                                                echo '<td class="center"><div class="i-checks"><input type="radio" value="' . $data["id"] . '" name="radAsesor1" required></div></td>';
+                                                                echo "</tr>";
+                                                            }
+                                                            ?>
                                                     </table>
                                                 </div>
                                             </div>
@@ -410,25 +416,25 @@ while ($data = mysqli_fetch_assoc($query)) {
                                                     <div class="i-checks"><br><label for="b">Ninguno: &nbsp;</label><input type="radio" value="ninguno" name="radAsesor2" checked>  </div>
                                                     <table class="footable table table-stripped" data-page-size="8" data-filter=#filter2>
                                                         <thead>
-<?php
-$query = mysqli_query($connection, "SELECT * FROM tfgasesores");
+                                                            <?php
+                                                            $query = mysqli_query($connection, "SELECT * FROM tfgasesores");
 
 
-while ($data = mysqli_fetch_assoc($query)) {
-    echo "<tr>";
-    echo "<td>" . $data["id"] . "</td>";
-    echo "<td>" . $data["nombre"] . "</td>";
-    echo "<td>" . $data["apellido1"] . "</td>";
-    echo "<td>" . $data["apellido2"] . "</td>";
-    echo "<td>" . $data["titulo"] . "</td>";
-    echo "<td>" . $data["especialidad"] . "</td>";
-    echo '<td class="center"><div class="i-checks"><input type="radio" value="' . $data["id"] . '" name="radAsesor2" required></div></td>';
-    echo "</tr>";
-}
-
-
-mysqli_close($connection);
-?>
+                                                            while ($data = mysqli_fetch_assoc($query)) {
+                                                                echo "<tr>";
+                                                                echo "<td>" . $data["id"] . "</td>";
+                                                                echo "<td>" . $data["nombre"] . "</td>";
+                                                                echo "<td>" . $data["apellido1"] . "</td>";
+                                                                echo "<td>" . $data["apellido2"] . "</td>";
+                                                                echo "<td>" . $data["titulo"] . "</td>";
+                                                                echo "<td>" . $data["especialidad"] . "</td>";
+                                                                echo '<td class="center"><div class="i-checks"><input type="radio" value="' . $data["id"] . '" name="radAsesor2" required></div></td>';
+                                                                echo "</tr>";
+                                                            }
+                                                            
+                                                            
+                                                            mysqli_close($connection);
+                                                            ?>
                                                     </table>
                                                 </div>
                                             </div>            
@@ -436,15 +442,19 @@ mysqli_close($connection);
                                         </fieldset>
 
 
-<?php
-$fecha_actual = date("d/m/Y");
+                                        <?php
+                                        
+                                            $fecha_actual=date("d/m/Y");
+                            
+                                            $nuevafecha = date('d/m/Y', strtotime('+1 month'))
+                                        
+ 
 
-$nuevafecha = date('d/m/Y', strtotime('+1 month'))
-?>
+                                        ?>
 
-                                        <h1>Finalizar</h1>
+                                        <h1>Finish</h1>
                                         <fieldset>
-                                            <h2>Fechas de inicio y finalización</h2>
+                                            <h2>Fechas de inicio y final</h2>
                                             <div class="row">
 
                                                 <div class="col-lg-6" >
@@ -555,98 +565,98 @@ $nuevafecha = date('d/m/Y', strtotime('+1 month'))
 
 
         <script>
-                                                                        $(document).ready(function () {
-                                                                            $("#wizard").steps();
-                                                                            $("#form").steps({
-                                                                                labels: {
-                                                                                    current: "Paso actual:",
-                                                                                    pagination: "Paginacion",
-                                                                                    finish: "Finalizar",
-                                                                                    next: "Siguiente",
-                                                                                    previous: "Anterior",
-                                                                                    loading: "Cargando...",
-                                                                                    cancel: "Cancelar"
-                                                                                },
-                                                                                bodyTag: "fieldset",
-                                                                                onStepChanging: function (event, currentIndex, newIndex)
-                                                                                {
-                                                                                    // Always allow going backward even if the current step contains invalid fields!
-                                                                                    if (currentIndex > newIndex)
-                                                                                    {
-                                                                                        return true;
-                                                                                    }
+                                                            $(document).ready(function () {
+                                                                $("#wizard").steps();
+                                                                $("#form").steps({
+                                                                    labels: {
+                                                                        current: "Paso actual:",
+                                                                        pagination: "Paginacion",
+                                                                        finish: "Finalizar",
+                                                                        next: "Siguiente",
+                                                                        previous: "Anterior",
+                                                                        loading: "Cargando...",
+                                                                        cancel: "Cancelar"
+                                                                    },
+                                                                    bodyTag: "fieldset",
+                                                                    onStepChanging: function (event, currentIndex, newIndex)
+                                                                    {
+                                                                        // Always allow going backward even if the current step contains invalid fields!
+                                                                        if (currentIndex > newIndex)
+                                                                        {
+                                                                            return true;
+                                                                        }
 
 
-                                                                                    var form = $(this);
+                                                                        var form = $(this);
 
-                                                                                    // Clean up if user went backward before
-                                                                                    if (currentIndex < newIndex)
-                                                                                    {
-                                                                                        // To remove error styles
-                                                                                        $(".body:eq(" + newIndex + ") label.error", form).remove();
-                                                                                        $(".body:eq(" + newIndex + ") .error", form).removeClass("error");
-                                                                                    }
+                                                                        // Clean up if user went backward before
+                                                                        if (currentIndex < newIndex)
+                                                                        {
+                                                                            // To remove error styles
+                                                                            $(".body:eq(" + newIndex + ") label.error", form).remove();
+                                                                            $(".body:eq(" + newIndex + ") .error", form).removeClass("error");
+                                                                        }
 
-                                                                                    // Disable validation on fields that are disabled or hidden.
-                                                                                    //  form.validate().settings.ignore = ":disabled,:hidden";
+                                                                        // Disable validation on fields that are disabled or hidden.
+                                                                        //  form.validate().settings.ignore = ":disabled,:hidden";
 
-                                                                                    // Start validation; Prevent going forward if false
-                                                                                    return form.valid();
-                                                                                },
-                                                                                onStepChanged: function (event, currentIndex, priorIndex)
-                                                                                {
-                                                                                    // Suppress (skip) "Warning" step if the user is old enough.
+                                                                        // Start validation; Prevent going forward if false
+                                                                        return form.valid();
+                                                                    },
+                                                                    onStepChanged: function (event, currentIndex, priorIndex)
+                                                                    {
+                                                                        // Suppress (skip) "Warning" step if the user is old enough.
+                                                          
+                                                                        
+                                                                    },
+                                                                    onFinishing: function (event, currentIndex)
+                                                                    {
+                                                                        var form = $(this);
 
+                                                                        // Disable validation on fields that are disabled.
+                                                                        // At this point it's recommended to do an overall check (mean ignoring only disabled fields)
+                                                                        //  form.validate().settings.ignore = ":disabled";
 
-                                                                                },
-                                                                                onFinishing: function (event, currentIndex)
-                                                                                {
-                                                                                    var form = $(this);
+                                                                        // Start validation; Prevent form submission if false
+                                                                        return form.valid();
+                                                                    },
+                                                                    onFinished: function (event, currentIndex)
+                                                                    {
+                                                                        var form = $(this);
 
-                                                                                    // Disable validation on fields that are disabled.
-                                                                                    // At this point it's recommended to do an overall check (mean ignoring only disabled fields)
-                                                                                    //  form.validate().settings.ignore = ":disabled";
+                                                                        // Submit form input
+                                                                        form.submit();
+                                                                    }
+                                                                }).validate({
+                                                                    errorPlacement: function (error, element)
+                                                                    {
+                                                                        element.before(error);
+                                                                    }
+                                                                });
 
-                                                                                    // Start validation; Prevent form submission if false
-                                                                                    return form.valid();
-                                                                                },
-                                                                                onFinished: function (event, currentIndex)
-                                                                                {
-                                                                                    var form = $(this);
+                                                                $(".select2_carrera").select2({
+                                                                    placeholder: "Seleccione Una Carrera",
+                                                                    allowClear: true
+                                                                });
 
-                                                                                    // Submit form input
-                                                                                    form.submit();
-                                                                                }
-                                                                            }).validate({
-                                                                                errorPlacement: function (error, element)
-                                                                                {
-                                                                                    element.before(error);
-                                                                                }
-                                                                            });
+                                                                $(".select2_investigacion").select2({
+                                                                    placeholder: "Seleccione Una Línea de Investigación",
+                                                                    allowClear: true
+                                                                });
 
-                                                                            $(".select2_carrera").select2({
-                                                                                placeholder: "Seleccione Una Carrera",
-                                                                                allowClear: true
-                                                                            });
+                                                                $(".select2_modalidad").select2({
+                                                                    placeholder: "Seleccione una Modalidad",
+                                                                    allowClear: true
+                                                                });
 
-                                                                            $(".select2_investigacion").select2({
-                                                                                placeholder: "Seleccione Una Línea de Investigación",
-                                                                                allowClear: true
-                                                                            });
+                                                                $('.footable').footable();
+                                                                $('.footable2').footable();
 
-                                                                            $(".select2_modalidad").select2({
-                                                                                placeholder: "Seleccione una Modalidad",
-                                                                                allowClear: true
-                                                                            });
-
-                                                                            $('.footable').footable();
-                                                                            $('.footable2').footable();
-
-                                                                            $('.i-checks').iCheck({
-                                                                                checkboxClass: 'icheckbox_square-green',
-                                                                                radioClass: 'iradio_square-green',
-                                                                            });
-                                                                        });
+                                                                $('.i-checks').iCheck({
+                                                                    checkboxClass: 'icheckbox_square-green',
+                                                                    radioClass: 'iradio_square-green',
+                                                                });
+                                                            });
         </script>
 
         <script>
@@ -907,7 +917,8 @@ $nuevafecha = date('d/m/Y', strtotime('+1 month'))
                 }
                 ;
 
-                $('.dataTables-example').DataTable({
+            
+                table = $('.dataTables-example').DataTable({
                     dom: '<"html5buttons"B>lTfgitp',
                     buttons: [
                         {extend: 'copy'},
@@ -941,8 +952,8 @@ $nuevafecha = date('d/m/Y', strtotime('+1 month'))
 
 
         </script>
-
-
+        
+        
         <script >
 
 
@@ -955,36 +966,37 @@ $nuevafecha = date('d/m/Y', strtotime('+1 month'))
                     var ape1aux = $("#apellido1RegistroEstudiante").val();
                     var ape2aux = $("#apellido2RegistroEstudiante").val();
                     var correoaux = $("#correoRegistroEstudiante").val();
+                    table.destroy();
                     $("#tablaEstudiantes").load("tablas/tablaEstudiantes.php", {id: idaux, nombre: nomaux, apellido1: ape1aux, apellido2: ape2aux, correo: correoaux}, function () {
 
-
+                        
                     });
                 });
             });
         </script>
-
-
+        
+        
         <div id="modal-form" class="modal fade" aria-hidden="true" style="display: none;">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-body">
                         <div class="row">
                             <div class=""><h3 class="m-t-none m-b"> <i class="fa fa-plus-square-o"></i> Agregar Estudiante</h3>
+                               
+                                    <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Identificación</label></i> <input required type="text" placeholder="Identificacion" class="form-control" id="idRegistroEstudiante"></div>
+                                    <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Nombre</label> </i> <input required type="text" placeholder="Nombre" class="form-control" id="nombreRegistroEstudiante"></div>
+                                    <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Primer Apellido</label></i> <input required type="text" placeholder="Primer Apellido" class="form-control" id="apellido1RegistroEstudiante"></div>
+                                    <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Segundo Apellido</label></i> <input required type="text" placeholder="Segundo Apellido" class="form-control" id="apellido2RegistroEstudiante"></div>
+                                    <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Correo</label></i> <input required type="email" placeholder="Correo" class="form-control" id="correoRegistroEstudiante"></div>
 
-                                <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Identificación</label></i> <input required type="text" placeholder="Identificacion" class="form-control" id="idRegistroEstudiante"></div>
-                                <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Nombre</label> </i> <input required type="text" placeholder="Nombre" class="form-control" id="nombreRegistroEstudiante"></div>
-                                <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Primer Apellido</label></i> <input required type="text" placeholder="Primer Apellido" class="form-control" id="apellido1RegistroEstudiante"></div>
-                                <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Segundo Apellido</label></i> <input required type="text" placeholder="Segundo Apellido" class="form-control" id="apellido2RegistroEstudiante"></div>
-                                <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Correo</label></i> <input required type="email" placeholder="Correo" class="form-control" id="correoRegistroEstudiante"></div>
-
-                                <div>
-                                    <label class=""> <i class="fa fa-exclamation-circle"> Rellene los datos obligatorios.</i></label><br> 
-                                    <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="button" id="btnAgregarEstudianteModal" data-dismiss="modal"><strong>Registrar</strong></button>
-                                    <button type="button" data-dismiss="modal" class="btn btn-sm btn-secundary pull-right m-t-n-xs" style="margin-right: 20px;" ><strong>Cancelar</strong></button>
+                                    <div>
+                                        <label class=""> <i class="fa fa-exclamation-circle"> Rellene los datos obligatorios.</i></label><br> 
+                                        <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="button" id="btnAgregarEstudianteModal" data-dismiss="modal"><strong>Registrar</strong></button>
+                                        <button type="button" data-dismiss="modal" class="btn btn-sm btn-secundary pull-right m-t-n-xs" style="margin-right: 20px;" ><strong>Cancelar</strong></button>
 
 
-                                </div>
-
+                                    </div>
+                             
                             </div>
                         </div>
                     </div>

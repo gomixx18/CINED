@@ -102,28 +102,79 @@
                                                 
                                                 
                                                 <?php
+                                                
+                                                $bandera = 0;
+                                                
                                                 $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
                                                 if (!$connection) {
                                                     exit("<label class='error'>Error de conexión</label>");
                                                 }
                                                 if($usuarioPermisos->getEncargadotfg() || $usuarioPermisos->getCoordinadorinvestigacion()){
-                                                    $query = mysqli_query($connection, "SELECT tfg.codigo, tfg.titulo, lineasinvestigacion.nombre as lineainvestigacion, 
+                                                    $SQLsentencia= "SELECT tfg.codigo, tfg.titulo, lineasinvestigacion.nombre as lineainvestigacion, 
                                                                                     carreras.nombre as carrera, tfg.estado, modalidades.nombre as modalidad
                                                                                     FROM tfg, lineasinvestigacion, carreras, modalidades
-                                                                                    where tfg.lineainvestigacion = lineasinvestigacion.codigo and
-                                                                                    tfg.carrera = carreras.codigo and tfg.modalidad = modalidades.codigo");
+                                                                                    where tfg.estado = 'Activo' and tfg.lineainvestigacion = lineasinvestigacion.codigo and
+                                                                                    tfg.carrera = carreras.codigo and tfg.modalidad = modalidades.codigo";
                                                 }else{
                                                     if($usuarioPermisos->getEstudiante()){
-                                                     $query = mysqli_query($connection,"SELECT tfg.codigo, tfg.titulo, lineasinvestigacion.nombre as lineainvestigacion, 
+                                                     $SQLsentencia= "SELECT tfg.codigo, tfg.titulo, lineasinvestigacion.nombre as lineainvestigacion, 
                                                                                     carreras.nombre as carrera, tfg.estado, modalidades.nombre as modalidad
                                                                                     FROM tfg, lineasinvestigacion, carreras, modalidades, tfgrealizan, tfgestudiantes
-                                                                                    where tfg.lineainvestigacion = lineasinvestigacion.codigo and
-                                                                                    tfg.carrera = carreras.codigo and tfg.modalidad = modalidades.codigo and tfg.codigo = tfgrealizan.tfg and tfgestudiantes.id = tfgrealizan.estudiante and tfgrealizan.estudiante =".$usuarioSesion->getID());
+                                                                                    where tfg.estado = 'Activo' and tfg.lineainvestigacion = lineasinvestigacion.codigo and
+                                                                                    tfg.carrera = carreras.codigo and tfg.modalidad = modalidades.codigo and tfg.codigo = tfgrealizan.tfg and tfgestudiantes.id = tfgrealizan.estudiante and tfgestudiantes.id =".$usuarioSesion->getID();
                                                     }
-//                                                    if($usuarioPermisos->getDirector()){
-//                                                        
-//                                                    }
+                                                    else{
+                                                        $SQLsentencia="SELECT tfg.codigo, tfg.titulo, lineasinvestigacion.nombre as lineainvestigacion, 
+                                                                                    carreras.nombre as carrera, tfg.estado, modalidades.nombre as modalidad
+                                                                                    FROM tfg, lineasinvestigacion, carreras, modalidades ";
+                                                        if($usuarioPermisos->getDirectortfg()){
+                                                            $bandera = $bandera + 1;
+                                                            $SQLsentencia = $SQLsentencia . ", tfgdirectores ";
+                                                        }
+                                                        if($usuarioPermisos->getAsesortfg()){
+                                                            $bandera = $bandera + 1;
+                                                            $SQLsentencia = $SQLsentencia . ", tfgasesores, tfgasesoran ";
+                                                        }
+                                                        if($usuarioPermisos->getMiembrocomisiontfg()){
+                                                            $bandera = $bandera + 1;
+                                                            $SQLsentencia = $SQLsentencia . ", tfgmiembroscomision, tfgevaluan ";
+                                                        }
+                                                        
+                                                        $SQLsentencia = $SQLsentencia . "where tfg.estado = 'Activo' and tfg.lineainvestigacion = lineasinvestigacion.codigo and
+                                                                                    tfg.carrera = carreras.codigo and tfg.modalidad = modalidades.codigo and " ;
+                                                                                    
+                                                        if($usuarioPermisos->getDirectortfg()){
+                                                            if($bandera > 1 ){
+                                                                $SQLsentencia = $SQLsentencia . "(tfgdirectores.id = tfg.directortfg and tfgdirectores.id = ".$usuarioSesion->getID() . ") or ";
+
+                                                            }else{
+                                                                $SQLsentencia = $SQLsentencia . "tfgdirectores.id = tfg.directortfg and tfgdirectores.id = ".$usuarioSesion->getID();
+                                                            }
+                                                        }
+                                                        if($usuarioPermisos->getAsesortfg()){
+                                                            if($bandera > 1 ){
+                                                                $SQLsentencia = $SQLsentencia . "(tfgasesoran.asesor = tfgasesores.id and tfgasesoran.tfg = tfg.codigo and tfgasesores.id = ".$usuarioSesion->getID() . ") or ";
+
+                                                            }else{
+                                                                $SQLsentencia = $SQLsentencia . "tfgasesoran.asesor = tfgasesores.id and tfgasesoran.tfg = tfg.codigo and tfgasesores.id = ".$usuarioSesion->getID();
+                                                            }
+                                                        }
+                                                        if($usuarioPermisos->getMiembrocomisiontfg()){
+                                                            if($bandera > 1 ){
+                                                                $SQLsentencia = $SQLsentencia . "(tfgevaluan.miembrocomisiontfg = tfgmiembroscomision.id and tfgevaluan.tfg = tfg.codigo and tfgmiembroscomision.id = ".$usuarioSesion->getID() . ")";
+
+                                                            }else{
+                                                                $SQLsentencia = $SQLsentencia . "tfgevaluan.miembrocomisiontfg = tfgmiembroscomision.id and tfgevaluan.tfg = tfg.codigo and tfgmiembroscomision.id = ".$usuarioSesion->getID();
+                                                            }
+                                                        }  
+                                                        if($bandera > 1 ){
+                                                            $SQLsentencia = $SQLsentencia . "group by tfg.codigo";
+                                                        }
+                                                    }
+                                                    
                                                 }
+                                                
+                                                $query = mysqli_query($connection,$SQLsentencia);
                                                 while ($data = mysqli_fetch_assoc($query)) {
                                                     echo "<tr>";
                                                     echo "<td>" . $data["codigo"] . "</td>";

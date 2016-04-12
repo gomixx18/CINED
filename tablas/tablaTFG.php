@@ -1,7 +1,7 @@
 <?php
 
 
-$estudiante = $_POST["estudiante"];
+$docente = $_POST["estudiante"];
 
 
 ?>
@@ -22,7 +22,7 @@ $estudiante = $_POST["estudiante"];
                                             <row>
                                                 <div class="form-group">
                                                     Busqueda por identificación de estudiante
-                                                    <input id="estudiante" name="estudiante" type="text" value="<?php echo $estudiante ?>" >
+                                                    <input id="estudiante" name="estudiante" type="text" value="<?php echo $docente ?>" >
                                                     <input id="btnestudiante" name="btnestudiante" type="button" value="Buscar" >
                                                 </div>
                                             </row>
@@ -38,7 +38,13 @@ $estudiante = $_POST["estudiante"];
                                                     exit("<label class='error'>Error de conexión</label>");
                                                 }
 
-                                                $query = mysqli_query($connection, "select tfg.codigo, tfg.titulo, tfg.lineainvestigacion, tfg.carrera, tfg.modalidad, tfg.estado from tfg, tfgestudiantes, tfgrealizan where tfg.codigo = tfgrealizan.tfg and tfgestudiantes.id = tfgrealizan.estudiante and tfgrealizan.estudiante = ". $estudiante);
+                                                $query = mysqli_query($connection, "select tfg.codigo, tfg.titulo, lineasinvestigacion.nombre as lineainvestigacion, 
+                                                                                    carreras.nombre as carrera, modalidades.nombre as modalidad, tfg.estado 
+                                                                                    from tfg, lineasinvestigacion, carreras, modalidades, tfgestudiantes, tfgrealizan 
+                                                                                    where tfg.estado = 'Activo' and tfg.codigo = tfgrealizan.tfg and tfgestudiantes.id = tfgrealizan.estudiante and 
+                                                                                    tfg.lineainvestigacion = lineasinvestigacion.codigo and
+                                                                                    tfg.carrera = carreras.codigo and tfg.modalidad = modalidades.codigo and
+                                                                                    tfgrealizan.estudiante = ". $docente);
 
                                                 if($query){
                                                 while ($data = mysqli_fetch_assoc($query)) {

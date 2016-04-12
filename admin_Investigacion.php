@@ -70,82 +70,137 @@
 
                                     <div class="table-responsive">
                                         <div id="divTabla">
-                                        <table class="table table-striped table-bordered table-hover dataTables-example" >
-                                            <thead>
-                                                <tr>
-                                                    <th>Código</th>
-                                                    <th>Título</th>
-                                                    <th>Carrera</th>
-                                                    <th>Línea de Investigación</th>
-                                                    <th>Catedra</th>
-                                                    <th>Estado</th>
-                                                    <th>Acción</th>
-                                                    <th>Acción</th>
-                                                </tr>
-                                            </thead>
-                                            
-                                            <row>
-                                                <div class="form-group">
-                                                    Busqueda por identificación de docente
-                                                    <input id="docente" name="docente" type="text" >
-                                                    <input id="btndocente" name="btndocente" type="button" value="Buscar" >
-                                                </div>
-                                            </row>
-                                            <tbody>
-                                                
-                                                <?php
-                                                $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
-                                                if (!$connection) {
-                                                    exit("<label class='error'>Error de conexión</label>");
-                                                }
+                                            <table class="table table-striped table-bordered table-hover dataTables-example" >
+                                                <thead>
+                                                    <tr>
+                                                        <th>Código</th>
+                                                        <th>Título</th>
+                                                        <th>Carrera</th>
+                                                        <th>Línea de Investigación</th>
+                                                        <th>Catedra</th>
+                                                        <th>Estado</th>
+                                                        <th>Acción</th>
+                                                        <th>Acción</th>
+                                                    </tr>
+                                                </thead>
 
-                                                $query = mysqli_query($connection, "SELECT ieproyectos.codigo, ieproyectos.titulo, ieproyectos.estado, 
-                                                                                    lineasinvestigacion.nombre as lineainvestigacion, 
-                                                                                    carreras.nombre as carrera, catedras.nombre as catedra, ieproyectos.isExtension
-                                                                                    FROM ieproyectos, lineasinvestigacion, carreras, catedras
-                                                                                    where ieproyectos.lineainvestigacion = lineasinvestigacion.codigo and
-                                                                                    ieproyectos.carrera = carreras.codigo and ieproyectos.catedra = catedras.codigo
-                                                                                    and ieproyectos.isExtension = 0");
+                                                <row>
+                                                    <div class="form-group">
+                                                        Busqueda por identificación de docente
+                                                        <input id="docente" name="docente" type="text" >
+                                                        <input id="btndocente" name="btndocente" type="button" value="Buscar" >
+                                                    </div>
+                                                </row>
+                                                <tbody>
 
-                                                if($query){
-                                                while ($data = mysqli_fetch_assoc($query)) {
-                                                    echo "<tr>";
-                                                    echo "<td>" . $data["codigo"] . "</td>";
-                                                    echo "<td>" . $data["titulo"] . "</td>";
-                                                    echo "<td>" . $data["carrera"] . "</td>";
-                                                    echo "<td>" . $data["lineainvestigacion"] . "</td>";
-                                                    echo "<td>" . $data["catedra"] . "</td>";
-                                                    echo "<td>" . $data["estado"] . "</td>";
-                                                    echo "<td>" . "<button type='submit' data-toggle='modal' class='btn btn-primary'
+                                                    <?php
+                                                    $bandera = 0;
+
+                                                    $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
+                                                    if (!$connection) {
+                                                        exit("<label class='error'>Error de conexión</label>");
+                                                    }
+
+                                                    if ($usuarioPermisos->getCoordinadorinvestigacion()) {
+                                                        $SQLsentencia = "SELECT ieproyectos.codigo, ieproyectos.titulo, ieproyectos.estado, 
+                                                                lineasinvestigacion.nombre as lineainvestigacion, 
+                                                                carreras.nombre as carrera, catedras.nombre as catedra, ieproyectos.isExtension
+                                                                FROM ieproyectos, lineasinvestigacion, carreras, catedras
+                                                                where  ieproyectos.estado = 'Activo' and ieproyectos.lineainvestigacion = lineasinvestigacion.codigo and
+                                                                ieproyectos.carrera = carreras.codigo and ieproyectos.catedra = catedras.codigo
+                                                                and ieproyectos.isExtension = 1";
+                                                    } else {
+                                                        $SQLsentencia = "SELECT ieproyectos.codigo, ieproyectos.titulo, ieproyectos.estado, 
+                                                                lineasinvestigacion.nombre as lineainvestigacion, 
+                                                                carreras.nombre as carrera, catedras.nombre as catedra, ieproyectos.isExtension
+                                                                FROM ieproyectos, lineasinvestigacion, carreras, catedras ";
+
+                                                        if ($usuarioPermisos->getInvestigador()) {
+                                                            $bandera = $bandera + 1;
+                                                            $SQLsentencia = $SQLsentencia . ", ieinvestigan, ieinvestigadores ";
+                                                        }
+                                                        if ($usuarioPermisos->getEvaluador()) {
+                                                            $bandera = $bandera + 1;
+                                                            $SQLsentencia = $SQLsentencia . ", ieevaluadores, ieevaluan ";
+                                                        }
+                                                        if ($usuarioPermisos->getMiembrocomiex()) {
+                                                            $bandera = $bandera + 1;
+                                                            $SQLsentencia = $SQLsentencia . ", iemiembroscomiex, ierevisan ";
+                                                        }
+
+                                                        $SQLsentencia = $SQLsentencia . " where  ieproyectos.estado = 'Activo' and ieproyectos.lineainvestigacion = lineasinvestigacion.codigo and
+                                                                ieproyectos.carrera = carreras.codigo and ieproyectos.catedra = catedras.codigo
+                                                                and ieproyectos.isExtension = 0 and ";
+
+                                                        if ($usuarioPermisos->getInvestigador()) {
+                                                            if ($bandera > 1) {
+                                                                $SQLsentencia = $SQLsentencia . "(ieinvestigan.investigador = ieinvestigadores.id and ieinvestigan.proyecto = ieproyectos.codigo and ieinvestigadores.id = " . $usuarioSesion->getID() . ") or ";
+                                                            } else {
+                                                                $SQLsentencia = $SQLsentencia . "ieinvestigan.investigador = ieinvestigadores.id and ieinvestigan.proyecto = ieproyectos.codigo and ieinvestigadores.id = " . $usuarioSesion->getID();
+                                                            }
+                                                        }
+                                                        if ($usuarioPermisos->getEvaluador()) {
+                                                            if ($bandera > 1) {
+                                                                $SQLsentencia = $SQLsentencia . "(ieevaluan.evaluador = ieevaluadores.id and ieevaluan.proyecto = ieproyectos.codigo and ieevaluadores.id = " . $usuarioSesion->getID() . ") or ";
+                                                            } else {
+                                                                $SQLsentencia = $SQLsentencia . "ieevaluan.evaluador = ieevaluadores.id and ieevaluan.proyecto = ieproyectos.codigo and ieevaluadores.id = " . $usuarioSesion->getID();
+                                                            }
+                                                        }
+                                                        if ($usuarioPermisos->getMiembrocomiex()) {
+                                                            if ($bandera > 1) {
+                                                                $SQLsentencia = $SQLsentencia . "(ierevisan.miembrocomiex = iemiembroscomiex.id and ierevisan.proyecto = ieproyectos.codigo and iemiembroscomiex.id = " . $usuarioSesion->getID() . ")";
+                                                            } else {
+                                                                $SQLsentencia = $SQLsentencia . "ierevisan.miembrocomiex = iemiembroscomiex.id and ierevisan.proyecto = ieproyectos.codigo and iemiembroscomiex.id = " . $usuarioSesion->getID();
+                                                            }
+                                                        }
+                                                        if ($bandera > 1) {
+                                                            $SQLsentencia = $SQLsentencia . "group by ieproyectos.codigo";
+                                                        }
+                                                    }
+
+
+
+                                                    $query = mysqli_query($connection, $SQLsentencia);
+
+                                                    if ($query) {
+                                                        while ($data = mysqli_fetch_assoc($query)) {
+                                                            echo "<tr>";
+                                                            echo "<td>" . $data["codigo"] . "</td>";
+                                                            echo "<td>" . $data["titulo"] . "</td>";
+                                                            echo "<td>" . $data["carrera"] . "</td>";
+                                                            echo "<td>" . $data["lineainvestigacion"] . "</td>";
+                                                            echo "<td>" . $data["catedra"] . "</td>";
+                                                            echo "<td>" . $data["estado"] . "</td>";
+                                                            echo "<td>" . "<button type='submit' data-toggle='modal' class='btn btn-primary'
                                                                  id = '" . $data["codigo"] . "' > Modificar</button></td> ";
 
 
-                                                    echo "<form method= 'GET' action = 'consulta_TFG.php'>";
-                                                    echo "<input type='hidden' name='codigo' value= '" . $data["codigo"] . "'/> ";
-                                                    echo "<td>" . "<button type='submit' data-toggle='modal' class='btn btn-primary'
+                                                            echo "<form method= 'GET' action = 'consulta_TFG.php'>";
+                                                            echo "<input type='hidden' name='codigo' value= '" . $data["codigo"] . "'/> ";
+                                                            echo "<td>" . "<button type='submit' data-toggle='modal' class='btn btn-primary'
                                                                  id = '" . $data["codigo"] . "' > Consultar</button></td> ";
-                                                    echo "</tr>";
-                                                    echo "</form>";
-                                                }
-                                                }
+                                                            echo "</tr>";
+                                                            echo "</form>";
+                                                        }
+                                                    }
 
-                                                mysqli_close($connection);
-                                                ?>   
+                                                    mysqli_close($connection);
+                                                    ?>   
 
-                                            </tbody>
-                                            <tfoot>
-                                                <tr>
-                                                    <th>Código</th>
-                                                    <th>Título</th>
-                                                    <th>Carrera</th>
-                                                    <th>Línea de Investigación</th>
-                                                    <th>Catedra</th>
-                                                    <th>Estado</th>
-                                                    <th>Acción</th>
-                                                    <th>Acción</th>
-                                                </tr>
-                                            </tfoot>
-                                        </table>
+                                                </tbody>
+                                                <tfoot>
+                                                    <tr>
+                                                        <th>Código</th>
+                                                        <th>Título</th>
+                                                        <th>Carrera</th>
+                                                        <th>Línea de Investigación</th>
+                                                        <th>Catedra</th>
+                                                        <th>Estado</th>
+                                                        <th>Acción</th>
+                                                        <th>Acción</th>
+                                                    </tr>
+                                                </tfoot>
+                                            </table>
                                         </div>
                                     </div>
 
@@ -234,50 +289,50 @@
 
             }
         </script>
-        
-        </script>
-	<script >
+
+    </script>
+    <script >
 
 
-            $(document).ready(function () {
+        $(document).ready(function () {
 
-                $("#btndocente").click(function (evento) {
-                    evento.preventDefault();
-                    var val = $("#docente").val();
-                    $("#divTabla").load("tablas/tablaInvestigacion.php", {docente: val}, function () {
+            $("#btndocente").click(function (evento) {
+                evento.preventDefault();
+                var val = $("#docente").val();
+                $("#divTabla").load("tablas/tablaInvestigacion.php", {docente: val}, function () {
 
-                        
-                    });
+
                 });
             });
-        </script>
-        <div id="modal-form" class="modal fade" aria-hidden="true" style="display: none;">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class=""><h3 class="m-t-none m-b"> <i class="fa fa-plus-square-o"></i> Agregar Proyecto de Extensión</h3>
-                                <form role="form" id="frm_agregar_extension">
-                                    <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Título</label></i> <input required type="text" placeholder="Título" class="form-control"></div>
-                                    <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Carrera</label> </i> <input required type="text" placeholder="Carrera" class="form-control"></div>
-                                    <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Línea de Investigación</label></i> <input required type="text" placeholder="Línea de Investigación" class="form-control"></div>
+        });
+    </script>
+    <div id="modal-form" class="modal fade" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class=""><h3 class="m-t-none m-b"> <i class="fa fa-plus-square-o"></i> Agregar Proyecto de Extensión</h3>
+                            <form role="form" id="frm_agregar_extension">
+                                <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Título</label></i> <input required type="text" placeholder="Título" class="form-control"></div>
+                                <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Carrera</label> </i> <input required type="text" placeholder="Carrera" class="form-control"></div>
+                                <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Línea de Investigación</label></i> <input required type="text" placeholder="Línea de Investigación" class="form-control"></div>
 
-                                    <div>
-                                        <label class=""> <i class="fa fa-exclamation-circle"> Rellene los datos obligatorios.</i></label><br> 
-                                        <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"><strong>Registar</strong></button>
-                                        <button type="button" data-dismiss="modal" class="btn btn-sm btn-secundary pull-right m-t-n-xs" style="margin-right: 20px;" ><strong>Cancelar</strong></button>
+                                <div>
+                                    <label class=""> <i class="fa fa-exclamation-circle"> Rellene los datos obligatorios.</i></label><br> 
+                                    <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"><strong>Registar</strong></button>
+                                    <button type="button" data-dismiss="modal" class="btn btn-sm btn-secundary pull-right m-t-n-xs" style="margin-right: 20px;" ><strong>Cancelar</strong></button>
 
 
-                                    </div>
-                                </form>
-                            </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
 
-    </body>
+</body>
 
 </html>

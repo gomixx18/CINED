@@ -39,10 +39,10 @@ $docente = $_POST["docente"];
                                                                                     lineasinvestigacion.nombre as lineainvestigacion, 
                                                                                     carreras.nombre as carrera, catedras.nombre as catedra, ieproyectos.isExtension
                                                                                     FROM ieproyectos, lineasinvestigacion, carreras, catedras, ieinvestigan, ieinvestigadores
-                                                                                    where ieproyectos.estado = 'Activo' and ieproyectos.lineainvestigacion = lineasinvestigacion.codigo and
+                                                                                    where ieproyectos.lineainvestigacion = lineasinvestigacion.codigo and
                                                                                     ieproyectos.carrera = carreras.codigo and ieproyectos.catedra = catedras.codigo and
                                                                                     ieproyectos.codigo = ieinvestigan.proyecto and ieinvestigadores.id = ieinvestigan.investigador
-                                                                                    and ieproyectos.isExtension = 1 and ieinvestigadores.id = ". $docente);
+                                                                                    and ieproyectos.isExtension = 0 and ieinvestigadores.id = ". $docente);
 
                                                 if($query){
                                                 while ($data = mysqli_fetch_assoc($query)) {
@@ -83,6 +83,8 @@ $docente = $_POST["docente"];
                                                 </tr>
                                             </tfoot>
                                         </table>
+
+
 
 <script>
             $(document).ready(function () {
@@ -139,8 +141,9 @@ $docente = $_POST["docente"];
 
             }
         </script>
-
-<script >
+        
+        </script>
+	<script >
 
 
             $(document).ready(function () {
@@ -148,7 +151,7 @@ $docente = $_POST["docente"];
                 $("#btndocente").click(function (evento) {
                     evento.preventDefault();
                     var val = $("#docente").val();
-                    $("#divTabla").load("tablas/tablaExtension.php", {docente: val}, function () {
+                    $("#divTabla").load("tablas/tablaInvestigacion.php", {docente: val}, function () {
 
                         
                     });
