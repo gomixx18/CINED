@@ -182,7 +182,7 @@ and open the template in the editor.
                                                             <div class="col-lg-12">
                                                                 <div class="panel panel-default">
                                                                     <div class="panel-body">
-
+                                                                        <form action="funcionalidad/CargarArchivoBlobTFG.php" method="post" enctype="multipart/form-data" id="directorForm">
                                                                         <div class="row">
 
                                                                             <div class="col-lg-12 ">
@@ -192,8 +192,21 @@ and open the template in the editor.
                                                                             </div>
                                                                             <div class="col-lg-5 col-lg-offset-1">
                                                                                 <div class="form-group">
+                                                                                    
                                                                                     <label class="control-label">Comisión TFG</label>
-                                                                                    <input id="input-1" type="file" class ="btn btn-primary btn-outline">
+                                                                                    <input class = 'form-control' name = 'codigoTFG' id='codigoTFG' type="hidden" value='<?php echo $codigo ?>'>
+                                                                                    <input class = 'form-control' name = 'etapa' id = 'etapa' value ='1' type="hidden">   
+                                                                                    <input class = 'form-control' name = 'tipo' id = 'tipo' value ='archivoDirector' type="hidden">   
+
+                                                                                    <input accept=".docx,.doc,.pdf" type="file" name="archivoDirector" id="archivoDirector" onchange="uploadFile()" class ="btn btn-primary btn-outline">
+                                                                                    <div hidden id="divProgress" class="progress progress-striped active">
+                                                                                        <div  id="progressBar"   aria-valuemax="100" aria-valuemin="0" aria-valuenow="45" role="progressbar" class="progress-bar progress-bar-danger ">
+                                                                                            
+                                                                                        </div>
+                                                                                    </div>
+                                                                                   
+                                                                                    <h2 id="status"></h2>
+                                                                                    <p id="loaded_n_total"></p>
                                                                                 </div>
                                                                                 <div class="form-group">
                                                                                     <label class="control-label">Director TFG</label>
@@ -218,13 +231,12 @@ and open the template in the editor.
 
                                                                             <div class="col-lg-offset-8">
                                                                                 <div class="form-group">
-                                                                                    <input id="input-1" type="button" class="btn btn-primary btn-outline" value="Guardar Archivo">
+                                                                                    <input id="guardarArchivo1" type="submit" class="btn btn-primary btn-outline disabled" value="Guardar Archivo" >
                                                                                     <input id="input-1" type="button" class="btn btn-primary btn-outline" value="Registro de Archivos">
                                                                                 </div>
-
                                                                             </div>
                                                                         </div>
-
+                                                                        </form>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -801,7 +813,7 @@ and open the template in the editor.
 
                 </div>
             </div>
-
+</div>
             <script src="js/jquery-2.1.1.js"></script>
             <script src="js/bootstrap.min.js"></script>
             <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
@@ -810,6 +822,7 @@ and open the template in the editor.
 
             <script src="js/plugins/dataTables/datatables.min.js"></script>
             <script src="js/plugins/metisMenu/jquery.metisMenu.js" type="text/javascript"></script>
+            <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
             <!-- Custom and plugin javascript -->
             <script src="js/inspinia.js"></script>
             <script src="js/plugins/pace/pace.min.js"></script>
@@ -865,8 +878,61 @@ and open the template in the editor.
                 $data = mysqli_fetch_assoc($query);
             }
             ?>
+<script>
+function _(el){
+	return document.getElementById(el);
+}
+function uploadFile(){
+    
+       document.getElementById("divProgress").removeAttribute('hidden');
 
-            <script>
+	var file = _("archivoDirector").files[0];
+	// alert(file.name+" | "+file.size+" | "+file.type);
+	var formdata = new FormData();
+	formdata.append("archivo", file);
+	var ajax = new XMLHttpRequest();
+	ajax.upload.addEventListener("progress", progressHandler, false);
+	ajax.addEventListener("load", completeHandler, false);
+	ajax.addEventListener("error", errorHandler, false);
+	ajax.addEventListener("abort", abortHandler, false);
+	ajax.open("POST", "funcionalidad/parser_File.php");
+	ajax.send(formdata);
+        
+
+}
+function progressHandler(event){
+	_("loaded_n_total").innerHTML = "Subido "+event.loaded+" bytes de "+event.total;
+	var percent = (event.loaded / event.total) * 100;
+	_("progressBar").style.width = Math.round(percent)+"%"; 
+        
+        if(parseInt(_("progressBar").style.width) < 40){
+            $("#progressBar").removeClass("progress-bar-success").addClass("progress-bar-danger");
+        }
+        if(parseInt(_("progressBar").style.width) > 40){
+            $("#progressBar").removeClass("progress-bar-danger").addClass("progress-bar-warning");
+        }
+        if(parseInt(_("progressBar").style.width) > 70){
+            $("#progressBar").removeClass("progress-bar-warning").addClass("progress-bar-default");
+        }
+        if(parseInt(_("progressBar").style.width) === 100){
+            $("#progressBar").removeClass("progress-bar-default").addClass("progress-bar-success");
+        }
+	_("status").innerHTML = Math.round(percent)+"% Subido... por favor espere";
+}
+function completeHandler(event){
+	_("status").innerHTML = event.target.responseText;
+	$("#guardarArchivo1").removeClass('disabled');
+}
+function errorHandler(event){
+	_("status").innerHTML = "Subida Fallida";
+}
+function abortHandler(event){
+	_("status").innerHTML = "Subida Abortada";
+}
+
+
+</script>
+<script>
                                                                         String.prototype.trim = function () {
                                                                             return this.replace(/^\s+|\s+$/g, "");
                                                                         };
@@ -1039,7 +1105,8 @@ and open the template in the editor.
                                                                         }
                                                                         
 
-            </script>                                                   
-        </div>
+            </script>    
+
+        
     </body>
 </html>
