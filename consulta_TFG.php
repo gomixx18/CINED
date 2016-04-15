@@ -1039,7 +1039,7 @@ and open the template in the editor.
                                                                                         <div  id="progressBar3"   aria-valuemax="100" aria-valuemin="0" aria-valuenow="45" role="progressbar" class="progress-bar progress-bar-danger ">
                                                                                         </div>
                                                                                     </div>
-                                                                                    <h3 id="statu3s"></h3>
+                                                                                    <h3 id="status3"></h3>
                                                                                     <p id="loaded_n_total3"></p>
                                                                                      </div>
                                                                                     <?php }?>
