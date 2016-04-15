@@ -16,11 +16,23 @@ $codigo = $_POST['codigoTFG'];
 $etapa = $_POST['etapa'];
 $tipo = $_POST['tipo'];
 
+if(isset($_FILES['archivo']['name'])){
+  $nombre_archivo = $_FILES['archivo']['name'];
+}
+
+if(isset($_FILES['archivo2']['name'])){
+   $nombre_archivo = $_FILES['archivo2']['name'];
+}
+if(isset($_FILES['archivo3']['name'])){
+   $nombre_archivo = $_FILES['archivo3']['name'];
+}
+    
+
 if(!$codigo  || !$etapa || !$tipo){
     $_SESSION["error"] = "¡Hubo un error al cargar el archivo! POST_VARS";
     header("Location: ../navegacion/500.php");
 }
-$ubicacionArchivo = $codigo.'/ETAPA '.$etapa.'/'.$usuario.'/';
+$ubicacionArchivo = $codigo.'/ETAPA '.$etapa.'/'.$tipo.'/'.$usuario.'/';
 
 
 
@@ -41,7 +53,7 @@ if (!$connection) {
     exit();
 }
 
-$nombre_archivo = $_FILES['archivo']['name'];
+
 $archivo_bases = "https://almacenamientocined.blob.core.windows.net/tfg/".$ubicacionArchivo.$nombre_archivo;
 $content = fopen($_FILES['archivo']["tmp_name"], "r");
 if(!$content){
@@ -57,16 +69,16 @@ try {
     $dt = new DateTime();
     $fecha = $dt->format('Y-m-d H:i:s');
     if ($tipo == "archivoDirector") {
-        $consulta = "INSERT INTO tfgarchivosdirectores (director, etapa, tfg, ruta, fecha) VALUES ( " . $usuario . " , " . $etapa .
-                " , '" . $codigo . "','" . $archivo_bases . "' ,'" . $fecha . "');";
+        $consulta = "INSERT INTO tfgarchivosdirectores (director, etapa, tfg, ruta, fecha, nom_archivo) VALUES ( " . $usuario . " , " . $etapa .
+                " , '" . $codigo . "','" . $archivo_bases . "' ,'" . $fecha ."','".$nombre_archivo."');";
     }
     if($tipo == 'archivoAsesor'){
-     $consulta  = "INSERT INTO tfgarchivosasesores (asesor, etapa, tfg, ruta, fecha) VALUES ( ".$usuario." , ".$etapa.
-                 " ,'".$codigo."','".$archivo_bases."','".$fecha."');";    
+     $consulta  = "INSERT INTO tfgarchivosasesores (asesor, etapa, tfg, ruta, fecha, nom_archivo) VALUES ( ".$usuario." , ".$etapa.
+                 " ,'".$codigo."','".$archivo_bases."','".$fecha."','".$nombre_archivo."');";
     }
     if($tipo == 'archivoMiembroComision'){
-       $consulta  = "INSERT INTO tfgarchivoscomision (miembrocomision, etapa, tfg, ruta, fecha) VALUES ( ".$usuario." , ".$etapa.
-                 " , '".$codigo."','".$archivo_bases."' ,'".$fecha."');";     
+       $consulta  = "INSERT INTO tfgarchivoscomision (miembrocomision, etapa, tfg, ruta, fecha, nom_archivo) VALUES ( ".$usuario." , ".$etapa.
+                 " , '".$codigo."','".$archivo_bases."' ,'".$fecha."','".$nombre_archivo."');";
     }
     echo $consulta;
     $resultado = mysqli_query($connection, $consulta);
