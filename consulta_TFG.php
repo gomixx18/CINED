@@ -296,6 +296,7 @@ and open the template in the editor.
                                                                                 
                                                                                     <label class="control-label">Asesor 1</label><br>
                                                                                      <?php
+                                                                                    $consulta3 = "SELECT * FROM tfgarchivoscomision where tfg = '" . $codigo . "' and miembrocomision = '" . $asesor1 . "' and etapa = 1 order by fecha desc limit 1;";
                                                                                     $query3 = mysqli_query($connection, $consulta3);
                                                                                     if( $data3 = mysqli_fetch_assoc($query3)){                                                                                   
                                                                                         echo " <div class=' file-box'>";
@@ -343,6 +344,7 @@ and open the template in the editor.
                                                                                 
                                                                                     <label class="control-label">Asesor 2</label><br>
                                                                                      <?php
+                                                                                    $consulta3 = "SELECT * FROM tfgarchivoscomision where tfg = '" . $codigo . "' and miembrocomision = '" . $asesor2 . "' and etapa = 1 order by fecha desc limit 1;";
                                                                                     $query3 = mysqli_query($connection, $consulta3);
                                                                                     if( $data3 = mysqli_fetch_assoc($query3)){                                                                                   
                                                                                         echo " <div class=' file-box'>";
@@ -565,6 +567,7 @@ and open the template in the editor.
                                                                                   
                                                                                    
                                                                                     <?php
+                                                                                    $consulta3 = "SELECT * FROM tfgarchivoscomision where tfg = '" . $codigo . "' and etapa = 2 order by fecha desc limit 1;";
                                                                                     $query3 = mysqli_query($connection, $consulta3);
                                                                                     if( $data3 = mysqli_fetch_assoc($query3)){                                                                                   
                                                                                         echo " <div class=' file-box'>";
@@ -610,6 +613,7 @@ and open the template in the editor.
                                                                                 <div class="col-lg-5 col-lg-offset-1">
                                                                                     <label class="form-label">Director TFG</label><br>
                                                                                     <?php
+                                                                                    $consulta3 = "SELECT * FROM tfgarchivosdirectores where tfg ='" . $codigo . "' and director = '" . $data['directortfg'] . "' and etapa = 2 order by fecha desc limit 1;";
                                                                                     $query3 = mysqli_query($connection, $consulta3);
                                                                                      if( $data3 = mysqli_fetch_assoc($query3)){                                                                                   
                                                                                         echo " <div class=' file-box'>";
@@ -658,6 +662,7 @@ and open the template in the editor.
                                                                                 
                                                                                     <label class="control-label">Asesor 1</label><br>
                                                                                      <?php
+                                                                                    $consulta3 = "SELECT * FROM tfgarchivoscomision where tfg = '" . $codigo . "' and miembrocomision = '" . $asesor1 . "' and etapa = 2 order by fecha desc limit 1;";
                                                                                     $query3 = mysqli_query($connection, $consulta3);
                                                                                     if( $data3 = mysqli_fetch_assoc($query3)){                                                                                   
                                                                                         echo " <div class=' file-box'>";
@@ -705,6 +710,7 @@ and open the template in the editor.
                                                                                 
                                                                                     <label class="control-label">Asesor 2</label><br>
                                                                                      <?php
+                                                                                    $consulta3 = "SELECT * FROM tfgarchivoscomision where tfg = '" . $codigo . "' and miembrocomision = '" . $asesor2 . "' and etapa = 2 order by fecha desc limit 1;";
                                                                                     $query3 = mysqli_query($connection, $consulta3);
                                                                                     if( $data3 = mysqli_fetch_assoc($query3)){                                                                                   
                                                                                         echo " <div class=' file-box'>";
@@ -927,6 +933,7 @@ and open the template in the editor.
                                                                                   
                                                                                    
                                                                                     <?php
+                                                                                    $consulta3 = "SELECT * FROM tfgarchivoscomision where tfg = '" . $codigo . "' and etapa = 3 order by fecha desc limit 1;";
                                                                                     $query3 = mysqli_query($connection, $consulta3);
                                                                                     if( $data3 = mysqli_fetch_assoc($query3)){                                                                                   
                                                                                         echo " <div class=' file-box'>";
@@ -972,6 +979,7 @@ and open the template in the editor.
                                                                                 <div class="col-lg-5 col-lg-offset-1">
                                                                                     <label class="form-label">Director TFG</label><br>
                                                                                     <?php
+                                                                                    $consulta3 = "SELECT * FROM tfgarchivosdirectores where tfg ='" . $codigo . "' and director = '" . $data['directortfg'] . "' and etapa = 1 order by fecha desc limit 1;";
                                                                                     $query3 = mysqli_query($connection, $consulta3);
                                                                                     if( $data3 = mysqli_fetch_assoc($query3)){                                                                                   
                                                                                         echo " <div class=' file-box'>";
@@ -1020,6 +1028,7 @@ and open the template in the editor.
                                                                                 
                                                                                     <label class="control-label">Asesor 1</label><br>
                                                                                      <?php
+                                                                                    $consulta3 = "SELECT * FROM tfgarchivoscomision where tfg = '" . $codigo . "' and miembrocomision = '" . $asesor1 . "' and etapa = 1 order by fecha desc limit 1;";
                                                                                     $query3 = mysqli_query($connection, $consulta3);
                                                                                     if( $data3 = mysqli_fetch_assoc($query3)){                                                                                   
                                                                                         echo " <div class=' file-box'>";
@@ -1067,6 +1076,7 @@ and open the template in the editor.
                                                                                 
                                                                                     <label class="control-label">Asesor 2</label><br>
                                                                                      <?php
+                                                                                    $consulta3 = "SELECT * FROM tfgarchivoscomision where tfg = '" . $codigo . "' and miembrocomision = '" . $asesor2 . "' and etapa = 1 order by fecha desc limit 1;";
                                                                                     $query3 = mysqli_query($connection, $consulta3);
                                                                                     if( $data3 = mysqli_fetch_assoc($query3)){                                                                                   
                                                                                         echo " <div class=' file-box'>";
@@ -1316,17 +1326,16 @@ and open the template in the editor.
 
             <!-- SUMMERNOTE -->
             <script src="js/plugins/summernote/summernote.min.js"></script>
-
+            <script src="js/fileUpload.js" type="text/javascript"></script>
             <!-- Page-Level Scripts -->
             <?php
-
             function comentarioMiembro($cod, $eta, $conn) {
                 $consulta = "select comentario from tfgcomentarioscomision where etapa = " . $eta . " and tfg ='$cod'";
                 $query = mysqli_query($conn, $consulta);
                 $data = mysqli_fetch_assoc($query);
                 echo " " . $data["comentario"] . " ";
             }
-            <script src="js/fileUpload.js" type="text/javascript"></script>
+
             function comentarioAsesor($cod, $eta, $ide, $conn) {
                 $consulta = "select comentario from tfgcomentariosasesores where etapa = $eta and tfg ='$cod' and asesor = $ide";
                 $query = mysqli_query($conn, $consulta);
