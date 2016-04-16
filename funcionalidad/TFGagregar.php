@@ -60,11 +60,9 @@ if (isset($_POST["TFGagregarDirector"])) {
             $sentenciaSQLusarios = "UPDATE usuarios SET directortfg = true WHERE id= '". $id . "'";
             $resultadoUsuarios = mysqli_query($connection, $sentenciaSQLusarios); 
         }
+        newUserMail($id, $pass, $correo);
         mysqli_close($connection);
-    }
-
-     //*** -- validar mas adelante -- ***
-    newUserMail($id, $pass, $correo);
+    }    
    
     header("Location: ../admin_directores.php");
 }
@@ -93,11 +91,10 @@ if (isset($_POST["TFGagregarEncargado"])) {
             $sentenciaSQLusarios = "UPDATE usuarios SET encargadotfg = true WHERE id= '". $id . "'";
             $resultadoUsuarios = mysqli_query($connection, $sentenciaSQLusarios); 
         }
+        newUserMail($id, $pass, $correo);
         mysqli_close($connection);
     }
-
-     //*** -- validar mas adelante -- ***
-    newUserMail($id, $pass, $correo);
+   
    
     header("Location: ../admin_encargados.php");
 }
@@ -113,7 +110,7 @@ if (isset($_POST["TFGagregarAsesor"])) {
     $correo = $_POST["correo"];
     $pass = $pass = "a" . substr(md5(microtime()), 1, 7);
 
-     $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
+    $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
 
  
     if ($connection) {
@@ -129,12 +126,11 @@ if (isset($_POST["TFGagregarAsesor"])) {
             $sentenciaSQLusarios = "UPDATE usuarios SET asesortfg = true WHERE id= '". $id . "'";
             $resultadoUsuarios = mysqli_query($connection, $sentenciaSQLusarios); 
         }
+        newUserMail($id, $pass, $correo);
         mysqli_close($connection);
     }
 
     
-    //*** -- validar mas adelante -- ***
-    newUserMail($id, $pass, $correo);
     header("Location: ../admin_asesores.php");
 }
 
@@ -148,7 +144,6 @@ if (isset($_POST["TFGagregarMiembroComision"])) {
     $pass = $pass = "a" . substr(md5(microtime()), 1, 7);
     $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
 
- 
     if ($connection) {
         $sentenciaSQL = "INSERT INTO tfgmiembroscomision (id, nombre, apellido1, apellido2, password, correo, estado) VALUES ('". $id ."' , '". $nombre ."', '". $ap1 ."', '". $ap2 ."', '".$pass ."', '". $correo ."', 1)";
         $resultado = mysqli_query($connection, $sentenciaSQL); 
@@ -162,28 +157,23 @@ if (isset($_POST["TFGagregarMiembroComision"])) {
             $sentenciaSQLusarios = "UPDATE usuarios SET miembrocomisiontfg = true WHERE id= '". $id . "'";
             $resultadoUsuarios = mysqli_query($connection, $sentenciaSQLusarios); 
         }
+        newUserMail($id, $pass, $correo);
         mysqli_close($connection);
     }
 
-    // ** validar **
-    newUserMail($id, $pass, $correo);
+    
    
     header("Location: ../admin_comisionTFG.php");
 }
 
-
 if (isset($_POST["TFGAgregarModalidad"])) {
     $nombre = $_POST["nombre"];
     $codigo = $_POST["codigo"];
-
     $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
-
-
     if ($connection) {
         $sentenciaSQL = "INSERT INTO modalidades (codigo, nombre) VALUES (" . $codigo . ", '" . $nombre . "')";
         $resultado = mysqli_query($connection, $sentenciaSQL);
         mysqli_close($connection);
     }
-
     header("Location: ../admin_Modalidad.php");
 }
