@@ -155,12 +155,15 @@ $usuarioPermisos = $_SESSION['permisos'];
                             <a href="index.html"><i class="fa fa-fw fa-list"></i> <span class="nav-label">General</span> <span class="fa arrow"></span></a>
                             <ul id="ext_principal" class="nav nav-second-level collapse">
                                 <li>
-                                    <a href="admin_LineasInvestigacion.php"> Líneas de Investigación </a>
+                                    <a href="admin_LineasInvestigacion.php">Administrar Líneas de Investigación </a>
                                   
                                 </li>
                                 <li>
-                                    <a href="admin_Carreras.php"> Carreras </a>
+                                    <a href="admin_Carreras.php">Administrar Carreras </a>
                                     
+                                </li>
+                                <li>
+                                    <a href="admin_Catedras.php">Administrar Catedras</a>
                                 </li>
                                 
                             </ul>
@@ -180,6 +183,7 @@ $usuarioPermisos = $_SESSION['permisos'];
                                 <li>
                                     <a href="ReportesExtension.php">Proyectos de Extensión</a>
                                 </li>
+                                
                             </ul>
                             <?php } ?>
                         </li>
