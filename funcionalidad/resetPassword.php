@@ -29,22 +29,22 @@ function updateUserPassword($userID, $password, $token) {
         $response_array['status'] = 'expirado';
     } else {
         $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
-        if($connection){
+        if ($connection) {
             if ($SQL = $connection->prepare("UPDATE usuarios SET password = ? WHERE ID = ?")) {
-            $SQL->bind_param('ss', $password, $userID);
-            $SQL->execute();
-            $SQL->close();
-            $SQL = $connection->prepare("DELETE FROM reset_password WHERE token = ?");
-            $SQL->bind_param('s',$token);
-            $SQL->execute();
-            $response_array['status'] = 'success';
+                $SQL->bind_param('ss', $password, $userID);
+                $SQL->execute();
+                $SQL->close();
+                $SQL = $connection->prepare("DELETE FROM reset_password WHERE token = ?");
+                $SQL->bind_param('s', $token);
+                $SQL->execute();
+                $response_array['status'] = 'success';
+            } else {
+                $response_array['status'] = 'error';
+            }
+            mysqli_close($connection);
         } else {
-            $response_array['status'] = 'error';
-        }
-         mysqli_close($connection);
-        } else{
             $response_array['status'] = 'db_conn_error';
-        }  
+        }
     }
 
     echo json_encode($response_array);
