@@ -49,15 +49,12 @@ function sendPassReset($id, $email,  $connection) {
         $stmt->execute();
         $stmt->store_result();
         $stmt->close();
-
         $subject = 'Reestablecer contraseña - CINED.';
         $link = "<a href=\"?a=recover&email=" . $token . "&u=" . urlencode(base64_encode($id))
                 . "\">http://cined.cloudapp.net/reset_password.php?e=" . $token . "&u=" . urlencode(base64_encode($id)) . "</a>";
         $body = 'Para reestablecer su contraseña por favor copie y pegue este link en su navegador: <br/ > ';
         $body .= $link . '<br/ >';
         $body .= 'Este link se expirará en 3 días por razones de seguridad. <br/ >';
-        
-
         mysqli_close($connection);
         return sendMail($email, $subject, $body, 50);
     } else{
