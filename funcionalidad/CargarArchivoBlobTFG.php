@@ -18,17 +18,13 @@ $tipo = $_POST['tipo'];
 
 if(isset($_FILES['archivo']['name'])){
   $nombre_archivo = $_FILES['archivo']['name'];
-  
-  echo "Archivo 1";
 }
 
 if(isset($_FILES['archivo2']['name'])){
    $nombre_archivo = $_FILES['archivo2']['name'];
-   echo "Archivo 2";
 }
 if(isset($_FILES['archivo3']['name'])){
    $nombre_archivo = $_FILES['archivo3']['name'];
-   echo "Archivo 3";
 }
     
 
@@ -89,10 +85,9 @@ try {
     echo $resultado;
     if($resultado){
         
-        
-        //@session_start();
-       // header("Location: ../consulta_TFG.php?codigo=".$codigo);
-       // exit();
+        @session_start();
+        header("Location: ../consulta_TFG.php?codigo=".$codigo);
+        exit();
     }
    
 }

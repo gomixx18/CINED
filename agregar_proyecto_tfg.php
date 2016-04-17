@@ -217,7 +217,7 @@
                                                                                 <?php
                                                                                
 
-                                                                                $query = mysqli_query($connection, "SELECT * FROM tfgestudiantes where estado =1");
+                                                                                $query = mysqli_query($connection, "SELECT * FROM tfgestudiantes");
 
 
                                                                                 while ($data = mysqli_fetch_assoc($query)) {
@@ -294,7 +294,7 @@
                                                         <tbody>
 
                                                             <?php
-                                                            $query = mysqli_query($connection, "SELECT * FROM tfgencargados where estado =1");
+                                                            $query = mysqli_query($connection, "SELECT * FROM tfgencargados");
 
 
                                                             while ($data = mysqli_fetch_assoc($query)) {
@@ -341,7 +341,7 @@
                                                         <tbody>
 
                                                             <?php
-                                                            $query = mysqli_query($connection, "SELECT * FROM tfgdirectores where estado = 1");
+                                                            $query = mysqli_query($connection, "SELECT * FROM tfgdirectores");
 
 
                                                             while ($data = mysqli_fetch_assoc($query)) {
@@ -391,7 +391,7 @@
                                                         </thead>
                                                         <tbody>
                                                             <?php
-                                                            $query = mysqli_query($connection, "SELECT * FROM tfgasesores where estado =1");
+                                                            $query = mysqli_query($connection, "SELECT * FROM tfgasesores");
 
 
                                                             while ($data = mysqli_fetch_assoc($query)) {
@@ -417,7 +417,7 @@
                                                     <table class="footable table table-stripped" data-page-size="8" data-filter=#filter2>
                                                         <thead>
                                                             <?php
-                                                            $query = mysqli_query($connection, "SELECT * FROM tfgasesores where estado = 1");
+                                                            $query = mysqli_query($connection, "SELECT * FROM tfgasesores");
 
 
                                                             while ($data = mysqli_fetch_assoc($query)) {
