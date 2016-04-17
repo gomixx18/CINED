@@ -64,7 +64,7 @@
                                         <input type="text" name="cedula" id="cedula" class="form-control" placeholder= "Cédula de Identidad" required="">
                                     </div>
 
-                                    <button id="submitBtn" type="submit" name="recuperarContrasena" class="btn btn-primary block full-width m-b">Enviar nueva contraseña</button>
+                                    <button id="recuperarContrasena" type="submit" name="recuperarContrasena" class="btn btn-primary block full-width m-b">Enviar nueva contraseña</button>
 
                                 </form>
                                 <p id="result">

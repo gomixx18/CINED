@@ -9,7 +9,7 @@ include 'elements.php';
 ?>
 <html>
     <head>
-        <title>Cambio de Contraseña</title>
+        <title>Reestablecer Contraseña</title>
         <meta charset="UTF-8">
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
@@ -20,41 +20,38 @@ include 'elements.php';
 
     <body class="gray-bg">
         <?php
-        $userGet = $_GET['usuario'];
-        
+        $userGet = $_GET['u'];
         ?>
         <script type="text/javascript">
             $(function () {
 
                 $("form#changePass").submit(function () {
-                    var oldP = $("#oldP").val();
-                    var newP = $("#newP").val();
+                    var id = $("#user").val();
+                    var newp = $("#newp").val();
+                    var key = $("#key").val();
                     var err = $("#result");
-                    var userGet = $("#userGet").val();
+                    
                     
                     err = err.hide();
                     $('*').css('cursor', 'progress');
                     $.ajax({
-                        url: "funcionalidad/cambioContrasena.php",
+                        url: "funcionalidad/resetPassword.php",
                         type: "POST",
                         data: {
-                            oldP: oldP,
-                            newP: newP,
-                            userGet: userGet
+                           
+                            newp: newp,
+                            id: id,
+                            key: key
                         },
                         dataType: "json",
                         success: function (data) {
 
                             if (data.status === 'success') {
-                                err = err.text("Su contraseña ha sido cambiada.").css('color', 'green');
+                                err = err.text("Su contraseña ha sido reestablecida.").css('color', 'green');
                             } else if (data.status === 'error') {
-                                err = err.text("La contraseña que ha ingresado es incorrecta. Inténtelo de nuevo.").css('color', 'red');
+                                err = err.text("Ha ocurrido un error.").css('color', 'red');
                             }
-                            else if (data.status === 'error2') {
-                                err = err.text("Error consulta de BD.").css('color', 'red');
-                            }else if (data.status === 'db_conn_error') {
-                                err = err.text("No se puede establecer conexión con la base de datos. Comuníquese con el encargado.");
-                            }
+                           
                             err.fadeIn(1000);
                             $('*').css('cursor', 'default');
                         }
@@ -70,28 +67,21 @@ include 'elements.php';
                 <div class="col-md-12">
                     <div class="ibox-content">
 
-                        <h2 class="font-bold">Cambiar Contraseña</h2>
+                        <h2 class="font-bold">Reestablecer Contraseña</h2>
 
                         <div class="row">
                             <div class="col-lg-14">
-                                <form id="changePass" action="funcionalidad/cambioContrasena.php" class="form-horizontal">
-
-                                    <input type="hidden" id="userGet" name="userGet" value="<?= $userGet ?>" >
-
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Contraseña Anterior</label>
-                                        <div class="col-sm-6">
-                                            <input type="password" class="form-control" id="oldP" name="oldP" placeholder="">
-                                        </div>
-                                    </div>
+                                <form id="changePass" action="funcionalidad/resetPassword.php" class="form-horizontal">
                                     <div class="form-group">
                                         <label class="col-sm-4 control-label">Contraseña Nueva</label>
                                         <div class="col-sm-6">
-                                            <input type="password" class="form-control" id="newP" name="newP" placeholder="">
+                                            <input type="hidden" name="key" id="key" value="deae251b21cd56688c52260e968d6b32" />
+                                            <input type="hidden" name="user" id="user" value="Njc4" />
+                                            <input type="password" class="form-control" id="newp" name="newp" placeholder="">
                                         </div>
-                                         
                                     </div>
-                                    <button type="submit" name="modifyPass" class="btn btn-primary center-block">Guardar</button>
+                                    
+                                    <button type="submit" name="resetPass" class="btn btn-primary center-block">Guardar</button>
                                     <br>
                                     <p id="result" align="center">
 
