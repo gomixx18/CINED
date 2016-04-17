@@ -50,6 +50,5 @@ function updateUserPassword($userID, $password, $token) {
     echo json_encode($response_array);
 }
 
-php
-?>
+php?>
 
