@@ -86,7 +86,7 @@
 
                                                 <row>
                                                     <div class="form-group">
-                                                        Busqueda por identificación de docente
+                                                        Busqueda por identificación de investigador
                                                         <input id="docente" name="docente" type="text" >
                                                         <input id="btndocente" name="btndocente" type="button" value="Buscar" >
                                                     </div>

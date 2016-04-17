@@ -60,7 +60,7 @@ and open the template in the editor.
                                     
                                     $consulta = "select tfg.titulo, concat(tfgdirectores.nombre,' ',tfgdirectores.apellido1,' ',tfgdirectores.apellido2)as directortfg, 
                                                 concat(tfgencargados.nombre,' ',tfgencargados.apellido1,' ',tfgencargados.apellido2) as encargadotfg,
-                                                lineasinvestigacion.nombre as lineainvestigacion, carreras.nombre as carrera, modalidades.nombre as modalidad, tfg.estado
+                                                lineasinvestigacion.nombre as lineainvestigacion, carreras.nombre as carrera, modalidades.nombre as modalidad, tfg.estado, tfg.directortfg as directorId
                                                 from tfgdirectores, tfg, tfgencargados,lineasinvestigacion,carreras,modalidades 
                                                 where tfgdirectores.id = directortfg and tfgencargados.id = encargadotfg and 
                                                 lineasinvestigacion.codigo = lineainvestigacion and carreras.codigo = carrera and modalidades.codigo = modalidad
@@ -226,7 +226,7 @@ and open the template in the editor.
                                                                                     }
                                                                                     
                                                                                     ?>
-                                                                                    <?php if($usuarioPermisos->getMiembrocomisiontfg() && $usuarioSesion->getId() != $data["directortfg"] &&  $usuarioSesion->getId() != $asesor1 && $usuarioSesion->getId() != $asesor2 ){ ?>
+                                                                                    <?php if($usuarioPermisos->getMiembrocomisiontfg() && $usuarioSesion->getId() != $data["directorId"] &&  $usuarioSesion->getId() != $asesor1 && $usuarioSesion->getId() != $asesor2 ){ ?>
                                                                                      <div class="form-group"> 
                                                                                     <input class = 'form-control' name = 'codigoTFG' id='codigoTFG' type="hidden" value='<?php echo $codigo ?>'>
                                                                                     <input class = 'form-control' name = 'etapa' id = 'etapa' value ='1' type="hidden">   
@@ -272,7 +272,7 @@ and open the template in the editor.
                                                                                     }
                                                                                     ?>
                                                                                     
-                                                                                    <?php if($usuarioSesion->getId() == $data["directortfg"] && $usuarioSesion->getId() != $asesor1 && $usuarioSesion->getId() != $asesor2) {?>
+                                                                                    <?php if($usuarioSesion->getId() == $data["directorId"] && $usuarioSesion->getId() != $asesor1 && $usuarioSesion->getId() != $asesor2) {?>
                                                                                    <div class="form-group">
                                                                                     <input class = 'form-control' name = 'codigoTFG' id='codigoTFG' type="hidden" value='<?php echo $codigo ?>'>
                                                                                     <input class = 'form-control' name = 'etapa' id = 'etapa' value ='1' type="hidden">   
@@ -388,14 +388,26 @@ and open the template in the editor.
                                                                                 </div>
                                                                                
                                                                         </div>
-                                                                            <div class="col-lg-offset-8">
+                                                                            <div class="col-lg-offset-10">
                                                                                 <div class="form-group">
                                                                                     <input id="guardarArchivo1" type="submit" class="btn btn-primary btn-outline disabled" value="Guardar Archivo"disabled >
-                                                                                    <input id="input-1" type="button" class="btn btn-primary btn-outline" value="Registro de Archivos">
                                                                                 </div>
                                                                             </div>
                                                                         </div>
                                                                         </form>
+                                                                       
+                                                                             <div class="col-lg-offset-10">
+                                                                                 <form method="post" action='registro_archivos_tfg.php'>
+                                                                                <div class="form-group" >
+                                                                                    <input type="hidden" name='codigo' value='<?php echo $codigo ?>'>
+                                                                                    <input type='hidden' name='etapa' value='1'>
+                                                                                    <input type='hidden' name='director' value='<?php echo $data['directorId'] ?>'>
+                                                                                    <input type="hidden" name='asesor1' value="<?php echo $asesor1 ?>">
+                                                                                    <input type="hidden" name='asesor2' value="<?php echo $asesor2 ?>">
+                                                                                    <input id="input-1" type="submit"  class="btn btn-primary" value="Registro de Archivos">
+                                                                                </div>
+                                                                                </form>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -532,6 +544,7 @@ and open the template in the editor.
                                             </div>
                                         </div>
                                     </div>
+                                   
                                     <!-- fin etapa 1 -->
 
                                     <!-- etapa 2 -->
@@ -592,7 +605,7 @@ and open the template in the editor.
                                                                                     }
                                                                                     
                                                                                     ?>
-                                                                                    <?php if($usuarioPermisos->getMiembrocomisiontfg() && $usuarioSesion->getId() != $data["directortfg"] &&  $usuarioSesion->getId() != $asesor1 && $usuarioSesion->getId() != $asesor2 ){ ?>
+                                                                                    <?php if($usuarioPermisos->getMiembrocomisiontfg() && $usuarioSesion->getId() != $data["directorId"] &&  $usuarioSesion->getId() != $asesor1 && $usuarioSesion->getId() != $asesor2 ){ ?>
                                                                                      <div class="form-group"> 
                                                                                     <input class = 'form-control' name = 'codigoTFG' id='codigoTFG' type="hidden" value='<?php echo $codigo ?>'>
                                                                                     <input class = 'form-control' name = 'etapa' id = 'etapa' value ='2' type="hidden">   
@@ -638,7 +651,7 @@ and open the template in the editor.
                                                                                     }
                                                                                     ?>
                                                                                     
-                                                                                    <?php if($usuarioSesion->getId() == $data["directortfg"] && $usuarioSesion->getId() != $asesor1 && $usuarioSesion->getId() != $asesor2) {?>
+                                                                                    <?php if($usuarioSesion->getId() == $data["directorId"] && $usuarioSesion->getId() != $asesor1 && $usuarioSesion->getId() != $asesor2) {?>
                                                                                    <div class="form-group">
                                                                                     <input class = 'form-control' name = 'codigoTFG' id='codigoTFG' type="hidden" value='<?php echo $codigo ?>'>
                                                                                     <input class = 'form-control' name = 'etapa' id = 'etapa' value ='2' type="hidden">   
@@ -756,15 +769,25 @@ and open the template in the editor.
                                                                         </div>
                                                                    
 
-                                                                            <div class="col-lg-offset-8">
+                                                                            <div class="col-lg-offset-10">
                                                                                 <div class="form-group">
-                                                                                    <input id="guardarArchivo2" type="submit" class="btn btn-primary btn-outline disabled" value="Guardar Archivo"disabled >
-                                                                                    <input id="input-1" type="button" class="btn btn-primary btn-outline" value="Registro de Archivos">
+                                                                                    <input id="guardarArchivo2" type="submit" class="btn btn-primary btn-outline disabled" value="Guardar Archivo"disabled >                                                                                   
                                                                                 </div>
                                                                             </div>
                                                                         </div>
                                                                         </form>
-                                                                    </div>
+                                                                         <div class="col-lg-offset-10">
+                                                                                 <form method="post" action='registro_archivos_tfg.php'>
+                                                                                <div class="form-group" >
+                                                                                    <input type="hidden" name='codigo' value='<?php echo $codigo ?>'>
+                                                                                    <input type='hidden' name='etapa' value='2'>
+                                                                                    <input type='hidden' name='director' value='<?php echo $data['directorId'] ?>'>
+                                                                                    <input type="hidden" name='asesor1' value="<?php echo $asesor1 ?>">
+                                                                                    <input type="hidden" name='asesor2' value="<?php echo $asesor2 ?>">
+                                                                                    <input id="input-1" type="submit"  class="btn btn-primary" value="Registro de Archivos">
+                                                                                </div>
+                                                                                </form>
+                                                                        </div>
                                                                 </div>
                                                             </div>
                                                         <!-- fin archivos -->
@@ -897,6 +920,7 @@ and open the template in the editor.
                                         </div>
 
                                     </div>
+                               </div>
 
                                     <!-- fin etapa 2 -->
 
@@ -958,7 +982,7 @@ and open the template in the editor.
                                                                                     }
                                                                                     
                                                                                     ?>
-                                                                                    <?php if($usuarioPermisos->getMiembrocomisiontfg() && $usuarioSesion->getId() != $data["directortfg"] &&  $usuarioSesion->getId() != $asesor1 && $usuarioSesion->getId() != $asesor2 ){ ?>
+                                                                                    <?php if($usuarioPermisos->getMiembrocomisiontfg() && $usuarioSesion->getId() != $data["directorId"] &&  $usuarioSesion->getId() != $asesor1 && $usuarioSesion->getId() != $asesor2 ){ ?>
                                                                                      <div class="form-group"> 
                                                                                     <input class = 'form-control' name = 'codigoTFG' id='codigoTFG' type="hidden" value='<?php echo $codigo ?>'>
                                                                                     <input class = 'form-control' name = 'etapa' id = 'etapa' value ='3' type="hidden">   
@@ -1004,7 +1028,7 @@ and open the template in the editor.
                                                                                     }
                                                                                     ?>
                                                                                     
-                                                                                    <?php if($usuarioSesion->getId() == $data["directortfg"] && $usuarioSesion->getId() != $asesor1 && $usuarioSesion->getId() != $asesor2) {?>
+                                                                                    <?php if($usuarioSesion->getId() == $data["directorId"] && $usuarioSesion->getId() != $asesor1 && $usuarioSesion->getId() != $asesor2) {?>
                                                                                    <div class="form-group">
                                                                                     <input class = 'form-control' name = 'codigoTFG' id='codigoTFG' type="hidden" value='<?php echo $codigo ?>'>
                                                                                     <input class = 'form-control' name = 'etapa' id = 'etapa' value ='3' type="hidden">   
@@ -1015,7 +1039,7 @@ and open the template in the editor.
                                                                                         <div  id="progressBar3"   aria-valuemax="100" aria-valuemin="0" aria-valuenow="45" role="progressbar" class="progress-bar progress-bar-danger ">
                                                                                         </div>
                                                                                     </div>
-                                                                                    <h3 id="statu3s"></h3>
+                                                                                    <h3 id="status3"></h3>
                                                                                     <p id="loaded_n_total3"></p>
                                                                                      </div>
                                                                                     <?php }?>
@@ -1122,14 +1146,24 @@ and open the template in the editor.
                                                                         </div>
                                                                  
 
-                                                                            <div class="col-lg-offset-8">
+                                                                            <div class="col-lg-offset-10">
                                                                                 <div class="form-group">
                                                                                     <input id="guardarArchivo3" type="submit" class="btn btn-primary btn-outline disabled" value="Guardar Archivo"disabled >
-                                                                                    <input id="input-1" type="button" class="btn btn-primary btn-outline" value="Registro de Archivos">
                                                                                 </div>
                                                                             </div>
                                                                         </div>
                                                                         </form>
+                                                                         <div class="col-lg-offset-10">
+                                                                                 <form method="post" action='registro_archivos_tfg.php'>
+                                                                                <div class="form-group" >
+                                                                                    <input type="hidden" name='codigo' value='<?php echo $codigo ?>'>
+                                                                                    <input type='hidden' name='etapa' value='3'>
+                                                                                    <input type='hidden' name='director' value='<?php echo $data['directorId'] ?>'>
+                                                                                    <input type="hidden" name='asesor1' value="<?php echo $asesor1 ?>">
+                                                                                    <input type="hidden" name='asesor2' value="<?php echo $asesor2 ?>">
+                                                                                    <input id="input-1" type="submit"  class="btn btn-primary" value="Registro de Archivos">
+                                                                                </div>
+                                                                                </form>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -1261,8 +1295,8 @@ and open the template in the editor.
                                         </div>
 
                                     </div>
-
-                                    <!-- fin etapa 2 -->
+                                </div>
+                                    <!-- fin etapa 3 -->
 
 
 
@@ -1295,22 +1329,24 @@ and open the template in the editor.
 
 
                                     <!--fin adentro panel mas grande -->
+                                    </div>
                                 </div>
+                               </div>
                             </div>
-                        </div>
-
-
-                        <div class="col-lg-10"></div>
-
                     </div>
+
+                    
 
                     <div class="footer">
                         Universidad Nacional  &copy; 2015-2016
                     </div>
 
-                </div>
+            
             </div>
-</div>
+        </div>
+       
+           
+
             <script src="js/jquery-2.1.1.js"></script>
             <script src="js/bootstrap.min.js"></script>
             <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
