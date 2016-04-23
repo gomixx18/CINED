@@ -60,7 +60,7 @@ and open the template in the editor.
                                     
                                     $consulta = "select tfg.titulo, concat(tfgdirectores.nombre,' ',tfgdirectores.apellido1,' ',tfgdirectores.apellido2)as directortfg, 
                                                 concat(tfgencargados.nombre,' ',tfgencargados.apellido1,' ',tfgencargados.apellido2) as encargadotfg,
-                                                lineasinvestigacion.nombre as lineainvestigacion, carreras.nombre as carrera, modalidades.nombre as modalidad, tfg.estado
+                                                lineasinvestigacion.nombre as lineainvestigacion, carreras.nombre as carrera, modalidades.nombre as modalidad, tfg.estado, tfg.directortfg as directorId
                                                 from tfgdirectores, tfg, tfgencargados,lineasinvestigacion,carreras,modalidades 
                                                 where tfgdirectores.id = directortfg and tfgencargados.id = encargadotfg and 
                                                 lineasinvestigacion.codigo = lineainvestigacion and carreras.codigo = carrera and modalidades.codigo = modalidad
@@ -226,7 +226,7 @@ and open the template in the editor.
                                                                                     }
                                                                                     
                                                                                     ?>
-                                                                                    <?php if($usuarioPermisos->getMiembrocomisiontfg() && $usuarioSesion->getId() != $data["directortfg"] &&  $usuarioSesion->getId() != $asesor1 && $usuarioSesion->getId() != $asesor2 ){ ?>
+                                                                                    <?php if($usuarioPermisos->getMiembrocomisiontfg() && $usuarioSesion->getId() != $data["directorId"] &&  $usuarioSesion->getId() != $asesor1 && $usuarioSesion->getId() != $asesor2 ){ ?>
                                                                                      <div class="form-group"> 
                                                                                     <input class = 'form-control' name = 'codigoTFG' id='codigoTFG' type="hidden" value='<?php echo $codigo ?>'>
                                                                                     <input class = 'form-control' name = 'etapa' id = 'etapa' value ='1' type="hidden">   
@@ -272,7 +272,7 @@ and open the template in the editor.
                                                                                     }
                                                                                     ?>
                                                                                     
-                                                                                    <?php if($usuarioSesion->getId() == $data["directortfg"] && $usuarioSesion->getId() != $asesor1 && $usuarioSesion->getId() != $asesor2) {?>
+                                                                                    <?php if($usuarioSesion->getId() == $data["directorId"] && $usuarioSesion->getId() != $asesor1 && $usuarioSesion->getId() != $asesor2) {?>
                                                                                    <div class="form-group">
                                                                                     <input class = 'form-control' name = 'codigoTFG' id='codigoTFG' type="hidden" value='<?php echo $codigo ?>'>
                                                                                     <input class = 'form-control' name = 'etapa' id = 'etapa' value ='1' type="hidden">   
@@ -296,7 +296,7 @@ and open the template in the editor.
                                                                                 
                                                                                     <label class="control-label">Asesor 1</label><br>
                                                                                      <?php
-                                                                                    $consulta3 = "SELECT * FROM tfgarchivoscomision where tfg = '" . $codigo . "' and miembrocomision = '" . $asesor1 . "' and etapa = 1 order by fecha desc limit 1;";
+                                                                                    $consulta3 = "SELECT * FROM tfgarchivosasesores where tfg = '" . $codigo . "' and asesor = '" . $asesor1 . "' and etapa = 1 order by fecha desc limit 1;";
                                                                                     $query3 = mysqli_query($connection, $consulta3);
                                                                                     if( $data3 = mysqli_fetch_assoc($query3)){                                                                                   
                                                                                         echo " <div class=' file-box'>";
@@ -344,7 +344,7 @@ and open the template in the editor.
                                                                                 
                                                                                     <label class="control-label">Asesor 2</label><br>
                                                                                      <?php
-                                                                                    $consulta3 = "SELECT * FROM tfgarchivoscomision where tfg = '" . $codigo . "' and miembrocomision = '" . $asesor2 . "' and etapa = 1 order by fecha desc limit 1;";
+                                                                                    $consulta3 = "SELECT * FROM tfgarchivosasesores where tfg = '" . $codigo . "' and asesor = '" . $asesor2 . "' and etapa = 1 order by fecha desc limit 1;";
                                                                                     $query3 = mysqli_query($connection, $consulta3);
                                                                                     if( $data3 = mysqli_fetch_assoc($query3)){                                                                                   
                                                                                         echo " <div class=' file-box'>";
@@ -388,14 +388,25 @@ and open the template in the editor.
                                                                                 </div>
                                                                                
                                                                         </div>
-                                                                            <div class="col-lg-offset-8">
+                                                                            <div class="col-lg-offset-10">
                                                                                 <div class="form-group">
                                                                                     <input id="guardarArchivo1" type="submit" class="btn btn-primary btn-outline disabled" value="Guardar Archivo"disabled >
-                                                                                    <input id="input-1" type="button" class="btn btn-primary btn-outline" value="Registro de Archivos">
                                                                                 </div>
                                                                             </div>
                                                                         </div>
                                                                         </form>
+                                                                             <div class="col-lg-offset-10">
+                                                                                 <form method="post" action='registro_archivos_tfg.php'>
+                                                                                <div class="form-group" >
+                                                                                    <input type="hidden" name='codigo' value='<?php echo $codigo ?>'>
+                                                                                    <input type='hidden' name='etapa' value='1'>
+                                                                                    <input type='hidden' name='director' value='<?php echo $data['directorId'] ?>'>
+                                                                                    <input type="hidden" name='asesor1' value="<?php echo $asesor1 ?>">
+                                                                                    <input type="hidden" name='asesor2' value="<?php echo $asesor2 ?>">
+                                                                                    <input id="input-1" type="submit"  class="btn btn-primary" value="Registro de Archivos">
+                                                                                </div>
+                                                                                </form>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -592,7 +603,7 @@ and open the template in the editor.
                                                                                     }
                                                                                     
                                                                                     ?>
-                                                                                    <?php if($usuarioPermisos->getMiembrocomisiontfg() && $usuarioSesion->getId() != $data["directortfg"] &&  $usuarioSesion->getId() != $asesor1 && $usuarioSesion->getId() != $asesor2 ){ ?>
+                                                                                    <?php if($usuarioPermisos->getMiembrocomisiontfg() && $usuarioSesion->getId() != $data["directortId"] &&  $usuarioSesion->getId() != $asesor1 && $usuarioSesion->getId() != $asesor2 ){ ?>
                                                                                      <div class="form-group"> 
                                                                                     <input class = 'form-control' name = 'codigoTFG' id='codigoTFG' type="hidden" value='<?php echo $codigo ?>'>
                                                                                     <input class = 'form-control' name = 'etapa' id = 'etapa' value ='2' type="hidden">   
@@ -638,7 +649,7 @@ and open the template in the editor.
                                                                                     }
                                                                                     ?>
                                                                                     
-                                                                                    <?php if($usuarioSesion->getId() == $data["directortfg"] && $usuarioSesion->getId() != $asesor1 && $usuarioSesion->getId() != $asesor2) {?>
+                                                                                    <?php if($usuarioSesion->getId() == $data["directorId"] && $usuarioSesion->getId() != $asesor1 && $usuarioSesion->getId() != $asesor2) {?>
                                                                                    <div class="form-group">
                                                                                     <input class = 'form-control' name = 'codigoTFG' id='codigoTFG' type="hidden" value='<?php echo $codigo ?>'>
                                                                                     <input class = 'form-control' name = 'etapa' id = 'etapa' value ='2' type="hidden">   
@@ -662,7 +673,7 @@ and open the template in the editor.
                                                                                 
                                                                                     <label class="control-label">Asesor 1</label><br>
                                                                                      <?php
-                                                                                    $consulta3 = "SELECT * FROM tfgarchivoscomision where tfg = '" . $codigo . "' and miembrocomision = '" . $asesor1 . "' and etapa = 2 order by fecha desc limit 1;";
+                                                                                    $consulta3 = "SELECT * FROM tfgarchivosasesores where tfg = '" . $codigo . "' and asesor = '" . $asesor1 . "' and etapa = 2 order by fecha desc limit 1;";
                                                                                     $query3 = mysqli_query($connection, $consulta3);
                                                                                     if( $data3 = mysqli_fetch_assoc($query3)){                                                                                   
                                                                                         echo " <div class=' file-box'>";
@@ -710,7 +721,7 @@ and open the template in the editor.
                                                                                 
                                                                                     <label class="control-label">Asesor 2</label><br>
                                                                                      <?php
-                                                                                    $consulta3 = "SELECT * FROM tfgarchivoscomision where tfg = '" . $codigo . "' and miembrocomision = '" . $asesor2 . "' and etapa = 2 order by fecha desc limit 1;";
+                                                                                    $consulta3 = "SELECT * FROM tfgarchivosasesores where tfg = '" . $codigo . "' and asesor = '" . $asesor2 . "' and etapa = 2 order by fecha desc limit 1;";
                                                                                     $query3 = mysqli_query($connection, $consulta3);
                                                                                     if( $data3 = mysqli_fetch_assoc($query3)){                                                                                   
                                                                                         echo " <div class=' file-box'>";
@@ -756,14 +767,25 @@ and open the template in the editor.
                                                                         </div>
                                                                    
 
-                                                                            <div class="col-lg-offset-8">
+                                                                            <div class="col-lg-offset-10">
                                                                                 <div class="form-group">
                                                                                     <input id="guardarArchivo2" type="submit" class="btn btn-primary btn-outline disabled" value="Guardar Archivo"disabled >
-                                                                                    <input id="input-1" type="button" class="btn btn-primary btn-outline" value="Registro de Archivos">
                                                                                 </div>
                                                                             </div>
                                                                         </div>
                                                                         </form>
+                                                                           <div class="col-lg-offset-10">
+                                                                                 <form method="post" action='registro_archivos_tfg.php'>
+                                                                                <div class="form-group" >
+                                                                                    <input type="hidden" name='codigo' value='<?php echo $codigo ?>'>
+                                                                                    <input type='hidden' name='etapa' value='2'>
+                                                                                    <input type='hidden' name='director' value='<?php echo $data['directorId'] ?>'>
+                                                                                    <input type="hidden" name='asesor1' value="<?php echo $asesor1 ?>">
+                                                                                    <input type="hidden" name='asesor2' value="<?php echo $asesor2 ?>">
+                                                                                    <input id="input-1" type="submit"  class="btn btn-primary" value="Registro de Archivos">
+                                                                                </div>
+                                                                                </form>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -958,7 +980,7 @@ and open the template in the editor.
                                                                                     }
                                                                                     
                                                                                     ?>
-                                                                                    <?php if($usuarioPermisos->getMiembrocomisiontfg() && $usuarioSesion->getId() != $data["directortfg"] &&  $usuarioSesion->getId() != $asesor1 && $usuarioSesion->getId() != $asesor2 ){ ?>
+                                                                                    <?php if($usuarioPermisos->getMiembrocomisiontfg() && $usuarioSesion->getId() != $data["directorId"] &&  $usuarioSesion->getId() != $asesor1 && $usuarioSesion->getId() != $asesor2 ){ ?>
                                                                                      <div class="form-group"> 
                                                                                     <input class = 'form-control' name = 'codigoTFG' id='codigoTFG' type="hidden" value='<?php echo $codigo ?>'>
                                                                                     <input class = 'form-control' name = 'etapa' id = 'etapa' value ='3' type="hidden">   
@@ -1004,7 +1026,7 @@ and open the template in the editor.
                                                                                     }
                                                                                     ?>
                                                                                     
-                                                                                    <?php if($usuarioSesion->getId() == $data["directortfg"] && $usuarioSesion->getId() != $asesor1 && $usuarioSesion->getId() != $asesor2) {?>
+                                                                                    <?php if($usuarioSesion->getId() == $data["directorId"] && $usuarioSesion->getId() != $asesor1 && $usuarioSesion->getId() != $asesor2) {?>
                                                                                    <div class="form-group">
                                                                                     <input class = 'form-control' name = 'codigoTFG' id='codigoTFG' type="hidden" value='<?php echo $codigo ?>'>
                                                                                     <input class = 'form-control' name = 'etapa' id = 'etapa' value ='3' type="hidden">   
@@ -1028,7 +1050,7 @@ and open the template in the editor.
                                                                                 
                                                                                     <label class="control-label">Asesor 1</label><br>
                                                                                      <?php
-                                                                                    $consulta3 = "SELECT * FROM tfgarchivoscomision where tfg = '" . $codigo . "' and miembrocomision = '" . $asesor1 . "' and etapa = 1 order by fecha desc limit 1;";
+                                                                                    $consulta3 = "SELECT * FROM tfgarchivosasesores where tfg = '" . $codigo . "' and asesor = '" . $asesor1 . "' and etapa = 3 order by fecha desc limit 1;";
                                                                                     $query3 = mysqli_query($connection, $consulta3);
                                                                                     if( $data3 = mysqli_fetch_assoc($query3)){                                                                                   
                                                                                         echo " <div class=' file-box'>";
@@ -1076,7 +1098,7 @@ and open the template in the editor.
                                                                                 
                                                                                     <label class="control-label">Asesor 2</label><br>
                                                                                      <?php
-                                                                                    $consulta3 = "SELECT * FROM tfgarchivoscomision where tfg = '" . $codigo . "' and miembrocomision = '" . $asesor2 . "' and etapa = 1 order by fecha desc limit 1;";
+                                                                                    $consulta3 = "SELECT * FROM tfgarchivosasesores where tfg = '" . $codigo . "' and asesor = '" . $asesor2 . "' and etapa = 3 order by fecha desc limit 1;";
                                                                                     $query3 = mysqli_query($connection, $consulta3);
                                                                                     if( $data3 = mysqli_fetch_assoc($query3)){                                                                                   
                                                                                         echo " <div class=' file-box'>";
@@ -1122,14 +1144,25 @@ and open the template in the editor.
                                                                         </div>
                                                                  
 
-                                                                            <div class="col-lg-offset-8">
+                                                                            <div class="col-lg-offset-10">
                                                                                 <div class="form-group">
                                                                                     <input id="guardarArchivo3" type="submit" class="btn btn-primary btn-outline disabled" value="Guardar Archivo"disabled >
-                                                                                    <input id="input-1" type="button" class="btn btn-primary btn-outline" value="Registro de Archivos">
                                                                                 </div>
                                                                             </div>
                                                                         </div>
                                                                         </form>
+                                                                           <div class="col-lg-offset-10">
+                                                                                 <form method="post" action='registro_archivos_tfg.php'>
+                                                                                <div class="form-group" >
+                                                                                    <input type="hidden" name='codigo' value='<?php echo $codigo ?>'>
+                                                                                    <input type='hidden' name='etapa' value='3'>
+                                                                                    <input type='hidden' name='director' value='<?php echo $data['directorId'] ?>'>
+                                                                                    <input type="hidden" name='asesor1' value="<?php echo $asesor1 ?>">
+                                                                                    <input type="hidden" name='asesor2' value="<?php echo $asesor2 ?>">
+                                                                                    <input id="input-1" type="submit"  class="btn btn-primary" value="Registro de Archivos">
+                                                                                </div>
+                                                                                </form>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>

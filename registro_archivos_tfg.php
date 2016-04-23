@@ -1,4 +1,3 @@
-@@ -0,0 +1,260 @@
 <!DOCTYPE html>
 <html>
     <head>
@@ -73,7 +72,18 @@
                                             $tfg = mysqli_fetch_assoc($query4);
                                            
                                     ?>
-                                    <h2>Registro de Archivos: <?php echo  $tfg['titulo']. " (".$codigo. ") " ?></h2>
+                                    <h3><b>Registro de Archivos: </b><?php echo  $tfg['titulo']. " (".$codigo. "). <b>Etapa: </b>" ;
+                                                if( $etapa == 1){
+                                                   echo " Envío Tema"; 
+                                                }
+                                                else{
+                                                    if( $etapa == 2 ){
+                                                    echo " Anteproyecto o Propuesta";
+                                                }else{
+                                                    echo "Entrega Final";
+                                                }
+                                                }
+                                            ?></h3>
                                 </div>
                                 <div class="ibox-content">
                                     <div class="row">
@@ -258,3 +268,4 @@
     </body>
 
 </html>
+
