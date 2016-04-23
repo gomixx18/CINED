@@ -15,7 +15,7 @@ and open the template in the editor.
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
         <link href="css/plugins/dataTables/datatables.min.css" rel="stylesheet">
-        <link href="css/plugins/datapicker/datepicker3.css" rel="stylesheet">
+
         <link href="css/animate.css" rel="stylesheet">
         <link href="css/style.css" rel="stylesheet">
         <link href="css/plugins/summernote/summernote.css" rel="stylesheet">
@@ -55,22 +55,23 @@ and open the template in the editor.
                                 <div class="ibox-content">
 
                                     <?php
+                                   
                                     $codigo = $_GET["codigo"];
-
+                                    
                                     $consulta = "select tfg.titulo, concat(tfgdirectores.nombre,' ',tfgdirectores.apellido1,' ',tfgdirectores.apellido2)as directortfg, 
                                                 concat(tfgencargados.nombre,' ',tfgencargados.apellido1,' ',tfgencargados.apellido2) as encargadotfg,
-                                                lineasinvestigacion.nombre as lineainvestigacion, carreras.nombre as carrera, modalidades.nombre as modalidad, tfg.estado, tfg.fechaFinal
+                                                lineasinvestigacion.nombre as lineainvestigacion, carreras.nombre as carrera, modalidades.nombre as modalidad, tfg.estado, tfg.directortfg as directorId
                                                 from tfgdirectores, tfg, tfgencargados,lineasinvestigacion,carreras,modalidades 
                                                 where tfgdirectores.id = directortfg and tfgencargados.id = encargadotfg and 
                                                 lineasinvestigacion.codigo = lineainvestigacion and carreras.codigo = carrera and modalidades.codigo = modalidad
-                                                and tfg.codigo ='" . $codigo . "'";
+                                                and tfg.codigo ='". $codigo. "'";
 
                                     $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
                                     if (!$connection) {
                                         exit("<label class='error'>Error de conexión</label>");
                                     }
 
-                                    $query = mysqli_query($connection, $consulta);
+                                    $query = mysqli_query($connection, $consulta );
                                     $data = mysqli_fetch_assoc($query);
                                     etapas($codigo, $connection);
                                     //echo $data["estado"];
@@ -139,7 +140,7 @@ and open the template in the editor.
                                                     <br/>
                                                     <?php
                                                     $consulta2 = "select tfgestudiantes.id, concat(tfgestudiantes.nombre,' ',  tfgestudiantes.apellido1, ' ', tfgestudiantes.apellido2) as nombre 
-                                                                  from tfg,tfgestudiantes, tfgrealizan where tfg.codigo = tfgrealizan.tfg and tfgrealizan.estudiante = tfgestudiantes.id and tfg.codigo ='" . $codigo . "'";
+                                                                  from tfg,tfgestudiantes, tfgrealizan where tfg.codigo = tfgrealizan.tfg and tfgrealizan.estudiante = tfgestudiantes.id and tfg.codigo ='". $codigo. "'";
                                                     $query2 = mysqli_query($connection, $consulta2);
 
                                                     while ($data2 = mysqli_fetch_assoc($query2)) {
@@ -161,10 +162,10 @@ and open the template in the editor.
                                     <!-- fin estudiantes -->
 
                                     <?php
-                                    cantidadAsesores($codigo, $connection);
                                     asesores($codigo, $connection);
+                                                                 
+                                
                                     ?>
-
 
 
                                     <!-- etapa 1 -->
@@ -186,204 +187,226 @@ and open the template in the editor.
                                                                 <div class="panel panel-default">
                                                                     <div class="panel-body">
                                                                         <form action="funcionalidad/CargarArchivoBlobTFG.php" method="post" enctype="multipart/form-data" id="directorForm">
-                                                                            <div class="row">
+                                                                        <div class="row">
 
-                                                                                <div class="col-lg-12 ">
-                                                                                    <label>Archivos</label>
-                                                                                    <br/><br/>
+                                                                            <div class="col-lg-12 ">
+                                                                                <label>Archivos</label>
+                                                                                <br/><br/>
 
-                                                                                </div>
-
-                                                                                <div class="col-lg-12 ">
-                                                                                    <div class="col-lg-5 col-lg-offset-1">
-                                                                                        <label class="form-label">Comisión TFG</label><br>
-
-
-                                                                                        <?php
-                                                                                        $consulta3 = "SELECT * FROM tfgarchivoscomision where tfg = '" . $codigo . "' and etapa = 1 order by fecha desc limit 1;";
-                                                                                        $query3 = mysqli_query($connection, $consulta3);
-                                                                                        if ($data3 = mysqli_fetch_assoc($query3)) {
-                                                                                            echo " <div class=' file-box'>";
-                                                                                            echo " <div class='file'>";
-                                                                                            echo " <a href='" . $data3['ruta'] . "'>";
-                                                                                            echo "  <span class='corner'></span> ";
-                                                                                            echo " <div class='icon'>
+                                                                            </div>
+                                                                            
+                                                                            <div class="col-lg-12 ">
+                                                                            <div class="col-lg-5 col-lg-offset-1">
+                                                                                <label class="form-label">Comisión TFG</label><br>
+                                                                                  
+                                                                                   
+                                                                                    <?php
+                                                                                    $consulta3 = "SELECT * FROM tfgarchivoscomision where tfg = '" . $codigo . "' and etapa = 1 order by fecha desc limit 1;";
+                                                                                    $query3 = mysqli_query($connection, $consulta3);
+                                                                                    if( $data3 = mysqli_fetch_assoc($query3)){                                                                                   
+                                                                                        echo " <div class=' file-box'>";
+                                                                                        echo " <div class='file'>";
+                                                                                        echo " <a href='" . $data3['ruta'] . "'>";
+                                                                                        echo "  <span class='corner'></span> ";
+                                                                                        echo " <div class='icon'>
                                                                                                 <i class='fa fa-file'></i>
                                                                                                 </div>";
-                                                                                            echo " <div class='file-name'style= 'word-wrap: break-word;'> " . $data3['nom_archivo'] . "<br>";
+                                                                                        echo " <div class='file-name'style= 'word-wrap: break-word;'> " . $data3['nom_archivo'] . "<br>";
 
-                                                                                            echo "<small>Agregado: " . $data3['fecha'] . "</small>";
-                                                                                            echo "</div>";
-                                                                                            echo "</a>";
-                                                                                            echo "</div>";
-                                                                                            echo "</div>";
-                                                                                        } else {
-                                                                                            echo "<span class='label label-warning big'>No existen archivos recientes.</span><br>";
-                                                                                        }
-                                                                                        ?>
-                                                                                        <?php if ($usuarioPermisos->getMiembrocomisiontfg() && $usuarioSesion->getId() != $data["directortfg"] && $usuarioSesion->getId() != $asesor1 && $usuarioSesion->getId() != $asesor2) { ?>
-                                                                                            <div class="form-group"> 
-                                                                                                <input class = 'form-control' name = 'codigoTFG' id='codigoTFG' type="hidden" value='<?php echo $codigo ?>'>
-                                                                                                <input class = 'form-control' name = 'etapa' id = 'etapa' value ='1' type="hidden">   
-                                                                                                <input class = 'form-control' name = 'tipo' id = 'tipo' value ='archivoMiembroComision' type="hidden">   
-                                                                                                <label>Adjuntar Documento:</label>
-                                                                                                <input accept=".docx,.doc,.pdf" type="file" name="archivo" id="archivo" onchange="uploadFile()" class ="btn btn-primary btn-outline">
-                                                                                                <div hidden id="divProgress" class="progress progress-striped active">
-                                                                                                    <div  id="progressBar"   aria-valuemax="100" aria-valuemin="0" aria-valuenow="45" role="progressbar" class="progress-bar progress-bar-danger ">
-                                                                                                    </div>
-                                                                                                </div>
-                                                                                                <h3 id="status"></h3>
-                                                                                                <p id="loaded_n_total"></p>
-                                                                                            </div>
-                                                                                        <?php } ?>
-                                                                                    </div>
-
-
-                                                                                    <div class="col-lg-5 col-lg-offset-1">
-                                                                                        <label class="form-label">Director TFG</label><br>
-                                                                                        <?php
-                                                                                        $consulta3 = "SELECT * FROM tfgarchivosdirectores where tfg ='" . $codigo . "' and director = '" . $data['directortfg'] . "' and etapa = 1 order by fecha desc limit 1;";
-                                                                                        $query3 = mysqli_query($connection, $consulta3);
-                                                                                        if ($data3 = mysqli_fetch_assoc($query3)) {
-                                                                                            echo " <div class=' file-box'>";
-                                                                                            echo " <div class='file'>";
-                                                                                            echo " <a href='" . $data3['ruta'] . "'>";
-                                                                                            echo "  <span class='corner'></span> ";
-                                                                                            echo " <div class='icon'>
-                                                                                                <i class='fa fa-file'></i>
-                                                                                                </div>";
-                                                                                            echo " <div class='file-name'style= 'word-wrap: break-word;'> " . $data3['nom_archivo'] . "<br>";
-
-                                                                                            echo "<small>Agregado: " . $data3['fecha'] . "</small>";
-                                                                                            echo "</div>";
-                                                                                            echo "</a>";
-                                                                                            echo "</div>";
-                                                                                            echo "</div>";
-                                                                                        } else {
-                                                                                            echo "<span class='label label-warning big'>No existen archivos recientes.</span><br>";
-                                                                                        }
-                                                                                        ?>
-
-                                                                                        <?php if ($usuarioSesion->getId() == $data["directortfg"] && $usuarioSesion->getId() != $asesor1 && $usuarioSesion->getId() != $asesor2) { ?>
-                                                                                            <div class="form-group">
-                                                                                                <input class = 'form-control' name = 'codigoTFG' id='codigoTFG' type="hidden" value='<?php echo $codigo ?>'>
-                                                                                                <input class = 'form-control' name = 'etapa' id = 'etapa' value ='1' type="hidden">   
-                                                                                                <input class = 'form-control' name = 'tipo' id = 'tipo' value ='archivoDirector' type="hidden">   
-                                                                                                <label>Adjuntar Documento:</label>
-                                                                                                <input accept=".docx,.doc,.pdf" type="file" name="archivo" id="archivo" onchange="uploadFile()" class ="btn btn-primary btn-outline">
-                                                                                                <div hidden id="divProgress" class="progress progress-striped active">
-                                                                                                    <div  id="progressBar"   aria-valuemax="100" aria-valuemin="0" aria-valuenow="45" role="progressbar" class="progress-bar progress-bar-danger ">
-                                                                                                    </div>
-                                                                                                </div>
-                                                                                                <h3 id="status"></h3>
-                                                                                                <p id="loaded_n_total"></p>
-                                                                                            </div>
-                                                                                        <?php } ?>
-                                                                                    </div>
-
-
-                                                                                </div>
-                                                                                <div class="col-lg-12 ">
-                                                                                    <div class="col-lg-5 col-lg-offset-1">
-
-                                                                                        <label class="control-label">Asesor 1</label><br>
-                                                                                        <?php
-                                                                                        $consulta3 = "SELECT * FROM tfgarchivoscomision where tfg = '" . $codigo . "' and miembrocomision = '" . $asesor1 . "' and etapa = 1 order by fecha desc limit 1;";
-                                                                                        $query3 = mysqli_query($connection, $consulta3);
-                                                                                        if ($data3 = mysqli_fetch_assoc($query3)) {
-                                                                                            echo " <div class=' file-box'>";
-                                                                                            echo " <div class='file'>";
-                                                                                            echo " <a href='" . $data3['ruta'] . "'>";
-                                                                                            echo "  <span class='corner'></span> ";
-                                                                                            echo " <div class='icon'>
-                                                                                                <i class='fa fa-file'></i>
-                                                                                                </div>";
-                                                                                            echo " <div class='file-name'style= 'word-wrap: break-word;'> " . $data3['nom_archivo'] . "<br>";
-
-                                                                                            echo "<small>Agregado: " . $data3['fecha'] . "</small>";
-                                                                                            echo "</div>";
-                                                                                            echo "</a>";
-                                                                                            echo "</div>";
-                                                                                            echo "</div>";
-                                                                                        } else {
-                                                                                            echo "<span class='label label-warning big'>No existen archivos recientes.</span><br>";
-                                                                                        }
-                                                                                        ?>
-
-                                                                                        <?php if ($usuarioSesion->getId() == $asesor1) { ?>
-                                                                                            <div class="form-group">
-                                                                                                <input class = 'form-control' name = 'codigoTFG' id='codigoTFG' type="hidden" value='<?php echo $codigo ?>'>
-                                                                                                <input class = 'form-control' name = 'etapa' id = 'etapa' value ='1' type="hidden">   
-                                                                                                <input class = 'form-control' name = 'tipo' id = 'tipo' value ='archivoAsesor' type="hidden">
-                                                                                                <label>Adjuntar Documento:</label>
-                                                                                                <input accept=".docx,.doc,.pdf" type="file" name="archivo" id="archivo" onchange="uploadFile()" class ="btn btn-primary btn-outline">
-                                                                                                <div hidden id="divProgress" class="progress progress-striped active">
-                                                                                                    <div  id="progressBar"   aria-valuemax="100" aria-valuemin="0" aria-valuenow="45" role="progressbar" class="progress-bar progress-bar-danger ">
-                                                                                                    </div>
-                                                                                                </div>
-                                                                                                <h3 id="status"></h3>
-                                                                                                <p id="loaded_n_total"></p>
-                                                                                            </div>
-                                                                                        <?php } ?>
-
-
-                                                                                    </div>
-                                                                                    <?php if ($GLOBALS['cantAsesor'] == 2) { ?>
-                                                                                        <div class="col-lg-5 col-lg-offset-1">
-
-
-                                                                                            <label class="control-label">Asesor 2</label><br>
-                                                                                            <?php
-                                                                                            $consulta3 = "SELECT * FROM tfgarchivoscomision where tfg = '" . $codigo . "' and miembrocomision = '" . $asesor2 . "' and etapa = 1 order by fecha desc limit 1;";
-                                                                                            $query3 = mysqli_query($connection, $consulta3);
-                                                                                            if ($data3 = mysqli_fetch_assoc($query3)) {
-                                                                                                echo " <div class=' file-box'>";
-                                                                                                echo " <div class='file'>";
-                                                                                                echo " <a href='" . $data3['ruta'] . "'>";
-                                                                                                echo "  <span class='corner'></span> ";
-                                                                                                echo " <div class='icon'>
-                                                                                                <i class='fa fa-file'></i>
-                                                                                                </div>";
-                                                                                                echo " <div class='file-name'style= 'word-wrap: break-word;'> " . $data3['nom_archivo'] . "<br>";
-
-                                                                                                echo "<small>Agregado: " . $data3['fecha'] . "</small>";
-                                                                                                echo "</div>";
-                                                                                                echo "</a>";
-                                                                                                echo "</div>";
-                                                                                                echo "</div>";
-                                                                                            } else {
-                                                                                                echo "<span class='label label-warning '>No existen archivos recientes.</span><br>";
-                                                                                            }
-                                                                                            ?>
-
-                                                                                            <?php if ($usuarioSesion->getId() == $asesor2) { ?>
-                                                                                                <div class="form-group">
-                                                                                                    <input class = 'form-control' name = 'codigoTFG' id='codigoTFG' type="hidden" value='<?php echo $codigo ?>'>
-                                                                                                    <input class = 'form-control' name = 'etapa' id = 'etapa' value ='1' type="hidden">   
-                                                                                                    <input class = 'form-control' name = 'tipo' id = 'tipo' value ='archivoAsesor' type="hidden">   
-                                                                                                    <label>Adjuntar Documento:</label>
-                                                                                                    <input accept=".docx,.doc,.pdf" type="file" name="archivo" id="archivo" onchange="uploadFile()" class ="btn btn-primary btn-outline">
-                                                                                                    <div hidden id="divProgress" class="progress progress-striped active">
-                                                                                                        <div  id="progressBar"   aria-valuemax="100" aria-valuemin="0" aria-valuenow="45" role="progressbar" class="progress-bar progress-bar-danger ">
-                                                                                                        </div>
-                                                                                                    </div>
-                                                                                                    <h3 id="status"></h3>
-                                                                                                    <p id="loaded_n_total"></p>
-                                                                                                </div>
-                                                                                            <?php } ?>
-
+                                                                                        echo "<small>Agregado: " . $data3['fecha'] . "</small>";
+                                                                                        echo "</div>";
+                                                                                        echo "</a>";
+                                                                                        echo "</div>";
+                                                                                        echo "</div>";
+                                                                                        
+                                                                                    
+                                                                                    }
+                                                                                    else {
+                                                                                        echo "<span class='label label-warning big'>No existen archivos recientes.</span><br>";
+                                                                                    }
+                                                                                    
+                                                                                    ?>
+                                                                                    <?php if($usuarioPermisos->getMiembrocomisiontfg() && $usuarioSesion->getId() != $data["directorId"] &&  $usuarioSesion->getId() != $asesor1 && $usuarioSesion->getId() != $asesor2 ){ ?>
+                                                                                     <div class="form-group"> 
+                                                                                    <input class = 'form-control' name = 'codigoTFG' id='codigoTFG' type="hidden" value='<?php echo $codigo ?>'>
+                                                                                    <input class = 'form-control' name = 'etapa' id = 'etapa' value ='1' type="hidden">   
+                                                                                    <input class = 'form-control' name = 'tipo' id = 'tipo' value ='archivoMiembroComision' type="hidden">   
+                                                                                    <label>Adjuntar Documento:</label>
+                                                                                    <input accept=".docx,.doc,.pdf" type="file" name="archivo" id="archivo" onchange="uploadFile()" class ="btn btn-primary btn-outline">
+                                                                                    <div hidden id="divProgress" class="progress progress-striped active">
+                                                                                        <div  id="progressBar"   aria-valuemax="100" aria-valuemin="0" aria-valuenow="45" role="progressbar" class="progress-bar progress-bar-danger ">
                                                                                         </div>
-                                                                                    <?php } ?>
-
-                                                                                </div>
-                                                                                <div class="col-lg-offset-8">
-                                                                                    <div class="form-group">
-                                                                                        <input id="guardarArchivo1" type="submit" class="btn btn-primary btn-outline disabled" value="Guardar Archivo"disabled >
-                                                                                        <input id="input-1" type="button" class="btn btn-primary btn-outline" value="Registro de Archivos">
                                                                                     </div>
+                                                                                    <h3 id="status"></h3>
+                                                                                    <p id="loaded_n_total"></p>
+                                                                                    </div>
+                                                                                    <?php }?>
+                                                                                    </div>
+                                                                                
+                                                                                
+                                                                                <div class="col-lg-5 col-lg-offset-1">
+                                                                                    <label class="form-label">Director TFG</label><br>
+                                                                                    <?php
+                                                                                    $consulta3 = "SELECT * FROM tfgarchivosdirectores where tfg ='" . $codigo . "' and director = '" . $data['directortfg'] . "' and etapa = 1 order by fecha desc limit 1;";
+                                                                                    $query3 = mysqli_query($connection, $consulta3);
+                                                                                    if( $data3 = mysqli_fetch_assoc($query3)){                                                                                   
+                                                                                        echo " <div class=' file-box'>";
+                                                                                        echo " <div class='file'>";
+                                                                                        echo " <a href='" . $data3['ruta'] . "'>";
+                                                                                        echo "  <span class='corner'></span> ";
+                                                                                        echo " <div class='icon'>
+                                                                                                <i class='fa fa-file'></i>
+                                                                                                </div>";
+                                                                                        echo " <div class='file-name'style= 'word-wrap: break-word;'> " . $data3['nom_archivo'] . "<br>";
+
+                                                                                        echo "<small>Agregado: " . $data3['fecha'] . "</small>";
+                                                                                        echo "</div>";
+                                                                                        echo "</a>";
+                                                                                        echo "</div>";
+                                                                                        echo "</div>";
+                                                                                        
+                                                                                    
+                                                                                    }
+                                                                                    else {
+                                                                                        echo "<span class='label label-warning big'>No existen archivos recientes.</span><br>";
+                                                                                    }
+                                                                                    ?>
+                                                                                    
+                                                                                    <?php if($usuarioSesion->getId() == $data["directorId"] && $usuarioSesion->getId() != $asesor1 && $usuarioSesion->getId() != $asesor2) {?>
+                                                                                   <div class="form-group">
+                                                                                    <input class = 'form-control' name = 'codigoTFG' id='codigoTFG' type="hidden" value='<?php echo $codigo ?>'>
+                                                                                    <input class = 'form-control' name = 'etapa' id = 'etapa' value ='1' type="hidden">   
+                                                                                    <input class = 'form-control' name = 'tipo' id = 'tipo' value ='archivoDirector' type="hidden">   
+                                                                                    <label>Adjuntar Documento:</label>
+                                                                                    <input accept=".docx,.doc,.pdf" type="file" name="archivo" id="archivo" onchange="uploadFile()" class ="btn btn-primary btn-outline">
+                                                                                    <div hidden id="divProgress" class="progress progress-striped active">
+                                                                                        <div  id="progressBar"   aria-valuemax="100" aria-valuemin="0" aria-valuenow="45" role="progressbar" class="progress-bar progress-bar-danger ">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <h3 id="status"></h3>
+                                                                                    <p id="loaded_n_total"></p>
+                                                                                     </div>
+                                                                                    <?php }?>
+                                                                                    </div>
+                                                                               
+
+                                                                            </div>
+                                                                            <div class="col-lg-12 ">
+                                                                             <div class="col-lg-5 col-lg-offset-1">
+                                                                                
+                                                                                    <label class="control-label">Asesor 1</label><br>
+                                                                                     <?php
+                                                                                    $consulta3 = "SELECT * FROM tfgarchivosasesores where tfg = '" . $codigo . "' and asesor = '" . $asesor1 . "' and etapa = 1 order by fecha desc limit 1;";
+                                                                                    $query3 = mysqli_query($connection, $consulta3);
+                                                                                    if( $data3 = mysqli_fetch_assoc($query3)){                                                                                   
+                                                                                        echo " <div class=' file-box'>";
+                                                                                        echo " <div class='file'>";
+                                                                                        echo " <a href='" . $data3['ruta'] . "'>";
+                                                                                        echo "  <span class='corner'></span> ";
+                                                                                        echo " <div class='icon'>
+                                                                                                <i class='fa fa-file'></i>
+                                                                                                </div>";
+                                                                                        echo " <div class='file-name'style= 'word-wrap: break-word;'> " . $data3['nom_archivo'] . "<br>";
+
+                                                                                        echo "<small>Agregado: " . $data3['fecha'] . "</small>";
+                                                                                        echo "</div>";
+                                                                                        echo "</a>";
+                                                                                        echo "</div>";
+                                                                                        echo "</div>";
+                                                                                        
+                                                                                    
+                                                                                    }
+                                                                                    else {
+                                                                                        echo "<span class='label label-warning big'>No existen archivos recientes.</span><br>";
+                                                                                    }
+                                                                                    ?>
+                                                                                    
+                                                                                     <?php if($usuarioSesion->getId() == $asesor1) {?>
+                                                                                    <div class="form-group">
+                                                                                    <input class = 'form-control' name = 'codigoTFG' id='codigoTFG' type="hidden" value='<?php echo $codigo ?>'>
+                                                                                    <input class = 'form-control' name = 'etapa' id = 'etapa' value ='1' type="hidden">   
+                                                                                    <input class = 'form-control' name = 'tipo' id = 'tipo' value ='archivoAsesor' type="hidden">
+                                                                                    <label>Adjuntar Documento:</label>
+                                                                                    <input accept=".docx,.doc,.pdf" type="file" name="archivo" id="archivo" onchange="uploadFile()" class ="btn btn-primary btn-outline">
+                                                                                    <div hidden id="divProgress" class="progress progress-striped active">
+                                                                                        <div  id="progressBar"   aria-valuemax="100" aria-valuemin="0" aria-valuenow="45" role="progressbar" class="progress-bar progress-bar-danger ">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <h3 id="status"></h3>
+                                                                                    <p id="loaded_n_total"></p>
+                                                                                    </div>
+                                                                                     <?php } ?>
+                                                                                
+
+                                                                            </div>
+                                                                            <div class="col-lg-5 col-lg-offset-1">
+
+                                                                                
+                                                                                    <label class="control-label">Asesor 2</label><br>
+                                                                                     <?php
+                                                                                    $consulta3 = "SELECT * FROM tfgarchivosasesores where tfg = '" . $codigo . "' and asesor = '" . $asesor2 . "' and etapa = 1 order by fecha desc limit 1;";
+                                                                                    $query3 = mysqli_query($connection, $consulta3);
+                                                                                    if( $data3 = mysqli_fetch_assoc($query3)){                                                                                   
+                                                                                        echo " <div class=' file-box'>";
+                                                                                        echo " <div class='file'>";
+                                                                                        echo " <a href='" . $data3['ruta'] . "'>";
+                                                                                        echo "  <span class='corner'></span> ";
+                                                                                        echo " <div class='icon'>
+                                                                                                <i class='fa fa-file'></i>
+                                                                                                </div>";
+                                                                                        echo " <div class='file-name'style= 'word-wrap: break-word;'> " . $data3['nom_archivo'] . "<br>";
+
+                                                                                        echo "<small>Agregado: " . $data3['fecha'] . "</small>";
+                                                                                        echo "</div>";
+                                                                                        echo "</a>";
+                                                                                        echo "</div>";
+                                                                                        echo "</div>";
+                                                                                        
+                                                                                    
+                                                                                    }
+                                                                                    else {
+                                                                                        echo "<span class='label label-warning '>No existen archivos recientes.</span><br>";
+                                                                                    }
+                                                                                    ?>
+                                                                                    
+                                                                                     <?php if($usuarioSesion->getId() == $asesor2) {?>
+                                                                                    <div class="form-group">
+                                                                                    <input class = 'form-control' name = 'codigoTFG' id='codigoTFG' type="hidden" value='<?php echo $codigo ?>'>
+                                                                                    <input class = 'form-control' name = 'etapa' id = 'etapa' value ='1' type="hidden">   
+                                                                                    <input class = 'form-control' name = 'tipo' id = 'tipo' value ='archivoAsesor' type="hidden">   
+                                                                                    <label>Adjuntar Documento:</label>
+                                                                                    <input accept=".docx,.doc,.pdf" type="file" name="archivo" id="archivo" onchange="uploadFile()" class ="btn btn-primary btn-outline">
+                                                                                    <div hidden id="divProgress" class="progress progress-striped active">
+                                                                                        <div  id="progressBar"   aria-valuemax="100" aria-valuemin="0" aria-valuenow="45" role="progressbar" class="progress-bar progress-bar-danger ">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <h3 id="status"></h3>
+                                                                                    <p id="loaded_n_total"></p>
+                                                                                     </div>
+                                                                                     <?php } ?>
+                                   
+                                                                                </div>
+                                                                               
+                                                                        </div>
+                                                                            <div class="col-lg-offset-10">
+                                                                                <div class="form-group">
+                                                                                    <input id="guardarArchivo1" type="submit" class="btn btn-primary btn-outline disabled" value="Guardar Archivo"disabled >
                                                                                 </div>
                                                                             </div>
+                                                                        </div>
                                                                         </form>
+                                                                             <div class="col-lg-offset-10">
+                                                                                 <form method="post" action='registro_archivos_tfg.php'>
+                                                                                <div class="form-group" >
+                                                                                    <input type="hidden" name='codigo' value='<?php echo $codigo ?>'>
+                                                                                    <input type='hidden' name='etapa' value='1'>
+                                                                                    <input type='hidden' name='director' value='<?php echo $data['directorId'] ?>'>
+                                                                                    <input type="hidden" name='asesor1' value="<?php echo $asesor1 ?>">
+                                                                                    <input type="hidden" name='asesor2' value="<?php echo $asesor2 ?>">
+                                                                                    <input id="input-1" type="submit"  class="btn btn-primary" value="Registro de Archivos">
+                                                                                </div>
+                                                                                </form>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -407,10 +430,8 @@ and open the template in the editor.
                                                                                     <div class="ibox-title">
                                                                                         <h5>Comision TFG</h5>
 
-                                                                                        <?php if ($usuarioPermisos->getMiembrocomisiontfg()) { ?>
-                                                                                            <button class="btn btn-primary btn-xs m-l-sm" onclick="edit1()" type="button">Edit</button>
-                                                                                            <button id="BM11" etapa="1" comentario="CM11" class="btn btn-primary  btn-xs" onclick="save1()" type="button">Save</button>
-                                                                                        <?php } ?>
+                                                                                        <button class="btn btn-primary btn-xs m-l-sm" onclick="edit1()" type="button">Edit</button>
+                                                                                        <button id="BM11" etapa="1" comentario="CM11" class="btn btn-primary  btn-xs" onclick="save1()" type="button">Save</button>
                                                                                         <div class="ibox-tools">
                                                                                             <a class="collapse-link">
                                                                                                 <i class="fa fa-chevron-up"></i>
@@ -432,10 +453,8 @@ and open the template in the editor.
                                                                                 <div class="ibox float-e-margins">
                                                                                     <div class="ibox-title">
                                                                                         <h5>Asesor 1</h5>
-                                                                                        <?php if ($usuarioPermisos->getId() == $asesor1) { ?>
-                                                                                            <button class="btn btn-primary btn-xs m-l-sm" onclick="edit2()" type="button">Edit</button>
-                                                                                            <button id="BA11" etapa="1" comentario="CA11" class="btn btn-primary  btn-xs" onclick="save2()" type="button">Save</button>
-                                                                                        <?php } ?>
+                                                                                        <button class="btn btn-primary btn-xs m-l-sm" onclick="edit2()" type="button">Edit</button>
+                                                                                        <button id="BA11" etapa="1" comentario="CA11" class="btn btn-primary  btn-xs" onclick="save2()" type="button">Save</button>
                                                                                         <div class="ibox-tools">
                                                                                             <a class="collapse-link">
                                                                                                 <i class="fa fa-chevron-up"></i>
@@ -453,37 +472,30 @@ and open the template in the editor.
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
-                                                                            <?php if ($GLOBALS['cantAsesor'] == 2) { ?>
-                                                                                <div class="col-lg-4">
-                                                                                    <div class="ibox float-e-margins">
-                                                                                        <div class="ibox-title">
-                                                                                            <h5>Asesor 2</h5>
-                                                                                            <?php
-                                                                                            if ($usuarioPermisos->getId() == $asesor2) {
-                                                                                                ?>
-                                                                                                <button class="btn btn-primary btn-xs m-l-sm" onclick="edit3()" type="button">Edit</button>
-                                                                                                <button id="BA21" etapa="1" comentario="CA21" class="btn btn-primary  btn-xs" onclick="save3()" type="button">Save</button>
-                                                                                                <?php
-                                                                                            }
-                                                                                            ?>
-                                                                                            <div class="ibox-tools">
-                                                                                                <a class="collapse-link">
-                                                                                                    <i class="fa fa-chevron-up"></i>
-                                                                                                </a>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                        <div class="ibox-content no-padding">
-
-                                                                                            <div id="CA21" class="click3edit wrapper p-md">
-                                                                                                <?php
-                                                                                                comentarioAsesor($codigo, 1, $asesor2, $connection);
-                                                                                                ?>
-                                                                                            </div>
-
+                                                                            <div class="col-lg-4">
+                                                                                <div class="ibox float-e-margins">
+                                                                                    <div class="ibox-title">
+                                                                                        <h5>Asesor 2</h5>
+                                                                                        <button class="btn btn-primary btn-xs m-l-sm" onclick="edit3()" type="button">Edit</button>
+                                                                                        <button id="BA21" etapa="1" comentario="CA21" class="btn btn-primary  btn-xs" onclick="save3()" type="button">Save</button>
+                                                                                        <div class="ibox-tools">
+                                                                                            <a class="collapse-link">
+                                                                                                <i class="fa fa-chevron-up"></i>
+                                                                                            </a>
                                                                                         </div>
                                                                                     </div>
+                                                                                    <div class="ibox-content no-padding">
+
+                                                                                        <div id="CA21" class="click3edit wrapper p-md">
+                                                                                            <?php
+                                                                                            comentarioAsesor($codigo, 1, $asesor2, $connection);
+                                                                                            ?>
+                                                                                        </div>
+
+                                                                                    </div>
                                                                                 </div>
-                                                                            <?php } ?>
+                                                                            </div>
+
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -508,7 +520,7 @@ and open the template in the editor.
                                                                             <option value="Aprobada con Observaciones">Aprobada con Observaciones</option>
                                                                             <option value="No Aprobada">No Aprobada</option>    
                                                                             <option value="En ejecución">En ejecución</option>  
-                                                                            <option value="Inactiva">Inactiva</option>
+                                                                            <option value="Inactivo">Inactivo</option>
                                                                         </select> 
 
                                                                     </div>
@@ -549,9 +561,9 @@ and open the template in the editor.
                                                     <div class="ibox-content">
                                                         <!-- archivos Etapa 2 -->
                                                         <div class="col-lg-12">
-                                                            <div class="panel panel-default">
-                                                                <div class="panel-body">
-                                                                    <form action="funcionalidad/CargarArchivoBlobTFG.php" method="post" enctype="multipart/form-data" id="directorForm">
+                                                                <div class="panel panel-default">
+                                                                    <div class="panel-body">
+                                                                        <form action="funcionalidad/CargarArchivoBlobTFG.php" method="post" enctype="multipart/form-data" id="directorForm">
                                                                         <div class="row">
 
                                                                             <div class="col-lg-12 ">
@@ -559,16 +571,16 @@ and open the template in the editor.
                                                                                 <br/><br/>
 
                                                                             </div>
-
+                                                                            
                                                                             <div class="col-lg-12 ">
-                                                                                <div class="col-lg-5 col-lg-offset-1">
-                                                                                    <label class="form-label">Comisión TFG</label><br>
-
-
+                                                                            <div class="col-lg-5 col-lg-offset-1">
+                                                                                <label class="form-label">Comisión TFG</label><br>
+                                                                                  
+                                                                                   
                                                                                     <?php
                                                                                     $consulta3 = "SELECT * FROM tfgarchivoscomision where tfg = '" . $codigo . "' and etapa = 2 order by fecha desc limit 1;";
                                                                                     $query3 = mysqli_query($connection, $consulta3);
-                                                                                    if ($data3 = mysqli_fetch_assoc($query3)) {
+                                                                                    if( $data3 = mysqli_fetch_assoc($query3)){                                                                                   
                                                                                         echo " <div class=' file-box'>";
                                                                                         echo " <div class='file'>";
                                                                                         echo " <a href='" . $data3['ruta'] . "'>";
@@ -583,34 +595,38 @@ and open the template in the editor.
                                                                                         echo "</a>";
                                                                                         echo "</div>";
                                                                                         echo "</div>";
-                                                                                    } else {
+                                                                                        
+                                                                                    
+                                                                                    }
+                                                                                    else {
                                                                                         echo "<span class='label label-warning big'>No existen archivos recientes.</span><br>";
                                                                                     }
+                                                                                    
                                                                                     ?>
-                                                                                    <?php if ($usuarioPermisos->getMiembrocomisiontfg() && $usuarioSesion->getId() != $data["directortfg"] && $usuarioSesion->getId() != $asesor1 && $usuarioSesion->getId() != $asesor2) { ?>
-                                                                                        <div class="form-group"> 
-                                                                                            <input class = 'form-control' name = 'codigoTFG' id='codigoTFG' type="hidden" value='<?php echo $codigo ?>'>
-                                                                                            <input class = 'form-control' name = 'etapa' id = 'etapa' value ='2' type="hidden">   
-                                                                                            <input class = 'form-control' name = 'tipo' id = 'tipo' value ='archivoMiembroComision' type="hidden">   
-                                                                                            <label>Adjuntar Documento:</label>
-                                                                                            <input accept=".docx,.doc,.pdf" type="file" name="archivo2" id="archivo" onchange="uploadFile2()" class ="btn btn-primary btn-outline">
-                                                                                            <div hidden id="divProgress2" class="progress progress-striped active">
-                                                                                                <div  id="progressBar2"   aria-valuemax="100" aria-valuemin="0" aria-valuenow="45" role="progressbar" class="progress-bar progress-bar-danger ">
-                                                                                                </div>
-                                                                                            </div>
-                                                                                            <h3 id="status2"></h3>
-                                                                                            <p id="loaded_n_total2"></p>
+                                                                                    <?php if($usuarioPermisos->getMiembrocomisiontfg() && $usuarioSesion->getId() != $data["directortId"] &&  $usuarioSesion->getId() != $asesor1 && $usuarioSesion->getId() != $asesor2 ){ ?>
+                                                                                     <div class="form-group"> 
+                                                                                    <input class = 'form-control' name = 'codigoTFG' id='codigoTFG' type="hidden" value='<?php echo $codigo ?>'>
+                                                                                    <input class = 'form-control' name = 'etapa' id = 'etapa' value ='2' type="hidden">   
+                                                                                    <input class = 'form-control' name = 'tipo' id = 'tipo' value ='archivoMiembroComision' type="hidden">   
+                                                                                    <label>Adjuntar Documento:</label>
+                                                                                    <input accept=".docx,.doc,.pdf" type="file" name="archivo2" id="archivo" onchange="uploadFile2()" class ="btn btn-primary btn-outline">
+                                                                                    <div hidden id="divProgress2" class="progress progress-striped active">
+                                                                                        <div  id="progressBar2"   aria-valuemax="100" aria-valuemin="0" aria-valuenow="45" role="progressbar" class="progress-bar progress-bar-danger ">
                                                                                         </div>
-                                                                                    <?php } ?>
-                                                                                </div>
-
-
+                                                                                    </div>
+                                                                                    <h3 id="status2"></h3>
+                                                                                    <p id="loaded_n_total2"></p>
+                                                                                    </div>
+                                                                                    <?php }?>
+                                                                                    </div>
+                                                                                
+                                                                                
                                                                                 <div class="col-lg-5 col-lg-offset-1">
                                                                                     <label class="form-label">Director TFG</label><br>
                                                                                     <?php
                                                                                     $consulta3 = "SELECT * FROM tfgarchivosdirectores where tfg ='" . $codigo . "' and director = '" . $data['directortfg'] . "' and etapa = 2 order by fecha desc limit 1;";
                                                                                     $query3 = mysqli_query($connection, $consulta3);
-                                                                                    if ($data3 = mysqli_fetch_assoc($query3)) {
+                                                                                     if( $data3 = mysqli_fetch_assoc($query3)){                                                                                   
                                                                                         echo " <div class=' file-box'>";
                                                                                         echo " <div class='file'>";
                                                                                         echo " <a href='" . $data3['ruta'] . "'>";
@@ -625,38 +641,41 @@ and open the template in the editor.
                                                                                         echo "</a>";
                                                                                         echo "</div>";
                                                                                         echo "</div>";
-                                                                                    } else {
+                                                                                        
+                                                                                    
+                                                                                    }
+                                                                                    else {
                                                                                         echo "<span class='label label-warning big'>No existen archivos recientes.</span><br>";
                                                                                     }
                                                                                     ?>
-
-                                                                                    <?php if ($usuarioSesion->getId() == $data["directortfg"] && $usuarioSesion->getId() != $asesor1 && $usuarioSesion->getId() != $asesor2) { ?>
-                                                                                        <div class="form-group">
-                                                                                            <input class = 'form-control' name = 'codigoTFG' id='codigoTFG' type="hidden" value='<?php echo $codigo ?>'>
-                                                                                            <input class = 'form-control' name = 'etapa' id = 'etapa' value ='2' type="hidden">   
-                                                                                            <input class = 'form-control' name = 'tipo' id = 'tipo' value ='archivoDirector' type="hidden">   
-                                                                                            <label>Adjuntar Documento:</label>
-                                                                                            <input accept=".docx,.doc,.pdf" type="file" name="archivo" id="archivo2" onchange="uploadFile2()" class ="btn btn-primary btn-outline">
-                                                                                            <div hidden id="divProgress2" class="progress progress-striped active">
-                                                                                                <div  id="progressBar2"   aria-valuemax="100" aria-valuemin="0" aria-valuenow="45" role="progressbar" class="progress-bar progress-bar-danger ">
-                                                                                                </div>
-                                                                                            </div>
-                                                                                            <h3 id="status2"></h3>
-                                                                                            <p id="loaded_n_total2"></p>
+                                                                                    
+                                                                                    <?php if($usuarioSesion->getId() == $data["directorId"] && $usuarioSesion->getId() != $asesor1 && $usuarioSesion->getId() != $asesor2) {?>
+                                                                                   <div class="form-group">
+                                                                                    <input class = 'form-control' name = 'codigoTFG' id='codigoTFG' type="hidden" value='<?php echo $codigo ?>'>
+                                                                                    <input class = 'form-control' name = 'etapa' id = 'etapa' value ='2' type="hidden">   
+                                                                                    <input class = 'form-control' name = 'tipo' id = 'tipo' value ='archivoDirector' type="hidden">   
+                                                                                    <label>Adjuntar Documento:</label>
+                                                                                    <input accept=".docx,.doc,.pdf" type="file" name="archivo" id="archivo2" onchange="uploadFile2()" class ="btn btn-primary btn-outline">
+                                                                                    <div hidden id="divProgress2" class="progress progress-striped active">
+                                                                                        <div  id="progressBar2"   aria-valuemax="100" aria-valuemin="0" aria-valuenow="45" role="progressbar" class="progress-bar progress-bar-danger ">
                                                                                         </div>
-                                                                                    <?php } ?>
-                                                                                </div>
-
+                                                                                    </div>
+                                                                                    <h3 id="status2"></h3>
+                                                                                    <p id="loaded_n_total2"></p>
+                                                                                     </div>
+                                                                                    <?php }?>
+                                                                                    </div>
+                                                                               
 
                                                                             </div>
                                                                             <div class="col-lg-12 ">
-                                                                                <div class="col-lg-5 col-lg-offset-1">
-
+                                                                             <div class="col-lg-5 col-lg-offset-1">
+                                                                                
                                                                                     <label class="control-label">Asesor 1</label><br>
-                                                                                    <?php
-                                                                                    $consulta3 = "SELECT * FROM tfgarchivoscomision where tfg = '" . $codigo . "' and miembrocomision = '" . $asesor1 . "' and etapa = 2 order by fecha desc limit 1;";
+                                                                                     <?php
+                                                                                    $consulta3 = "SELECT * FROM tfgarchivosasesores where tfg = '" . $codigo . "' and asesor = '" . $asesor1 . "' and etapa = 2 order by fecha desc limit 1;";
                                                                                     $query3 = mysqli_query($connection, $consulta3);
-                                                                                    if ($data3 = mysqli_fetch_assoc($query3)) {
+                                                                                    if( $data3 = mysqli_fetch_assoc($query3)){                                                                                   
                                                                                         echo " <div class=' file-box'>";
                                                                                         echo " <div class='file'>";
                                                                                         echo " <a href='" . $data3['ruta'] . "'>";
@@ -671,90 +690,105 @@ and open the template in the editor.
                                                                                         echo "</a>";
                                                                                         echo "</div>";
                                                                                         echo "</div>";
-                                                                                    } else {
+                                                                                        
+                                                                                    
+                                                                                    }
+                                                                                    else {
                                                                                         echo "<span class='label label-warning big'>No existen archivos recientes.</span><br>";
                                                                                     }
                                                                                     ?>
-
-                                                                                    <?php if ($usuarioSesion->getId() == $asesor1) { ?>
-                                                                                        <div class="form-group">
-                                                                                            <input class = 'form-control' name = 'codigoTFG' id='codigoTFG' type="hidden" value='<?php echo $codigo ?>'>
-                                                                                            <input class = 'form-control' name = 'etapa' id = 'etapa' value ='2' type="hidden">   
-                                                                                            <input class = 'form-control' name = 'tipo' id = 'tipo' value ='archivoAsesor' type="hidden">
-                                                                                            <label>Adjuntar Documento:</label>
-                                                                                            <input accept=".docx,.doc,.pdf" type="file" name="archivo" id="archivo2" onchange="uploadFile2()" class ="btn btn-primary btn-outline">
-                                                                                            <div hidden id="divProgress2" class="progress progress-striped active">
-                                                                                                <div  id="progressBar2"   aria-valuemax="100" aria-valuemin="0" aria-valuenow="45" role="progressbar" class="progress-bar progress-bar-danger ">
-                                                                                                </div>
-                                                                                            </div>
-                                                                                            <h3 id="status2"></h3>
-                                                                                            <p id="loaded_n_total2"></p>
+                                                                                    
+                                                                                     <?php if($usuarioSesion->getId() == $asesor1) {?>
+                                                                                    <div class="form-group">
+                                                                                    <input class = 'form-control' name = 'codigoTFG' id='codigoTFG' type="hidden" value='<?php echo $codigo ?>'>
+                                                                                    <input class = 'form-control' name = 'etapa' id = 'etapa' value ='2' type="hidden">   
+                                                                                    <input class = 'form-control' name = 'tipo' id = 'tipo' value ='archivoAsesor' type="hidden">
+                                                                                    <label>Adjuntar Documento:</label>
+                                                                                    <input accept=".docx,.doc,.pdf" type="file" name="archivo" id="archivo2" onchange="uploadFile2()" class ="btn btn-primary btn-outline">
+                                                                                    <div hidden id="divProgress2" class="progress progress-striped active">
+                                                                                        <div  id="progressBar2"   aria-valuemax="100" aria-valuemin="0" aria-valuenow="45" role="progressbar" class="progress-bar progress-bar-danger ">
                                                                                         </div>
-                                                                                    <?php } ?>
+                                                                                    </div>
+                                                                                    <h3 id="status2"></h3>
+                                                                                    <p id="loaded_n_total2"></p>
+                                                                                    </div>
+                                                                                     <?php } ?>
+                                                                                
 
+                                                                            </div>
+                                                                            <div class="col-lg-5 col-lg-offset-1">
 
-                                                                                </div>
-                                                                                <?php if ($GLOBALS['cantAsesor'] == 2) { ?>
-                                                                                    <div class="col-lg-5 col-lg-offset-1">
-
-
-                                                                                        <label class="control-label">Asesor 2</label><br>
-                                                                                        <?php
-                                                                                        $consulta3 = "SELECT * FROM tfgarchivoscomision where tfg = '" . $codigo . "' and miembrocomision = '" . $asesor2 . "' and etapa = 2 order by fecha desc limit 1;";
-                                                                                        $query3 = mysqli_query($connection, $consulta3);
-                                                                                        if ($data3 = mysqli_fetch_assoc($query3)) {
-                                                                                            echo " <div class=' file-box'>";
-                                                                                            echo " <div class='file'>";
-                                                                                            echo " <a href='" . $data3['ruta'] . "'>";
-                                                                                            echo "  <span class='corner'></span> ";
-                                                                                            echo " <div class='icon'>
+                                                                                
+                                                                                    <label class="control-label">Asesor 2</label><br>
+                                                                                     <?php
+                                                                                    $consulta3 = "SELECT * FROM tfgarchivosasesores where tfg = '" . $codigo . "' and asesor = '" . $asesor2 . "' and etapa = 2 order by fecha desc limit 1;";
+                                                                                    $query3 = mysqli_query($connection, $consulta3);
+                                                                                    if( $data3 = mysqli_fetch_assoc($query3)){                                                                                   
+                                                                                        echo " <div class=' file-box'>";
+                                                                                        echo " <div class='file'>";
+                                                                                        echo " <a href='" . $data3['ruta'] . "'>";
+                                                                                        echo "  <span class='corner'></span> ";
+                                                                                        echo " <div class='icon'>
                                                                                                 <i class='fa fa-file'></i>
                                                                                                 </div>";
-                                                                                            echo " <div class='file-name'style= 'word-wrap: break-word;'> " . $data3['nom_archivo'] . "<br>";
+                                                                                        echo " <div class='file-name'style= 'word-wrap: break-word;'> " . $data3['nom_archivo'] . "<br>";
 
-                                                                                            echo "<small>Agregado: " . $data3['fecha'] . "</small>";
-                                                                                            echo "</div>";
-                                                                                            echo "</a>";
-                                                                                            echo "</div>";
-                                                                                            echo "</div>";
-                                                                                        } else {
-                                                                                            echo "<span class='label label-warning big'>No existen archivos recientes.</span><br>";
-                                                                                        }
-                                                                                        ?>
-
-                                                                                        <?php if ($usuarioSesion->getId() == $asesor2) { ?>
-                                                                                            <div class="form-group">
-                                                                                                <input class = 'form-control' name = 'codigoTFG' id='codigoTFG' type="hidden" value='<?php echo $codigo ?>'>
-                                                                                                <input class = 'form-control' name = 'etapa' id = 'etapa' value ='2' type="hidden">   
-                                                                                                <input class = 'form-control' name = 'tipo' id = 'tipo' value ='archivoAsesor' type="hidden">   
-                                                                                                <label>Adjuntar Documento:</label>
-                                                                                                <input accept=".docx,.doc,.pdf" type="file" name="archivo" id="archivo2" onchange="uploadFile2()" class ="btn btn-primary btn-outline">
-                                                                                                <div hidden id="divProgress2" class="progress progress-striped active">
-                                                                                                    <div  id="progressBar2"   aria-valuemax="100" aria-valuemin="0" aria-valuenow="45" role="progressbar" class="progress-bar progress-bar-danger ">
-                                                                                                    </div>
-                                                                                                </div>
-                                                                                                <h3 id="status2"></h3>
-                                                                                                <p id="loaded_n_total2"></p>
-                                                                                            </div>
-                                                                                        <?php } ?>
-
+                                                                                        echo "<small>Agregado: " . $data3['fecha'] . "</small>";
+                                                                                        echo "</div>";
+                                                                                        echo "</a>";
+                                                                                        echo "</div>";
+                                                                                        echo "</div>";
+                                                                                        
+                                                                                    
+                                                                                    }
+                                                                                    else {
+                                                                                        echo "<span class='label label-warning big'>No existen archivos recientes.</span><br>";
+                                                                                    }
+                                                                                    ?>
+                                                                                    
+                                                                                     <?php if($usuarioSesion->getId() == $asesor2) {?>
+                                                                                    <div class="form-group">
+                                                                                    <input class = 'form-control' name = 'codigoTFG' id='codigoTFG' type="hidden" value='<?php echo $codigo ?>'>
+                                                                                    <input class = 'form-control' name = 'etapa' id = 'etapa' value ='2' type="hidden">   
+                                                                                    <input class = 'form-control' name = 'tipo' id = 'tipo' value ='archivoAsesor' type="hidden">   
+                                                                                    <label>Adjuntar Documento:</label>
+                                                                                    <input accept=".docx,.doc,.pdf" type="file" name="archivo" id="archivo2" onchange="uploadFile2()" class ="btn btn-primary btn-outline">
+                                                                                    <div hidden id="divProgress2" class="progress progress-striped active">
+                                                                                        <div  id="progressBar2"   aria-valuemax="100" aria-valuemin="0" aria-valuenow="45" role="progressbar" class="progress-bar progress-bar-danger ">
+                                                                                        </div>
                                                                                     </div>
-                                                                                <?php } ?>
-                                                                            </div>
+                                                                                    <h3 id="status2"></h3>
+                                                                                    <p id="loaded_n_total2"></p>
+                                                                                     </div>
+                                                                                     <?php } ?>
+                                   
+                                                                                </div>
+                                                                               
+                                                                        </div>
+                                                                   
 
-
-
-                                                                            <div class="col-lg-offset-8">
+                                                                            <div class="col-lg-offset-10">
                                                                                 <div class="form-group">
                                                                                     <input id="guardarArchivo2" type="submit" class="btn btn-primary btn-outline disabled" value="Guardar Archivo"disabled >
-                                                                                    <input id="input-1" type="button" class="btn btn-primary btn-outline" value="Registro de Archivos">
                                                                                 </div>
                                                                             </div>
                                                                         </div>
-                                                                    </form>
+                                                                        </form>
+                                                                           <div class="col-lg-offset-10">
+                                                                                 <form method="post" action='registro_archivos_tfg.php'>
+                                                                                <div class="form-group" >
+                                                                                    <input type="hidden" name='codigo' value='<?php echo $codigo ?>'>
+                                                                                    <input type='hidden' name='etapa' value='2'>
+                                                                                    <input type='hidden' name='director' value='<?php echo $data['directorId'] ?>'>
+                                                                                    <input type="hidden" name='asesor1' value="<?php echo $asesor1 ?>">
+                                                                                    <input type="hidden" name='asesor2' value="<?php echo $asesor2 ?>">
+                                                                                    <input id="input-1" type="submit"  class="btn btn-primary" value="Registro de Archivos">
+                                                                                </div>
+                                                                                </form>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
                                                         <!-- fin archivos -->
                                                         <!-- comentarios -->
                                                         <div class="col-lg-12">
@@ -773,10 +807,8 @@ and open the template in the editor.
                                                                             <div class="ibox float-e-margins">
                                                                                 <div class="ibox-title">
                                                                                     <h5>Comision TFG</h5>
-                                                                                    <?php if ($usuarioPermisos->getMiembrocomisiontfg()) { ?>
-                                                                                        <button  class="btn btn-primary btn-xs m-l-sm" onclick="edit1()" type="button">Edit</button>
-                                                                                        <button id="BM12" etapa="2" comentario="CM12" class="btn btn-primary  btn-xs" onclick="save1()" type="button">Save</button>
-                                                                                    <?php } ?>
+                                                                                    <button  class="btn btn-primary btn-xs m-l-sm" onclick="edit1()" type="button">Edit</button>
+                                                                                    <button id="BM12" etapa="2" comentario="CM12" class="btn btn-primary  btn-xs" onclick="save1()" type="button">Save</button>
                                                                                     <div class="ibox-tools">
                                                                                         <a class="collapse-link">
                                                                                             <i class="fa fa-chevron-up"></i>
@@ -798,10 +830,8 @@ and open the template in the editor.
                                                                             <div class="ibox float-e-margins">
                                                                                 <div class="ibox-title">
                                                                                     <h5>Asesor 1</h5>
-                                                                                    <?php if ($usuarioPermisos->getId() == $asesor1) { ?>
-                                                                                        <button  class="btn btn-primary btn-xs m-l-sm" onclick="edit2()" type="button">Edit</button>
-                                                                                        <button id="BA12" etapa="2" comentario="CA12" class="btn btn-primary  btn-xs" onclick="save2()" type="button">Save</button>
-                                                                                    <?php } ?>
+                                                                                    <button  class="btn btn-primary btn-xs m-l-sm" onclick="edit2()" type="button">Edit</button>
+                                                                                    <button id="BA12" etapa="2" comentario="CA12" class="btn btn-primary  btn-xs" onclick="save2()" type="button">Save</button>
                                                                                     <div class="ibox-tools">
                                                                                         <a class="collapse-link">
                                                                                             <i class="fa fa-chevron-up"></i>
@@ -819,37 +849,29 @@ and open the template in the editor.
                                                                                 </div>
                                                                             </div>
                                                                         </div>
-                                                                        <?php if ($GLOBALS['cantAsesor'] == 2) { ?>
-                                                                            <div class="col-lg-4">
-                                                                                <div class="ibox float-e-margins">
-                                                                                    <div class="ibox-title">
-                                                                                        <h5>Asesor 2</h5>
-                                                                                        <?php
-                                                                                        if ($usuarioPermisos->getId() == $asesor2) {
-                                                                                            ?>
-                                                                                            <button  class="btn btn-primary btn-xs m-l-sm" onclick="edit3()" type="button">Edit</button>
-                                                                                            <button id="BA22" etapa="2" comentario="CA22" class="btn btn-primary  btn-xs" onclick="save3()" type="button">Save</button>
-                                                                                            <?php
-                                                                                        }
-                                                                                        ?>
-                                                                                        <div class="ibox-tools">
-                                                                                            <a class="collapse-link">
-                                                                                                <i class="fa fa-chevron-up"></i>
-                                                                                            </a>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="ibox-content no-padding">
-
-                                                                                        <div id="CA22" class="click3edit wrapper p-md">
-                                                                                            <?php
-                                                                                            comentarioAsesor($codigo, 2, $asesor2, $connection);
-                                                                                            ?>
-                                                                                        </div>
-
+                                                                        <div class="col-lg-4">
+                                                                            <div class="ibox float-e-margins">
+                                                                                <div class="ibox-title">
+                                                                                    <h5>Asesor 2</h5>
+                                                                                    <button  class="btn btn-primary btn-xs m-l-sm" onclick="edit3()" type="button">Edit</button>
+                                                                                    <button id="BA22" etapa="2" comentario="CA22" class="btn btn-primary  btn-xs" onclick="save3()" type="button">Save</button>
+                                                                                    <div class="ibox-tools">
+                                                                                        <a class="collapse-link">
+                                                                                            <i class="fa fa-chevron-up"></i>
+                                                                                        </a>
                                                                                     </div>
                                                                                 </div>
+                                                                                <div class="ibox-content no-padding">
+
+                                                                                    <div id="CA22" class="click3edit wrapper p-md">
+                                                                                        <?php
+                                                                                        comentarioAsesor($codigo, 2, $asesor2, $connection);
+                                                                                        ?>
+                                                                                    </div>
+
+                                                                                </div>
                                                                             </div>
-                                                                        <?php } ?>
+                                                                        </div>
 
 
 
@@ -876,7 +898,7 @@ and open the template in the editor.
                                                                         <option value="Aprobada con Observaciones">Aprobada con Observaciones</option>
                                                                         <option value="No Aprobada">No Aprobada</option>    
                                                                         <option value="En ejecución">En ejecución</option>  
-                                                                        <option value="Inactiva">Inactiva</option>
+                                                                        <option value="Inactivo">Inactivo</option>
                                                                     </select> 
 
                                                                 </div>
@@ -916,9 +938,9 @@ and open the template in the editor.
                                                     <div class="ibox-content">
                                                         <!-- archivos -->
                                                         <div class="col-lg-12">
-                                                            <div class="panel panel-default">
-                                                                <div class="panel-body">
-                                                                    <form action="funcionalidad/CargarArchivoBlobTFG.php" method="post" enctype="multipart/form-data" id="directorForm">
+                                                                <div class="panel panel-default">
+                                                                    <div class="panel-body">
+                                                                        <form action="funcionalidad/CargarArchivoBlobTFG.php" method="post" enctype="multipart/form-data" id="directorForm">
                                                                         <div class="row">
 
                                                                             <div class="col-lg-12 ">
@@ -926,16 +948,16 @@ and open the template in the editor.
                                                                                 <br/><br/>
 
                                                                             </div>
-
-                                                                            <div class="col-lg-12">
-                                                                                <div class="col-lg-5 col-lg-offset-1">
-                                                                                    <label class="form-label">Comisión TFG</label><br>
-
-
+                                                                            
+                                                                            <div class="col-lg-12 ">
+                                                                            <div class="col-lg-5 col-lg-offset-1">
+                                                                                <label class="form-label">Comisión TFG</label><br>
+                                                                                  
+                                                                                   
                                                                                     <?php
                                                                                     $consulta3 = "SELECT * FROM tfgarchivoscomision where tfg = '" . $codigo . "' and etapa = 3 order by fecha desc limit 1;";
                                                                                     $query3 = mysqli_query($connection, $consulta3);
-                                                                                    if ($data3 = mysqli_fetch_assoc($query3)) {
+                                                                                    if( $data3 = mysqli_fetch_assoc($query3)){                                                                                   
                                                                                         echo " <div class=' file-box'>";
                                                                                         echo " <div class='file'>";
                                                                                         echo " <a href='" . $data3['ruta'] . "'>";
@@ -950,34 +972,38 @@ and open the template in the editor.
                                                                                         echo "</a>";
                                                                                         echo "</div>";
                                                                                         echo "</div>";
-                                                                                    } else {
+                                                                                        
+                                                                                    
+                                                                                    }
+                                                                                    else {
                                                                                         echo "<span class='label label-warning big'>No existen archivos recientes.</span><br>";
                                                                                     }
+                                                                                    
                                                                                     ?>
-                                                                                    <?php if ($usuarioPermisos->getMiembrocomisiontfg() && $usuarioSesion->getId() != $data["directortfg"] && $usuarioSesion->getId() != $asesor1 && $usuarioSesion->getId() != $asesor2) { ?>
-                                                                                        <div class="form-group"> 
-                                                                                            <input class = 'form-control' name = 'codigoTFG' id='codigoTFG' type="hidden" value='<?php echo $codigo ?>'>
-                                                                                            <input class = 'form-control' name = 'etapa' id = 'etapa' value ='3' type="hidden">   
-                                                                                            <input class = 'form-control' name = 'tipo' id = 'tipo' value ='archivoMiembroComision' type="hidden">   
-                                                                                            <label>Adjuntar Documento:</label>
-                                                                                            <input accept=".docx,.doc,.pdf" type="file" name="archivo" id="archivo3" onchange="uploadFile3()" class ="btn btn-primary btn-outline">
-                                                                                            <div hidden id="divProgress3" class="progress progress-striped active">
-                                                                                                <div  id="progressBar3"   aria-valuemax="100" aria-valuemin="0" aria-valuenow="45" role="progressbar" class="progress-bar progress-bar-danger ">
-                                                                                                </div>
-                                                                                            </div>
-                                                                                            <h3 id="status3"></h3>
-                                                                                            <p id="loaded_n_total3"></p>
+                                                                                    <?php if($usuarioPermisos->getMiembrocomisiontfg() && $usuarioSesion->getId() != $data["directorId"] &&  $usuarioSesion->getId() != $asesor1 && $usuarioSesion->getId() != $asesor2 ){ ?>
+                                                                                     <div class="form-group"> 
+                                                                                    <input class = 'form-control' name = 'codigoTFG' id='codigoTFG' type="hidden" value='<?php echo $codigo ?>'>
+                                                                                    <input class = 'form-control' name = 'etapa' id = 'etapa' value ='3' type="hidden">   
+                                                                                    <input class = 'form-control' name = 'tipo' id = 'tipo' value ='archivoMiembroComision' type="hidden">   
+                                                                                    <label>Adjuntar Documento:</label>
+                                                                                    <input accept=".docx,.doc,.pdf" type="file" name="archivo" id="archivo3" onchange="uploadFile3()" class ="btn btn-primary btn-outline">
+                                                                                    <div hidden id="divProgress3" class="progress progress-striped active">
+                                                                                        <div  id="progressBar3"   aria-valuemax="100" aria-valuemin="0" aria-valuenow="45" role="progressbar" class="progress-bar progress-bar-danger ">
                                                                                         </div>
-                                                                                    <?php } ?>
-                                                                                </div>
-
-
+                                                                                    </div>
+                                                                                    <h3 id="status3"></h3>
+                                                                                    <p id="loaded_n_total3"></p>
+                                                                                    </div>
+                                                                                    <?php }?>
+                                                                                    </div>
+                                                                                
+                                                                                
                                                                                 <div class="col-lg-5 col-lg-offset-1">
                                                                                     <label class="form-label">Director TFG</label><br>
                                                                                     <?php
                                                                                     $consulta3 = "SELECT * FROM tfgarchivosdirectores where tfg ='" . $codigo . "' and director = '" . $data['directortfg'] . "' and etapa = 1 order by fecha desc limit 1;";
                                                                                     $query3 = mysqli_query($connection, $consulta3);
-                                                                                    if ($data3 = mysqli_fetch_assoc($query3)) {
+                                                                                    if( $data3 = mysqli_fetch_assoc($query3)){                                                                                   
                                                                                         echo " <div class=' file-box'>";
                                                                                         echo " <div class='file'>";
                                                                                         echo " <a href='" . $data3['ruta'] . "'>";
@@ -992,38 +1018,41 @@ and open the template in the editor.
                                                                                         echo "</a>";
                                                                                         echo "</div>";
                                                                                         echo "</div>";
-                                                                                    } else {
+                                                                                        
+                                                                                    
+                                                                                    }
+                                                                                    else {
                                                                                         echo "<span class='label label-warning big'>No existen archivos recientes.</span><br>";
                                                                                     }
                                                                                     ?>
-
-                                                                                    <?php if ($usuarioSesion->getId() == $data["directortfg"] && $usuarioSesion->getId() != $asesor1 && $usuarioSesion->getId() != $asesor2) { ?>
-                                                                                        <div class="form-group">
-                                                                                            <input class = 'form-control' name = 'codigoTFG' id='codigoTFG' type="hidden" value='<?php echo $codigo ?>'>
-                                                                                            <input class = 'form-control' name = 'etapa' id = 'etapa' value ='3' type="hidden">   
-                                                                                            <input class = 'form-control' name = 'tipo' id = 'tipo' value ='archivoDirector' type="hidden">   
-                                                                                            <label>Adjuntar Documento:</label>
-                                                                                            <input accept=".docx,.doc,.pdf" type="file" name="archivo" id="archivo3" onchange="uploadFile3()" class ="btn btn-primary btn-outline">
-                                                                                            <div hidden id="divProgress3" class="progress progress-striped active">
-                                                                                                <div  id="progressBar3"   aria-valuemax="100" aria-valuemin="0" aria-valuenow="45" role="progressbar" class="progress-bar progress-bar-danger ">
-                                                                                                </div>
-                                                                                            </div>
-                                                                                            <h3 id="statu3s"></h3>
-                                                                                            <p id="loaded_n_total3"></p>
+                                                                                    
+                                                                                    <?php if($usuarioSesion->getId() == $data["directorId"] && $usuarioSesion->getId() != $asesor1 && $usuarioSesion->getId() != $asesor2) {?>
+                                                                                   <div class="form-group">
+                                                                                    <input class = 'form-control' name = 'codigoTFG' id='codigoTFG' type="hidden" value='<?php echo $codigo ?>'>
+                                                                                    <input class = 'form-control' name = 'etapa' id = 'etapa' value ='3' type="hidden">   
+                                                                                    <input class = 'form-control' name = 'tipo' id = 'tipo' value ='archivoDirector' type="hidden">   
+                                                                                    <label>Adjuntar Documento:</label>
+                                                                                    <input accept=".docx,.doc,.pdf" type="file" name="archivo" id="archivo3" onchange="uploadFile3()" class ="btn btn-primary btn-outline">
+                                                                                    <div hidden id="divProgress3" class="progress progress-striped active">
+                                                                                        <div  id="progressBar3"   aria-valuemax="100" aria-valuemin="0" aria-valuenow="45" role="progressbar" class="progress-bar progress-bar-danger ">
                                                                                         </div>
-                                                                                    <?php } ?>
-                                                                                </div>
-
+                                                                                    </div>
+                                                                                    <h3 id="statu3s"></h3>
+                                                                                    <p id="loaded_n_total3"></p>
+                                                                                     </div>
+                                                                                    <?php }?>
+                                                                                    </div>
+                                                                               
 
                                                                             </div>
                                                                             <div class="col-lg-12 ">
-                                                                                <div class="col-lg-5 col-lg-offset-1">
-
+                                                                             <div class="col-lg-5 col-lg-offset-1">
+                                                                                
                                                                                     <label class="control-label">Asesor 1</label><br>
-                                                                                    <?php
-                                                                                    $consulta3 = "SELECT * FROM tfgarchivoscomision where tfg = '" . $codigo . "' and miembrocomision = '" . $asesor1 . "' and etapa = 1 order by fecha desc limit 1;";
+                                                                                     <?php
+                                                                                    $consulta3 = "SELECT * FROM tfgarchivosasesores where tfg = '" . $codigo . "' and asesor = '" . $asesor1 . "' and etapa = 3 order by fecha desc limit 1;";
                                                                                     $query3 = mysqli_query($connection, $consulta3);
-                                                                                    if ($data3 = mysqli_fetch_assoc($query3)) {
+                                                                                    if( $data3 = mysqli_fetch_assoc($query3)){                                                                                   
                                                                                         echo " <div class=' file-box'>";
                                                                                         echo " <div class='file'>";
                                                                                         echo " <a href='" . $data3['ruta'] . "'>";
@@ -1038,170 +1067,173 @@ and open the template in the editor.
                                                                                         echo "</a>";
                                                                                         echo "</div>";
                                                                                         echo "</div>";
-                                                                                    } else {
+                                                                                        
+                                                                                    
+                                                                                    }
+                                                                                    else {
                                                                                         echo "<span class='label label-warning big'>No existen archivos recientes.</span><br>";
                                                                                     }
                                                                                     ?>
-
-                                                                                    <?php if ($usuarioSesion->getId() == $asesor1) { ?>
-                                                                                        <div class="form-group">
-                                                                                            <input class = 'form-control' name = 'codigoTFG' id='codigoTFG' type="hidden" value='<?php echo $codigo ?>'>
-                                                                                            <input class = 'form-control' name = 'etapa' id = 'etapa' value ='3' type="hidden">   
-                                                                                            <input class = 'form-control' name = 'tipo' id = 'tipo' value ='archivoAsesor' type="hidden">
-                                                                                            <label>Adjuntar Documento:</label>
-                                                                                            <input accept=".docx,.doc,.pdf" type="file" name="archivo" id="archivo3" onchange="uploadFile()" class ="btn btn-primary btn-outline">
-                                                                                            <div hidden id="divProgress3" class="progress progress-striped active">
-                                                                                                <div  id="progressBar3"   aria-valuemax="100" aria-valuemin="0" aria-valuenow="45" role="progressbar" class="progress-bar progress-bar-danger ">
-                                                                                                </div>
-                                                                                            </div>
-                                                                                            <h3 id="status3"></h3>
-                                                                                            <p id="loaded_n_total3"></p>
+                                                                                    
+                                                                                     <?php if($usuarioSesion->getId() == $asesor1) {?>
+                                                                                    <div class="form-group">
+                                                                                    <input class = 'form-control' name = 'codigoTFG' id='codigoTFG' type="hidden" value='<?php echo $codigo ?>'>
+                                                                                    <input class = 'form-control' name = 'etapa' id = 'etapa' value ='3' type="hidden">   
+                                                                                    <input class = 'form-control' name = 'tipo' id = 'tipo' value ='archivoAsesor' type="hidden">
+                                                                                    <label>Adjuntar Documento:</label>
+                                                                                    <input accept=".docx,.doc,.pdf" type="file" name="archivo" id="archivo3" onchange="uploadFile()" class ="btn btn-primary btn-outline">
+                                                                                    <div hidden id="divProgress3" class="progress progress-striped active">
+                                                                                        <div  id="progressBar3"   aria-valuemax="100" aria-valuemin="0" aria-valuenow="45" role="progressbar" class="progress-bar progress-bar-danger ">
                                                                                         </div>
-                                                                                    <?php } ?>
+                                                                                    </div>
+                                                                                    <h3 id="status3"></h3>
+                                                                                    <p id="loaded_n_total3"></p>
+                                                                                    </div>
+                                                                                     <?php } ?>
+                                                                                
 
+                                                                            </div>
+                                                                            <div class="col-lg-5 col-lg-offset-1">
 
-                                                                                </div>
-                                                                                <div class="col-lg-5 col-lg-offset-1">
-
-                                                                                    <?php if ($GLOBALS['cantAsesor'] == 2) { ?>
-                                                                                        <label class="control-label">Asesor 2</label><br>
-                                                                                        <?php
-                                                                                        $consulta3 = "SELECT * FROM tfgarchivoscomision where tfg = '" . $codigo . "' and miembrocomision = '" . $asesor2 . "' and etapa = 1 order by fecha desc limit 1;";
-                                                                                        $query3 = mysqli_query($connection, $consulta3);
-                                                                                        if ($data3 = mysqli_fetch_assoc($query3)) {
-                                                                                            echo " <div class=' file-box'>";
-                                                                                            echo " <div class='file'>";
-                                                                                            echo " <a href='" . $data3['ruta'] . "'>";
-                                                                                            echo "  <span class='corner'></span> ";
-                                                                                            echo " <div class='icon'>
+                                                                                
+                                                                                    <label class="control-label">Asesor 2</label><br>
+                                                                                     <?php
+                                                                                    $consulta3 = "SELECT * FROM tfgarchivosasesores where tfg = '" . $codigo . "' and asesor = '" . $asesor2 . "' and etapa = 3 order by fecha desc limit 1;";
+                                                                                    $query3 = mysqli_query($connection, $consulta3);
+                                                                                    if( $data3 = mysqli_fetch_assoc($query3)){                                                                                   
+                                                                                        echo " <div class=' file-box'>";
+                                                                                        echo " <div class='file'>";
+                                                                                        echo " <a href='" . $data3['ruta'] . "'>";
+                                                                                        echo "  <span class='corner'></span> ";
+                                                                                        echo " <div class='icon'>
                                                                                                 <i class='fa fa-file'></i>
                                                                                                 </div>";
-                                                                                            echo " <div class='file-name'style= 'word-wrap: break-word;'> " . $data3['nom_archivo'] . "<br>";
+                                                                                        echo " <div class='file-name'style= 'word-wrap: break-word;'> " . $data3['nom_archivo'] . "<br>";
 
-                                                                                            echo "<small>Agregado: " . $data3['fecha'] . "</small>";
-                                                                                            echo "</div>";
-                                                                                            echo "</a>";
-                                                                                            echo "</div>";
-                                                                                            echo "</div>";
-                                                                                        } else {
-                                                                                            echo "<span class='label label-warning '>No existen archivos recientes.</span><br>";
-                                                                                        }
-                                                                                        ?>
-
-                                                                                        <?php if ($usuarioSesion->getId() == $asesor2) { ?>
-                                                                                            <div class="form-group">
-                                                                                                <input class = 'form-control' name = 'codigoTFG' id='codigoTFG' type="hidden" value='<?php echo $codigo ?>'>
-                                                                                                <input class = 'form-control' name = 'etapa' id = 'etapa' value ='3' type="hidden">   
-                                                                                                <input class = 'form-control' name = 'tipo' id = 'tipo' value ='archivoAsesor' type="hidden">   
-                                                                                                <label>Adjuntar Documento:</label>
-                                                                                                <input accept=".docx,.doc,.pdf" type="file" name="archivo" id="archivo3" onchange="uploadFile3()" class ="btn btn-primary btn-outline">
-                                                                                                <div hidden id="divProgress3" class="progress progress-striped active">
-                                                                                                    <div  id="progressBar3"   aria-valuemax="100" aria-valuemin="0" aria-valuenow="45" role="progressbar" class="progress-bar progress-bar-danger ">
-                                                                                                    </div>
-                                                                                                </div>
-                                                                                                <h3 id="status3"></h3>
-                                                                                                <p id="loaded_n_total3"></p>
-                                                                                            </div>
-                                                                                        <?php } ?>
-
+                                                                                        echo "<small>Agregado: " . $data3['fecha'] . "</small>";
+                                                                                        echo "</div>";
+                                                                                        echo "</a>";
+                                                                                        echo "</div>";
+                                                                                        echo "</div>";
+                                                                                        
+                                                                                    
+                                                                                    }
+                                                                                    else {
+                                                                                        echo "<span class='label label-warning '>No existen archivos recientes.</span><br>";
+                                                                                    }
+                                                                                    ?>
+                                                                                    
+                                                                                     <?php if($usuarioSesion->getId() == $asesor2) {?>
+                                                                                    <div class="form-group">
+                                                                                    <input class = 'form-control' name = 'codigoTFG' id='codigoTFG' type="hidden" value='<?php echo $codigo ?>'>
+                                                                                    <input class = 'form-control' name = 'etapa' id = 'etapa' value ='3' type="hidden">   
+                                                                                    <input class = 'form-control' name = 'tipo' id = 'tipo' value ='archivoAsesor' type="hidden">   
+                                                                                    <label>Adjuntar Documento:</label>
+                                                                                    <input accept=".docx,.doc,.pdf" type="file" name="archivo" id="archivo3" onchange="uploadFile3()" class ="btn btn-primary btn-outline">
+                                                                                    <div hidden id="divProgress3" class="progress progress-striped active">
+                                                                                        <div  id="progressBar3"   aria-valuemax="100" aria-valuemin="0" aria-valuenow="45" role="progressbar" class="progress-bar progress-bar-danger ">
+                                                                                        </div>
                                                                                     </div>
-                                                                                <?php } ?>
+                                                                                    <h3 id="status3"></h3>
+                                                                                    <p id="loaded_n_total3"></p>
+                                                                                     </div>
+                                                                                     <?php } ?>
+                                   
+                                                                                </div>
+                                                                               
+                                                                        </div>
+                                                                 
 
-                                                                            </div>
-
-
-                                                                            <div class="col-lg-offset-8">
+                                                                            <div class="col-lg-offset-10">
                                                                                 <div class="form-group">
                                                                                     <input id="guardarArchivo3" type="submit" class="btn btn-primary btn-outline disabled" value="Guardar Archivo"disabled >
-                                                                                    <input id="input-1" type="button" class="btn btn-primary btn-outline" value="Registro de Archivos">
                                                                                 </div>
                                                                             </div>
                                                                         </div>
-                                                                    </form>
+                                                                        </form>
+                                                                           <div class="col-lg-offset-10">
+                                                                                 <form method="post" action='registro_archivos_tfg.php'>
+                                                                                <div class="form-group" >
+                                                                                    <input type="hidden" name='codigo' value='<?php echo $codigo ?>'>
+                                                                                    <input type='hidden' name='etapa' value='3'>
+                                                                                    <input type='hidden' name='director' value='<?php echo $data['directorId'] ?>'>
+                                                                                    <input type="hidden" name='asesor1' value="<?php echo $asesor1 ?>">
+                                                                                    <input type="hidden" name='asesor2' value="<?php echo $asesor2 ?>">
+                                                                                    <input id="input-1" type="submit"  class="btn btn-primary" value="Registro de Archivos">
+                                                                                </div>
+                                                                                </form>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                    </div>
-                                                    <!-- fin archivos -->
-                                                    <!-- comentarios -->
-                                                    <div class="col-lg-12">
-                                                        <div class="panel panel-default">
-                                                            <div class="panel-body">
+                                                        <!-- fin archivos -->
+                                                        <!-- comentarios -->
+                                                        <div class="col-lg-12">
+                                                            <div class="panel panel-default">
+                                                                <div class="panel-body">
 
-                                                                <div class="row">
+                                                                    <div class="row">
 
-                                                                    <div class="col-lg-12">
-                                                                        <label>Comentarios</label>
-                                                                        <br/><br/>
+                                                                        <div class="col-lg-12 ">
+                                                                            <label>Comentarios</label>
+                                                                            <br/><br/>
 
-                                                                    </div>
+                                                                        </div>
 
-                                                                    <div class="col-lg-4">
-                                                                        <div class="ibox float-e-margins">
-                                                                            <div class="ibox-title">
-                                                                                <h5>Comision TFG</h5>
-                                                                                <?php if ($usuarioPermisos->getMiembrocomisiontfg()) { ?>
+                                                                        <div class="col-lg-4">
+                                                                            <div class="ibox float-e-margins">
+                                                                                <div class="ibox-title">
+                                                                                    <h5>Comision TFG</h5>
                                                                                     <button  class="btn btn-primary btn-xs m-l-sm" onclick="edit1()" type="button">Edit</button>
                                                                                     <button id="BM13" etapa="3" comentario="CM13" class="btn btn-primary  btn-xs" onclick="save1()" type="button">Save</button>
-                                                                                <?php } ?>
-                                                                                <div class="ibox-tools">
-                                                                                    <a class="collapse-link">
-                                                                                        <i class="fa fa-chevron-up"></i>
-                                                                                    </a>
+                                                                                    <div class="ibox-tools">
+                                                                                        <a class="collapse-link">
+                                                                                            <i class="fa fa-chevron-up"></i>
+                                                                                        </a>
+
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="ibox-content no-padding">
+
+                                                                                    <div id="CM13" class="click1edit wrapper p-md">
+                                                                                        <?php
+                                                                                        comentarioMiembro($codigo, 3, $connection);
+                                                                                        ?> 
+                                                                                    </div>
 
                                                                                 </div>
-                                                                            </div>
-                                                                            <div class="ibox-content no-padding">
-
-                                                                                <div id="CM13" class="click1edit wrapper p-md">
-                                                                                    <?php
-                                                                                    comentarioMiembro($codigo, 3, $connection);
-                                                                                    ?> 
-                                                                                </div>
-
                                                                             </div>
                                                                         </div>
-                                                                    </div>
-                                                                    <div class="col-lg-4">
-                                                                        <div class="ibox float-e-margins">
-                                                                            <div class="ibox-title">
-                                                                                <h5>Asesor 1</h5>
-                                                                                <?php if ($usuarioPermisos->getId() == $asesor1) { ?>
+                                                                        <div class="col-lg-4">
+                                                                            <div class="ibox float-e-margins">
+                                                                                <div class="ibox-title">
+                                                                                    <h5>Asesor 1</h5>
                                                                                     <button  class="btn btn-primary btn-xs m-l-sm" onclick="edit2()" type="button">Edit</button>
                                                                                     <button id="BA13" etapa="3" comentario="CA13" class="btn btn-primary  btn-xs" onclick="save2()" type="button">Save</button>
-                                                                                <?php } ?>
-                                                                                <div class="ibox-tools">
-                                                                                    <a class="collapse-link">
-                                                                                        <i class="fa fa-chevron-up"></i>
-                                                                                    </a>
+                                                                                    <div class="ibox-tools">
+                                                                                        <a class="collapse-link">
+                                                                                            <i class="fa fa-chevron-up"></i>
+                                                                                        </a>
+
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="ibox-content no-padding">
+
+                                                                                    <div id="CA13" class="click2edit wrapper p-md">
+                                                                                        <?php
+                                                                                        comentarioAsesor($codigo, 3, $asesor1, $connection);
+                                                                                        ?>
+                                                                                    </div>
 
                                                                                 </div>
-                                                                            </div>
-                                                                            <div class="ibox-content no-padding">
-
-                                                                                <div id="CA13" class="click2edit wrapper p-md">
-                                                                                    <?php
-                                                                                    comentarioAsesor($codigo, 3, $asesor1, $connection);
-                                                                                    ?>
-                                                                                </div>
-
                                                                             </div>
                                                                         </div>
-                                                                    </div>
-
-                                                                    <div class="col-lg-4">
-                                                                        <?php if ($GLOBALS['cantAsesor'] == 2) { ?>
+                                                                        <div class="col-lg-4">
                                                                             <div class="ibox float-e-margins">
                                                                                 <div class="ibox-title">
                                                                                     <h5>Asesor 2</h5>
-                                                                                    <?php
-                                                                                    if ($usuarioPermisos->getId() == $asesor2) {
-                                                                                        ?>
-                                                                                        <button  class="btn btn-primary btn-xs m-l-sm" onclick="edit3()" type="button">Edit</button>
-                                                                                        <button id="BA23" etapa="3" comentario="CA23" class="btn btn-primary  btn-xs" onclick="save3()" type="button">Save</button>
-                                                                                        <?php
-                                                                                    }
-                                                                                    ?>
+                                                                                    <button  class="btn btn-primary btn-xs m-l-sm" onclick="edit3()" type="button">Edit</button>
+                                                                                    <button id="BA23" etapa="3" comentario="CA23" class="btn btn-primary  btn-xs" onclick="save3()" type="button">Save</button>
                                                                                     <div class="ibox-tools">
                                                                                         <a class="collapse-link">
                                                                                             <i class="fa fa-chevron-up"></i>
@@ -1220,44 +1252,43 @@ and open the template in the editor.
                                                                                 </div>
                                                                             </div>
                                                                         </div>
-                                                                    <?php } ?>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <!-- fin comentarios -->
-                                                    <!-- Estado  -->
-                                                    <div class="row">
-                                                        <div class="col-lg-2 col-lg-offset-7">
-                                                            <div class="form-group">
-                                                                <label class="control-label">Estado de Etapa:</label>
+                                                        <!-- fin comentarios -->
+                                                        <!-- Estado  -->
+                                                        <div class="row">
+                                                            <div class="col-lg-2 col-lg-offset-7">
+                                                                <div class="form-group">
+                                                                    <label class="control-label">Estado de Etapa:</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-2">
+                                                                <div class="form-group">
+
+
+                                                                    <select id="estado3" class="form-control m-b" name="account" onchange="pintandoPanels()">
+
+                                                                        <option value="Aprobada">Aprobada</option>
+                                                                        <option value="Aprobada con Observaciones">Aprobada con Observaciones</option>
+                                                                        <option value="No Aprobada">No Aprobada</option>    
+                                                                        <option value="En ejecución">En ejecución</option>  
+                                                                        <option value="Inactivo">Inactivo</option>
+                                                                    </select> 
+
+                                                                </div>
+                                                            </div>  
+                                                        </div>
+                                                        <div class="row"> 
+                                                            <div class="col-lg-2 col-lg-offset-9">
+                                                                <div class="form-group">
+                                                                    <input id="BE3" estado="estado3" etapa="3" type="button" class="btn btn-primary" value="Guardar Estado">
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-lg-2">
-                                                            <div class="form-group">
-
-
-                                                                <select id="estado3" class="form-control m-b" name="account" onchange="pintandoPanels()">
-
-                                                                    <option value="Aprobada">Aprobada</option>
-                                                                    <option value="Aprobada con Observaciones">Aprobada con Observaciones</option>
-                                                                    <option value="No Aprobada">No Aprobada</option>    
-                                                                    <option value="En ejecución">En ejecución</option>  
-                                                                    <option value="Inactiva">Inactiva</option>
-                                                                </select> 
-
-                                                            </div>
-                                                        </div>  
+                                                        <!-- fin estado -->
                                                     </div>
-                                                    <div class="row"> 
-                                                        <div class="col-lg-2 col-lg-offset-9">
-                                                            <div class="form-group">
-                                                                <input id="BE3" estado="estado3" etapa="3" type="button" class="btn btn-primary" value="Guardar Estado">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!-- fin estado -->
-
                                                 </div>
                                             </div>
                                         </div>
@@ -1270,65 +1301,29 @@ and open the template in the editor.
 
                                     <!-- estado final -->
                                     <div class="row">
-                                        <div class="col-lg-5 col-lg-offset-1">
-                                            <div class="col-lg-4">
-                                                <div class="form-group">
-                                                    <label class="control-label">Estado del TFG:</label>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-lg-4">
-                                                <div class="form-group">
-                                                    <select id="estadotfg" class="form-control m-b" name="estadotfg">
-                                                        <option>Activo</option>
-                                                        <option>Aprobada para defensa</option>
-                                                        <option>Inactivo</option>
-                                                        <option>Finalizado</option>
-                                                    </select> 
-
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-3 col-lg-offset-2">
-                                                <div class="form-group">
-                                                    <input id="BTFG" estado="estadotfg" type="button" class="btn btn-primary" value="Guardar Estado">
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                        <div class="col-lg-5 col-lg-offset-1">
-                                            <div class="col-lg-3">
-                                                <div class="form-group">
-                                                    <label class="control-label">Fecha de finalizacion:</label>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-lg-6">
-                                                <div class="form-group" id="">
-                                                    <div class="input-group date">
-                                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input <?php
-                                                        if (!$usuarioPermisos->getEncargadotfg()) {
-                                                            echo "disabled"
-                                                         ?> <?php } ?>
-                                                                 type="text" id="fecha" class="form-control" value="<?php echo substr($data['fechaFinal'], 0, 11) ?>">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <?php if ($usuarioPermisos->getEncargadotfg()) { ?>
-                                                    <div class="col-lg-3 col-lg-offset-2">
-                                                        <div class="form-group">
-                                                            <input id="FTFG" estado="fechatfg" type="button" class="btn btn-primary" value="Guardar Fecha">
-                                                        </div>
-                                                    </div>
-                                                <?php } ?>
+                                        <div class="col-lg-2 col-lg-offset-4">
+                                            <div class="form-group">
+                                                <label class="control-label">Estado del TFG:</label>
                                             </div>
                                         </div>
+                                        <div class="col-lg-2">
+                                            <div class="form-group">
+                                                <select id="estadotfg" class="form-control m-b" name="estadotfg">
+                                                    <option >Activo</option>
+                                                    <option>Inactivo</option>
+                                                    <option>Finalizado</option>
+                                                </select> 
 
+                                            </div>
+                                        </div>  
                                     </div>
-                                    <div class="row">
-
+                                    <div class="row"> 
+                                        <div class="col-lg-2 col-lg-offset-6">
+                                            <div class="form-group">
+                                                <input id="BTFG" estado="estadotfg" type="button" class="btn btn-primary" value="Guardar Estado">
+                                            </div>
+                                        </div>
                                     </div>
-
-
                                     <!-- fin estado final -->
 
 
@@ -1338,7 +1333,7 @@ and open the template in the editor.
                         </div>
 
 
-
+                        <div class="col-lg-10"></div>
 
                     </div>
 
@@ -1348,7 +1343,7 @@ and open the template in the editor.
 
                 </div>
             </div>
-
+</div>
             <script src="js/jquery-2.1.1.js"></script>
             <script src="js/bootstrap.min.js"></script>
             <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
@@ -1361,13 +1356,12 @@ and open the template in the editor.
             <!-- Custom and plugin javascript -->
             <script src="js/inspinia.js"></script>
             <script src="js/plugins/pace/pace.min.js"></script>
-            <script src="js/plugins/datapicker/bootstrap-datepicker.js"></script>
+
             <!-- SUMMERNOTE -->
             <script src="js/plugins/summernote/summernote.min.js"></script>
             <script src="js/fileUpload.js" type="text/javascript"></script>
             <!-- Page-Level Scripts -->
             <?php
-
             function comentarioMiembro($cod, $eta, $conn) {
                 $consulta = "select comentario from tfgcomentarioscomision where etapa = " . $eta . " and tfg ='$cod'";
                 $query = mysqli_query($conn, $consulta);
@@ -1392,19 +1386,7 @@ and open the template in the editor.
                 }
             }
 
-            function cantidadAsesores($cod, $conn) {
-
-                $cantAsesor = "select count(*) as asesores from tfg,tfgasesores,
-                               tfgasesoran where tfg.codigo = tfgasesoran.tfg and 
-                               tfgasesoran.asesor =  tfgasesores.id and tfg.codigo ='$cod'";
-                $query = mysqli_query($conn, $cantAsesor);
-                $data = mysqli_fetch_assoc($query);
-                global $cantAsesor;
-                $cantAsesor = $data['asesores'];
-            }
-
             function asesores($cod, $conn) {
-
                 $consulta = "select tfgasesores.id from tfg,tfgasesores,"
                         . "tfgasesoran where tfg.codigo = tfgasesoran.tfg and "
                         . "tfgasesoran.asesor =  tfgasesores.id and tfg.codigo ='$cod'";
@@ -1418,22 +1400,20 @@ and open the template in the editor.
                     $cont++;
                 }
             }
+
+            function estadoTFG($cod, $conn) {
+                $consulta = "select comentario from tfgcomentariosasesores where etapa = $eta and tfg ='$cod' and asesor = $ide";
+                $query = mysqli_query($conn, $consulta);
+                $data = mysqli_fetch_assoc($query);
+            }
             ?>
 
-            <script>
+<script>
                                                                         String.prototype.trim = function () {
                                                                             return this.replace(/^\s+|\s+$/g, "");
                                                                         };
                                                                         $(document).ready(function () {
                                                                             $('.summernote').summernote();
-                                                                        });
-                                                                        $('#fecha').datepicker({
-                                                                            format: 'yyyy-mm-dd',
-                                                                            todayBtn: "linked",
-                                                                            keyboardNavigation: false,
-                                                                            forceParse: false,
-                                                                            calendarWeeks: true,
-                                                                            autoclose: true
                                                                         });
                                                                         var edit1 = function () {
                                                                             $('.click1edit').summernote({focus: true});
@@ -1471,19 +1451,16 @@ and open the template in the editor.
                                                                             guardarEstado("BE2");
                                                                             guardarEstado("BE3");
                                                                             guardarEstadoFin("BTFG");
-                                                                            guardarFecha();
                                                                             //init de panels y otras cosas 
                                                                             initSelects();
                                                                             pintandoPanels();
-                                                                            inac(1);
-                                                                            inac(2);
-                                                                            inac(3);
+                                                                            inac(1);inac(2);inac(3);
                                                                         });
                                                                         //sets de informacion a la base de datos
                                                                         function guardarComentarioAsesor(btn) { // btn boton del save para asesores
                                                                             $("#" + btn).click(function (evento) {
                                                                                 evento.preventDefault();
-                                                                                var cod = "<?php echo $codigo ?>";
+                                                                                var cod = "<?php echo $codigo?>";
                                                                                 var ide = <?php echo $usuarioSesion->getId() ?>;
                                                                                 var eta = $("#" + btn).attr("etapa");
                                                                                 var coment = $("#" + btn).attr("comentario");
@@ -1499,8 +1476,8 @@ and open the template in the editor.
 
                                                                         function guardarComentarioMiembro(btn) {
                                                                             $("#" + btn).click(function (evento) {
-                                                                                evento.preventDefault();
-                                                                                var cod = "<?php echo $codigo ?>";
+                                                                                evento.preventDefault();  
+                                                                                var cod = "<?php echo $codigo?>";
                                                                                 var ide = <?php echo $usuarioSesion->getId() ?>;
                                                                                 var eta = $("#" + btn).attr("etapa");
                                                                                 var coment = $("#" + btn).attr("comentario");
@@ -1518,7 +1495,7 @@ and open the template in the editor.
                                                                             $("#" + btn).click(function (evento) {
                                                                                 evento.preventDefault();
                                                                                 //alert("<?php echo $codigo ?>");
-                                                                                var cod = "<?php echo $codigo ?>";
+                                                                                var cod = "<?php echo $codigo?>";
                                                                                 var eta = $("#" + btn).attr("etapa");
                                                                                 var est = $("#" + btn).attr("estado");
                                                                                 var estad = $("#" + est).val();
@@ -1534,7 +1511,7 @@ and open the template in the editor.
                                                                         function guardarEstadoFin(btn) { // btn boton del guardar estado final
                                                                             $("#" + btn).click(function (evento) {
                                                                                 evento.preventDefault();
-                                                                                var cod = "<?php echo $codigo ?>";
+                                                                                var cod = "<?php echo $codigo?>";
                                                                                 var est = $("#" + btn).attr("estado");
                                                                                 var estad = $("#" + est).val();
                                                                                 $.get("funcionalidad/TFGestadoFin.php", {estado: estad, tfg: cod}, function (data) {
@@ -1544,25 +1521,11 @@ and open the template in the editor.
                                                                                 });
                                                                             });
                                                                         }
-                                                                        function guardarFecha() {
-                                                                            $("#FTFG").click(function (evento) {
-                                                                                evento.preventDefault();
-                                                                                var cod = "<?php echo $codigo ?>";
-                                                                                var fecha = $("#fecha").val();
-                                                                                $.get("funcionalidad/TFGfecha.php", {fecha: fecha, tfg: cod}, function (data) {
-                                                                                    //alert(data);
-                                                                                }).fail(function () {
-                                                                                    //alert("error");
-                                                                                });
-                                                                            });
-
-
-                                                                        }
 
 
                                                                         //pintar panels
                                                                         var estados = {Aprobada: "panel-primary", AprobadaconObservaciones: "panel-warning",
-                                                                            NoAprobada: "panel-danger", Enejecución: "panel-success", Inactiva: "panel"};
+                                                                            NoAprobada: "panel-danger", Enejecución: "panel-success", Inactivo: "panel"};
                                                                         var estadosant = {ant1: "<?php echo $etapa1 ?>", ant2: "<?php echo $etapa2 ?>", ant3: "<?php echo $etapa3 ?>"};
                                                                         function pintando(estado, panel, estadoan, n) {
                                                                             estado = estado.replace(/\s/g, "");
@@ -1577,48 +1540,49 @@ and open the template in the editor.
                                                                             pintando($("#estado3").val(), "panelEstado3", estadosant["ant3"], 3);
                                                                         }
                                                                         function initSelects() {
-                                                                            // alert("<?php echo $etapa1 ?>");
+                                                                           // alert("<?php echo $etapa1 ?>");
                                                                             $("#estado1").val("<?php echo $etapa1 ?>");
                                                                             $("#estado2").val("<?php echo $etapa2 ?>");
                                                                             $("#estado3").val("<?php echo $etapa3 ?>");
                                                                             $("#estadotfg").val("<?php echo $data["estado"] ?>");
-                                                                    }
-                                                                    //metodo para que el usuario no pueda marcar la opcion de inactivo en una etapa
-                                                                    function inac(etapa) {
-                                                                        //alert(etapa);
-                                                                        $("#estado" + etapa).focus(function () {
-                                                                            $("#estado" + etapa + " option[value='Inactiva']").remove();
-                                                                        });
-                                                                        $("#estado" + etapa).focus();
-                                                                        $("#estado" + etapa).focusout(function () {
-                                                                            $("#estado" + etapa).append("<option value='Inactiva'>Inactiva</option>");
-
-                                                                        });
-                                                                    }
-                                                                    //metodo para habilitar/deshabilitar la siguiente etapa 
-                                                                    function etapa(opcion, etapasig) {
-
-                                                                        etapasig++;
-                                                                        if (opcion === "Aprobada" || opcion === "Aprobada con Observaciones") {
-                                                                            alert("col" + etapasig);
-
-                                                                            //$("#col" + etapasig).html("<i class='fa fa-chevron-up'> </i>");
-
-
-                                                                            /* $('#col'+etapasig).on('show hide', function () {
-                                                                             $(this).css('height', 'auto');
-                                                                             });
-                                                                             $('#col'+etapasig).collapse({parent: true, toggle: true});*/
-
-                                                                        } else {
-                                                                            $("#col" + etapasig).remove();
                                                                         }
+                                                                        //metodo para que el usuario no pueda marcar la opcion de inactivo en una etapa
+                                                                        function inac(etapa) {
+                                                                            //alert(etapa);
+                                                                            $("#estado"+etapa).focus(function () {
+                                                                                $("#estado"+etapa + " option[value='Inactivo']").remove();
+                                                                                
+                                                                            });
+                                                                            $("#estado"+etapa).focus();
+                                                                            $("#estado"+etapa).focusout(function () {
+                                                                                $("#estado"+etapa).append("<option value='Inactivo'>Inactivo</option>");
+                                                                                
+                                                                            });
+                                                                        }
+                                                                        //metodo para habilitar/deshabilitar la siguiente etapa 
+                                                                        function etapa(opcion, etapasig) {
 
-                                                                    }
+                                                                            etapasig++;
+                                                                            if (opcion === "Aprobada" || opcion === "Aprobada con Observaciones") {
+                                                                                alert("col" + etapasig);
+                                                                                
+                                                                                //$("#col" + etapasig).html("<i class='fa fa-chevron-up'> </i>");
 
 
-        </script>    
+                                                                                /* $('#col'+etapasig).on('show hide', function () {
+                                                                                 $(this).css('height', 'auto');
+                                                                                 });
+                                                                                 $('#col'+etapasig).collapse({parent: true, toggle: true});*/
 
+                                                                            } else {
+                                                                                $("#col" + etapasig).remove();
+                                                                            }
 
+                                                                        }
+                                                                        
+
+            </script>    
+
+        
     </body>
 </html>
