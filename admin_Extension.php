@@ -178,7 +178,7 @@
                                                                  id = '" . $data["codigo"] . "' > Modificar</button></td> ";
 
 
-                                                            echo "<form method= 'GET' action = 'consulta_TFG.php'>";
+                                                            echo "<form method= 'GET' action = 'consulta_Extension.php'>";
                                                             echo "<input type='hidden' name='codigo' value= '" . $data["codigo"] . "'/> ";
                                                             echo "<td>" . "<button type='submit' data-toggle='modal' class='btn btn-primary'
                                                                  id = '" . $data["codigo"] . "' > Consultar</button></td> ";
