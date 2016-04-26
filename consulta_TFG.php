@@ -42,7 +42,7 @@ and open the template in the editor.
                         <div class="col-lg-12">
                             <div class="ibox float-e-margins">
 
-                                <div class="ibox-title panel-heading panel-success">
+                                <div class="ibox-title panel-heading panel" id="panelEstadoFinal">
                                     <h5>Consulta Específica TFG</h5>
 
                                     <div class="ibox-tools">
@@ -120,6 +120,11 @@ and open the template in the editor.
                                                 <div class="form-group">
                                                     <label>Linea de Investigación</label>
                                                     <input class="form-control" placeholder="" name="linea" id="linea" value='<?php echo $data["lineainvestigacion"] ?>' disabled>
+                                                </div>
+                                                
+                                                <div class="form-group">
+                                                    <label>Estado actual del TFG</label>
+                                                    <input class="form-control" placeholder="" name="estado" id="estado" value='<?php echo $data["estado"] ?>' disabled>
                                                 </div>
                                             </form>
 
@@ -384,16 +389,18 @@ and open the template in the editor.
                                                                             </div>
                                                                         </form>
                                                                         <div class="col-lg-offset-10">
-                                                                                 <form method="post" action='registro_archivos_tfg.php'>
+                                                                            <form method="post" action='registro_archivos_tfg.php'>
                                                                                 <div class="form-group" >
                                                                                     <input type="hidden" name='codigo' value='<?php echo $codigo ?>'>
                                                                                     <input type='hidden' name='etapa' value='1'>
                                                                                     <input type='hidden' name='director' value='<?php echo $data['directorId'] ?>'>
                                                                                     <input type="hidden" name='asesor1' value="<?php echo $asesor1 ?>">
-                                                                                    <input type="hidden" name='asesor2' value="<?php echo $asesor2 ?>">
+                                                                                    <?php if ($GLOBALS['cantAsesor'] == 2) { ?>
+                                                                                        <input type="hidden" name='asesor2' value="<?php echo $asesor2 ?>">
+                                                                                    <?php } ?>
                                                                                     <input id="input-1" type="submit"  class="btn btn-primary" value="Registro de Archivos">
                                                                                 </div>
-                                                                                </form>
+                                                                            </form>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -512,9 +519,10 @@ and open the template in the editor.
                                                                 </div>
                                                                 <div class="col-lg-2">
                                                                     <div class="form-group">
-
-
-                                                                        <select id="estado1" class="form-control m-b" name="account" onchange="pintandoPanels()">
+                                                                        <select id="estado1" class="form-control m-b" name="account" onchange="pintandoPanels()" <?php
+                                                        if (!$usuarioPermisos->getEncargadotfg()) {
+                                                            echo "disabled"
+                                                            ?> <?php } ?>>
                                                                             <option value="Aprobada">Aprobada</option>
                                                                             <option value="Aprobada con Observaciones">Aprobada con Observaciones</option>
                                                                             <option value="No Aprobada">No Aprobada</option>    
@@ -525,6 +533,7 @@ and open the template in the editor.
                                                                     </div>
                                                                 </div>  
                                                             </div>
+                                                            <?php if($usuarioPermisos->getEncargadotfg()){?>
                                                             <div class="row"> 
                                                                 <div class="col-lg-2 col-lg-offset-9">
                                                                     <div class="form-group">
@@ -532,6 +541,7 @@ and open the template in the editor.
                                                                     </div>
                                                                 </div>
                                                             </div>
+                                                            <?php }?>
                                                             <!-- fin estado -->
 
 
@@ -752,9 +762,6 @@ and open the template in the editor.
                                                                                     </div>
                                                                                 <?php } ?>
                                                                             </div>
-
-
-
                                                                             <div class="col-lg-offset-10">
                                                                                 <div class="form-group">
                                                                                     <input id="guardarArchivo2" type="submit" class="btn btn-primary btn-outline disabled" value="Guardar Archivo"disabled >
@@ -762,18 +769,21 @@ and open the template in the editor.
                                                                             </div>
                                                                         </div>
                                                                     </form>
-                                                                     <div class="col-lg-offset-10">
-                                                                                 <form method="post" action='registro_archivos_tfg.php'>
-                                                                                <div class="form-group" >
-                                                                                    <input type="hidden" name='codigo' value='<?php echo $codigo ?>'>
-                                                                                    <input type='hidden' name='etapa' value='2'>
-                                                                                    <input type='hidden' name='director' value='<?php echo $data['directorId'] ?>'>
-                                                                                    <input type="hidden" name='asesor1' value="<?php echo $asesor1 ?>">
+
+                                                                    <div class="col-lg-offset-10">
+                                                                        <form method="post" action='registro_archivos_tfg.php'>
+                                                                            <div class="form-group" >
+                                                                                <input type="hidden" name='codigo' value='<?php echo $codigo ?>'>
+                                                                                <input type='hidden' name='etapa' value='2'>
+                                                                                <input type='hidden' name='director' value='<?php echo $data['directorId'] ?>'>
+                                                                                <input type="hidden" name='asesor1' value="<?php echo $asesor1 ?>">
+                                                                                <?php if ($GLOBALS['cantAsesor'] == 2) { ?>
                                                                                     <input type="hidden" name='asesor2' value="<?php echo $asesor2 ?>">
-                                                                                    <input id="input-1" type="submit"  class="btn btn-primary" value="Registro de Archivos">
-                                                                                </div>
-                                                                                </form>
-                                                                        </div>
+                                                                                <?php } ?>
+                                                                                <input id="input-1" type="submit"  class="btn btn-primary" value="Registro de Archivos">
+                                                                            </div>
+                                                                        </form>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -893,7 +903,10 @@ and open the template in the editor.
                                                                 <div class="form-group">
 
 
-                                                                    <select id="estado2" class="form-control m-b" name="account" onchange="pintandoPanels()">
+                                                                    <select id="estado2" class="form-control m-b" name="account" onchange="pintandoPanels()"<?php
+                                                        if (!$usuarioPermisos->getEncargadotfg()) {
+                                                            echo "disabled"
+                                                            ?> <?php } ?>>
                                                                         <option value="Aprobada">Aprobada</option>
                                                                         <option value="Aprobada con Observaciones">Aprobada con Observaciones</option>
                                                                         <option value="No Aprobada">No Aprobada</option>    
@@ -904,6 +917,7 @@ and open the template in the editor.
                                                                 </div>
                                                             </div>  
                                                         </div>
+                                                        <?php if($usuarioPermisos->getEncargadotfg()){?>
                                                         <div class="row"> 
                                                             <div class="col-lg-2 col-lg-offset-9">
                                                                 <div class="form-group">
@@ -911,6 +925,7 @@ and open the template in the editor.
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                        <?php }?>
                                                         <!-- fin estado -->
 
                                                     </div>
@@ -1125,13 +1140,9 @@ and open the template in the editor.
                                                                                                 <p id="loaded_n_total3"></p>
                                                                                             </div>
                                                                                         <?php } ?>
-
                                                                                     </div>
                                                                                 <?php } ?>
-
                                                                             </div>
-
-
                                                                             <div class="col-lg-offset-10">
                                                                                 <div class="form-group">
                                                                                     <input id="guardarArchivo3" type="submit" class="btn btn-primary btn-outline disabled" value="Guardar Archivo"disabled >
@@ -1139,101 +1150,45 @@ and open the template in the editor.
                                                                             </div>
                                                                         </div>
                                                                     </form>
-                                                                <div class="col-lg-offset-10">
-                                                                                 <form method="post" action='registro_archivos_tfg.php'>
-                                                                                <div class="form-group" >
-                                                                                    <input type="hidden" name='codigo' value='<?php echo $codigo ?>'>
-                                                                                    <input type='hidden' name='etapa' value='3'>
-                                                                                    <input type='hidden' name='director' value='<?php echo $data['directorId'] ?>'>
-                                                                                    <input type="hidden" name='asesor1' value="<?php echo $asesor1 ?>">
+                                                                    <div class="col-lg-offset-10">
+                                                                        <form method="post" action='registro_archivos_tfg.php'>
+                                                                            <div class="form-group" >
+                                                                                <input type="hidden" name='codigo' value='<?php echo $codigo ?>'>
+                                                                                <input type='hidden' name='etapa' value='3'>
+                                                                                <input type='hidden' name='director' value='<?php echo $data['directorId'] ?>'>
+                                                                                <input type="hidden" name='asesor1' value="<?php echo $asesor1 ?>">
+                                                                                <?php if ($GLOBALS['cantAsesor'] == 2) { ?>
                                                                                     <input type="hidden" name='asesor2' value="<?php echo $asesor2 ?>">
-                                                                                    <input id="input-1" type="submit"  class="btn btn-primary" value="Registro de Archivos">
-                                                                                </div>
-                                                                                </form>
-                                                                        </div>
+                                                                                <?php } ?>
+                                                                                <input id="input-1" type="submit"  class="btn btn-primary" value="Registro de Archivos">
+                                                                            </div>
+                                                                        </form>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <!-- fin archivos -->
-                                                    <!-- comentarios -->
-                                                    <div class="col-lg-12">
-                                                        <div class="panel panel-default">
-                                                            <div class="panel-body">
+                                                        <!-- fin archivos -->
+                                                        <!-- comentarios -->
+                                                        <div class="col-lg-12">
+                                                            <div class="panel panel-default">
+                                                                <div class="panel-body">
 
-                                                                <div class="row">
+                                                                    <div class="row">
 
-                                                                    <div class="col-lg-12">
-                                                                        <label>Comentarios</label>
-                                                                        <br/><br/>
+                                                                        <div class="col-lg-12">
+                                                                            <label>Comentarios</label>
+                                                                            <br/><br/>
 
-                                                                    </div>
-
-                                                                    <div class="col-lg-4">
-                                                                        <div class="ibox float-e-margins">
-                                                                            <div class="ibox-title">
-                                                                                <h5>Comision TFG</h5>
-                                                                                <?php if ($usuarioPermisos->getMiembrocomisiontfg()) { ?>
-                                                                                    <button  class="btn btn-primary btn-xs m-l-sm" onclick="edit1()" type="button">Edit</button>
-                                                                                    <button id="BM13" etapa="3" comentario="CM13" class="btn btn-primary  btn-xs" onclick="save1()" type="button">Save</button>
-                                                                                <?php } ?>
-                                                                                <div class="ibox-tools">
-                                                                                    <a class="collapse-link">
-                                                                                        <i class="fa fa-chevron-up"></i>
-                                                                                    </a>
-
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="ibox-content no-padding">
-
-                                                                                <div id="CM13" class="click1edit wrapper p-md">
-                                                                                    <?php
-                                                                                    comentarioMiembro($codigo, 3, $connection);
-                                                                                    ?> 
-                                                                                </div>
-
-                                                                            </div>
                                                                         </div>
-                                                                    </div>
-                                                                    <div class="col-lg-4">
-                                                                        <div class="ibox float-e-margins">
-                                                                            <div class="ibox-title">
-                                                                                <h5>Asesor 1</h5>
-                                                                                <?php if ($usuarioPermisos->getId() == $asesor1) { ?>
-                                                                                    <button  class="btn btn-primary btn-xs m-l-sm" onclick="edit2()" type="button">Edit</button>
-                                                                                    <button id="BA13" etapa="3" comentario="CA13" class="btn btn-primary  btn-xs" onclick="save2()" type="button">Save</button>
-                                                                                <?php } ?>
-                                                                                <div class="ibox-tools">
-                                                                                    <a class="collapse-link">
-                                                                                        <i class="fa fa-chevron-up"></i>
-                                                                                    </a>
 
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="ibox-content no-padding">
-
-                                                                                <div id="CA13" class="click2edit wrapper p-md">
-                                                                                    <?php
-                                                                                    comentarioAsesor($codigo, 3, $asesor1, $connection);
-                                                                                    ?>
-                                                                                </div>
-
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="col-lg-4">
-                                                                        <?php if ($GLOBALS['cantAsesor'] == 2) { ?>
+                                                                        <div class="col-lg-4">
                                                                             <div class="ibox float-e-margins">
                                                                                 <div class="ibox-title">
-                                                                                    <h5>Asesor 2</h5>
-                                                                                    <?php
-                                                                                    if ($usuarioPermisos->getId() == $asesor2) {
-                                                                                        ?>
-                                                                                        <button  class="btn btn-primary btn-xs m-l-sm" onclick="edit3()" type="button">Edit</button>
-                                                                                        <button id="BA23" etapa="3" comentario="CA23" class="btn btn-primary  btn-xs" onclick="save3()" type="button">Save</button>
-                                                                                        <?php
-                                                                                    }
-                                                                                    ?>
+                                                                                    <h5>Comision TFG</h5>
+                                                                                    <?php if ($usuarioPermisos->getMiembrocomisiontfg()) { ?>
+                                                                                        <button  class="btn btn-primary btn-xs m-l-sm" onclick="edit1()" type="button">Edit</button>
+                                                                                        <button id="BM13" etapa="3" comentario="CM13" class="btn btn-primary  btn-xs" onclick="save1()" type="button">Save</button>
+                                                                                    <?php } ?>
                                                                                     <div class="ibox-tools">
                                                                                         <a class="collapse-link">
                                                                                             <i class="fa fa-chevron-up"></i>
@@ -1243,61 +1198,122 @@ and open the template in the editor.
                                                                                 </div>
                                                                                 <div class="ibox-content no-padding">
 
-                                                                                    <div id="CA23" class="click3edit wrapper p-md">
+                                                                                    <div id="CM13" class="click1edit wrapper p-md">
                                                                                         <?php
-                                                                                        comentarioAsesor($codigo, 3, $asesor2, $connection);
+                                                                                        comentarioMiembro($codigo, 3, $connection);
+                                                                                        ?> 
+                                                                                    </div>
+
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-lg-4">
+                                                                            <div class="ibox float-e-margins">
+                                                                                <div class="ibox-title">
+                                                                                    <h5>Asesor 1</h5>
+                                                                                    <?php if ($usuarioPermisos->getId() == $asesor1) { ?>
+                                                                                        <button  class="btn btn-primary btn-xs m-l-sm" onclick="edit2()" type="button">Edit</button>
+                                                                                        <button id="BA13" etapa="3" comentario="CA13" class="btn btn-primary  btn-xs" onclick="save2()" type="button">Save</button>
+                                                                                    <?php } ?>
+                                                                                    <div class="ibox-tools">
+                                                                                        <a class="collapse-link">
+                                                                                            <i class="fa fa-chevron-up"></i>
+                                                                                        </a>
+
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="ibox-content no-padding">
+
+                                                                                    <div id="CA13" class="click2edit wrapper p-md">
+                                                                                        <?php
+                                                                                        comentarioAsesor($codigo, 3, $asesor1, $connection);
                                                                                         ?>
                                                                                     </div>
 
                                                                                 </div>
                                                                             </div>
                                                                         </div>
-                                                                    <?php } ?>
+
+                                                                        <div class="col-lg-4">
+                                                                            <?php if ($GLOBALS['cantAsesor'] == 2) { ?>
+                                                                                <div class="ibox float-e-margins">
+                                                                                    <div class="ibox-title">
+                                                                                        <h5>Asesor 2</h5>
+                                                                                        <?php
+                                                                                        if ($usuarioPermisos->getId() == $asesor2) {
+                                                                                            ?>
+                                                                                            <button  class="btn btn-primary btn-xs m-l-sm" onclick="edit3()" type="button">Edit</button>
+                                                                                            <button id="BA23" etapa="3" comentario="CA23" class="btn btn-primary  btn-xs" onclick="save3()" type="button">Save</button>
+                                                                                            <?php
+                                                                                        }
+                                                                                        ?>
+                                                                                        <div class="ibox-tools">
+                                                                                            <a class="collapse-link">
+                                                                                                <i class="fa fa-chevron-up"></i>
+                                                                                            </a>
+
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="ibox-content no-padding">
+
+                                                                                        <div id="CA23" class="click3edit wrapper p-md">
+                                                                                            <?php
+                                                                                            comentarioAsesor($codigo, 3, $asesor2, $connection);
+                                                                                            ?>
+                                                                                        </div>
+
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        <?php } ?>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                
-                                                    <!-- fin comentarios -->
-                                                    <!-- Estado  -->
-                                                    <div class="row">
-                                                        <div class="col-lg-2 col-lg-offset-7">
-                                                            <div class="form-group">
-                                                                <label class="control-label">Estado de Etapa:</label>
+                                                        <!-- fin comentarios -->
+                                                        <!-- Estado  -->
+                                                        <div class="row">
+                                                            <div class="col-lg-2 col-lg-offset-7">
+                                                                <div class="form-group">
+                                                                    <label class="control-label">Estado de Etapa:</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-2">
+                                                                <div class="form-group">
+
+
+                                                                    <select id="estado3" class="form-control m-b" name="account" onchange="pintandoPanels()"<?php
+                                                        if (!$usuarioPermisos->getEncargadotfg()) {
+                                                            echo "disabled"
+                                                            ?> <?php } ?>>
+
+                                                                        <option value="Aprobada">Aprobada</option>
+                                                                        <option value="Aprobada con Observaciones">Aprobada con Observaciones</option>
+                                                                        <option value="No Aprobada">No Aprobada</option>    
+                                                                        <option value="En ejecución">En ejecución</option>  
+                                                                        <option value="Inactiva">Inactiva</option>
+                                                                    </select> 
+
+                                                                </div>
+                                                            </div>  
+                                                        </div>
+                                                        <?php if($usuarioPermisos->getEncargadotfg()){?>
+                                                        <div class="row"> 
+                                                            <div class="col-lg-2 col-lg-offset-9">
+                                                                <div class="form-group">
+                                                                    <input id="BE3" estado="estado3" etapa="3" type="button" class="btn btn-primary" value="Guardar Estado">
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-lg-2">
-                                                            <div class="form-group">
-
-
-                                                                <select id="estado3" class="form-control m-b" name="account" onchange="pintandoPanels()">
-
-                                                                    <option value="Aprobada">Aprobada</option>
-                                                                    <option value="Aprobada con Observaciones">Aprobada con Observaciones</option>
-                                                                    <option value="No Aprobada">No Aprobada</option>    
-                                                                    <option value="En ejecución">En ejecución</option>  
-                                                                    <option value="Inactiva">Inactiva</option>
-                                                                </select> 
-
-                                                            </div>
-                                                        </div>  
+                                                        <?php } ?>
+                                                        <!-- fin estado -->
                                                     </div>
-                                                    <div class="row"> 
-                                                        <div class="col-lg-2 col-lg-offset-9">
-                                                            <div class="form-group">
-                                                                <input id="BE3" estado="estado3" etapa="3" type="button" class="btn btn-primary" value="Guardar Estado">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!-- fin estado -->
-                                                </div>
                                                 </div>
                                             </div>
                                         </div>
 
                                     </div>
-
-                                    <!-- fin etapa 2 -->
+                                    <!-- fin etapa 3 -->
 
 
 
@@ -1312,7 +1328,10 @@ and open the template in the editor.
 
                                             <div class="col-lg-4">
                                                 <div class="form-group">
-                                                    <select id="estadotfg" class="form-control m-b" name="estadotfg">
+                                                    <select id="estadotfg" class="form-control m-b" name="estadotfg" <?php
+                                                        if (!$usuarioPermisos->getEncargadotfg()) {
+                                                            echo "disabled"
+                                                            ?> <?php } ?>>
                                                         <option>Activo</option>
                                                         <option>Aprobada para defensa</option>
                                                         <option>Inactivo</option>
@@ -1321,11 +1340,13 @@ and open the template in the editor.
 
                                                 </div>
                                             </div>
+                                            <?php if ($usuarioPermisos->getEncargadotfg()) { ?>
                                             <div class="col-lg-3 col-lg-offset-2">
                                                 <div class="form-group">
                                                     <input id="BTFG" estado="estadotfg" type="button" class="btn btn-primary" value="Guardar Estado">
                                                 </div>
                                             </div>
+                                            <?php }?>
 
                                         </div>
                                         <div class="col-lg-5 col-lg-offset-1">
@@ -1341,119 +1362,119 @@ and open the template in the editor.
                                                         <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input <?php
                                                         if (!$usuarioPermisos->getEncargadotfg()) {
                                                             echo "disabled"
-                                                         ?> <?php } ?>
-                                                                 type="text" id="fecha" class="form-control" value="<?php echo substr($data['fechaFinal'], 0, 11) ?>">
-                                                        </div>
+                                                            ?> <?php } ?>
+                                                            type="text" id="fecha" class="form-control" value="<?php echo substr($data['fechaFinal'], 0, 11) ?>">
                                                     </div>
                                                 </div>
-                                                <?php if ($usuarioPermisos->getEncargadotfg()) { ?>
-                                                    <div class="col-lg-3 col-lg-offset-2">
-                                                        <div class="form-group">
-                                                            <input id="FTFG" estado="fechatfg" type="button" class="btn btn-primary" value="Guardar Fecha">
-                                                        </div>
-                                                    </div>
-                                                <?php } ?>
                                             </div>
+                                            <?php if ($usuarioPermisos->getEncargadotfg()) { ?>
+                                                <div class="col-lg-3 col-lg-offset-2">
+                                                    <div class="form-group">
+                                                        <input id="FTFG" estado="fechatfg" type="button" class="btn btn-primary" value="Guardar Fecha">
+                                                    </div>
+                                                </div>
+                                            <?php } ?>
                                         </div>
-
-                                    </div>
-                                    <div class="row">
-
                                     </div>
 
-
-                                    <!-- fin estado final -->
-
-
-                                    <!--fin adentro panel mas grande -->
                                 </div>
+                                <div class="row">
+
+                                </div>
+
+
+                                <!-- fin estado final -->
+
+
+                                <!--fin adentro panel mas grande -->
                             </div>
                         </div>
-
-
-
-
                     </div>
 
-                    <div class="footer">
-                        Universidad Nacional  &copy; 2015-2016
-                    </div>
+
+
 
                 </div>
+
+                <div class="footer">
+                    Universidad Nacional  &copy; 2015-2016
+                </div>
+
             </div>
+        </div>
 
-            <script src="js/jquery-2.1.1.js"></script>
-            <script src="js/bootstrap.min.js"></script>
-            <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
-            <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-            <script src="js/plugins/jeditable/jquery.jeditable.js"></script>
+        <script src="js/jquery-2.1.1.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
+        <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+        <script src="js/plugins/jeditable/jquery.jeditable.js"></script>
 
-            <script src="js/plugins/dataTables/datatables.min.js"></script>
-            <script src="js/plugins/metisMenu/jquery.metisMenu.js" type="text/javascript"></script>
-            <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-            <!-- Custom and plugin javascript -->
-            <script src="js/inspinia.js"></script>
-            <script src="js/plugins/pace/pace.min.js"></script>
-            <script src="js/plugins/datapicker/bootstrap-datepicker.js"></script>
-            <!-- SUMMERNOTE -->
-            <script src="js/plugins/summernote/summernote.min.js"></script>
-            <script src="js/fileUpload.js" type="text/javascript"></script>
-            <!-- Page-Level Scripts -->
-            <?php
+        <script src="js/plugins/dataTables/datatables.min.js"></script>
+        <script src="js/plugins/metisMenu/jquery.metisMenu.js" type="text/javascript"></script>
+        <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+        <!-- Custom and plugin javascript -->
+        <script src="js/inspinia.js"></script>
+        <script src="js/plugins/pace/pace.min.js"></script>
+        <script src="js/plugins/datapicker/bootstrap-datepicker.js"></script>
+        <!-- SUMMERNOTE -->
+        <script src="js/plugins/summernote/summernote.min.js"></script>
+        <script src="js/fileUpload.js" type="text/javascript"></script>
+        <!-- Page-Level Scripts -->
+        <?php
 
-            function comentarioMiembro($cod, $eta, $conn) {
-                $consulta = "select comentario from tfgcomentarioscomision where etapa = " . $eta . " and tfg ='$cod'";
-                $query = mysqli_query($conn, $consulta);
-                $data = mysqli_fetch_assoc($query);
-                echo " " . $data["comentario"] . " ";
+        function comentarioMiembro($cod, $eta, $conn) {
+            $consulta = "select comentario from tfgcomentarioscomision where etapa = " . $eta . " and tfg ='$cod'";
+            $query = mysqli_query($conn, $consulta);
+            $data = mysqli_fetch_assoc($query);
+            echo " " . $data["comentario"] . " ";
+        }
+
+        function comentarioAsesor($cod, $eta, $ide, $conn) {
+            $consulta = "select comentario from tfgcomentariosasesores where etapa = $eta and tfg ='$cod' and asesor = $ide";
+            $query = mysqli_query($conn, $consulta);
+            $data = mysqli_fetch_assoc($query);
+            echo " " . $data["comentario"] . " ";
+        }
+
+        function etapas($cod, $conn) {
+            $consulta = "select numero,estado from tfgetapas where tfg ='$cod'";
+            $query = mysqli_query($conn, $consulta);
+            while ($data = mysqli_fetch_assoc($query)) {
+                $etapas = "etapa" . $data["numero"];
+                global $$etapas;
+                $$etapas = $data['estado'];
             }
+        }
 
-            function comentarioAsesor($cod, $eta, $ide, $conn) {
-                $consulta = "select comentario from tfgcomentariosasesores where etapa = $eta and tfg ='$cod' and asesor = $ide";
-                $query = mysqli_query($conn, $consulta);
-                $data = mysqli_fetch_assoc($query);
-                echo " " . $data["comentario"] . " ";
-            }
+        function cantidadAsesores($cod, $conn) {
 
-            function etapas($cod, $conn) {
-                $consulta = "select numero,estado from tfgetapas where tfg ='$cod'";
-                $query = mysqli_query($conn, $consulta);
-                while ($data = mysqli_fetch_assoc($query)) {
-                    $etapas = "etapa" . $data["numero"];
-                    global $$etapas;
-                    $$etapas = $data['estado'];
-                }
-            }
-
-            function cantidadAsesores($cod, $conn) {
-
-                $cantAsesor = "select count(*) as asesores from tfg,tfgasesores,
+            $cantAsesor = "select count(*) as asesores from tfg,tfgasesores,
                                tfgasesoran where tfg.codigo = tfgasesoran.tfg and 
                                tfgasesoran.asesor =  tfgasesores.id and tfg.codigo ='$cod'";
-                $query = mysqli_query($conn, $cantAsesor);
-                $data = mysqli_fetch_assoc($query);
-                global $cantAsesor;
-                $cantAsesor = $data['asesores'];
+            $query = mysqli_query($conn, $cantAsesor);
+            $data = mysqli_fetch_assoc($query);
+            global $cantAsesor;
+            $cantAsesor = $data['asesores'];
+        }
+
+        function asesores($cod, $conn) {
+
+            $consulta = "select tfgasesores.id from tfg,tfgasesores,"
+                    . "tfgasesoran where tfg.codigo = tfgasesoran.tfg and "
+                    . "tfgasesoran.asesor =  tfgasesores.id and tfg.codigo ='$cod'";
+
+            $query = mysqli_query($conn, $consulta);
+            $cont = 1;
+            while ($data = mysqli_fetch_assoc($query)) {
+                $asesores = "asesor$cont";
+                global $$asesores;
+                $$asesores = $data["id"];
+                $cont++;
             }
+        }
+        ?>
 
-            function asesores($cod, $conn) {
-
-                $consulta = "select tfgasesores.id from tfg,tfgasesores,"
-                        . "tfgasesoran where tfg.codigo = tfgasesoran.tfg and "
-                        . "tfgasesoran.asesor =  tfgasesores.id and tfg.codigo ='$cod'";
-
-                $query = mysqli_query($conn, $consulta);
-                $cont = 1;
-                while ($data = mysqli_fetch_assoc($query)) {
-                    $asesores = "asesor$cont";
-                    global $$asesores;
-                    $$asesores = $data["id"];
-                    $cont++;
-                }
-            }
-            ?>
-
-            <script>
+        <script>
                                                                         String.prototype.trim = function () {
                                                                             return this.replace(/^\s+|\s+$/g, "");
                                                                         };
@@ -1595,8 +1616,9 @@ and open the template in the editor.
 
                                                                         //pintar panels
                                                                         var estados = {Aprobada: "panel-primary", AprobadaconObservaciones: "panel-warning",
-                                                                            NoAprobada: "panel-danger", Enejecución: "panel-success", Inactiva: "panel"};
-                                                                        var estadosant = {ant1: "<?php echo $etapa1 ?>", ant2: "<?php echo $etapa2 ?>", ant3: "<?php echo $etapa3 ?>"};
+                                                                            NoAprobada: "panel-danger", Enejecución: "panel-success", Inactiva: "panel", Activo:"panel-success",
+                                                                            Aprobadaparadefensa: "panel-primary",Inactivo:"panel-danger",Finalizado:"panel-primary"};
+                                                                        var estadosant = {ant1: "<?php echo $etapa1 ?>", ant2: "<?php echo $etapa2 ?>", ant3: "<?php echo $etapa3 ?>", ant4:"<?php echo $data["estado"] ?>"};
                                                                         function pintando(estado, panel, estadoan, n) {
                                                                             estado = estado.replace(/\s/g, "");
                                                                             estadoan = estado.replace(/\s/g, "");
@@ -1608,46 +1630,47 @@ and open the template in the editor.
                                                                             pintando($("#estado1").val(), "panelEstado1", estadosant["ant1"], 1);
                                                                             pintando($("#estado2").val(), "panelEstado2", estadosant["ant2"], 2);
                                                                             pintando($("#estado3").val(), "panelEstado3", estadosant["ant3"], 3);
+                                                                            pintando($("#estadotfg").val(), "panelEstadoFinal", estadosant["ant4"], 4);
                                                                         }
                                                                         function initSelects() {
-                                                                            // alert("<?php echo $etapa1 ?>");
+                                                                           
                                                                             $("#estado1").val("<?php echo $etapa1 ?>");
                                                                             $("#estado2").val("<?php echo $etapa2 ?>");
                                                                             $("#estado3").val("<?php echo $etapa3 ?>");
                                                                             $("#estadotfg").val("<?php echo $data["estado"] ?>");
-                                                                    }
-                                                                    //metodo para que el usuario no pueda marcar la opcion de inactivo en una etapa
-                                                                    function inac(etapa) {
-                                                                        //alert(etapa);
-                                                                        $("#estado" + etapa).focus(function () {
-                                                                            $("#estado" + etapa + " option[value='Inactiva']").remove();
-                                                                        });
-                                                                        $("#estado" + etapa).focus();
-                                                                        $("#estado" + etapa).focusout(function () {
-                                                                            $("#estado" + etapa).append("<option value='Inactiva'>Inactiva</option>");
-
-                                                                        });
-                                                                    }
-                                                                    //metodo para habilitar/deshabilitar la siguiente etapa 
-                                                                    function etapa(opcion, etapasig) {
-
-                                                                        etapasig++;
-                                                                        if (opcion === "Aprobada" || opcion === "Aprobada con Observaciones") {
-                                                                            alert("col" + etapasig);
-
-                                                                            //$("#col" + etapasig).html("<i class='fa fa-chevron-up'> </i>");
-
-
-                                                                            /* $('#col'+etapasig).on('show hide', function () {
-                                                                             $(this).css('height', 'auto');
-                                                                             });
-                                                                             $('#col'+etapasig).collapse({parent: true, toggle: true});*/
-
-                                                                        } else {
-                                                                            $("#col" + etapasig).remove();
                                                                         }
+                                                                        //metodo para que el usuario no pueda marcar la opcion de inactivo en una etapa
+                                                                        function inac(etapa) {
+                                                                            //alert(etapa);
+                                                                            $("#estado" + etapa).focus(function () {
+                                                                                $("#estado" + etapa + " option[value='Inactiva']").remove();
+                                                                            });
+                                                                            $("#estado" + etapa).focus();
+                                                                            $("#estado" + etapa).focusout(function () {
+                                                                                $("#estado" + etapa).append("<option value='Inactiva'>Inactiva</option>");
 
-                                                                    }
+                                                                            });
+                                                                        }
+                                                                        //metodo para habilitar/deshabilitar la siguiente etapa 
+                                                                        function etapa(opcion, etapasig) {
+
+                                                                            etapasig++;
+                                                                            if (opcion === "Aprobada" || opcion === "Aprobada con Observaciones") {
+                                                                                alert("col" + etapasig);
+
+                                                                                //$("#col" + etapasig).html("<i class='fa fa-chevron-up'> </i>");
+
+
+                                                                                /* $('#col'+etapasig).on('show hide', function () {
+                                                                                 $(this).css('height', 'auto');
+                                                                                 });
+                                                                                 $('#col'+etapasig).collapse({parent: true, toggle: true});*/
+
+                                                                            } else {
+                                                                                $("#col" + etapasig).remove();
+                                                                            }
+
+                                                                        }
 
 
         </script>    
