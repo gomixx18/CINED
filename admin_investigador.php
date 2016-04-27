@@ -49,8 +49,7 @@
                             <div class="ibox float-e-margins">
 
                                 <div class="ibox-title">
-                                    <h5>Consulta de Estudiantes</h5>
-
+                                    <h5>Consulta de Investigador</h5>
                                     <div class="ibox-tools">
                                         <a class="collapse-link">
                                             <i class="fa fa-chevron-up"></i>
@@ -109,7 +108,7 @@
                                                     }
                                                     echo "<td>" . "<button type='submit' data-toggle='modal' class='btn btn-primary'
                                                                 data-target='#mod-form' id = '" . $data["id"] . "' nombre = '" . $data["nombre"] . "' apellido1 = '" . $data["apellido1"] .
-                                                    "' apellido2 = '" . $data["apellido2"] . "'activo = '" . $data["estado"] . "' correo = '" . $data["correo"] . "' > Modificar</button></td> ";
+                                                    "' apellido2 = '" . $data["apellido2"] . "'activo = '" . $data["estado"] . "' correo = '" . $data["correo"] . "' isEstudiante = '" . $data["isEstudiante"] . "' > Modificar</button></td> ";
                                                     echo "</tr>";
                                                 }
 
@@ -227,8 +226,8 @@
                             <div class=""><h3 class="m-t-none m-b"> <i class="fa fa-plus-square-o"></i> Agregar Investigador</h3>
                                 <form role="form" id="frm_agregar_estudiante" method="POST" action="funcionalidad/INVAgregar.php">
                                     <div class="checkbox checkbox-success checkbox-circle">
-                                        <input id="checkbox8" type="checkbox">
-                                        <label for="checkbox8">
+                                        <input type="checkbox" id="isEstudiante" name="isEstudiante">
+                                        <label for="checkbox8" >
                                             Es estudiante?
                                         </label>
                                     </div>
@@ -261,7 +260,7 @@
                                 <h4 id="tituloEstado" style='color: red'>Usuario inactivo</h4>
                                 <form role="form" id="frm_agregar_estudiante" method="POST" action="funcionalidad/INVModificar.php">
                                     <div class="checkbox checkbox-success checkbox-circle">
-                                        <input id="checkbox8" type="checkbox">
+                                        <input type="checkbox" id="isEstudiante" name="isEstudiante">
                                         <label for="checkbox8">
                                             Es estudiante?
                                         </label>
@@ -299,6 +298,7 @@
                 var recipient = button.attr('id');
                 var btn1 = modal.find('#desactivar');
                 var t = modal.find('#tituloEstado');
+                var check = modal.find('#isEstudiante');
                 var d = modal.find('#activar');
                 modal.find('#id').val(recipient);
 
@@ -313,6 +313,15 @@
 
                 recipient = button.attr('correo');
                 modal.find('#correo').val(recipient);
+
+                recipient = button.attr('isEstudiante');
+
+                if (recipient == '1') {
+                    check.prop('checked', true);
+                } else {
+                    check.prop('checked', false);
+                }
+
                 recipient = button.attr('activo');
                 if (recipient === '1') {
                     t.hide();

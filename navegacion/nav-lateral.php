@@ -156,11 +156,14 @@ $usuarioPermisos = $_SESSION['permisos'];
                             <ul id="ext_principal" class="nav nav-second-level collapse">
                                 <li>
                                     <a href="admin_LineasInvestigacion.php"> Líneas de Investigación </a>
-                                  
+                                    <a href="admin_LineasInvestigacion.php">Administrar Líneas de Investigación </a>
                                 </li>
                                 <li>
-                                    <a href="admin_Carreras.php"> Carreras </a>
-                                    
+                                  
+                                    <a href="admin_Carreras.php">Administrar Carreras </a>
+                                </li>
+                                 <li>
+                                    <a href="admin_Catedras.php">Administrar Catedras</a>
                                 </li>
                                 
                             </ul>

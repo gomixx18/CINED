@@ -82,8 +82,9 @@ try {
     }
     echo $consulta;
     $resultado = mysqli_query($connection, $consulta);
-    echo $resultado;
+    //echo $resultado;
     if($resultado){
+        
         
         @session_start();
         header("Location: ../consulta_TFG.php?codigo=".$codigo);

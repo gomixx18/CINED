@@ -26,6 +26,7 @@ if ($connection) {
      
      for ($index1 = 0;$index1 < count($array1);$index1++) {
         
+         $q3 = "select correo from tfgestudiantes where id = '";
      }
          
          

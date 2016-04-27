@@ -108,7 +108,7 @@
                                                                 FROM ieproyectos, lineasinvestigacion, carreras, catedras
                                                                 where  ieproyectos.estado = 'Activo' and ieproyectos.lineainvestigacion = lineasinvestigacion.codigo and
                                                                 ieproyectos.carrera = carreras.codigo and ieproyectos.catedra = catedras.codigo
-                                                                and ieproyectos.isExtension = 1";
+                                                                and ieproyectos.isExtension = 0";
                                                     } else {
                                                         $SQLsentencia = "SELECT ieproyectos.codigo, ieproyectos.titulo, ieproyectos.estado, 
                                                                 lineasinvestigacion.nombre as lineainvestigacion, 
@@ -175,7 +175,7 @@
                                                                  id = '" . $data["codigo"] . "' > Modificar</button></td> ";
 
 
-                                                            echo "<form method= 'GET' action = 'consulta_TFG.php'>";
+                                                            echo "<form method= 'GET' action = 'consulta_Investigacion.php'>";
                                                             echo "<input type='hidden' name='codigo' value= '" . $data["codigo"] . "'/> ";
                                                             echo "<td>" . "<button type='submit' data-toggle='modal' class='btn btn-primary'
                                                                  id = '" . $data["codigo"] . "' > Consultar</button></td> ";
