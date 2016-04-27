@@ -84,7 +84,7 @@ and open the template in the editor.
 
 
                                                 <div class='form-group'>
-                                                    <label>Titulo</label>
+                                                    <label>Título</label>
                                                     <input class = 'form-control' name = 'titulo' id = 'titulo' value ='<?php echo $data["titulo"] ?>' disabled>
                                                 </div>
 
@@ -119,7 +119,7 @@ and open the template in the editor.
                                                 </div>
 
                                                 <div class="form-group">
-                                                    <label>Linea de Investigación</label>
+                                                    <label>Línea de Investigación</label>
                                                     <input class="form-control" placeholder="" name="linea" id="linea" value='<?php echo $data["lineainvestigacion"] ?>' disabled>
                                                 </div>
                                             </form>
@@ -417,7 +417,7 @@ and open the template in the editor.
                                                                             <div class="col-lg-4">
                                                                                 <div class="ibox float-e-margins">
                                                                                     <div class="ibox-title">
-                                                                                        <h5>Comision TFG</h5>
+                                                                                        <h5>Comisión TFG</h5>
 
                                                                                         <button class="btn btn-primary btn-xs m-l-sm" onclick="edit1()" type="button">Edit</button>
                                                                                         <button id="BM11" etapa="1" comentario="CM11" class="btn btn-primary  btn-xs" onclick="save1()" type="button">Save</button>
@@ -784,7 +784,7 @@ and open the template in the editor.
                                                                         <div class="col-lg-4">
                                                                             <div class="ibox float-e-margins">
                                                                                 <div class="ibox-title">
-                                                                                    <h5>Comision TFG</h5>
+                                                                                    <h5>Comisión TFG</h5>
                                                                                     <button  class="btn btn-primary btn-xs m-l-sm" onclick="edit1()" type="button">Edit</button>
                                                                                     <button id="BM12" etapa="2" comentario="CM12" class="btn btn-primary  btn-xs" onclick="save1()" type="button">Save</button>
                                                                                     <div class="ibox-tools">
@@ -1150,7 +1150,7 @@ and open the template in the editor.
                                                                         <div class="col-lg-4">
                                                                             <div class="ibox float-e-margins">
                                                                                 <div class="ibox-title">
-                                                                                    <h5>Comision TFG</h5>
+                                                                                    <h5>Comisión TFG</h5>
                                                                                     <button  class="btn btn-primary btn-xs m-l-sm" onclick="edit1()" type="button">Edit</button>
                                                                                     <button id="BM13" etapa="3" comentario="CM13" class="btn btn-primary  btn-xs" onclick="save1()" type="button">Save</button>
                                                                                     <div class="ibox-tools">
@@ -1234,16 +1234,14 @@ and open the template in the editor.
                                                             <div class="col-lg-2">
                                                                 <div class="form-group">
 
-
-                                                                    <select id="estado3" class="form-control m-b" name="account" onchange="pintandoPanels()">
-
+                                                                     <select id="estado3" class="form-control m-b" name="account" onchange="pintandoPanels()">
                                                                         <option value="Aprobada">Aprobada</option>
                                                                         <option value="Aprobada con Observaciones">Aprobada con Observaciones</option>
                                                                         <option value="No Aprobada">No Aprobada</option>    
                                                                         <option value="En ejecución">En ejecución</option>  
                                                                         <option value="Inactivo">Inactivo</option>
                                                                     </select> 
-
+                                                                    
                                                                 </div>
                                                             </div>  
                                                         </div>
@@ -1262,7 +1260,7 @@ and open the template in the editor.
 
                                     </div>
 
-                                    <!-- fin etapa 2 -->
+                                    <!-- fin etapa 3 -->
 
 
 
@@ -1276,9 +1274,9 @@ and open the template in the editor.
                                         <div class="col-lg-2">
                                             <div class="form-group">
                                                 <select id="estadotfg" class="form-control m-b" name="estadotfg">
-                                                    <option >Activo</option>
-                                                    <option>Inactivo</option>
-                                                    <option>Finalizado</option>
+                                                    <option value="activo">Activo</option>
+                                                    <option value="inactivo">Inactivo</option>
+                                                    <option value="finalizado">Finalizado</option>
                                                 </select> 
 
                                             </div>
