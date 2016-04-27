@@ -1342,17 +1342,7 @@ and open the template in the editor.
                                                     <label class="control-label">Estado del TFG:</label>
                                                 </div>
                                             </div>
-<<<<<<< HEAD
-                                        </div>
-                                        <div class="col-lg-2">
-                                            <div class="form-group">
-                                                <select id="estadotfg" class="form-control m-b" name="estadotfg">
-                                                    <option value="activo">Activo</option>
-                                                    <option value="inactivo">Inactivo</option>
-                                                    <option value="finalizado">Finalizado</option>
-                                                </select> 
-=======
->>>>>>> 4ee77b2cb6e2ec25feeb841b9fb656ade4c192cf
+
 
                                             <div class="col-lg-4">
                                                 <div class="form-group">
