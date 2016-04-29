@@ -217,7 +217,7 @@
                                                                                 <?php
                                                                                
 
-                                                                                $query = mysqli_query($connection, "SELECT * FROM tfgestudiantes");
+                                                                                $query = mysqli_query($connection, "SELECT * FROM tfgestudiantes where estado =1");
 
 
                                                                                 while ($data = mysqli_fetch_assoc($query)) {
@@ -294,7 +294,7 @@
                                                         <tbody>
 
                                                             <?php
-                                                            $query = mysqli_query($connection, "SELECT * FROM tfgencargados");
+                                                            $query = mysqli_query($connection, "SELECT * FROM tfgencargados where estado =1");
 
 
                                                             while ($data = mysqli_fetch_assoc($query)) {
@@ -341,7 +341,7 @@
                                                         <tbody>
 
                                                             <?php
-                                                            $query = mysqli_query($connection, "SELECT * FROM tfgdirectores");
+                                                            $query = mysqli_query($connection, "SELECT * FROM tfgdirectores where estado = 1");
 
 
                                                             while ($data = mysqli_fetch_assoc($query)) {
@@ -391,7 +391,7 @@
                                                         </thead>
                                                         <tbody>
                                                             <?php
-                                                            $query = mysqli_query($connection, "SELECT * FROM tfgasesores");
+                                                            $query = mysqli_query($connection, "SELECT * FROM tfgasesores where estado =1");
 
 
                                                             while ($data = mysqli_fetch_assoc($query)) {
@@ -417,7 +417,7 @@
                                                     <table class="footable table table-stripped" data-page-size="8" data-filter=#filter2>
                                                         <thead>
                                                             <?php
-                                                            $query = mysqli_query($connection, "SELECT * FROM tfgasesores");
+                                                            $query = mysqli_query($connection, "SELECT * FROM tfgasesores where estado = 1");
 
 
                                                             while ($data = mysqli_fetch_assoc($query)) {
@@ -565,6 +565,8 @@
 
 
         <script>
+            
+            bandera = false;
                                                             $(document).ready(function () {
                                                                 $("#wizard").steps();
                                                                 $("#form").steps({
@@ -585,8 +587,8 @@
                                                                         {
                                                                             return true;
                                                                         }
-
-
+                                                                        
+                                                                        
                                                                         var form = $(this);
 
                                                                         // Clean up if user went backward before
@@ -607,6 +609,11 @@
                                                                     {
                                                                         // Suppress (skip) "Warning" step if the user is old enough.
                                                           
+                                                                        if(currentIndex === 5){
+                                                                            bandera = true;
+                                                                        }
+                                                                        alert(bandera);
+
                                                                         
                                                                     },
                                                                     onFinishing: function (event, currentIndex)
@@ -625,7 +632,9 @@
                                                                         var form = $(this);
 
                                                                         // Submit form input
-                                                                        form.submit();
+                                                                        if(bandera){
+                                                                            form.submit();
+                                                                        }
                                                                     }
                                                                 }).validate({
                                                                     errorPlacement: function (error, element)

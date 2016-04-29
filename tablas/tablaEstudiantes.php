@@ -14,15 +14,15 @@ $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
 
 
 if ($connection) {
-    $sentenciaSQL = "INSERT INTO tfgestudiantes (id, nombre, apellido1, apellido2, password, correo) VALUES (" . $id . ", '" . $nombre . "', '" . $ap1 . "', '" . $ap2 . "', '" . $pass . "', '" . $correo . "')";
+    $sentenciaSQL = "INSERT INTO tfgestudiantes (id, nombre, apellido1, apellido2, password, correo, estado) VALUES (" . $id . ", '" . $nombre . "', '" . $ap1 . "', '" . $ap2 . "', '" . $pass . "', '" . $correo . "', 1)";
     $resultado = mysqli_query($connection, $sentenciaSQL);
-    $sentenciaSQLexist = "SELECT * FROM usuarios where id= " . $id;
+    $sentenciaSQLexist = "SELECT * FROM usuarios where id= '" . $id . "'";
     $resultadoExist = mysqli_query($connection, $sentenciaSQLexist);
     if (mysqli_num_rows($resultadoExist) == 0) {
-        $sentenciaSQLusarios = "INSERT INTO usuarios (id, password, estudiante, encargadotfg, asesortfg, directortfg, miembrocomisiontfg, investigador, coordinadorinvestigacion, evaluador, miembrocomiex) VALUES (" . $id . ", '" . $pass . "', true, false, false, false, false, false, false, false, false)";
+        $sentenciaSQLusarios = "INSERT INTO usuarios (id, password, estudiante, encargadotfg, asesortfg, directortfg, miembrocomisiontfg, investigador, coordinadorinvestigacion, evaluador, miembrocomiex) VALUES ('" . $id . "', '" . $pass . "', true, false, false, false, false, false, false, false, false)";
         $resultadoUsuarios = mysqli_query($connection, $sentenciaSQLusarios);
     } else {
-        $sentenciaSQLusarios = "UPDATE usuarios SET estudiante = true WHERE id= " . $id;
+        $sentenciaSQLusarios = "UPDATE usuarios SET estudiante = true WHERE id= '" . $id . "'";
         $resultadoUsuarios = mysqli_query($connection, $sentenciaSQLusarios);
     }
 
@@ -46,7 +46,7 @@ if ($connection) {
     </thead>
     <tbody>
 <?php
-$query = mysqli_query($connection, "SELECT * FROM tfgestudiantes");
+$query = mysqli_query($connection, "SELECT * FROM tfgestudiantes where estado = 1");
 
 
 while ($data = mysqli_fetch_assoc($query)) {
