@@ -1,4 +1,4 @@
-<?php
+7<?php
 
 include '../clases/UsuarioSimple.php';
 include '../clases/UsuarioComplejo.php';
@@ -27,11 +27,22 @@ if ($connection) {
         $_SESSION["permisos"] = $usuarioPermisos;
 
         //inicio asesores
+        if($id == "admin"){
+            $usuarioSesion = new UsuarioSimple($id, $pass, "", "", "", "");
+            $_SESSION["user"] = $usuarioSesion;
+        }
         if ($usuario['asesortfg']) {
 
             $sentenciaSQLespecifica = "SELECT * FROM tfgasesores where id= " . $id;
             $resultadoEspecifico = mysqli_query($connection, $sentenciaSQLespecifica);
             $usuarioEspecifico = mysqli_fetch_assoc($resultadoEspecifico);
+            
+            if(! $usuarioEspecifico['estado']){
+                mysqli_close($connection);
+                header("Location: ../login.php");
+                exit();
+            }
+            
             if ($usuario['investigador']) {
 
                 $usuarioSesion = new UsuarioInvestigadorComplejo($id, $pass, $usuarioEspecifico['apellido1'], $usuarioEspecifico['apellido2'], $usuarioEspecifico['nombre'], $usuarioEspecifico['correo'], $usuarioEspecifico['titulo'], $usuarioEspecifico['especialidad'], false);
@@ -48,6 +59,11 @@ if ($connection) {
                 $sentenciaSQLespecifica = "SELECT * FROM tfgdirectores where id= " . $id;
                 $resultadoEspecifico = mysqli_query($connection, $sentenciaSQLespecifica);
                 $usuarioEspecifico = mysqli_fetch_assoc($resultadoEspecifico);
+                if(! $usuarioEspecifico['estado']){
+                    mysqli_close($connection);
+                    header("Location: ../login.php");
+                    exit();
+                }
                 if ($usuario['investigador']) {
                     $usuarioSesion = new UsuarioInvestigadorComplejo($id, $pass, $usuarioEspecifico['apellido1'], $usuarioEspecifico['apellido2'], $usuarioEspecifico['nombre'], $usuarioEspecifico['correo'], $usuarioEspecifico['titulo'], $usuarioEspecifico['especialidad'], false);
                     $_SESSION["user"] = $usuarioSesion;
@@ -83,6 +99,11 @@ if ($connection) {
 
                 $resultadoEspecifico = mysqli_query($connection, $sentenciaSQLespecifica);
                 $usuarioEspecifico = mysqli_fetch_assoc($resultadoEspecifico);
+                if(! $usuarioEspecifico['estado']){
+                    mysqli_close($connection);
+                    header("Location: ../login.php");
+                    exit();
+                }
                 if ($usuario['investigador']) {
                     if ($usuario['estudiante']) {
                         $usuarioSesion = new UsuarioInvestigadorSimple($id, $pass, $usuarioEspecifico['apellido1'], $usuarioEspecifico['apellido2'], $usuarioEspecifico['nombre'], $usuarioEspecifico['correo'], true);
