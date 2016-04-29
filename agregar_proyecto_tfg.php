@@ -612,7 +612,7 @@
                                                                         if(currentIndex === 5){
                                                                             bandera = true;
                                                                         }
-                                                                        alert(bandera);
+                                                                 
 
                                                                         
                                                                     },
@@ -969,6 +969,7 @@
             $(document).ready(function () {
 
                 $("#btnAgregarEstudianteModal").click(function (evento) {
+                    alert("hola");
                     evento.preventDefault();
                     var idaux = $("#idRegistroEstudiante").val();
                     var nomaux = $("#nombreRegistroEstudiante").val();
