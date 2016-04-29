@@ -795,17 +795,13 @@ and open the template in the editor.
                                                                         <div class="col-lg-4">
                                                                             <div class="ibox float-e-margins">
                                                                                 <div class="ibox-title">
-<<<<<<< HEAD
-                                                                                    <h5>Comisión TFG</h5>
-                                                                                    <button  class="btn btn-primary btn-xs m-l-sm" onclick="edit1()" type="button">Edit</button>
-                                                                                    <button id="BM12" etapa="2" comentario="CM12" class="btn btn-primary  btn-xs" onclick="save1()" type="button">Save</button>
-=======
+
                                                                                     <h5>Comision TFG</h5>
                                                                                     <?php if ($usuarioPermisos->getMiembrocomisiontfg()) { ?>
                                                                                         <button  class="btn btn-primary btn-xs m-l-sm" onclick="edit1()" type="button">Edit</button>
                                                                                         <button id="BM12" etapa="2" comentario="CM12" class="btn btn-primary  btn-xs" onclick="save1()" type="button">Save</button>
                                                                                     <?php } ?>
->>>>>>> 4ee77b2cb6e2ec25feeb841b9fb656ade4c192cf
+
                                                                                     <div class="ibox-tools">
                                                                                         <a class="collapse-link">
                                                                                             <i class="fa fa-chevron-up"></i>
@@ -1175,18 +1171,13 @@ and open the template in the editor.
 
                                                                     </div>
 
-<<<<<<< HEAD
-                                                                        <div class="col-lg-4">
-                                                                            <div class="ibox float-e-margins">
-                                                                                <div class="ibox-title">
-                                                                                    <h5>Comisión TFG</h5>
-=======
+
                                                                     <div class="col-lg-4">
                                                                         <div class="ibox float-e-margins">
                                                                             <div class="ibox-title">
                                                                                 <h5>Comision TFG</h5>
                                                                                 <?php if ($usuarioPermisos->getMiembrocomisiontfg()) { ?>
->>>>>>> 4ee77b2cb6e2ec25feeb841b9fb656ade4c192cf
+
                                                                                     <button  class="btn btn-primary btn-xs m-l-sm" onclick="edit1()" type="button">Edit</button>
                                                                                     <button id="BM13" etapa="3" comentario="CM13" class="btn btn-primary  btn-xs" onclick="save1()" type="button">Save</button>
                                                                                 <?php } ?>
@@ -1283,24 +1274,7 @@ and open the template in the editor.
                                                         <div class="col-lg-2">
                                                             <div class="form-group">
 
-<<<<<<< HEAD
-                                                                     <select id="estado3" class="form-control m-b" name="account" onchange="pintandoPanels()">
-                                                                        <option value="Aprobada">Aprobada</option>
-                                                                        <option value="Aprobada con Observaciones">Aprobada con Observaciones</option>
-                                                                        <option value="No Aprobada">No Aprobada</option>    
-                                                                        <option value="En ejecución">En ejecución</option>  
-                                                                        <option value="Inactivo">Inactivo</option>
-                                                                    </select> 
-                                                                    
-                                                                </div>
-                                                            </div>  
-                                                        </div>
-                                                        <div class="row"> 
-                                                            <div class="col-lg-2 col-lg-offset-9">
-                                                                <div class="form-group">
-                                                                    <input id="BE3" estado="estado3" etapa="3" type="button" class="btn btn-primary" value="Guardar Estado">
-                                                                </div>
-=======
+
 
                                                                 <select id="estado3" class="form-control m-b" name="account" onchange="pintandoPanels()">
 
@@ -1318,7 +1292,7 @@ and open the template in the editor.
                                                         <div class="col-lg-2 col-lg-offset-9">
                                                             <div class="form-group">
                                                                 <input id="BE3" estado="estado3" etapa="3" type="button" class="btn btn-primary" value="Guardar Estado">
->>>>>>> 4ee77b2cb6e2ec25feeb841b9fb656ade4c192cf
+
                                                             </div>
                                                         </div>
                                                     </div>
