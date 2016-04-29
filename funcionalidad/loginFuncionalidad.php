@@ -15,7 +15,7 @@ $pass = $_POST["password"];
 $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
 
 if ($connection) {
-    $sentenciaSQLexist = "SELECT * FROM usuarios where id= " . $id . " AND password= '" . $pass . "'";
+    $sentenciaSQLexist = "SELECT * FROM usuarios where id= '" . $id . "' AND password= '" . $pass . "'";
     $resultadoExist = mysqli_query($connection, $sentenciaSQLexist);
     if (mysqli_num_rows($resultadoExist)== 0) {
         mysqli_close($connection);
@@ -31,9 +31,10 @@ if ($connection) {
             $usuarioSesion = new UsuarioSimple($id, $pass, "", "", "", "");
             $_SESSION["user"] = $usuarioSesion;
         }
+        else{
         if ($usuario['asesortfg']) {
 
-            $sentenciaSQLespecifica = "SELECT * FROM tfgasesores where id= " . $id;
+            $sentenciaSQLespecifica = "SELECT * FROM tfgasesores where id= '" . $id . "'";
             $resultadoEspecifico = mysqli_query($connection, $sentenciaSQLespecifica);
             $usuarioEspecifico = mysqli_fetch_assoc($resultadoEspecifico);
             
@@ -56,7 +57,7 @@ if ($connection) {
             //inicio directores
             if ($usuario['directortfg']) {
 
-                $sentenciaSQLespecifica = "SELECT * FROM tfgdirectores where id= " . $id;
+                $sentenciaSQLespecifica = "SELECT * FROM tfgdirectores where id= '" . $id . "'";
                 $resultadoEspecifico = mysqli_query($connection, $sentenciaSQLespecifica);
                 $usuarioEspecifico = mysqli_fetch_assoc($resultadoEspecifico);
                 if(! $usuarioEspecifico['estado']){
@@ -75,25 +76,25 @@ if ($connection) {
             else {
                 $sentenciaSQLespecifica = ""; 
                 if ($usuario['estudiante']) {
-                    $sentenciaSQLespecifica = "SELECT * FROM tfgestudiantes where id= " . $id;
+                    $sentenciaSQLespecifica = "SELECT * FROM tfgestudiantes where id= '" . $id . "'";
                 } 
                 if ($usuario['encargadotfg']) {
-                    $sentenciaSQLespecifica = "SELECT * FROM tfgencargados where id= " . $id;
+                    $sentenciaSQLespecifica = "SELECT * FROM tfgencargados where id= '" . $id . "'";
                 }
                 if ($usuario['miembrocomisiontfg']) {
-                    $sentenciaSQLespecifica = "SELECT * FROM tfgmiembroscomision where id= " . $id;
+                    $sentenciaSQLespecifica = "SELECT * FROM tfgmiembroscomision where id= '" . $id . "'";
                 } 
                 if ($usuario['investigador']) {
-                    $sentenciaSQLespecifica = "SELECT * FROM ieinvestigadores where id= " . $id;
+                    $sentenciaSQLespecifica = "SELECT * FROM ieinvestigadores where id= '" . $id . "'";
                 } 
                 if ($usuario['coordinadorinvestigacion']) {
-                    $sentenciaSQLespecifica = "SELECT * FROM iecoordinadoresinvestigacion where id= " . $id;
+                    $sentenciaSQLespecifica = "SELECT * FROM iecoordinadoresinvestigacion where id= '" . $id . "'";
                 } 
                 if ($usuario['evaluador']) {
-                    $sentenciaSQLespecifica = "SELECT * FROM ieevaluadores where id= " . $id;
+                    $sentenciaSQLespecifica = "SELECT * FROM ieevaluadores where id= '" . $id . "'";
                 } 
                 if ($usuario['miembrocomiex']) {
-                    $sentenciaSQLespecifica = "SELECT * FROM iemiembroscomiex where id= " . $id;
+                    $sentenciaSQLespecifica = "SELECT * FROM iemiembroscomiex where id= '" . $id . "'";
                 } 
 
 
@@ -116,6 +117,7 @@ if ($connection) {
                     $_SESSION["user"] = $usuarioSesion;
                 }
             }
+        }
         }
 
         mysqli_close($connection);
