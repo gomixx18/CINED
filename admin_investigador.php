@@ -49,7 +49,7 @@
                             <div class="ibox float-e-margins">
 
                                 <div class="ibox-title">
-                                    <h5>Consulta de Estudiantes</h5>
+                                    <h5>Consulta de Investigadores</h5>
 
                                     <div class="ibox-tools">
                                         <a class="collapse-link">
