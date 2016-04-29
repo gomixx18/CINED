@@ -80,7 +80,7 @@ try {
        $consulta  = "INSERT INTO tfgarchivoscomision (miembrocomision, etapa, tfg, ruta, fecha, nom_archivo) VALUES ( ".$usuario." , ".$etapa.
                  " , '".$codigo."','".$archivo_bases."' ,'".$fecha."','".$nombre_archivo."');";
     }
-    echo $consulta;
+   // echo $consulta;
     $resultado = mysqli_query($connection, $consulta);
     //echo $resultado;
     if($resultado){
