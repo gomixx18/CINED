@@ -1,6 +1,6 @@
 <?php
 
-require("../email.php");
+require("../funcionalidad/email.php");
 
 
 $nombre = $_POST["nombre"];
@@ -14,7 +14,7 @@ $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
 
 
 if ($connection) {
-    $sentenciaSQL = "INSERT INTO tfgestudiantes (id, nombre, apellido1, apellido2, password, correo, estado) VALUES (" . $id . ", '" . $nombre . "', '" . $ap1 . "', '" . $ap2 . "', '" . $pass . "', '" . $correo . "', 1)";
+    $sentenciaSQL = "INSERT INTO tfgestudiantes (id, nombre, apellido1, apellido2, password, correo, estado) VALUES ('" . $id . "', '" . $nombre . "', '" . $ap1 . "', '" . $ap2 . "', '" . $pass . "', '" . $correo . "', 1)";
     $resultado = mysqli_query($connection, $sentenciaSQL);
     $sentenciaSQLexist = "SELECT * FROM usuarios where id= '" . $id . "'";
     $resultadoExist = mysqli_query($connection, $sentenciaSQLexist);
@@ -27,9 +27,10 @@ if ($connection) {
     }
 
 }
-//*** -- validar mas adelante -- ***
-//newUserMail($id, $pass, $correo, $nombre);
+    //*** -- validar mas adelante -- ***
+    newUserMail($id, $pass, $correo);
 ?>
+
 
 <table class="table table-striped table-bordered table-hover dataTables-example" >
     <thead>
@@ -51,7 +52,7 @@ $query = mysqli_query($connection, "SELECT * FROM tfgestudiantes where estado = 
 
 while ($data = mysqli_fetch_assoc($query)) {
     echo "<tr>";
-    echo "<td name='id'>" . $data["id"] . "</td>";
+    echo "<td name='id'>" . $data["id"]  . "</td>";
     echo "<td name='nombre'>" . $data["nombre"] . "</td>";
     echo "<td name='apellido1'>" . $data["apellido1"] . "</td>";
     echo "<td name='apellido2'>" . $data["apellido2"] . "</td>";
@@ -123,8 +124,7 @@ while ($data = mysqli_fetch_assoc($query)) {
             });
 
 
-
-
+            
         </script>
 
  <script >
