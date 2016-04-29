@@ -80,15 +80,20 @@ try {
        $consulta  = "INSERT INTO tfgarchivoscomision (miembrocomision, etapa, tfg, ruta, fecha, nom_archivo) VALUES ( ".$usuario." , ".$etapa.
                  " , '".$codigo."','".$archivo_bases."' ,'".$fecha."','".$nombre_archivo."');";
     }
-   // echo $consulta;
+    echo $consulta;
     $resultado = mysqli_query($connection, $consulta);
-    //echo $resultado;
+    
     if($resultado){
         
         
         @session_start();
         header("Location: ../consulta_TFG.php?codigo=".$codigo);
         exit();
+    }else{
+        @session_start(); 
+    $_SESSION["error"] = "¡Error al Cargar el archivo! Error Insert BD";
+    header("Location: ../navegacion/500.php");
+    exit();
     }
    
 }
