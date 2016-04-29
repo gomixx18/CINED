@@ -41,7 +41,7 @@ $connectionString = 'DefaultEndpointsProtocol=https;AccountName=almacenamientoci
 $blobRestProxy = ServicesBuilder::getInstance()->createBlobService($connectionString);
 }
 catch (RuntimeException $e){
-    $_SESSION["error"] = "¡Hubo un error al cargar el archivo! Conexion Rechazada";
+    $_SESSION["error"] = "¡Hubo un error al cargar el archivo! Conexion Rechazada BD";
     header("Location: ../navegacion/500.php");
     exit();
 }
@@ -99,7 +99,7 @@ try {
 }
 catch(ServiceException $e){
     @session_start(); 
-    $_SESSION["error"] = "¡Error al Cargar el archivo!";
+    $_SESSION["error"] = "¡Error al Cargar el archivo! conexion al servicio de Blobs";
     header("Location: ../navegacion/500.php");
     exit();
 
