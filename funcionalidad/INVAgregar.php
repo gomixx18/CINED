@@ -1,17 +1,39 @@
 <?php
 require("../funcionalidad/email.php");
 session_start();
+
+
+
 if (isset($_POST["INVAgregarInvestigador"])) {
     $nombre = $_POST["nombre"];
     $id = $_POST["id"];
+    $isEstudiante = 0;
+    if($_POST["isEstudiante"] === "on"){
+        $isEstudiante = 1;
+    }
     $ap1 = $_POST["apellido1"];
     $ap2 = $_POST["apellido2"];
     $correo = $_POST["correo"];
     $pass = "a" . substr(md5(microtime()), 1, 7);
+    $catedra = $_POST["catedra"];
+    $carrera = $_POST["carrera"];
+
+    $unidadAcademica = "";
+    if($catedra != "Ninguna"){   
+        $unidadAcademica .= "Catedra: $catedra. ";
+    }
+    if($carrera != "Ninguna"){   
+        $unidadAcademica .= "Carrera: $carrera. ";
+    }
+    if(isset($_POST["cined"])){   
+        $unidadAcademica .= "CINED";
+    }
+
     $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
 
+
     if ($connection) {
-        $sentenciaSQL = "INSERT INTO ieinvestigadores (id, nombre, apellido1, apellido2, password, correo, estado) VALUES (" . $id . ", '" . $nombre . "', '" . $ap1 . "', '" . $ap2 . "', '" . $pass . "', '" . $correo . "', 1)";
+        $sentenciaSQL = "INSERT INTO ieinvestigadores (id, nombre, apellido1, apellido2, password, correo, isEstudiante, estado, unidadAcademica) VALUES (" . $id . ", '" . $nombre . "', '" . $ap1 . "', '" . $ap2 . "', '" . $pass . "', '" . $correo . "',$isEstudiante , 1, '$unidadAcademica')";
         $resultado = mysqli_query($connection, $sentenciaSQL);
 
         $sentenciaSQLexist = "SELECT * FROM usuarios where id= ". $id;
@@ -25,13 +47,17 @@ if (isset($_POST["INVAgregarInvestigador"])) {
             $resultadoUsuarios = mysqli_query($connection, $sentenciaSQLusarios); 
         }
 
-        newUserMail($id, $pass, $correo);
+
+		newUserMail($id, $pass, $correo);
         mysqli_close($connection);
-    }   
-   
+    }
+
+
 
     header("Location: ../admin_investigador.php");
 }
+
+
 if (isset($_POST["INVAgregarCoordinador"])) {
     $nombre = $_POST["nombre"];
     $id = $_POST["id"];

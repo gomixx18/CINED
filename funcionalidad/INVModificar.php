@@ -3,20 +3,37 @@
 session_start();
 if (isset($_POST["INVModificarInvestigador"])) {
     $nombre = $_POST["nombre"];
+    $isEstudiante = 0;
+    if($_POST["isEstudiante"] === "on"){
+        $isEstudiante = 1;
+    }
     $id = $_POST["id"];
     $ap1 = $_POST["apellido1"];
     $ap2 = $_POST["apellido2"];
     $correo = $_POST["correo"];
     $pass = "123";
+    $catedra = $_POST["catedra"];
+    $carrera = $_POST["carrera"];
 
-    $connection = mysqli_connect("localhost", "root", "", "uned_db");
+    $unidadAcademica = "";
+    if($catedra != "Ninguna"){   
+        $unidadAcademica .= "Catedra: $catedra. ";
+    }
+    if($carrera != "Ninguna"){   
+        $unidadAcademica .= "Carrera: $carrera. ";
+    }
+    if(isset($_POST["cined"])){   
+        $unidadAcademica .= "CINED";
+    }
+    
+
     $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
 
 
     if ($connection) {
 
         //UPDATE `uned`.`estudiantes` SET `nombre`='papa', `apellido1`='p', `apellido2`='p', `password`='p', `correo`='p@p' WHERE `id`='123';
-        $sentenciaSQL = "UPDATE ieinvestigadores SET nombre = '" . $nombre . "', apellido1 ='" . $ap1 . "', apellido2 ='" . $ap2 . "', correo ='" . $correo . "' WHERE id =" . $id . "";
+        $sentenciaSQL = "UPDATE ieinvestigadores SET nombre = '" . $nombre . "', apellido1 ='" . $ap1 . "', apellido2 ='" . $ap2 . "', correo ='" . $correo ."', isEstudiante =" . $isEstudiante.", unidadAcademica = '$unidadAcademica' WHERE id =" . $id . "";
         $resultado = mysqli_query($connection, $sentenciaSQL);
         mysqli_close($connection);
     }
@@ -33,7 +50,7 @@ if (isset($_POST["INVModificarCoordinador"])) {
 
 
 
-    $connection = mysqli_connect("localhost", "root", "", "uned_db");
+    
 
     $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
 
@@ -59,7 +76,7 @@ if (isset($_POST["INVModificarEvaluador"])) {
 
 
 
-    $connection = mysqli_connect("localhost", "root", "", "uned_db");
+    
 
     $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
 
@@ -82,7 +99,7 @@ if (isset($_POST["INVModificarMiembro"])) {
     $ap2 = $_POST["apellido2"];
     $correo = $_POST["correo"];
     $pass = "123";
-    $connection = mysqli_connect("localhost", "root", "", "uned_db");
+    
     $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
 
 
@@ -102,7 +119,7 @@ if (isset($_POST["INVModificarLinea"])) {
     $id = $_POST["id"];
     
 
-    $connection = mysqli_connect("localhost", "root", "", "uned_db");
+    
 
     $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
 
@@ -123,7 +140,7 @@ if (isset($_POST["INVModificarCarrera"])) {
     $id = $_POST["id"];
     
 
-    $connection = mysqli_connect("localhost", "root", "", "uned_db");
+    
 
     $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
 
@@ -143,7 +160,7 @@ if (isset($_POST["INVModificarCatedra"])) {
     $id = $_POST["id"];
     
 
-    $connection = mysqli_connect("localhost", "root", "", "uned_db");
+    
 
     $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
 
@@ -162,7 +179,7 @@ if (isset($_POST["desactivarMiembroComiex"])) {
     
     $id = $_POST["id"];
    
-    $connection = mysqli_connect("localhost", "root", "", "uned_db");
+    
     $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
 
     if ($connection) {
@@ -188,7 +205,7 @@ if (isset($_POST["desactivarEvaluador"])) {
     
     $id = $_POST["id"];
    
-    $connection = mysqli_connect("localhost", "root", "", "uned_db");
+    
     $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
 
     if ($connection) {
@@ -239,7 +256,7 @@ if (isset($_POST["activarEvaluador"])) {
     
     $id = $_POST["id"];
    
-    $connection = mysqli_connect("localhost", "root", "", "uned_db");
+    
     $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
 
     if ($connection) {
