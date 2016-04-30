@@ -48,24 +48,13 @@
                             <div class="ibox float-e-margins">
 
                                 <div class="ibox-title">
-                                    <h5>Consulta de Estudiantes</h5>
+                                    <h5>Consulta de Coordinadores</h5>
 
                                     <div class="ibox-tools">
                                         <a class="collapse-link">
                                             <i class="fa fa-chevron-up"></i>
                                         </a>
-                                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                            <i class="fa fa-wrench"></i>
-                                        </a>
-                                        <ul class="dropdown-menu dropdown-user">
-                                            <li><a href="#">Config option 1</a>
-                                            </li>
-                                            <li><a href="#">Config option 2</a>
-                                            </li>
-                                        </ul>
-                                        <a class="close-link">
-                                            <i class="fa fa-times"></i>
-                                        </a>
+                                       
                                     </div>
                                 </div>
                                 <div class="ibox-content">
@@ -260,8 +249,9 @@
 
                                     <div>
                                         <label class=""> <i class="fa fa-exclamation-circle"> Rellene los datos obligatorios.</i></label><br> <br>
-                                        <button class="btn btn-sm btn-danger pull-left m-t-n-xs" type="submit" id="desactivar" name="desactivarCoordinadorInv"><i class="fa fa-warning"></i><strong> Desactivar</strong></button>
-                                        <button class="btn btn-sm btn-info pull-left m-t-n-xs" type="submit" name="activarCoordinadorInv" id="activar" ><i class="fa fa-check-circle"></i><strong> Activar</strong></button>
+                                        <button class="btn btn-sm btn-danger pull-left m-t-n-xs" type="button" id="desactivar" name="desactivarCoordinadorInv"><i class="fa fa-warning"></i><strong> Desactivar</strong></button>
+                                        <button class="btn btn-sm btn-info pull-left m-t-n-xs" type="button" name="activarCoordinadorInv" id="activar" ><i class="fa fa-check-circle"></i><strong> Activar</strong></button>
+                                        <input name="estado" id="estado" type="text" hidden>
                                         <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit" name="INVModificarCoordinador"><strong>Modificar</strong></button>
                                         <button type="button" data-dismiss="modal" class="btn btn-sm btn-secundary pull-right m-t-n-xs" style="margin-right: 20px;" ><strong>Cancelar</strong></button>
 
@@ -278,10 +268,12 @@
             $('#mod-form').on('show.bs.modal', function (event) {
                 var button = $(event.relatedTarget);
                 var modal = $(this);
-                var btn1 = modal.find('#desactivar');
-                var recipient = button.attr('id');
-                var t = modal.find('#tituloEstado');
-                var d = modal.find('#activar');
+                btn1 = modal.find('#desactivar');
+                btn2 = modal.find('#activar');
+                estado = modal.find('#estado');
+                t = modal.find('#tituloEstado');
+                
+                var recipient = button.attr('id');                
                 modal.find('#id').val(recipient);
 
                 recipient = button.attr('nombre');
@@ -300,12 +292,26 @@
                 if (recipient === '1') {
                     t.hide();
                     btn1.show();
-                    d.hide();
+                    btn2.hide();
+                    estado.val('1');
                 } else {
                     t.show();
                     btn1.hide();
-                    d.show();
+                    btn2.show();
+                    estado.val('0');
                 }
+                btn1.click(function (evento) {
+                    t.show();
+                    btn1.hide();
+                    btn2.show();
+                    estado.val('0');
+                });
+                btn2.click(function (evento) {
+                    t.hide();
+                    btn1.show();
+                    btn2.hide();
+                    estado.val('1');
+                });
             });
         </script>
     </body>

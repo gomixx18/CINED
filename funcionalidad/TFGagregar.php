@@ -34,7 +34,6 @@ if (isset($_POST["TFGagregarEstudiante"])) {
     header("Location: ../admin_estudiante.php");
 }
 
-
 if (isset($_POST["TFGagregarDirector"])) {
     $nombre = $_POST["nombre"];
     $id = $_POST["id"];
@@ -42,13 +41,14 @@ if (isset($_POST["TFGagregarDirector"])) {
     $ap2 = $_POST["apellido2"];
     $titulo = $_POST["titulo"];
     $especialidad = $_POST["especialidad"];
+    $telefono = $_POST["telefono"];
     $correo = $_POST["correo"];
     $pass = "a" . substr(md5(microtime()), 1, 7);
     $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
 
  
     if ($connection) {
-        $sentenciaSQL = "INSERT INTO tfgdirectores (id, nombre, apellido1, apellido2, password, correo, titulo, especialidad, estado) VALUES ('". $id ."' , '". $nombre ."', '". $ap1 ."', '". $ap2 ."', '".$pass ."', '". $correo ."', '".$titulo ."', '".$especialidad ."', 1)";
+        $sentenciaSQL = "INSERT INTO tfgdirectores (id, nombre, apellido1, apellido2, password, correo, titulo, especialidad,telefono, estado) VALUES ('". $id ."' , '". $nombre ."', '". $ap1 ."', '". $ap2 ."', '".$pass ."', '". $correo ."', '".$titulo ."', '".$especialidad ."','".$telefono."', 1)";
         $resultado = mysqli_query($connection, $sentenciaSQL); 
         $sentenciaSQLexist = "SELECT * FROM usuarios where id= '". $id . "'";
         $resultadoExist = mysqli_query($connection, $sentenciaSQLexist);
@@ -66,7 +66,6 @@ if (isset($_POST["TFGagregarDirector"])) {
    
     header("Location: ../admin_directores.php");
 }
-
 
 if (isset($_POST["TFGagregarEncargado"])) {
     $nombre = $_POST["nombre"];
@@ -99,7 +98,6 @@ if (isset($_POST["TFGagregarEncargado"])) {
     header("Location: ../admin_encargados.php");
 }
 
-
 if (isset($_POST["TFGagregarAsesor"])) {
     $nombre = $_POST["nombre"];
     $id = $_POST["id"];
@@ -108,13 +106,14 @@ if (isset($_POST["TFGagregarAsesor"])) {
     $titulo = $_POST["titulo"];
     $especialidad = $_POST["especialidad"];
     $correo = $_POST["correo"];
+    $telefono = $_POST["telefono"];
     $pass = $pass = "a" . substr(md5(microtime()), 1, 7);
 
     $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
 
  
     if ($connection) {
-        $sentenciaSQL = "INSERT INTO tfgasesores (id, nombre, apellido1, apellido2, password, correo, especialidad, estado) VALUES ('". $id ."' , '". $nombre ."', '". $ap1 ."', '". $ap2 ."', '".$pass ."', '". $correo ."', '".$especialidad ."', 1)";
+        $sentenciaSQL = "INSERT INTO tfgasesores (id, nombre, apellido1, apellido2, password, correo, especialidad, titulo, telefono,estado) VALUES ('". $id ."' , '". $nombre ."', '". $ap1 ."', '". $ap2 ."', '".$pass ."', '". $correo ."', '".$especialidad ."','". $titulo."','".$telefono."', 1)";
         $resultado = mysqli_query($connection, $sentenciaSQL); 
         $sentenciaSQLexist = "SELECT * FROM usuarios where id= '". $id . "'";
         $resultadoExist = mysqli_query($connection, $sentenciaSQLexist);
@@ -133,7 +132,6 @@ if (isset($_POST["TFGagregarAsesor"])) {
     
     header("Location: ../admin_asesores.php");
 }
-
 
 if (isset($_POST["TFGagregarMiembroComision"])) {
     $nombre = $_POST["nombre"];
@@ -171,7 +169,7 @@ if (isset($_POST["TFGAgregarModalidad"])) {
     $codigo = $_POST["codigo"];
     $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
     if ($connection) {
-        $sentenciaSQL = "INSERT INTO modalidades (codigo, nombre) VALUES (" . $codigo . ", '" . $nombre . "')";
+        $sentenciaSQL = "INSERT INTO modalidades (codigo, nombre) VALUES ('" . $codigo . "', '" . $nombre . "')";
         $resultado = mysqli_query($connection, $sentenciaSQL);
         mysqli_close($connection);
     }

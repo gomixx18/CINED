@@ -273,9 +273,9 @@
 
                                     <div>
                                         <label class=""> <i class="fa fa-exclamation-circle"> Rellene los datos obligatorios.</i></label><br> <br>
-                                        <button class="btn btn-sm btn-danger pull-left m-t-n-xs" type="submit" id="desactivar" name="desactivarDirector"><i class="fa fa-warning"></i><strong> Desactivar</strong></button>
-                                        <button class="btn btn-sm btn-info pull-left m-t-n-xs" type="submit" name="activarDirector" id="activar" ><i class="fa fa-check-circle"></i><strong> Activar</strong></button>
-                                        
+                                        <button class="btn btn-sm btn-danger pull-left m-t-n-xs" type="button" id="desactivar" name="desactivarDirector"><i class="fa fa-warning"></i><strong> Desactivar</strong></button>
+                                        <button class="btn btn-sm btn-info pull-left m-t-n-xs" type="button" id="activar" name="activarDirector"><i class="fa fa-check-circle"></i><strong> Activar</strong></button>
+                                        <input name="estado" id="estado" type="text" hidden>
                                         <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit" name="TFGModificarDirector"><strong>Modificar</strong></button>
                                         <button type="button" data-dismiss="modal" class="btn btn-sm btn-secundary pull-right m-t-n-xs" style="margin-right: 20px;" ><strong>Cancelar</strong></button>
 
@@ -293,11 +293,15 @@
                 var button = $(event.relatedTarget);
                 var modal = $(this);
                 var recipient = button.attr('id');
-                var btn1 = modal.find('#desactivar');
-                var t = modal.find('#tituloEstado');
-                var d = modal.find('#activar');
+                
+                t = modal.find('#tituloEstado');
+                
+                btn1 = modal.find('#desactivar');
+                btn2 = modal.find('#activar');
+                estado = modal.find('#estado');
+                
                 modal.find('#id').val(recipient);
-
+              
                 recipient = button.attr('nombre');
                 modal.find('#nombre').val(recipient);
 
@@ -307,7 +311,7 @@
                 recipient = button.attr('apellido2');
                 modal.find('#apellido2').val(recipient);
                 
-                 recipient = button.attr('telefono');
+                recipient = button.attr('telefono');
                 modal.find('#telefono').val(recipient);
 
 
@@ -323,12 +327,26 @@
                 if (recipient === '1') {
                     t.hide();
                     btn1.show();
-                    d.hide();
+                    btn2.hide();
+                    estado.val('1');
                 } else {
                     t.show();
                     btn1.hide();
-                    d.show();
+                    btn2.show();
+                    estado.val('0');
                 }
+                btn1.click(function (evento) {
+                    t.show();
+                    btn1.hide();
+                    btn2.show();
+                    estado.val('0');
+                });
+                btn2.click(function (evento) {
+                    t.hide();
+                    btn1.show();
+                    btn2.hide();
+                    estado.val('1');
+                });
             });
         </script>
 

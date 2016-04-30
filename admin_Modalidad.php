@@ -51,18 +51,7 @@
                                         <a class="collapse-link">
                                             <i class="fa fa-chevron-up"></i>
                                         </a>
-                                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                            <i class="fa fa-wrench"></i>
-                                        </a>
-                                        <ul class="dropdown-menu dropdown-user">
-                                            <li><a href="#">Config option 1</a>
-                                            </li>
-                                            <li><a href="#">Config option 2</a>
-                                            </li>
-                                        </ul>
-                                        <a class="close-link">
-                                            <i class="fa fa-times"></i>
-                                        </a>
+                                        
                                     </div>
                                 </div>
                                 <div class="ibox-content">
@@ -93,7 +82,7 @@
                                                     echo "<td>" . $data["codigo"] . "</td>";
                                                     echo "<td>" . $data["nombre"] . "</td>";
                                                     echo "<td>" . "<button type='submit' data-toggle='modal' class='btn btn-primary'
-                                                                data-target='#mod-form' id = '" . $data["codigo"] . "' nombre = '" . $data["nombre"] . "' > Modificar</button></td> ";
+                                                                data-target='#mod-form' codigo = '" . $data["codigo"] . "' nombre = '" . $data["nombre"] . "' > Modificar</button></td> ";
                                                     echo "</tr>";
                                                 }
 
@@ -230,7 +219,7 @@
                                 <form role="form" id="frm_agregar_modalidad" method="POST" action="funcionalidad/TFGModificar.php">
                                   
                                     <div class="form-group"> <label>Código</label></i> 
-                                    <input required type="text" placeholder="Código" class="form-control" name="codigo"></div>
+                                        <input required type="text" placeholder="Código" class="form-control" id="codigo" name="codigo" disabled></div>
                                     <div class="form-group"> <label>Nombre</label> </i> <input name="nombre" id="nombre" required type="text" placeholder="Nombre" class="form-control"></div>                                    
                                     
                                     <div>
@@ -251,6 +240,8 @@
             $('#mod-form').on('show.bs.modal', function (event) {
                 var button = $(event.relatedTarget);
                 var modal = $(this);
+                var recipient = button.attr('codigo');
+                modal.find('#codigo').val(recipient);
                 var recipient = button.attr('nombre');
                 modal.find('#nombre').val(recipient);
 

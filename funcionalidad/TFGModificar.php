@@ -7,22 +7,16 @@ if (isset($_POST["TFGModificarEstudiante"])) {
     $ap1 = $_POST["apellido1"];
     $ap2 = $_POST["apellido2"];
     $correo = $_POST["correo"];
-    $pass = "123";
-
-
-    
-
+    $estado = $_POST["estado"];
     $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
 
     if ($connection) {
-
-        $sentenciaSQL = "UPDATE tfgestudiantes SET nombre = '" . $nombre . "', apellido1 ='" . $ap1 . "', apellido2 ='" . $ap2 . "', correo ='" . $correo . "' WHERE id =" . $id . "";
+        $sentenciaSQL = "UPDATE tfgestudiantes SET nombre = '" . $nombre . "', apellido1 ='" . $ap1 . "', apellido2 ='" . $ap2 . "', correo ='" . $correo . "',estado = $estado WHERE id ='" . $id . "'";
         $resultado = mysqli_query($connection, $sentenciaSQL);
         mysqli_close($connection);
     }
     header("Location: ../admin_estudiante.php");
 }
-
 
 if (isset($_POST["TFGModificarDirector"])) {
     $nombre = $_POST["nombre"];
@@ -32,37 +26,30 @@ if (isset($_POST["TFGModificarDirector"])) {
     $titulo = $_POST["titulo"];
     $telefono = $_POST["telefono"];
     $especialidad = $_POST["especialidad"];
+    $estado = $_POST["estado"];
     $correo = $_POST["correo"];
-
-
-    
-
     $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
 
     if ($connection) {
 
-        $sentenciaSQL = "UPDATE tfgdirectores SET nombre = '" . $nombre . "', apellido1 ='" . $ap1 . "', apellido2 ='" . $ap2 . "', titulo ='" . $titulo .  "', especialidad ='" . $especialidad .   "', correo ='" . $correo . "', telefono='". $telefono . "' WHERE id =" . $id . "";
+        $sentenciaSQL = "UPDATE tfgdirectores SET nombre = '" . $nombre . "', apellido1 ='" . $ap1 . "', apellido2 ='" . $ap2 . "', titulo ='" . $titulo .  "', especialidad ='" . $especialidad .   "', correo ='" . $correo . "', telefono='". $telefono . "',estado = $estado WHERE id ='" . $id . "'";
         $resultado = mysqli_query($connection, $sentenciaSQL);
         mysqli_close($connection);
     }
     header("Location: ../admin_directores.php");
 }
 
-
 if (isset($_POST["TFGModificarEncargado"])) {
     $nombre = $_POST["nombre"];
     $id = $_POST["id"];
     $ap1 = $_POST["apellido1"];
     $ap2 = $_POST["apellido2"];
+    $estado = $_POST["estado"];
     $correo = $_POST["correo"];
-
-    
-
     $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
 
     if ($connection) {
-
-        $sentenciaSQL = "UPDATE tfgencargados SET nombre = '" . $nombre . "', apellido1 ='" . $ap1 . "', apellido2 ='" . $ap2 . "', correo ='" . $correo . "' WHERE id =" . $id . "";
+        $sentenciaSQL = "UPDATE tfgencargados SET nombre = '" . $nombre . "', apellido1 ='" . $ap1 . "', apellido2 ='" . $ap2 . "', correo ='" . $correo . "', estado = $estado WHERE id ='" . $id . "'";
         $resultado = mysqli_query($connection, $sentenciaSQL);
         mysqli_close($connection);
     }
@@ -77,22 +64,17 @@ if (isset($_POST["TFGModificarAsesor"])) {
     $titulo = $_POST["titulo"];
     $telefono = $_POST["telefono"];
     $especialidad = $_POST["especialidad"];
+    $estado = $_POST["estado"];
     $correo = $_POST["correo"];
-
-
-    
-
     $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
 
     if ($connection) {
-
-        $sentenciaSQL = "UPDATE tfgasesores SET nombre = '" . $nombre . "', apellido1 ='" . $ap1 . "', apellido2 ='" . $ap2 . "', titulo ='" . $titulo .  "', especialidad ='" . $especialidad .   "' , correo ='" . $correo . "', telefono='".$telefono."' WHERE id =" . $id . "";
+        $sentenciaSQL = "UPDATE tfgasesores SET nombre = '" . $nombre . "', apellido1 ='" . $ap1 . "', apellido2 ='" . $ap2 . "', titulo ='" . $titulo .  "', especialidad ='" . $especialidad .   "' , correo ='" . $correo . "', telefono='".$telefono."',estado = $estado WHERE id ='" . $id . "'";
         $resultado = mysqli_query($connection, $sentenciaSQL);
         mysqli_close($connection);
     }
     header("Location: ../admin_asesores.php");
 }
-
 
 if (isset($_POST["TFGModificarMiembroComision"])) {
     $nombre = $_POST["nombre"];
@@ -100,14 +82,11 @@ if (isset($_POST["TFGModificarMiembroComision"])) {
     $ap1 = $_POST["apellido1"];
     $ap2 = $_POST["apellido2"];
     $correo = $_POST["correo"];
-
-    
-
+    $estado = $_POST["estado"];
     $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
 
     if ($connection) {
-
-        $sentenciaSQL = "UPDATE tfgmiembroscomision SET nombre = '" . $nombre . "', apellido1 ='" . $ap1 . "', apellido2 ='" . $ap2 . "', correo ='" . $correo . "' WHERE id =" . $id . "";
+        $sentenciaSQL = "UPDATE tfgmiembroscomision SET nombre = '" . $nombre . "', apellido1 ='" . $ap1 . "', apellido2 ='" . $ap2 . "', correo ='" . $correo . "',estado= $estado WHERE id ='" . $id . "'";
         $resultado = mysqli_query($connection, $sentenciaSQL);
         mysqli_close($connection);
     }
@@ -117,14 +96,10 @@ if (isset($_POST["TFGModificarMiembroComision"])) {
 if (isset($_POST["TFGModificarModalidad"])) {
     $nombre = $_POST["nombre"];
     $id = $_POST["codigo"];
-
-
-    
     $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
 
     if ($connection) {
-
-        $sentenciaSQL = "UPDATE modalidades SET nombre = '" . $nombre . "', codigo ='" . $id . "' WHERE codigo =" . $id . "";
+        $sentenciaSQL = "UPDATE modalidades SET nombre = '" . $nombre . "', codigo ='" . $id . "' WHERE codigo ='" . $id . "'";
         $resultado = mysqli_query($connection, $sentenciaSQL);
         mysqli_close($connection);
     }
@@ -133,8 +108,7 @@ if (isset($_POST["TFGModificarModalidad"])) {
 // Desactivacion de usuarios
 if (isset($_POST["desactivarAsesor"])) {
     
-    $id = $_POST["id"];
-    
+    $id = $_POST["cod"];
     $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
 
     if ($connection) {
@@ -147,8 +121,7 @@ if (isset($_POST["desactivarAsesor"])) {
 }
 if (isset($_POST["desactivarComisionTFG"])) {
     
-    $id = $_POST["id"];
-    
+    $id = $_POST["cod"];
     $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
 
     if ($connection) {
@@ -161,8 +134,7 @@ if (isset($_POST["desactivarComisionTFG"])) {
 }
 if (isset($_POST["desactivarDirector"])) {
     
-    $id = $_POST["id"];
-    
+    $id = $_POST["cod"];
     $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
 
     if ($connection) {
@@ -171,12 +143,10 @@ if (isset($_POST["desactivarDirector"])) {
         $resultado = mysqli_query($connection, $sentenciaSQL);
         mysqli_close($connection);
     }
-    header("Location: ../admin_directores.php");
 }
 if (isset($_POST["desactivarEncargado"])) {
     
-    $id = $_POST["id"];
-    
+    $id = $_POST["cod"];
     $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
 
     if ($connection) {
@@ -189,22 +159,20 @@ if (isset($_POST["desactivarEncargado"])) {
 }
 if (isset($_POST["desactivarEstudiante"])) {
     
-    $id = $_POST["id"];
+    $id = $_POST["cod"];
     $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
-
     if ($connection) {
-
         $sentenciaSQL = "UPDATE tfgestudiantes SET estado = 0 WHERE id ='" . $id . "'";
         $resultado = mysqli_query($connection, $sentenciaSQL);
         mysqli_close($connection);
     }
-    header("Location: ../admin_estudiante.php");
+    echo "pene :D";
+    //header("Location: ../admin_estudiante.php");
 }
 //Activacion de usuarios
 if (isset($_POST["activarAsesor"])) {
     
-    $id = $_POST["id"];
-    
+    $id = $_POST["cod"];
     $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
 
     if ($connection) {
@@ -217,7 +185,7 @@ if (isset($_POST["activarAsesor"])) {
 }
 if (isset($_POST["activarMiembroComision"])) {
     
-    $id = $_POST["id"];
+    $id = $_POST["cod"];
     $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
 
     if ($connection) {
@@ -230,8 +198,7 @@ if (isset($_POST["activarMiembroComision"])) {
 }
 if (isset($_POST["activarDirector"])) {
     
-    $id = $_POST["id"];
-    
+    $id = $_POST["cod"];
     $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
 
     if ($connection) {
@@ -244,8 +211,7 @@ if (isset($_POST["activarDirector"])) {
 }
 if (isset($_POST["activarEncargado"])) {
     
-    $id = $_POST["id"];
-    
+    $id = $_POST["cod"];
     $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
 
     if ($connection) {
@@ -258,7 +224,7 @@ if (isset($_POST["activarEncargado"])) {
 }
 if (isset($_POST["activarEstudiante"])) {
     
-    $id = $_POST["id"];
+    $id = $_POST["cod"];
     $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
 
     if ($connection) {

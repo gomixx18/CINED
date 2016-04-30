@@ -55,15 +55,7 @@
                                         <a class="collapse-link">
                                             <i class="fa fa-chevron-up"></i>
                                         </a>
-                                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                            <i class="fa fa-wrench"></i>
-                                        </a>
-                                        <ul class="dropdown-menu dropdown-user">
-                                            <li><a href="#">Config option 1</a>
-                                            </li>
-                                            <li><a href="#">Config option 2</a>
-                                            </li>
-                                        </ul>
+
                                         <a class="close-link">
                                             <i class="fa fa-times"></i>
                                         </a>
@@ -103,22 +95,21 @@
                                                     echo "<td name='apellido1'>" . $data["apellido1"] . "</td>";
                                                     echo "<td name='apellido2'>" . $data["apellido2"] . "</td>";
                                                     echo "<td name= 'correo'>" . $data["correo"] . "</td>";
-                                                    if($data["estado"] == '1'){
+                                                    if ($data["estado"] == '1') {
                                                         echo "<td>Activo</td>";
-                                                    }
-                                                    else{
+                                                    } else {
                                                         echo "<td>Inactivo</td>";
                                                     }
                                                     echo "<td>" . "<button type='submit' data-toggle='modal' class='btn btn-primary'
                                                                 data-target='#mod-form' id = '" . $data["id"] . "' nombre = '" . $data["nombre"] . "' apellido1 = '" . $data["apellido1"] .
-                                                    "' apellido2 = '" . $data["apellido2"] ."'activo = '" . $data["estado"]. "' correo = '" . $data["correo"] . "' > Modificar</button></td> ";
+                                                    "' apellido2 = '" . $data["apellido2"] . "'activo = '" . $data["estado"] . "' correo = '" . $data["correo"] . "' > Modificar</button></td> ";
                                                     echo "</tr>";
                                                 }
 
                                                 mysqli_close($connection);
                                                 ?>
 
-                                                
+
                                             </tbody>
                                             <tfoot>
                                                 <tr>
@@ -157,7 +148,7 @@
         <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
         <script src="js/plugins/jeditable/jquery.jeditable.js"></script>
         <script src="js/plugins/dataTables/datatables.min.js"></script>
-
+        <script src="js/cambiarEstadoUsuario.js" type="text/javascript"></script>
         <!-- Custom and plugin javascript -->
         <script src="js/inspinia.js"></script>
         <script src="js/plugins/pace/pace.min.js"></script>
@@ -165,36 +156,33 @@
         <!-- Page-Level Scripts -->
         <script>
             $(document).ready(function () {
-               
-               function getFecha(){
-                
-                var meses = new Array ("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
-                $fecha = new Date();
-                $dia = $fecha.getDate();
-                $mes = $fecha.getMonth();
-                $anno = $fecha.getFullYear();
-                $hora = $fecha.getHours();
-                $minutos = $fecha.getMinutes();
-                $segundos = $fecha.getSeconds();
-                return $dia+"/"+meses[$mes]+'/'+$anno+' '+$hora+':'+$minutos+':'+$segundos;
-               };
-                
+
+                function getFecha() {
+
+                    var meses = new Array("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
+                    $fecha = new Date();
+                    $dia = $fecha.getDate();
+                    $mes = $fecha.getMonth();
+                    $anno = $fecha.getFullYear();
+                    $hora = $fecha.getHours();
+                    $minutos = $fecha.getMinutes();
+                    $segundos = $fecha.getSeconds();
+                    return $dia + "/" + meses[$mes] + '/' + $anno + ' ' + $hora + ':' + $minutos + ':' + $segundos;
+                }
+                ;
+
                 $('.dataTables-example').DataTable({
                     dom: '<"html5buttons"B>lTfgitp',
                     buttons: [
                         {extend: 'copy'},
                         {extend: 'csv'},
                         {extend: 'excel', title: 'Reporte de Estudiantes'},
-                        {extend: 'pdf', 
-                         title: 'Estudiantes Reporte',
-                         
-                         message: 'Reporte Generado el: '+getFecha(),
-                         exportOptions: {
-                           
-                            columns: [0,1,2,3,4] 
-                         },
-                           
-                         
+                        {extend: 'pdf',
+                            title: 'Estudiantes Reporte',
+                            message: 'Reporte Generado el: ' + getFecha(),
+                            exportOptions: {
+                                columns: [0, 1, 2, 3, 4]
+                            },
                         },
                         {extend: 'print',
                             customize: function (win) {
@@ -206,7 +194,7 @@
                                         .css('font-size', 'inherit');
                             }
                         }
-                         
+
                     ]
                 });
             });
@@ -247,7 +235,7 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class=""><h3 class="m-t-none m-b"> <i class="fa fa-plus-square-o"></i> Modificar Estudiante</h3>
-                                 <h4 id="tituloEstado" style='color: red'>Usuario inactivo</h4>
+                                <h4 id="tituloEstado" style='color: red'>Usuario inactivo</h4>
                                 <form role="form" id="frm_agregar_estudiante" method="POST" action="funcionalidad/TFGModificar.php">
                                     <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Identificación</label></i> <input name="id" id="id" required type="text" placeholder="Identificacion" class="form-control" readonly></div>
                                     <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Nombre</label> </i> <input name="nombre" id="nombre" required type="text" placeholder="Nombre" class="form-control"></div>
@@ -257,9 +245,9 @@
 
                                     <div>
                                         <label class=""> <i class="fa fa-exclamation-circle"> Rellene los datos obligatorios.</i></label><br> <br>
-                                        <button class="btn btn-sm btn-danger pull-left m-t-n-xs" type="submit" id="desactivar" name="desactivarEstudiante"><i class="fa fa-warning"></i><strong> Desactivar</strong></button>
-                                       <button class="btn btn-sm btn-info pull-left m-t-n-xs" type="submit" name="activarEstudiante" id="activar" ><i class="fa fa-check-circle"></i><strong> Activar</strong></button>
-                                        
+                                        <button class="btn btn-sm btn-danger pull-left m-t-n-xs" type="button" cod="" id="desactivar" name="desactivarEstudiante"><i class="fa fa-warning"></i><strong> Desactivar</strong></button>
+                                        <button class="btn btn-sm btn-info pull-left m-t-n-xs" type="button" cod="" id="activar" name="activarEstudiante"  ><i class="fa fa-check-circle"></i><strong> Activar</strong></button>
+                                        <input name="estado" id="estado" type="text" hidden>
                                         <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit" name="TFGModificarEstudiante"><strong>Modificar</strong></button>
                                         <button type="button" data-dismiss="modal" class="btn btn-sm btn-secundary pull-right m-t-n-xs" style="margin-right: 20px;" ><strong>Cancelar</strong></button>
                                     </div>
@@ -272,13 +260,18 @@
         </div>
 
         <script>
+            //guardarEstadoUsuario("desactivar");
+            //guardarEstadoUsuario("activar");
+
             $('#mod-form').on('show.bs.modal', function (event) {
-               var button = $(event.relatedTarget);
+                var button = $(event.relatedTarget);
                 var modal = $(this);
-                var btn1 = modal.find('#desactivar');
-                var t = modal.find('#tituloEstado');
+                btn1 = modal.find('#desactivar');
+                btn2 = modal.find('#activar');
+                estado = modal.find('#estado');
+                t = modal.find('#tituloEstado');
+
                 var recipient = button.attr('id');
-                var d = modal.find('#activar');
                 modal.find('#id').val(recipient);
 
                 recipient = button.attr('nombre');
@@ -294,17 +287,34 @@
                 modal.find('#correo').val(recipient);
 
                 recipient = button.attr('activo');
-                
+
                 if (recipient === '1') {
                     t.hide();
                     btn1.show();
-                    d.hide();
+                    btn2.hide();
+                    estado.val('1');
                 } else {
                     t.show();
                     btn1.hide();
-                    d.show();
+                    btn2.show();
+                    estado.val('0');
                 }
+                btn1.click(function (evento) {
+                    t.show();
+                    btn1.hide();
+                    btn2.show();
+                    estado.val('0');
+                });
+                btn2.click(function (evento) {
+                    t.hide();
+                    btn1.show();
+                    btn2.hide();
+                    estado.val('1');
+                });
+
             });
+
+
         </script>
 
     </body>

@@ -49,24 +49,12 @@
                             <div class="ibox float-e-margins">
 
                                 <div class="ibox-title">
-                                    <h5>Consulta de Investigadores</h5>
-
+                                    <h5>Consulta de Investigador</h5>
                                     <div class="ibox-tools">
                                         <a class="collapse-link">
                                             <i class="fa fa-chevron-up"></i>
                                         </a>
-                                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                            <i class="fa fa-wrench"></i>
-                                        </a>
-                                        <ul class="dropdown-menu dropdown-user">
-                                            <li><a href="#">Config option 1</a>
-                                            </li>
-                                            <li><a href="#">Config option 2</a>
-                                            </li>
-                                        </ul>
-                                        <a class="close-link">
-                                            <i class="fa fa-times"></i>
-                                        </a>
+                                        
                                     </div>
                                 </div>
                                 <div class="ibox-content">
@@ -80,7 +68,6 @@
                                                     <th>Primer Apellido</th>
                                                     <th>Segundo Apellido</th>
                                                     <th>Correo</th>
-                                                    <th>Unidad Academica</th>
                                                     <th>Estado</th>
                                                     <th>Acción</th>
                                                 </tr>
@@ -103,23 +90,18 @@
                                                     echo "<td>" . $data["apellido1"] . "</td>";
                                                     echo "<td>" . $data["apellido2"] . "</td>";
                                                     echo "<td>" . $data["correo"] . "</td>";
-                                                     echo "<td>" . $data["unidadAcademica"] . "</td>";
                                                     if ($data["estado"] == '1') {
                                                         echo "<td>Activo</td>";
                                                     } else {
                                                         echo "<td>Inactivo</td>";
                                                     }
-                                                    
-                                                 
-                           
-                                                    
                                                     echo "<td>" . "<button type='submit' data-toggle='modal' class='btn btn-primary'
                                                                 data-target='#mod-form' id = '" . $data["id"] . "' nombre = '" . $data["nombre"] . "' apellido1 = '" . $data["apellido1"] .
                                                     "' apellido2 = '" . $data["apellido2"] . "'activo = '" . $data["estado"] . "' correo = '" . $data["correo"] . "' isEstudiante = '" . $data["isEstudiante"] . "' > Modificar</button></td> ";
                                                     echo "</tr>";
                                                 }
 
-                                                
+                                                mysqli_close($connection);
                                                 ?>
                                             </tbody>
                                             <tfoot>
@@ -129,7 +111,6 @@
                                                     <th>Primer Apellido</th>
                                                     <th>Segundo Apellido</th>
                                                     <th>Correo</th>
-                                                    <th>Unidad Academica</th>
                                                     <th>Estado</th>
                                                     <th>Acción</th>
                                                 </tr>
@@ -234,8 +215,8 @@
                             <div class=""><h3 class="m-t-none m-b"> <i class="fa fa-plus-square-o"></i> Agregar Investigador</h3>
                                 <form role="form" id="frm_agregar_estudiante" method="POST" action="funcionalidad/INVAgregar.php">
                                     <div class="checkbox checkbox-success checkbox-circle">
-                                        <input id="isEstudiante" name="isEstudiante" type="checkbox">
-                                        <label for="isEstudiante">
+                                        <input type="checkbox" id="isEstudiante" name="isEstudiante">
+                                        <label for="checkbox8" >
                                             Es estudiante?
                                         </label>
                                     </div>
@@ -245,53 +226,7 @@
                                     <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Primer Apellido</label></i> <input required type="text" placeholder="Primer Apellido" class="form-control" name="apellido1"></div>
                                     <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Segundo Apellido</label></i> <input required type="text" placeholder="Segundo Apellido" class="form-control" name="apellido2"></div>
                                     <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Correo</label></i> <input required type="email" placeholder="Correo" class="form-control" name="correo"></div>
-                                    <label>Unidad Academica</label>
-                                    <div class="row">
-                                        <div class="col-lg-4">
-                                        <div class="form-group">                                              
-                                            <label>Catedra</label>
-                                            <select id="modalidad" name='catedra' aria-required='true' class="select2_catedra form-control " tabindex="-1">
-                                                <option value="Ninguna">Ninguna</option>
-                                                <?php
-                                        
-                                                if (!$connection) {
-                                                    exit("<label class='error'>Error de conexión</label>");
-                                                }
 
-                                                $query = mysqli_query($connection, "SELECT * FROM catedras");
-                                                while ($data = mysqli_fetch_assoc($query)) {
-                                                    echo "<option value=" . $data["nombre"] . ">" . $data["nombre"] . "</option>";
-                                                }
-                                                ?>
-                                            </select>       
-                                            </div> 
-                                        </div> 
-                                        <div class="form-group">  
-                                             <div class="col-lg-4">
-                                            <label>Carrera</label>
-                                            <select id="carrera" name='carrera' aria-required='true' class="select2_carrera form-control " tabindex="-1">
-                                                <option value="Ninguna">Ninguna</option>
-                                                <?php
-                                                if (!$connection) {
-                                                    exit("<label class='error'>Error de conexión</label>");
-                                                }
-
-                                                $query = mysqli_query($connection, "SELECT * FROM carreras");
-                                                while ($data = mysqli_fetch_assoc($query)) {
-                                                    echo "<option value=" . $data["nombre"] . ">" . $data["nombre"] . "</option>";
-                                                }
-                                                
-                                                ?>
-                                            </select>     
-                                            </div>  
-                                        </div>  
-                                        
-                                        <div class="col-lg-4">
-                                            <label>CINED</label>
-                                            <div class="i-checks"><input name="cined" type="checkbox" value="CINED"> </div>
-                                        </div>  
-                                       
-                                    </div> 
                                     <div>
                                         <label class=""> <i class="fa fa-exclamation-circle"> Rellene los datos obligatorios.</i></label><br> 
                                         <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit" name="INVAgregarInvestigador"><strong>Registrar</strong></button>
@@ -314,8 +249,8 @@
                                 <h4 id="tituloEstado" style='color: red'>Usuario inactivo</h4>
                                 <form role="form" id="frm_agregar_estudiante" method="POST" action="funcionalidad/INVModificar.php">
                                     <div class="checkbox checkbox-success checkbox-circle">
-                                        <input id="isEstudiante" name="isEstudiante" type="checkbox">
-                                        <label for="isEstudiante">
+                                        <input type="checkbox" id="isEstudiante" name="isEstudiante">
+                                        <label for="checkbox8">
                                             Es estudiante?
                                         </label>
                                     </div>
@@ -324,60 +259,12 @@
                                     <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Primer Apellido</label></i> <input name="apellido1" id="apellido1" required type="text" placeholder="Primer Apellido" class="form-control"></div>
                                     <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Segundo Apellido</label></i> <input name="apellido2" id="apellido2" required type="text" placeholder="Segundo Apellido" class="form-control"></div>
                                     <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Correo</label></i> <input name="correo" id="correo" required type="email" placeholder="Correo" class="form-control"></div>
-                                    <label>Unidad Academica</label>
-                                    <div class="row">
-                                        <div class="col-lg-4">
-                                        <div class="form-group">                                              
-                                            <label>Catedra</label>
-                                            <select id="modalidad" name='catedra' aria-required='true' class="select2_catedra form-control " tabindex="-1">
-                                                <option value="Ninguna">Ninguna</option>
-                                                <?php
-                                        
-                                                if (!$connection) {
-                                                    exit("<label class='error'>Error de conexión</label>");
-                                                }
-
-                                                $query = mysqli_query($connection, "SELECT * FROM catedras");
-                                                while ($data = mysqli_fetch_assoc($query)) {
-                                                    echo "<option value=" . $data["nombre"] . ">" . $data["nombre"] . "</option>";
-                                                }
-                                                ?>
-                                            </select>       
-                                            </div> 
-                                        </div> 
-                                        <div class="form-group">  
-                                             <div class="col-lg-4">
-                                            <label>Carrera</label>
-                                            <select id="carrera" name='carrera' aria-required='true' class="select2_carrera form-control " tabindex="-1">
-                                                <option value="Ninguna">Ninguna</option>
-                                                <?php
-                                                if (!$connection) {
-                                                    exit("<label class='error'>Error de conexión</label>");
-                                                }
-
-                                                $query = mysqli_query($connection, "SELECT * FROM carreras");
-                                                while ($data = mysqli_fetch_assoc($query)) {
-                                                    echo "<option value=" . $data["nombre"] . ">" . $data["nombre"] . "</option>";
-                                                }
-                                                mysqli_close($connection);
-                                                mysqli_close($connection);
-                                                ?>
-                                            </select>     
-                                            </div>  
-                                        </div>  
-                                        
-                                        <div class="col-lg-4">
-                                            <label>CINED</label>
-                                            <div class="i-checks"><input name="cined" type="checkbox" value="CINED"> </div>
-                                        </div>  
-                                       
-                                    </div> 
 
                                     <div>
                                         <label class=""> <i class="fa fa-exclamation-circle"> Rellene los datos obligatorios.</i></label><br> <br>
-                                        <button class="btn btn-sm btn-danger pull-left m-t-n-xs" type="submit" id="desactivar" name="desactivarInvestigador"><i class="fa fa-warning"></i><strong> Desactivar</strong></button>
-                                        <button class="btn btn-sm btn-info pull-left m-t-n-xs" type="submit" name="activarInvestigador" id="activar" ><i class="fa fa-check-circle"></i><strong> Activar</strong></button>
-
+                                        <button class="btn btn-sm btn-danger pull-left m-t-n-xs" type="button" id="desactivar" name="desactivarInvestigador"><i class="fa fa-warning"></i><strong> Desactivar</strong></button>
+                                        <button class="btn btn-sm btn-info pull-left m-t-n-xs" type="button" name="activarInvestigador" id="activar" ><i class="fa fa-check-circle"></i><strong> Activar</strong></button>
+                                        <input name="estado" id="estado" type="text" hidden>    
                                         <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit" name="INVModificarInvestigador"><strong>Modificar</strong></button>
                                         <button type="button" data-dismiss="modal" class="btn btn-sm btn-secundary pull-right m-t-n-xs" style="margin-right: 20px;" ><strong>Cancelar</strong></button>
                                     </div>
@@ -398,10 +285,13 @@
                 var button = $(event.relatedTarget);
                 var modal = $(this);
                 var recipient = button.attr('id');
-                var btn1 = modal.find('#desactivar');
-                var t = modal.find('#tituloEstado');
-                var d = modal.find('#activar');
+                btn1 = modal.find('#desactivar');
+                btn2 = modal.find('#activar');
+                estado = modal.find('#estado');
+                t = modal.find('#tituloEstado');
+                
                 var check = modal.find('#isEstudiante');
+                
                 modal.find('#id').val(recipient);
 
                 recipient = button.attr('nombre');
@@ -415,8 +305,8 @@
 
                 recipient = button.attr('correo');
                 modal.find('#correo').val(recipient);
-                
-                 recipient = button.attr('isEstudiante');
+
+                recipient = button.attr('isEstudiante');
 
                 if (recipient == '1') {
                     check.prop('checked', true);
@@ -424,17 +314,30 @@
                     check.prop('checked', false);
                 }
 
-                
                 recipient = button.attr('activo');
                 if (recipient === '1') {
                     t.hide();
                     btn1.show();
-                    d.hide();
+                    btn2.hide();
+                    estado.val('1');
                 } else {
                     t.show();
                     btn1.hide();
-                    d.show();
+                    btn2.show();
+                    estado.val('0');
                 }
+                btn1.click(function (evento) {
+                    t.show();
+                    btn1.hide();
+                    btn2.show();
+                    estado.val('0');
+                });
+                btn2.click(function (evento) {
+                    t.hide();
+                    btn1.show();
+                    btn2.hide();
+                    estado.val('1');
+                });
             });
         </script>
 
