@@ -571,7 +571,7 @@
                                                                     onStepChanged: function (event, currentIndex, priorIndex)
                                                                     {
                                                                         // Suppress (skip) "Warning" step if the user is old enough.
-                                                                        if(currentIndex === 5){
+                                                                        if(currentIndex === 4){
                                                                             bandera = true;
                                                                         }
                                                                   
