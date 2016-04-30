@@ -164,6 +164,7 @@ and open the template in the editor.
                                     <?php
                                     cantidadAsesores($codigo, $connection);
                                     asesores($codigo, $connection);
+                                    
                                     ?>
 
 
@@ -265,7 +266,7 @@ and open the template in the editor.
                                                                                         }
                                                                                         ?>
 
-                                                                                        <?php if ($usuarioSesion->getId() == $data["directorId"] && $usuarioSesion->getId() != $asesor1 && $usuarioSesion->getId() != $asesor2) { ?>
+                                                                                        <?php if ($usuarioSesion->getId() == $data["directorId"]) { ?>
                                                                                             <div class="form-group">
                                                                                                 <input class = 'form-control' name = 'codigoTFG' id='codigoTFG' type="hidden" value='<?php echo $codigo ?>'>
                                                                                                 <input class = 'form-control' name = 'etapa' id = 'etapa' value ='1' type="hidden">   
@@ -332,7 +333,7 @@ and open the template in the editor.
                                                                                     <?php if ($GLOBALS['cantAsesor'] == 2) { ?>
                                                                                         <div class="col-lg-5 col-lg-offset-1">
 
-
+                                                                                            
                                                                                             <label class="control-label">Asesor 2</label><br>
                                                                                             <?php
                                                                                             $consulta3 = "SELECT * FROM tfgarchivosasesores where tfg = '" . $codigo . "' and asesor = '" . $asesor2 . "' and etapa = 1 order by fecha desc limit 1;";
@@ -391,7 +392,6 @@ and open the template in the editor.
                                                                                     <input type='hidden' name='etapa' value='1'>
                                                                                     <input type='hidden' name='director' value='<?php echo $data['directorId'] ?>'>
                                                                                     <input type="hidden" name='asesor1' value="<?php echo $asesor1 ?>">
-                                                                                    <input type="hidden" name='asesor2' value="<?php echo $asesor2 ?>">
                                                                                     <input id="input-1" type="submit"  class="btn btn-primary" value="Registro de Archivos">
                                                                                 </div>
                                                                                 </form>
@@ -642,7 +642,7 @@ and open the template in the editor.
                                                                                     }
                                                                                     ?>
 
-                                                                                    <?php if ($usuarioSesion->getId() == $data["directorId"] && $usuarioSesion->getId() != $asesor1 && $usuarioSesion->getId() != $asesor2) { ?>
+                                                                                    <?php if ($usuarioSesion->getId() == $data["directorId"] ) { ?>
                                                                                         <div class="form-group">
                                                                                             <input class = 'form-control' name = 'codigoTFG' id='codigoTFG' type="hidden" value='<?php echo $codigo ?>'>
                                                                                             <input class = 'form-control' name = 'etapa' id = 'etapa' value ='2' type="hidden">   
@@ -769,8 +769,6 @@ and open the template in the editor.
                                                                                     <input type="hidden" name='codigo' value='<?php echo $codigo ?>'>
                                                                                     <input type='hidden' name='etapa' value='2'>
                                                                                     <input type='hidden' name='director' value='<?php echo $data['directorId'] ?>'>
-                                                                                    <input type="hidden" name='asesor1' value="<?php echo $asesor1 ?>">
-                                                                                    <input type="hidden" name='asesor2' value="<?php echo $asesor2 ?>">
                                                                                     <input id="input-1" type="submit"  class="btn btn-primary" value="Registro de Archivos">
                                                                                 </div>
                                                                                 </form>
@@ -1022,7 +1020,7 @@ and open the template in the editor.
                                                                                     }
                                                                                     ?>
 
-                                                                                    <?php if ($usuarioSesion->getId() == $data["directorId"] && $usuarioSesion->getId() != $asesor1 && $usuarioSesion->getId() != $asesor2) { ?>
+                                                                                    <?php if ($usuarioSesion->getId() == $data["directorId"] ) { ?>
                                                                                         <div class="form-group">
                                                                                             <input class = 'form-control' name = 'codigoTFG' id='codigoTFG' type="hidden" value='<?php echo $codigo ?>'>
                                                                                             <input class = 'form-control' name = 'etapa' id = 'etapa' value ='3' type="hidden">   
@@ -1148,8 +1146,6 @@ and open the template in the editor.
                                                                                     <input type="hidden" name='codigo' value='<?php echo $codigo ?>'>
                                                                                     <input type='hidden' name='etapa' value='3'>
                                                                                     <input type='hidden' name='director' value='<?php echo $data['directorId'] ?>'>
-                                                                                    <input type="hidden" name='asesor1' value="<?php echo $asesor1 ?>">
-                                                                                    <input type="hidden" name='asesor2' value="<?php echo $asesor2 ?>">
                                                                                     <input id="input-1" type="submit"  class="btn btn-primary" value="Registro de Archivos">
                                                                                 </div>
                                                                                 </form>
@@ -1437,7 +1433,7 @@ and open the template in the editor.
 
                 $cantAsesor = "select count(*) as asesores from tfg,tfgasesores,
                                tfgasesoran where tfg.codigo = tfgasesoran.tfg and 
-                               tfgasesoran.asesor =  tfgasesores.id and tfg.codigo ='$cod'";
+                               tfgasesoran.asesor =  tfgasesores.id and tfg.codigo ='$cod' and tfgasesoran.estado = 1";
                 $query = mysqli_query($conn, $cantAsesor);
                 $data = mysqli_fetch_assoc($query);
                 global $cantAsesor;
@@ -1448,7 +1444,7 @@ and open the template in the editor.
 
                 $consulta = "select tfgasesores.id from tfg,tfgasesores,"
                         . "tfgasesoran where tfg.codigo = tfgasesoran.tfg and "
-                        . "tfgasesoran.asesor =  tfgasesores.id and tfg.codigo ='$cod'";
+                        . "tfgasesoran.asesor =  tfgasesores.id and tfg.codigo ='$cod' and tfgasesoran.estado = 1";
 
                 $query = mysqli_query($conn, $consulta);
                 $cont = 1;
