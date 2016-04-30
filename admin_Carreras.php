@@ -73,7 +73,7 @@
                                                 <tr>
                                                     <th>Código</th>
                                                     <th>Nombre</th>
-                                                    <th>Acción</th>
+                                                    <th colspan="2">Acción</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -90,8 +90,10 @@
                                                     echo "<tr>";
                                                     echo "<td>" . $data["codigo"] . "</td>";
                                                     echo "<td>" . $data["nombre"] . "</td>";
-                                                    echo "<td>" . "<button type='submit' data-toggle='modal' class='btn btn-primary'
+                                                    echo "<td align='center'>" . "<button type='submit' data-toggle='modal' class='btn btn-primary'
                                                                 data-target='#mod-form' id = '" . $data["codigo"] . "' nombre = '" . $data["nombre"] . "' > Modificar</button></td> ";
+                                                    echo "<td align='center'>" . "<button type='button' class='btn btn-danger' id = '" . $data["codigo"] . "' nombre = '" . $data["nombre"] . "' data-toggle='modal' data-target='#mod-eliminar'>
+                                                        <span class='glyphicon glyphicon-trash' aria-hidden='true'></span></button>";
                                                     echo "</tr>";
                                                 }
 
@@ -102,6 +104,7 @@
                                                 <tr>
                                                     <th>Código</th>
                                                     <th>Nombre</th>
+                                                    <th colspan="2">Acción</th>
                                                 </tr>
                                             </tfoot>
                                         </table>
@@ -150,7 +153,6 @@
                             customize: function (win) {
                                 $(win.document.body).addClass('white-bg');
                                 $(win.document.body).css('font-size', '10px');
-
                                 $(win.document.body).find('table')
                                         .addClass('compact')
                                         .css('font-size', 'inherit');
@@ -159,10 +161,8 @@
                     ]
 
                 });
-
                 /* Init DataTables */
                 var oTable = $('#editable').DataTable();
-
                 /* Apply the jEditable handlers to the table */
                 oTable.$('td').editable('../example_ajax.php', {
                     "callback": function (sValue, y) {
@@ -178,10 +178,7 @@
                     "width": "90%",
                     "height": "100%"
                 });
-
-
             });
-
             function fnClickAddRow() {
                 $('#editable').dataTable().fnAddData([
                     "Custom row",
@@ -189,7 +186,6 @@
                     "New row",
                     "New row"
                 ]);
-
             }
         </script>
         <div id="modal-form" class="modal fade" aria-hidden="true" style="display: none;">
@@ -232,8 +228,6 @@
                                         <label class=""> <i class="fa fa-exclamation-circle"> Rellene los datos obligatorios.</i></label><br> 
                                         <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit" name="INVModificarCarrera"><strong>Modificar</strong></button>
                                         <button type="button" data-dismiss="modal" class="btn btn-sm btn-secundary pull-right m-t-n-xs" style="margin-right: 20px;" ><strong>Cancelar</strong></button>
-
-
                                     </div>
                                 </form>
                             </div>
@@ -241,17 +235,72 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <script>
-            $('#mod-form').on('show.bs.modal', function (event) {
-                var button = $(event.relatedTarget);
-                var modal = $(this);
-                var recipient = button.attr('id');
-                modal.find('#id').val(recipient);
-                var recipient = button.attr('nombre');
-                modal.find('#nombre').val(recipient);
-            });
-        </script>
+
+            <!--//modal eliminar--> 
+            <div id="mod-eliminar" class="modal fade" aria-hidden="true" style="display: none;">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class=""><h3 class="m-t-none m-b">Seguro que desea eliminar esta carrera?</h3>
+                                    <form role="form" id="frm_eliminar_carrera" method="POST" action="funcionalidad/eliminarFuncionalidad.php">
+                                        <input name="id" id="id" required type="hidden"  class="form-control">   
+                                        <input name="nombre" id="nombre" required type="hidden"  class="form-control">                                 
+                                        <div class="text-center">
+                                        <button class="btn btn-sm btn-primary" id="submitbtn" type="submit" name="eliminarCarrera"><strong>Sí</strong></button>
+                                        <button type="submit" data-dismiss="modal"  class="btn btn-sm btn-secundary" style="margin-left: 20px;" ><strong>Cancelar</strong></button>
+                                        <p id="result"></p>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <script>
+                $('#mod-form').on('show.bs.modal', function (event) {
+                    var button = $(event.relatedTarget);
+                    var modal = $(this);
+                    var recipient = button.attr('id');
+                    modal.find('#id').val(recipient);
+                    var recipient = button.attr('nombre');
+                    modal.find('#nombre').val(recipient);
+                });
+                $('#mod-eliminar').on('show.bs.modal', function (event) {
+                    var button = $(event.relatedTarget);
+                    var modal = $(this);
+                    var id = button.attr('id');
+                    modal.find('#id').val(id);
+                    var nombre = button.attr('nombre');
+                    modal.find('#nombre').val(nombre);
+                });
+                var err = $("#result");
+                err = err.hide();
+
+                $("button#submitbtn").click( function (e) {
+                    e.preventDefault();
+                      $("#result").hide();
+                    $.ajax({
+                        url: "funcionalidad/eliminarFuncionalidad.php",
+                        method: "POST",
+                        data: $("#frm_eliminar_carrera").serialize(),
+                        success: function (response) {
+                            $("#result").show();
+                            $("#result").text(response).css('color', 'red');
+                          
+                        }
+                    });
+                    $("#result").text('');
+                });
+
+
+
+
+
+
+            </script>
 
 
     </body>
