@@ -14,17 +14,17 @@ require("../email.php");
 
 
     if ($connection) {
-        $sentenciaSQL = "INSERT INTO ieinvestigadores (id, nombre, apellido1, apellido2, password, correo, estado) VALUES (" . $id . ", '" . $nombre . "', '" . $ap1 . "', '" . $ap2 . "', '" . $pass . "', '" . $correo . "', 1)";
+        $sentenciaSQL = "INSERT INTO ieinvestigadores (id, nombre, apellido1, apellido2, password, correo, estado) VALUES ('" . $id . "', '" . $nombre . "', '" . $ap1 . "', '" . $ap2 . "', '" . $pass . "', '" . $correo . "', 1)";
         $resultado = mysqli_query($connection, $sentenciaSQL);
 
-        $sentenciaSQLexist = "SELECT * FROM usuarios where id= ". $id;
+        $sentenciaSQLexist = "SELECT * FROM usuarios where id= '". $id . "'";
         $resultadoExist = mysqli_query($connection, $sentenciaSQLexist);
         if(mysqli_num_rows($resultadoExist) == 0){
-            $sentenciaSQLusarios = "INSERT INTO usuarios (id, password, estudiante, encargadotfg, asesortfg, directortfg, miembrocomisiontfg, investigador, coordinadorinvestigacion, evaluador, miembrocomiex) VALUES (". $id .", '". $pass ."', false, false, false, false, false, true, false, false, false)";
+            $sentenciaSQLusarios = "INSERT INTO usuarios (id, password, estudiante, encargadotfg, asesortfg, directortfg, miembrocomisiontfg, investigador, coordinadorinvestigacion, evaluador, miembrocomiex) VALUES ('". $id ."', '". $pass ."', false, false, false, false, false, true, false, false, false)";
             $resultadoUsuarios = mysqli_query($connection, $sentenciaSQLusarios); 
         }
         else{
-            $sentenciaSQLusarios = "UPDATE usuarios SET investigador = true WHERE id= ". $id;
+            $sentenciaSQLusarios = "UPDATE usuarios SET investigador = true WHERE id= '". $id . "'";
             $resultadoUsuarios = mysqli_query($connection, $sentenciaSQLusarios); 
         }
 

@@ -528,6 +528,8 @@
 
 
         <script>
+            bandera = false;
+            
                                                             $(document).ready(function () {
                                                                 $("#wizard").steps();
                                                                 $("#form").steps({
@@ -569,7 +571,10 @@
                                                                     onStepChanged: function (event, currentIndex, priorIndex)
                                                                     {
                                                                         // Suppress (skip) "Warning" step if the user is old enough.
-                                                          
+                                                                        if(currentIndex === 5){
+                                                                            bandera = true;
+                                                                        }
+                                                                  
                                                                         
                                                                     },
                                                                     onFinishing: function (event, currentIndex)
@@ -588,7 +593,9 @@
                                                                         var form = $(this);
 
                                                                         // Submit form input
-                                                                        form.submit();
+                                                                        if(bandera){
+                                                                            form.submit();
+                                                                        }
                                                                     }
                                                                 }).validate({
                                                                     errorPlacement: function (error, element)
