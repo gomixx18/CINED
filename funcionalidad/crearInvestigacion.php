@@ -42,18 +42,18 @@ if ($connection) {
     if ($data["anno"] == $annoActual) {
         $numeroCambio = (int)$data["numero"] + 1;
         $sqlcambioConsecutivo = "UPDATE consecutivos SET numero= " . $numeroCambio . " WHERE tipo='IE'";
-        $codigo = $data["numero"] ."-". $data["anno"] ."-". $carrera ."-". $catedra ."-". $lineaInvestigacion ;
+        $codigo = "INV-" . $data["numero"] ."-". $data["anno"] ."-". $carrera ."-". $catedra ."-". $lineaInvestigacion ;
     } else {
         $annoCambio = (int)$annoActual;
         $sqlcambioConsecutivo = "UPDATE consecutivos SET numero= 1, anno = " . $annoCambio . " WHERE tipo='IE'";
-        $codigo = "1-". $data["anno"] ."-". $carrera ."-". $catedra ."-". $lineaInvestigacion ;
+        $codigo = "INV-1-". $data["anno"] ."-". $carrera ."-". $catedra ."-". $lineaInvestigacion ;
     }
     $resultadoCambioConsecutivo = mysqli_query($connection, $sqlcambioConsecutivo); 
 
     $sqlInvestigacion = "INSERT INTO ieproyectos (codigo, titulo, coordinador, estado, lineainvestigacion, isExtension, carrera, catedra, fechaInicio, fechaFinal) VALUES ('".$codigo."', '".$titulo."', '".$coordinador."', 'Activo', '".$lineaInvestigacion."', false, '".$carrera."', '".$catedra."', '".$fechaInicio."', '".$fechaFinal."')";
     $resultadoInvestigacion= mysqli_query($connection, $sqlInvestigacion); // ingresar Extension
 
-
+    
     
 
     // insertar Docentes

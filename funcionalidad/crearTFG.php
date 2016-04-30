@@ -45,7 +45,7 @@ if ($connection) {
     } else {
         $annoCambio = (int)$annoActual;
         $sqlcambioConsecutivo = "UPDATE consecutivos SET numero= 1, anno = " . $annoCambio . " WHERE tipo='TFG'";
-        $codigo = "1-". $data["anno"] ."-". $carrera ."-". $modalidad ."-". $lineaInvestigacion ;
+        $codigo = "TFG-1-". $data["anno"] ."-". $carrera ."-". $modalidad ."-". $lineaInvestigacion ;
     }
     $resultadoCambioConsecutivo = mysqli_query($connection, $sqlcambioConsecutivo); 
 

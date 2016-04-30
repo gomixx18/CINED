@@ -42,11 +42,11 @@ if ($connection) {
     if ($data["anno"] == $annoActual) {
         $numeroCambio = (int)$data["numero"] + 1;
         $sqlcambioConsecutivo = "UPDATE consecutivos SET numero= " . $numeroCambio . " WHERE tipo='IE'";
-        $codigo = $data["numero"] ."-". $data["anno"] ."-". $carrera ."-". $catedra ."-". $lineaInvestigacion ;
+        $codigo = "EXT-" . $data["numero"] ."-". $data["anno"] ."-". $carrera ."-". $catedra ."-". $lineaInvestigacion ;
     } else {
         $annoCambio = (int)$annoActual;
         $sqlcambioConsecutivo = "UPDATE consecutivos SET numero= 1, anno = " . $annoCambio . " WHERE tipo='IE'";
-        $codigo = "1-". $data["anno"] ."-". $carrera ."-". $catedra ."-". $lineaInvestigacion ;
+        $codigo = "EXT-1-". $data["anno"] ."-". $carrera ."-". $catedra ."-". $lineaInvestigacion ;
     }
     $resultadoCambioConsecutivo = mysqli_query($connection, $sqlcambioConsecutivo); 
 
