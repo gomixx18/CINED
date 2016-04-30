@@ -180,7 +180,7 @@
                                                     <div id="divEstud1" class="form-group">
                                                         <label for='btnAgregar'>Cédula Investigador:</label>
                                                         <input id="idEstudiante1" name="nameEstudiante1" type="text" class="form-control input-sm m-b-xs required" placeholder='Cédula Docente'>
-                                                        <button name="btnEstudiante1"  class="btn btn-primary btn-rounded" onclick='agregarEstudiantes(this)' type="button" placeholder='agregar'>Agregar Nuevo Docente</button>
+                                                        <button name="btnEstudiante1"  class="btn btn-primary btn-rounded" onclick='agregarEstudiantes(this)' type="button" placeholder='agregar'>Agregar Nuevo Investigador</button>
                                                     </div>
                                                 </div>
 
@@ -248,7 +248,7 @@
                                                                         </table>
                                                                        </div>
                                                                     </div>
-                                                                    <button name="btnSelectEstu"  class="btn btn-primary btn-rounded" onclick='selectEstudiantes()' type="button" placeholder='agregar'>Agregar Docente</button>
+                                                                    <button name="btnSelectEstu"  class="btn btn-primary btn-rounded" onclick='selectEstudiantes()' type="button" placeholder='agregar'>Asignar Investigador</button>
                                                                     <a data-toggle="modal" class="btn btn-primary btn-rounded" href="#modal-form">Registrar Investigador</a>
                                                                 </div>
                                                                 

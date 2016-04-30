@@ -248,7 +248,7 @@
                                                                         </table>
                                                                        </div>
                                                                     </div>
-                                                                    <button name="btnSelectEstu"  class="btn btn-primary btn-rounded" onclick='selectEstudiantes()' type="button" placeholder='agregar'>Agregar Docente</button>
+                                                                    <button name="btnSelectEstu"  class="btn btn-primary btn-rounded" onclick='selectEstudiantes()' type="button" placeholder='agregar'>Asignar Docente</button>
                                                                     <a data-toggle="modal" class="btn btn-primary btn-rounded" href="#modal-form">Registrar Docente</a>
                                                                 </div>
                                                                 

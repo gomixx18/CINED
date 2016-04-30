@@ -1,6 +1,6 @@
 <?php
 
-require("../email.php");
+require("../funcionalidad/email.php");
 
 
     $nombre = $_POST["nombre"];
@@ -28,7 +28,7 @@ require("../email.php");
             $resultadoUsuarios = mysqli_query($connection, $sentenciaSQLusarios); 
         }
 
-
+        newUserMail($id, $pass, $correo);
     }
 ?>
 
