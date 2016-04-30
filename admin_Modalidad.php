@@ -62,7 +62,7 @@
                                                 <tr>
                                                     <th>Código</th>
                                                     <th>Nombre</th>
-                                                    <th>Acción</th>
+                                                    <th colspan="2">Acción</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -83,6 +83,9 @@
                                                     echo "<td>" . $data["nombre"] . "</td>";
                                                     echo "<td>" . "<button type='submit' data-toggle='modal' class='btn btn-primary'
                                                                 data-target='#mod-form' codigo = '" . $data["codigo"] . "' nombre = '" . $data["nombre"] . "' > Modificar</button></td> ";
+                                                    echo "<td align='center'>" . "<button type='button' class='btn btn-danger' id = '" . $data["codigo"] . "' nombre = '" . $data["nombre"] . "' data-toggle='modal' data-target='#mod-eliminar'>
+                                                        <span class='glyphicon glyphicon-trash' aria-hidden='true'></span></button>";
+                                                   
                                                     echo "</tr>";
                                                 }
 
@@ -94,7 +97,7 @@
                                                 <tr>
                                                     <th>Código</th>
                                                     <th>Nombre</th>
-                                                    <th>Acción</th>
+                                                    <th colspan="2">Acción</th>
 
                                                 </tr>
                                             </tfoot>
@@ -218,17 +221,15 @@
                             <div class=""><h3 class="m-t-none m-b"> <i class="fa fa-plus-square-o"></i> Modificar Modalidad</h3>
                                 <form role="form" id="frm_agregar_modalidad" method="POST" action="funcionalidad/TFGModificar.php">
                                   
-                                    <div class="form-group"> <label>Código</label></i> 
-                                        <input required type="text" placeholder="Código" class="form-control" id="codigo" name="codigo" disabled></div>
-                                    <div class="form-group"> <label>Nombre</label> </i> <input name="nombre" id="nombre" required type="text" placeholder="Nombre" class="form-control"></div>                                    
-                                    
-                                    <div>
-                                        
+                                    <div class="form-group"> <label>Código</label>
+                                    <input required type="text" placeholder="Código" class="form-control" id="codigo" name="codigo" readonly></div>
+                                    <div class="form-group"> 
+                                        <label>Nombre</label> 
+                                        <input name="nombre" id="nombre" required type="text" placeholder="Nombre" class="form-control"></div>                                    
                                         <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit" name="TFGModificarModalidad"><strong>Modificar</strong></button>
                                         <button type="button" data-dismiss="modal" class="btn btn-sm btn-secundary pull-right m-t-n-xs" style="margin-right: 20px;" ><strong>Cancelar</strong></button>
 
 
-                                    </div>
                                 </form>
                             </div>
                         </div>
@@ -236,6 +237,31 @@
                 </div>
             </div>
         </div>
+        <!--//modal eliminar--> 
+            <div id="mod-eliminar" class="modal fade" aria-hidden="true" style="display: none;">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class=""><h3 class="m-t-none m-b">¿Seguro que desea eliminar esta modalidad?</h3>
+                                    <form role="form" id="frm_eliminar_modalidad" method="POST" action="funcionalidad/eliminarFuncionalidad.php">
+                                        <input name="id" id="id" required type="hidden"  class="form-control">   
+                                        <input name="nombreModalidad" id="nombreModalidad" required type="hidden"  class="form-control">                                 
+                                        <div class="text-center">
+                                            <button class="btn btn-sm btn-primary" id="submitbtn" type="submit" name="eliminarModalidad"><strong>Sí</strong></button>
+                                            <button type="submit" data-dismiss="modal" id="closebtn" class="btn btn-sm btn-secundary" style="margin-left: 20px;" ><strong>Cancelar</strong></button>
+
+                                            <h4 id="result" style="padding-top: 15px;"></h4>
+                                            <button class="btn btn-sm btn-primary" id="cerrar" type="submit" name="cerrar" data-dismiss="modal">Cerrar</button>
+
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>  
         <script>
             $('#mod-form').on('show.bs.modal', function (event) {
                 var button = $(event.relatedTarget);
@@ -244,8 +270,71 @@
                 modal.find('#codigo').val(recipient);
                 var recipient = button.attr('nombre');
                 modal.find('#nombre').val(recipient);
-
             });
+            $('#mod-eliminar').on('show.bs.modal', function (event) {
+                    var button = $(event.relatedTarget);
+                    var modal = $(this);
+                    var id = button.attr('id');
+                    modal.find('#id').val(id);
+                    var nombre = button.attr('nombre');
+                    modal.find('#nombreModalidad').val(nombre);
+                    var b = modal.find('#cerrar');
+                    b.hide();
+                    var er = $("#result");
+                    er = er.hide();
+                    showBtns();
+                });
+
+                $("button#submitbtn").click(function (e) {
+                    e.preventDefault();
+                    var b1 = $("#submitbtn");
+                    var c1 = $("#cerrar");
+                    var b2 = $("#closebtn");
+                    var er = $("#result");
+
+                    er = er.hide();
+                    $.ajax({
+                        url: "funcionalidad/eliminarFuncionalidad.php",
+                        method: "POST",
+                        data: $("#frm_eliminar_modalidad").serialize(),
+                        success: function (response) {
+
+                            if (response === 'error') {
+                                er = er.text("No se puede eliminar esta modalidad.").css('color', 'red');
+                                b1.hide();
+                                b2.hide();
+                                c1.show();
+
+                            } else if (response === 'success') {
+                                er = er.text("Modalidad eliminada.").css('color', 'green');
+                                b1.hide();
+                                b2.hide();
+                                c1.show();
+                                reloadPage();
+
+                            } else if (response === 'db_error') {
+                                er = er.text("Error en la conexión. Comuníquese con el encargado.").css('color', 'red');
+                                b1.hide();
+                                b2.hide();
+                                c1.show();
+                            }
+                            er.fadeIn(1000);
+
+                        }
+                    });
+                });
+                function reloadPage() {
+                    $("#cerrar").click(function (e) {
+                        window.location.reload();
+                    });
+                }
+                function showBtns() {
+                    var b1 = $("#submitbtn");
+                    b1.show();
+                    var b2 = $("#closebtn");
+                    b2.show();
+                }
+            
         </script>
 
     </body>

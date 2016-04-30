@@ -242,14 +242,18 @@
                     <div class="modal-content">
                         <div class="modal-body">
                             <div class="row">
-                                <div class=""><h3 class="m-t-none m-b">Seguro que desea eliminar esta carrera?</h3>
+                                <div class=""><h3 class="m-t-none m-b">¿Seguro que desea eliminar esta carrera?</h3>
                                     <form role="form" id="frm_eliminar_carrera" method="POST" action="funcionalidad/eliminarFuncionalidad.php">
                                         <input name="id" id="id" required type="hidden"  class="form-control">   
-                                        <input name="nombre" id="nombre" required type="hidden"  class="form-control">                                 
+                                        <input name="nombreCarrera" id="nombreCarrera" required type="hidden"  class="form-control">                                 
                                         <div class="text-center">
-                                        <button class="btn btn-sm btn-primary" id="submitbtn" type="submit" name="eliminarCarrera"><strong>Sí</strong></button>
-                                        <button type="submit" data-dismiss="modal"  class="btn btn-sm btn-secundary" style="margin-left: 20px;" ><strong>Cancelar</strong></button>
-                                        <p id="result"></p>
+                                            <button class="btn btn-sm btn-primary" id="submitbtn" type="submit" name="eliminarCarrera"><strong>Sí</strong></button>
+                                            <button type="submit" data-dismiss="modal" id="closebtn" class="btn btn-sm btn-secundary" style="margin-left: 20px;" ><strong>Cancelar</strong></button>
+
+                                            <h4 id="result" style="padding-top: 15px;"></h4>
+
+                                            <button class="btn btn-sm btn-primary" id="cerrar" type="submit" name="cerrar" data-dismiss="modal">Cerrar</button>
+
                                         </div>
                                     </form>
                                 </div>
@@ -274,32 +278,65 @@
                     var id = button.attr('id');
                     modal.find('#id').val(id);
                     var nombre = button.attr('nombre');
-                    modal.find('#nombre').val(nombre);
+                    modal.find('#nombreCarrera').val(nombre);
+                    var b = modal.find('#cerrar');
+                    b.hide();
+                    var er = $("#result");
+                    er = er.hide();
+                    showBtns();
                 });
-                var err = $("#result");
-                err = err.hide();
 
-                $("button#submitbtn").click( function (e) {
+
+                $("button#submitbtn").click(function (e) {
                     e.preventDefault();
-                      $("#result").hide();
+                    var b1 = $("#submitbtn");
+                    var c1 = $("#cerrar");
+                    var b2 = $("#closebtn");
+                    var er = $("#result");
+
+                    er = er.hide();
                     $.ajax({
                         url: "funcionalidad/eliminarFuncionalidad.php",
                         method: "POST",
                         data: $("#frm_eliminar_carrera").serialize(),
                         success: function (response) {
-                            $("#result").show();
-                            $("#result").text(response).css('color', 'red');
-                          
+
+                            if (response === 'error') {
+                                er = er.text("No se puede eliminar esta carrera.").css('color', 'red');
+                                b1.hide();
+                                b2.hide();
+                                c1.show();
+
+                            } else if (response === 'success') {
+                                er = er.text("Carrera eliminada.").css('color', 'green');
+                                b1.hide();
+                                b2.hide();
+                                c1.show();
+                                reloadPage();
+
+                            } else if (response === 'db_error') {
+                                er = er.text("Error en la conexión. Comuníquese con el encargado.").css('color', 'red');
+                                b1.hide();
+                                b2.hide();
+                                c1.show();
+                            }
+                            er.fadeIn(1000);
+                            
                         }
                     });
-                    $("#result").text('');
                 });
+                function reloadPage() {
+                    $("#cerrar").click(function (e) {
+                        window.location.reload();
+                    });
+                }
+                function showBtns() {
+                    var b1 = $("#submitbtn");
+                    b1.show();
+                    var b2 = $("#closebtn");
+                    b2.show();
 
-
-
-
-
-
+                }
             </script>
 
 
