@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 
-<?php 
-
+<?php
 ?>
 <html>
 
@@ -73,151 +72,149 @@
                                 <div class="ibox-content">
 
                                     <div class="table-responsive">
-									<div id="divTabla">
-                                        <table class="table table-striped table-bordered table-hover dataTables-example" >
-                                            <thead>
-                                                <tr>
-                                                    <th>Código</th>
-                                                    <th>Título</th>
-                                                    <th>Carrera</th>
-                                                    <th>Línea de Investigación</th>
-                                                    <th>Modalidad</th>
-                                                    <th>Estado</th>
-                                                    <th>Acción</th>
-                                                    <th>Acción</th>
-                                                </tr>
-                                            </thead>
-                                            <?php if($usuarioPermisos->getEncargadotfg() || $usuarioPermisos->getCoordinadorinvestigacion()){?>
-                                            <row>
-                                                <div class="form-group">
-                                                    Busqueda por identificación de estudiante
-                                                    <input id="estudiante" style="height: 30px" name="estudiante" type="text" >
-                                                    <input id="btnestudiante" class="btn btn-primary" name="btnestudiante" type="button" value="Buscar" >
-                                                </div>
-                                            </row>
-                                            <?php } ?>
-                                            <tbody>
+                                        <div id="divTabla">
+                                            <table class="table table-striped table-bordered table-hover dataTables-example" >
+                                                <thead>
+                                                    <tr>
+                                                        <th>Código</th>
+                                                        <th>Título</th>
+                                                        <th>Carrera</th>
+                                                        <th>Línea de Investigación</th>
+                                                        <th>Modalidad</th>
+                                                        <th>Estado</th>
+                                                        <th>Acción</th>
+                                                        <th>Acción</th>
+                                                    </tr>
+                                                </thead>
+                                                <?php if ($usuarioPermisos->getEncargadotfg() || $usuarioPermisos->getCoordinadorinvestigacion()) { ?>
+                                                    <row>
+                                                        <div class="form-group">
+                                                            Busqueda por identificación de estudiante
+                                                            <input id="estudiante" style="height: 30px" name="estudiante" type="text" >
+                                                            <input id="btnestudiante" class="btn btn-primary" name="btnestudiante" type="button" value="Buscar" >
+                                                        </div>
+                                                    </row>
+                                                <?php } ?>
+                                                <tbody>
 
-                                                
-                                                
-                                                
-                                                <?php
-                                                
-                                                $bandera = 0;
-                                                
-                                                $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
-                                                if (!$connection) {
-                                                    exit("<label class='error'>Error de conexión</label>");
-                                                }
-                                                if($usuarioPermisos->getEncargadotfg() || $usuarioPermisos->getCoordinadorinvestigacion()){
-                                                    $SQLsentencia= "SELECT tfg.codigo, tfg.titulo, lineasinvestigacion.nombre as lineainvestigacion, 
+
+
+
+                                                    <?php
+                                                    $bandera = 0;
+
+                                                    $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
+                                                    if (!$connection) {
+                                                        exit("<label class='error'>Error de conexión</label>");
+                                                    }
+                                                    if ($usuarioPermisos->getEncargadotfg() || $usuarioPermisos->getCoordinadorinvestigacion()) {
+                                                        $SQLsentencia = "SELECT tfg.codigo, tfg.titulo, lineasinvestigacion.nombre as lineainvestigacion, 
                                                                                     carreras.nombre as carrera, tfg.estado, modalidades.nombre as modalidad
                                                                                     FROM tfg, lineasinvestigacion, carreras, modalidades
                                                                                     where tfg.estado = 'Activo' and tfg.lineainvestigacion = lineasinvestigacion.codigo and
                                                                                     tfg.carrera = carreras.codigo and tfg.modalidad = modalidades.codigo";
-                                                }else{
-                                                    if($usuarioPermisos->getEstudiante()){
-                                                     $SQLsentencia= "SELECT tfg.codigo, tfg.titulo, lineasinvestigacion.nombre as lineainvestigacion, 
+                                                    } else {
+                                                        if ($usuarioPermisos->getEstudiante()) {
+                                                            $SQLsentencia = "SELECT tfg.codigo, tfg.titulo, lineasinvestigacion.nombre as lineainvestigacion, 
                                                                                     carreras.nombre as carrera, tfg.estado, modalidades.nombre as modalidad
                                                                                     FROM tfg, lineasinvestigacion, carreras, modalidades, tfgrealizan, tfgestudiantes
                                                                                     where tfg.estado = 'Activo' and tfg.lineainvestigacion = lineasinvestigacion.codigo and
-                                                                                    tfg.carrera = carreras.codigo and tfg.modalidad = modalidades.codigo and tfg.codigo = tfgrealizan.tfg and tfgestudiantes.id = tfgrealizan.estudiante and tfgestudiantes.id =".$usuarioSesion->getID();
-                                                    }
-                                                    else{
-                                                        $SQLsentencia="SELECT tfg.codigo, tfg.titulo, lineasinvestigacion.nombre as lineainvestigacion, 
+                                                                                    tfg.carrera = carreras.codigo and tfg.modalidad = modalidades.codigo and tfg.codigo = tfgrealizan.tfg and tfgestudiantes.id = tfgrealizan.estudiante and tfgestudiantes.id =" . $usuarioSesion->getID();
+                                                        } else {
+                                                            $SQLsentencia = "SELECT tfg.codigo, tfg.titulo, lineasinvestigacion.nombre as lineainvestigacion, 
                                                                                     carreras.nombre as carrera, tfg.estado, modalidades.nombre as modalidad
                                                                                     FROM tfg, lineasinvestigacion, carreras, modalidades ";
-                                                        if($usuarioPermisos->getDirectortfg()){
-                                                            $bandera = $bandera + 1;
-                                                            $SQLsentencia = $SQLsentencia . ", tfgdirectores ";
-                                                        }
-                                                        if($usuarioPermisos->getAsesortfg()){
-                                                            $bandera = $bandera + 1;
-                                                            $SQLsentencia = $SQLsentencia . ", tfgasesores, tfgasesoran ";
-                                                        }
-                                                        if($usuarioPermisos->getMiembrocomisiontfg()){
-                                                            $bandera = $bandera + 1;
-                                                            $SQLsentencia = $SQLsentencia . ", tfgmiembroscomision, tfgevaluan ";
-                                                        }
-                                                        
-                                                        $SQLsentencia = $SQLsentencia . "where tfg.estado = 'Activo' and tfg.lineainvestigacion = lineasinvestigacion.codigo and
-                                                                                    tfg.carrera = carreras.codigo and tfg.modalidad = modalidades.codigo and " ;
-                                                                                    
-                                                        if($usuarioPermisos->getDirectortfg()){
-                                                            if($bandera > 1 ){
-                                                                $SQLsentencia = $SQLsentencia . "(tfgdirectores.id = tfg.directortfg and tfgdirectores.id = ".$usuarioSesion->getID() . ") or ";
-
-                                                            }else{
-                                                                $SQLsentencia = $SQLsentencia . "tfgdirectores.id = tfg.directortfg and tfgdirectores.id = ".$usuarioSesion->getID();
+                                                            if ($usuarioPermisos->getDirectortfg()) {
+                                                                $bandera = $bandera + 1;
+                                                                $SQLsentencia = $SQLsentencia . ", tfgdirectores ";
                                                             }
-                                                        }
-                                                        if($usuarioPermisos->getAsesortfg()){
-                                                            if($bandera > 1 ){
-                                                                $SQLsentencia = $SQLsentencia . "(tfgasesoran.asesor = tfgasesores.id and tfgasesoran.tfg = tfg.codigo and tfgasesores.id = ".$usuarioSesion->getID() . ") or ";
-
-                                                            }else{
-                                                                $SQLsentencia = $SQLsentencia . "tfgasesoran.asesor = tfgasesores.id and tfgasesoran.tfg = tfg.codigo and tfgasesores.id = ".$usuarioSesion->getID();
+                                                            if ($usuarioPermisos->getAsesortfg()) {
+                                                                $bandera = $bandera + 1;
+                                                                $SQLsentencia = $SQLsentencia . ", tfgasesores, tfgasesoran ";
                                                             }
-                                                        }
-                                                        if($usuarioPermisos->getMiembrocomisiontfg()){
-                                                            if($bandera > 1 ){
-                                                                $SQLsentencia = $SQLsentencia . "(tfgevaluan.miembrocomisiontfg = tfgmiembroscomision.id and tfgevaluan.tfg = tfg.codigo and tfgmiembroscomision.id = ".$usuarioSesion->getID() . ")";
-
-                                                            }else{
-                                                                $SQLsentencia = $SQLsentencia . "tfgevaluan.miembrocomisiontfg = tfgmiembroscomision.id and tfgevaluan.tfg = tfg.codigo and tfgmiembroscomision.id = ".$usuarioSesion->getID();
+                                                            if ($usuarioPermisos->getMiembrocomisiontfg()) {
+                                                                $bandera = $bandera + 1;
+                                                                $SQLsentencia = $SQLsentencia . ", tfgmiembroscomision, tfgevaluan ";
                                                             }
-                                                        }  
-                                                        if($bandera > 1 ){
-                                                            $SQLsentencia = $SQLsentencia . "group by tfg.codigo";
+
+                                                            $SQLsentencia = $SQLsentencia . "where tfg.estado = 'Activo' and tfg.lineainvestigacion = lineasinvestigacion.codigo and
+                                                                                    tfg.carrera = carreras.codigo and tfg.modalidad = modalidades.codigo and ";
+
+                                                            if ($usuarioPermisos->getDirectortfg()) {
+                                                                if ($bandera > 1) {
+                                                                    $SQLsentencia = $SQLsentencia . "(tfgdirectores.id = tfg.directortfg and tfgdirectores.id = " . $usuarioSesion->getID() . ") or ";
+                                                                } else {
+                                                                    $SQLsentencia = $SQLsentencia . "tfgdirectores.id = tfg.directortfg and tfgdirectores.id = " . $usuarioSesion->getID();
+                                                                }
+                                                            }
+                                                            if ($usuarioPermisos->getAsesortfg()) {
+                                                                if ($bandera > 1) {
+                                                                    $SQLsentencia = $SQLsentencia . "(tfgasesoran.asesor = tfgasesores.id and tfgasesoran.tfg = tfg.codigo and tfgasesores.id = " . $usuarioSesion->getID() . ") or ";
+                                                                } else {
+                                                                    $SQLsentencia = $SQLsentencia . "tfgasesoran.asesor = tfgasesores.id and tfgasesoran.tfg = tfg.codigo and tfgasesores.id = " . $usuarioSesion->getID();
+                                                                }
+                                                            }
+                                                            if ($usuarioPermisos->getMiembrocomisiontfg()) {
+                                                                if ($bandera > 1) {
+                                                                    $SQLsentencia = $SQLsentencia . "(tfgevaluan.miembrocomisiontfg = tfgmiembroscomision.id and tfgevaluan.tfg = tfg.codigo and tfgmiembroscomision.id = " . $usuarioSesion->getID() . ")";
+                                                                } else {
+                                                                    $SQLsentencia = $SQLsentencia . "tfgevaluan.miembrocomisiontfg = tfgmiembroscomision.id and tfgevaluan.tfg = tfg.codigo and tfgmiembroscomision.id = " . $usuarioSesion->getID();
+                                                                }
+                                                            }
+                                                            if ($bandera > 1) {
+                                                                $SQLsentencia = $SQLsentencia . "group by tfg.codigo";
+                                                            }
                                                         }
                                                     }
-                                                    
-                                                }
-                                                
-                                                $query = mysqli_query($connection,$SQLsentencia);
-                                                while ($data = mysqli_fetch_assoc($query)) {
-                                                    echo "<tr>";
-                                                    echo "<td>" . $data["codigo"] . "</td>";
-                                                    echo "<td>" . $data["titulo"] . "</td>";
-                                                    echo "<td>" . $data["carrera"] . "</td>";
-                                                    echo "<td>" . $data["lineainvestigacion"] . "</td>";
-                                                    echo "<td>" . $data["modalidad"] . "</td>";
-                                                    echo "<td>" . $data["estado"] . "</td>";
-                                                    echo "<td>" . "<button type='submit' data-toggle='modal' class='btn btn-primary'
+
+                                                    $query = mysqli_query($connection, $SQLsentencia);
+                                                    while ($data = mysqli_fetch_assoc($query)) {
+                                                        echo "<tr>";
+                                                        echo "<td>" . $data["codigo"] . "</td>";
+                                                        echo "<td>" . $data["titulo"] . "</td>";
+                                                        echo "<td>" . $data["carrera"] . "</td>";
+                                                        echo "<td>" . $data["lineainvestigacion"] . "</td>";
+                                                        echo "<td>" . $data["modalidad"] . "</td>";
+                                                        echo "<td>" . $data["estado"] . "</td>";
+
+                                                        echo "<form method= 'posT' action = 'modificar_TFG.php'>";
+                                                        echo "<input type='hidden' name='codigo' value= '" . $data["codigo"] . "'/> ";
+                                                        echo "<td>" . "<button type='submit' data-toggle='modal' class='btn btn-primary'
                                                                  id = '" . $data["codigo"] . "' > Modificar</button></td> ";
+                                                        echo "</form>";
 
 
-                                                    echo "<form method= 'GET' action = 'consulta_TFG.php'>";
-                                                    echo "<input type='hidden' name='codigo' value= '" . $data["codigo"] . "'/> ";
-                                                    echo "<td>" . "<button type='submit' data-toggle='modal' class='btn btn-primary'
+                                                        echo "<form method= 'GET' action = 'consulta_TFG.php'>";
+                                                        echo "<input type='hidden' name='codigo' value= '" . $data["codigo"] . "'/> ";
+                                                        echo "<td>" . "<button type='submit' data-toggle='modal' class='btn btn-primary'
                                                                  id = '" . $data["codigo"] . "' > Consultar</button></td> ";
-                                                    echo "</tr>";
-                                                    echo "</form>";
+                                                        echo "</tr>";
+                                                        echo "</form>";
                                                     }
-                                                
-                                             
-                                                mysqli_close($connection);
-                                                ?>    
 
-                                            </tbody>
-                                            
-                                           
 
-                                          
-                                            <tfoot>
-                                                <tr>
-                                                    <th>Código</th>
-                                                    <th>Título</th>
-                                                    <th>Carrera</th>
-                                                    <th>Línea de Investigación</th>
-                                                    <th>Modalidad</th>
-                                                    <th>Estado</th>
-                                                    <th>Acción</th> 
-                                                    <th>Acción</th> 
-                                                </tr>
-                                            </tfoot>
-                                        </table>
-										</div>
+                                                    mysqli_close($connection);
+                                                    ?>    
+
+                                                </tbody>
+
+
+
+
+                                                <tfoot>
+                                                    <tr>
+                                                        <th>Código</th>
+                                                        <th>Título</th>
+                                                        <th>Carrera</th>
+                                                        <th>Línea de Investigación</th>
+                                                        <th>Modalidad</th>
+                                                        <th>Estado</th>
+                                                        <th>Acción</th> 
+                                                        <th>Acción</th> 
+                                                    </tr>
+                                                </tfoot>
+                                            </table>
+                                        </div>
                                     </div>
 
                                 </div>
@@ -305,7 +302,7 @@
 
             }
         </script>
-		<script >
+        <script >
 
 
             $(document).ready(function () {
@@ -315,7 +312,7 @@
                     var val = $("#estudiante").val();
                     $("#divTabla").load("tablas/tablaTFG.php", {estudiante: val}, function () {
 
-                        
+
                     });
                 });
             });
