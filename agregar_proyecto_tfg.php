@@ -179,6 +179,7 @@
                                                 <div class="col-lg-4" id="estudiantes">
                                                     <div id="divEstud1" class="form-group">
                                                         <label for='btnAgregar'>Cédula Estudiante:</label>
+                                                        <div id="primerEstudiante"></div>                                  
                                                         <input id="idEstudiante1" name="nameEstudiante1" type="text" class="form-control input-sm m-b-xs required" placeholder='Cédula Estudiante'>
                                                         <button name="btnEstudiante1"  class="btn btn-primary btn-rounded" onclick='agregarEstudiantes(this)' type="button" placeholder='agregar'>Agregar Nuevo Estudiante</button>
                                                     </div>
@@ -226,7 +227,7 @@
                                                                                     echo "<td name='nombre'>" . $data["nombre"] . "</td>";
                                                                                     echo "<td name='apellido1'>" . $data["apellido1"] . "</td>";
                                                                                     echo "<td name='apellido2'>" . $data["apellido2"] . "</td>";
-                                                                                    echo '<td class="center"><div class="i-checks"><input type="radio" value="' . $data["id"] . '" name="radEstudiante" ></div></td>';
+                                                                                    echo '<td class="center"><div class="i-checks"><input type="radio" value="' . $data["id"] . '" name="radEstudiante" nombreaux = "'. $data["nombre"] .'" ap1aux = "'. $data["apellido1"] .'" ap2aux = "'. $data["apellido2"] .'"></div></td>';
                                                                                     echo "</tr>";
                                                                                 }
 
@@ -238,10 +239,11 @@
                                                                                 <tr>
                                                                                     <th>Identificación</th>
                                                                                     <th>Nombre</th>
-                                                                                    <th>Primer Apellido</th>
-                                                                                    <th>Segundo Apellido</th>
                                                                                  
                                                                                     <th>Acción</th>
+                                                                                
+                                                                                    <th>Primer Apellido</th>
+                                                                                    <th>Segundo Apellido</th>
                                                                                 </tr>
                                                                             </tfoot>
                                                                         </table>
@@ -612,7 +614,7 @@
                                                                         if(currentIndex === 5){
                                                                             bandera = true;
                                                                         }
-                                                                 
+                                                                        
 
                                                                         
                                                                     },
@@ -969,7 +971,6 @@
             $(document).ready(function () {
 
                 $("#btnAgregarEstudianteModal").click(function (evento) {
-                    alert("hola");
                     evento.preventDefault();
                     var idaux = $("#idRegistroEstudiante").val();
                     var nomaux = $("#nombreRegistroEstudiante").val();
