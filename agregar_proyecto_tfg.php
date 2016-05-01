@@ -179,7 +179,7 @@
                                                 <div class="col-lg-4" id="estudiantes">
                                                     <div id="divEstud1" class="form-group">
                                                         <label for='btnAgregar'>Cédula Estudiante:</label>
-                                                        <div id="primerEstudiante"></div>                                  
+                                                        <p id="primerEstudiante"></p>                               
                                                         <input id="idEstudiante1" name="nameEstudiante1" type="text" class="form-control input-sm m-b-xs required" placeholder='Cédula Estudiante'>
                                                         <button name="btnEstudiante1"  class="btn btn-primary btn-rounded" onclick='agregarEstudiantes(this)' type="button" placeholder='agregar'>Agregar Nuevo Estudiante</button>
                                                     </div>

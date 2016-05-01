@@ -2,7 +2,7 @@
 
 <html>
     <head>
-
+        
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -17,6 +17,7 @@
         <link href="css/plugins/summernote/summernote.css" rel="stylesheet">
         <link href="css/plugins/summernote/summernote-bs3.css" rel="stylesheet">
         <link href="css/plugins/iCheck/custom.css" rel="stylesheet">
+        <script src="js/funciones.js" type="text/javascript"></script>
         <?php
         include 'navegacion/nav-lateral.php';
         ?>
@@ -92,8 +93,9 @@
                                             $consulta = "select tfgestudiantes.id, concat(tfgestudiantes.nombre,' ',  tfgestudiantes.apellido1, ' ', tfgestudiantes.apellido2) as nombre 
                                                                   from tfg,tfgestudiantes, tfgrealizan where tfg.codigo = tfgrealizan.tfg and tfgrealizan.estudiante = tfgestudiantes.id and tfg.codigo ='" . $codigo . "'";
                                             $query2 = mysqli_query($connection, $consulta);
-
+                                            $contador = 1;
                                             while ($data2 = mysqli_fetch_assoc($query2)) {
+                                                echo "<div id='divEstud".$contador ."'>";
                                                 echo "<div class='row'>";
                                                 echo "<div class='col-lg-10'>";
                                                 echo "<label>Estudiante:</label>";
@@ -102,15 +104,18 @@
 
                                                 echo "<div class = 'col-lg-5'>";
                                                 echo "<label>Cedula:</label>";
-                                                echo "<input id = '' name = '' type = 'text' value = " . $data2['id'] . " class = 'form-control input-sm m-b-xs required' disabled >";
+                                                echo "<input id = 'idEstudiante".$contador ."' name = 'nameEstudiante".$contador ."' type = 'text' value = " . $data2['id'] . " class = 'form-control input-sm m-b-xs required' disabled >";
                                                 echo "</div>";
 
 
-                                                echo "<div class='col-lg-3'> <br> <input type='radio' value='1' class='i-checks' name='activo" . $data2["id"] . "'>";
+                                                echo "<div class='col-lg-3'> <br> <input type='radio' value='1' class='i-checks' name='activo" . $data2["id"] . "' checked='checked'>";
                                                 echo "       ";
-                                                echo "<input type='radio' value='0' class='ni-checks' name='activo" . $data2["id"] . "' checked='checked'>";
+                                                echo "<input type='radio' value='0' class='ni-checks' name='activo" . $data2["id"] . "' >";
                                                 echo "</div>";
                                                 echo "</div>";
+                                                echo "</div>";
+                                                
+                                                $contador++;
                                             }
                                             ?> 
 
@@ -142,7 +147,7 @@
                                                                         </thead>
                                                                         <tbody>
                                                                             <?php
-                                                                            $query = mysqli_query($connection, "SELECT * FROM tfgestudiantes");
+                                                                            $query = mysqli_query($connection, "SELECT * FROM tfgestudiantes where estado = 1");
 
 
                                                                             while ($data = mysqli_fetch_assoc($query)) {
@@ -151,7 +156,7 @@
                                                                                 echo "<td name = 'nombre'>" . $data["nombre"] . "</td>";
                                                                                 echo "<td name = 'apellido1'>" . $data["apellido1"] . "</td>";
                                                                                 echo "<td name = 'apellido2'>" . $data["apellido2"] . "</td>";
-                                                                                echo '<td class="center"><div class="i-checks"><input type="radio" value="' . $data["id"] . '" name="radEstudiante" ></div></td>';
+                                                                                echo '<td class="center"><div class="i-checks"><input type="radio" value="' . $data["id"] . '" name="radEstudiante" nombreaux = "'. $data["nombre"] .'" ap1aux = "'. $data["apellido1"] .'" ap2aux = "'. $data["apellido2"] .'"></div></td>';
                                                                                 echo "</tr>";
                                                                             }
                                                                             ?>
@@ -170,7 +175,7 @@
                                                                     </table>
                                                                 </div>
                                                             </div>
-                                                            <button name="btnSelectEstu"  class="btn btn-primary btn-rounded" onclick='selectEstudiantes()' type="button" placeholder='agregar'>Asignar Estudiante</button>
+                                                            <button name="btnSelectEstu"  class="btn btn-primary btn-rounded" onclick='selectEstudiantes2()' type="button" placeholder='agregar'>Asignar Estudiante</button>
                                                             <a data-toggle="modal" class="btn btn-primary btn-rounded" href="#modal-form">Registrar Estudiante</a>
                                                         </div>
 
@@ -243,7 +248,7 @@
                                                                         </thead>
                                                                         <tbody>
                                                                             <?php
-                                                                            $query = mysqli_query($connection, "SELECT * FROM tfgdirectores");
+                                                                            $query = mysqli_query($connection, "SELECT * FROM tfgdirectores where estado = 1");
 
 
                                                                             while ($data = mysqli_fetch_assoc($query)) {
@@ -308,9 +313,9 @@
                                                 echo "</div>";
 
 
-                                                echo "<div class='col-lg-3'> <br> <input type='radio' value='1' class='i-checks' name='activo" . $data2["id"] . "'>";
+                                                echo "<div class='col-lg-3'> <br> <input type='radio' value='1' class='i-checks' name='activo" . $data2["id"] . "' checked='checked'>";
                                                 echo "       ";
-                                                echo "<input type='radio' value='0' class='ni-checks' name='activo" . $data2["id"] . "' checked='checked'>";
+                                                echo "<input type='radio' value='0' class='ni-checks' name='activo" . $data2["id"] . "' >";
                                                 echo "</div>";
                                                 echo "</div>";
                                             }
@@ -344,7 +349,7 @@
                                                                         </thead>
                                                                         <tbody>
                                                                             <?php
-                                                                            $query = mysqli_query($connection, "SELECT * FROM tfgasesores");
+                                                                            $query = mysqli_query($connection, "SELECT * FROM tfgasesores where estado = 1");
 
 
                                                                             while ($data = mysqli_fetch_assoc($query)) {

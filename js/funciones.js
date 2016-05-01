@@ -1,6 +1,18 @@
 var contador = 2;
 var vector = [1, 0, 0, 0, 0, 0 ];
 
+
+
+function iniVector(){
+    for (x=1; x < vector.length; x++){
+        if ( $("#divEstud"+x).length > 0 ) {
+            vector[x-1]=1;
+        }
+    }  
+
+}
+
+
 function agregarInvest() {
         
         var aux = $("#investigadores").find("div").length;
@@ -24,6 +36,7 @@ function eliminarInvest(event) {
 
 
 function selectEstudiantes() {
+
    
         var aux = $('input:radio[name=radEstudiante]:checked').val(); 
         var auxNombre = $('input:radio[name=radEstudiante]:checked').attr("nombreaux"); 
@@ -55,7 +68,7 @@ function agregarEstudiantes2( id) {
         if(aux<6){
         numero= asignarID();
    
-        var s = '<div id="divEstud'+numero+'" class="form-group"> <label for="btnAgregar">Cédula Estudiante:</label> <div>'+ auxNombre +' '+auxApellido1+' '+auxApellido2 +'</div> <input id="idEstudiante'+numero+'" value="'+id+'" name="nameEstudiante'+numero+'" type="text" class="form-control input-sm m-b-xs required" placeholder="Cédula Estudiante"><button id="divEstud'+numero+'" name="btnEstudiante'+numero+'" class="btn btn-danger btn-rounded" onclick="eliminarEstudiantes(this)" type="button" >Eliminar Estudiante</button></div>';
+        var s = '<div id="divEstud'+numero+'" class="form-group"> <label for="btnAgregar">Cédula Estudiante:</label> <p>'+ auxNombre +' '+auxApellido1+' '+auxApellido2 +'</p> <input id="idEstudiante'+numero+'" value="'+id+'" name="nameEstudiante'+numero+'" type="text" class="form-control input-sm m-b-xs required" placeholder="Cédula Estudiante"><button id="divEstud'+numero+'" name="btnEstudiante'+numero+'" class="btn btn-danger btn-rounded" onclick="eliminarEstudiantes(this)" type="button" >Eliminar Estudiante</button></div>';
         $("#estudiantes").append(s);
         contador++;
         
@@ -96,5 +109,50 @@ function asignarID(){
             }
         }  
     
+}
+
+
+
+function selectEstudiantes2() {
+
+        iniVector(); 
+        var aux = $('input:radio[name=radEstudiante]:checked').val(); 
+        var auxNombre = $('input:radio[name=radEstudiante]:checked').attr("nombreaux"); 
+        var auxApellido1 = $('input:radio[name=radEstudiante]:checked').attr("ap1aux"); 
+        var auxApellido2= $('input:radio[name=radEstudiante]:checked').attr("ap2aux"); 
+
+        if(aux !== undefined){
+            var text = $.trim($("#idEstudiante1").val());
+            if(text.length < 1 ){
+                var s = "<div id='divEstud1'><div class='row'> <div class='col-lg-10'>  <label>Estudiante:</label><input id='' name='' type='text' value='" + auxNombre + " "+auxApellido1 +" " + auxApellido2+"' class='form-control input-sm m-b-xs required' disabled> </div> <div class = 'col-lg-5'> <label>Cedula:</label> <input id = 'idEstudiante1' name = 'nameEstudiante1' type = 'text' value = " + aux + " class = 'form-control input-sm m-b-xs required' disabled > </div> <div class='col-lg-3'> <br> <input type='radio' value='1' class='i-checks' name='activo" + aux + "' checked='checked'> <input type='radio' value='0' class='ni-checks' name='activo" + aux + "' ></div> </div>";
+                $("#divEstud1").val(s);
+            }
+            else{
+                agregarEstudiantes3(aux);
+            }
+        }
+        
+        
+}
+
+function agregarEstudiantes3( id) {
+
+
+        var aux = $("#estudiantes").find("div").length;
+        var auxNombre = $('input:radio[name=radEstudiante]:checked').attr("nombreaux"); 
+        var auxApellido1 = $('input:radio[name=radEstudiante]:checked').attr("ap1aux"); 
+        var auxApellido2= $('input:radio[name=radEstudiante]:checked').attr("ap2aux"); 
+        
+
+        
+        if(aux<30){
+        numero= asignarID();
+   
+
+        var s = "<div id='divEstud"+numero+"'><div class='row'> <div class='col-lg-10'> <label>Estudiante:</label><input id='' name='' type='text' value='" + auxNombre + " "+auxApellido1 +" " + auxApellido2+"' class='form-control input-sm m-b-xs required' disabled> </div> <div class = 'col-lg-5'> <label>Cedula:</label> <input id = 'idEstudiante"+id+"' name = 'nameEstudiante"+id+"' type = 'text' value = " + id + " class = 'form-control input-sm m-b-xs required' disabled > </div> <div class='col-lg-3'> <br> <input type='radio' value='1' class='i-checks' name='activo" + id + "' checked='checked'> <input type='radio' value='0' class='ni-checks' name='activo" + id + "' ></div> </div></div>";
+        $("#estudiantes").append(s);
+        contador++;
+        
+    }
 }
 
