@@ -23,7 +23,7 @@ function progressHandler(event){
     
         $("#guardarArchivo1").addClass('disabled');
         $("#guardarArchivo1").attr('disabled','true');
-	_("loaded_n_total").innerHTML = "<b>¡Subido Correctamente! </b> "+event.loaded+" bytes de "+event.total+" bytes";
+	_("loaded_n_total").innerHTML = "<b>Subido: </b> "+event.loaded+" bytes de "+event.total+" bytes";
 	var percent = (event.loaded / event.total) * 100;
 	_("progressBar").style.width = Math.round(percent)+"%"; 
         
@@ -77,7 +77,7 @@ function progressHandler2(event){
         
         $("#guardarArchivo2").addClass('disabled');
         $("#guardarArchivo2").attr('disabled','true');
-	_("loaded_n_total2").innerHTML = "<b>¡Subido Correctamente! </b> "+event.loaded+" bytes de "+event.total+" bytes";
+	_("loaded_n_total2").innerHTML = "<b>Subido: </b> "+event.loaded+" bytes de "+event.total+" bytes";
 	var percent = (event.loaded / event.total) * 100;
 	_("progressBar2").style.width = Math.round(percent)+"%"; 
         
@@ -129,7 +129,7 @@ function progressHandler3(event){
     
         $("#guardarArchivo3").addClass('disabled');
         $("#guardarArchivo3").attr('disabled','true');
-	_("loaded_n_total3").innerHTML = "<b>¡Subido Correctamente! </b> "+event.loaded+" bytes de "+event.total+" bytes";
+	_("loaded_n_total3").innerHTML = "<b>Subido:</b> "+event.loaded+" bytes de "+event.total+" bytes";
 	var percent = (event.loaded / event.total) * 100;
 	_("progressBar3").style.width = Math.round(percent)+"%"; 
         
