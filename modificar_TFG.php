@@ -108,9 +108,9 @@
                                                 echo "</div>";
 
 
-                                                echo "<div class='col-lg-3'> <br> <input type='radio' value='1' class='i-checks' name='activo" . $data2["id"] . "' checked='checked'>";
+                                                echo "<div class='col-lg-3'> <br> <input type='radio' value='1' class='i-checks' name='activo" . $contador . "' checked='checked'>";
                                                 echo "       ";
-                                                echo "<input type='radio' value='0' class='ni-checks' name='activo" . $data2["id"] . "' >";
+                                                echo "<input type='radio' value='0' class='ni-checks' name='activo" . $contador . "' >";
                                                 echo "</div>";
                                                 echo "</div>";
                                                 echo "</div>";
