@@ -58,7 +58,7 @@ while ($data = mysqli_fetch_assoc($query)) {
     echo "<td name='nombre'>" . $data["nombre"] . "</td>";
     echo "<td name='apellido1'>" . $data["apellido1"] . "</td>";
     echo "<td name='apellido2'>" . $data["apellido2"] . "</td>";
-    echo '<td class="center"><div class="i-checks"><input type="radio" value="' . $data["id"] . '" name="radEstudiante" ></div></td>';
+    echo '<td class="center"><div class="i-checks"><input type="radio" value="' . $data["id"] . '" name="radEstudiante" nombreaux = "'. $data["nombre"] .'" ap1aux = "'. $data["apellido1"] .'" ap2aux = "'. $data["apellido2"] .'"></div></td>';
     echo "</tr>";
 }
 ?>
