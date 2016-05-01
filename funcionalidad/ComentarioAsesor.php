@@ -10,7 +10,7 @@ $etapa = $_REQUEST["etapa"];
 $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
 
 if ($connection) {
-    $sentenciaSQL = "replace into tfgcomentariosasesores set etapa = ".$etapa.",tfg = ".$tfg.","
+    $sentenciaSQL = "replace into tfgcomentariosasesores set etapa = ".$etapa.",tfg =  '".$tfg."',"
             . " comentario =\"".$comentario."\", asesor =".$id;
     $resultado = mysqli_query($connection, $sentenciaSQL);
     echo $id.$tfg.$etapa.$comentario;
