@@ -223,7 +223,7 @@ and open the template in the editor.
                                                                                             echo "<span class='label label-warning big'>No existen archivos recientes.</span><br>";
                                                                                         }
                                                                                         ?>
-                                                                                        <?php if ($usuarioPermisos->getMiembrocomisiontfg() && $usuarioSesion->getId() != $data["directorId"] && $usuarioSesion->getId() != $asesor1 && $usuarioSesion->getId() != $asesor2) { ?>
+                                                                                        <?php if ($usuarioPermisos->getMiembrocomisiontfg() && $usuarioSesion->getId() != $data["directorId"] && !verificarAsesor($usuarioSesion->getId())) { ?>
                                                                                             <div class="form-group"> 
                                                                                                 <input class = 'form-control' name = 'codigoTFG' id='codigoTFG' type="hidden" value='<?php echo $codigo ?>'>
                                                                                                 <input class = 'form-control' name = 'etapa' id = 'etapa' value ='1' type="hidden">   
@@ -599,7 +599,7 @@ and open the template in the editor.
                                                                                         echo "<span class='label label-warning big'>No existen archivos recientes.</span><br>";
                                                                                     }
                                                                                     ?>
-                                                                                    <?php if ($usuarioPermisos->getMiembrocomisiontfg() && $usuarioSesion->getId() != $data["directorId"] && $usuarioSesion->getId() != $asesor1 && $usuarioSesion->getId() != $asesor2) { ?>
+                                                                                    <?php if ($usuarioPermisos->getMiembrocomisiontfg() && $usuarioSesion->getId() != $data["directorId"] && !verificarAsesor($usuarioSesion->getId())) { ?>
                                                                                         <div class="form-group"> 
                                                                                             <input class = 'form-control' name = 'codigoTFG' id='codigoTFG' type="hidden" value='<?php echo $codigo ?>'>
                                                                                             <input class = 'form-control' name = 'etapa' id = 'etapa' value ='2' type="hidden">   
@@ -977,7 +977,7 @@ and open the template in the editor.
                                                                                         echo "<span class='label label-warning big'>No existen archivos recientes.</span><br>";
                                                                                     }
                                                                                     ?>
-                                                                                    <?php if ($usuarioPermisos->getMiembrocomisiontfg() && $usuarioSesion->getId() != $data["directorId"] && $usuarioSesion->getId() != $asesor1 && $usuarioSesion->getId() != $asesor2) { ?>
+                                                                                    <?php if ($usuarioPermisos->getMiembrocomisiontfg() && $usuarioSesion->getId() != $data["directorId"] && !verificarAsesor($usuarioSesion->getId())) { ?>
                                                                                         <div class="form-group"> 
                                                                                             <input class = 'form-control' name = 'codigoTFG' id='codigoTFG' type="hidden" value='<?php echo $codigo ?>'>
                                                                                             <input class = 'form-control' name = 'etapa' id = 'etapa' value ='3' type="hidden">   
@@ -1454,6 +1454,24 @@ and open the template in the editor.
                     $$asesores = $data["id"];
                     $cont++;
                 }
+            }
+            
+            function verificarAsesor($usuarioId){//valida si es asesor
+                global $asesor1;
+                global $asesor2;
+                if(isset($asesor1)){
+                    if($usuarioId == $asesor1){
+                        return true;
+                    }
+                }
+                 if(isset($asesor2)){
+                    if($usuarioId == $asesor2){
+                        return true;
+                    }
+                }
+                
+                return false;
+                
             }
             ?>
 

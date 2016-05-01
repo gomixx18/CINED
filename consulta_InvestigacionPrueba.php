@@ -213,7 +213,7 @@
                                                               echo "<span class='label label-warning big'>No existen archivos recientes.</span><br>";
                                                               }
                                                               ?>
-                                                              <?php if ($usuarioPermisos->getMiembrocomiex() && !getInvestigador($usuarioSesion->getId())  && $usuarioSesion->getId() != $data["coorId"] && $usuarioSesion->getId() != $evaluador1 && $usuarioSesion->getId() != $evaluador2) { ?>
+                                                              <?php if ($usuarioPermisos->getMiembrocomiex() && !getInvestigador($usuarioSesion->getId())  && $usuarioSesion->getId() != $data["coorId"] && !verificarEvaluador($usuarioSesion->getId())) { ?>
                                                               <div class="form-group">
                                                               <input class = 'form-control' name = 'codigoProyecto' id='codigoProyecto' type="hidden" value='<?php echo $codigo ?>'>
                                                               <input class = 'form-control' name = 'etapa' id = 'etapa' value ='1' type="hidden">
@@ -593,7 +593,7 @@
                                                               echo "<span class='label label-warning big'>No existen archivos recientes.</span><br>";
                                                               }
                                                               ?>
-                                                              <?php if ($usuarioPermisos->getMiembrocomiex() && !getInvestigador($usuarioSesion->getId())  && $usuarioSesion->getId() != $data["coorId"] && $usuarioSesion->getId() != $evaluador1 && $usuarioSesion->getId() != $evaluador2) { ?>
+                                                              <?php if ($usuarioPermisos->getMiembrocomiex() && !getInvestigador($usuarioSesion->getId())  && $usuarioSesion->getId() != $data["coorId"] && !verificarEvaluador($usuarioSesion->getId())) { ?>
                                                               <div class="form-group">
                                                               <input class = 'form-control' name = 'codigoProyecto' id='codigoProyecto' type="hidden" value='<?php echo $codigo ?>'>
                                                               <input class = 'form-control' name = 'etapa' id = 'etapa' value ='2' type="hidden">
@@ -973,7 +973,7 @@
                                                               echo "<span class='label label-warning big'>No existen archivos recientes.</span><br>";
                                                               }
                                                               ?>
-                                                              <?php if ($usuarioPermisos->getMiembrocomiex() && !getInvestigador($usuarioSesion->getId())  && $usuarioSesion->getId() != $data["coorId"] && $usuarioSesion->getId() != $evaluador1 && $usuarioSesion->getId() != $evaluador2) { ?>
+                                                              <?php if ($usuarioPermisos->getMiembrocomiex() && !getInvestigador($usuarioSesion->getId())  && $usuarioSesion->getId() != $data["coorId"]  && !verificarEvaluador($usuarioSesion->getId()) ) { ?>
                                                               <div class="form-group">
                                                               <input class = 'form-control' name = 'codigoProyecto' id='codigoProyecto' type="hidden" value='<?php echo $codigo ?>'>
                                                               <input class = 'form-control' name = 'etapa' id = 'etapa' value ='3' type="hidden">
@@ -1442,6 +1442,22 @@
                         return true;
                     }
                     
+                }
+                return false;
+            }
+            
+            function verificarEvaluador($usuarioId){//verifica si es evaluador o no
+                global $evaluador1;
+                global $evaluador2;
+                if(isset($evaluador1)){
+                    if($usuarioId == $evaluador1){
+                        return true;
+                    }
+                }
+                if(isset($evaluador2)){
+                    if($usuarioId == $evaluador2){
+                        return true;
+                    }
                 }
                 return false;
             }
