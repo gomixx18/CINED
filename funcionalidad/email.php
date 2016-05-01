@@ -1,5 +1,6 @@
 <?php
-define(PW_SALT,'(+3%_');
+//define(PW_SALT,'(+3%_');
+define('PW_SALT','(+3%_');
 require("../PHPMailer/PHPMailerAutoload.php");
 
 function sendMail($email, $subject, $body, $wordWrap) {
