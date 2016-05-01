@@ -1509,7 +1509,6 @@ and open the template in the editor.
                                                                             autoclose: true
                                                                         });
                                                                         var edit1 = function (comen) {
-                                                                            alert(comen);
                                                                             $('#' + comen + '.click1edit').summernote({focus: true});
                                                                         };
                                                                         var save1 = function (comen) {
