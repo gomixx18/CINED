@@ -26,7 +26,7 @@
 
                 <div class="row wrapper border-bottom white-bg page-heading">
                     <div class="col-lg-10">
-                        <h2>Registro de Arhivos </h2>
+                        <h2>Registro de archivos proyectos de investigación </h2>
                     
                     </div>
                 </div>  
@@ -38,42 +38,44 @@
 
                                 <div class="ibox-title">
                                     <?php
-                                            //@start_session();
-                                            
+                                           
+                                            if(!isset($_POST['codigo']) || !isset($_POST['coordinadorId']) || !isset($_POST['etapa'])){
+                                                @session_start();
+                                                
+                                                exit();
+                                               
+                                            }
                                             $codigo = $_POST['codigo'];
-                                            $director = $_POST['director'];
+                                            $director = $_POST['coordinadorId'];
                                             $etapa = $_POST['etapa'];
-                                           // $asesor1 = $_POST['asesor1'];
-                                            //if(isset($_POST['asesor2'])){
-                                            //    $asesor2 = $_POST['asesor2'];
-                                           // }
+                                           
                                             $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
                                             if (!$connection) {
                                                 $_SESSION["error"] = "¡Hubo un error al cargar el registro de archivos! Conexión a base de datos";
                                                 header("Location: ../navegacion/500.php");
                                             }
                                             
-                                            //SQL para archivos Directores
-                                            $query1 = mysqli_query($connection, "SELECT tfgarchivosdirectores.ruta, DATE_FORMAT(tfgarchivosdirectores.fecha, '%d/%m/%Y %H:%m:%s')  as fecha, tfgarchivosdirectores.nom_archivo, tfgdirectores.nombre, tfgdirectores.apellido1  FROM tfgarchivosdirectores, tfgdirectores where tfgarchivosdirectores.tfg ='"
-                                                        .$codigo."' and director='".$director."' and tfgarchivosdirectores.etapa=".$etapa." and tfgarchivosdirectores.director = tfgdirectores.id order by fecha desc;");
+                                            //SQL para archivos Investigadores
+                                            $query1 = mysqli_query($connection, "SELECT iearchivosinvestigadores.ruta, DATE_FORMAT(iearchivosinvestigadores.fecha, '%d/%m/%Y %H:%m:%s')  as fecha, iearchivosinvestigadores.nom_archivo, ieinvestigadores.nombre, ieinvestigadores.apellido1  FROM iearchivosinvestigadores, ieinvestigadores where iearchivosinvestigadores.proyecto ='"
+                                                        .$codigo."' and iearchivosinvestigadores.etapa=".$etapa." and iearchivosinvestigadores.investigador = ieinvestigadores.id order by fecha desc;");
                             
-                                            //SQL para archivos Asesores
-                                            $query2 = mysqli_query($connection, "SELECT tfgarchivosasesores.ruta, DATE_FORMAT(tfgarchivosasesores.fecha, '%d/%m/%Y %H:%m:%s')  as fecha, tfgarchivosasesores.nom_archivo, tfgasesores.nombre, tfgasesores.apellido1 FROM tfgarchivosasesores, tfgasesores where tfgarchivosasesores.tfg ='"
-                                                        .$codigo."' and tfgarchivosasesores.etapa=".$etapa." and tfgarchivosasesores.asesor = tfgasesores.id order by fecha desc;");
+                                            //SQL para archivos Evaluadores
+                                            $query2 = mysqli_query($connection, "SELECT iearchivosevaluadores.ruta, DATE_FORMAT(iearchivosevaluadores.fecha, '%d/%m/%Y %H:%m:%s')  as fecha, iearchivosevaluadores.nom_archivo, ieevaluadores.nombre, ieevaluadores.apellido1 FROM iearchivosevaluadores, ieevaluadores where iearchivosevaluadores.proyecto ='"
+                                                        .$codigo."' and iearchivosevaluadores.etapa=".$etapa." and iearchivosevaluadores.evaluador = ieevaluadores.id order by fecha desc;");
                                             
-                                            //SQL para obtener TITULO tfg
-                                            $query4 = mysqli_query($connection, "SELECT titulo FROM tfg where codigo ='".$codigo."'");
+                                            //SQL para obtener TITULO Proyecto
+                                            $query4 = mysqli_query($connection, "SELECT titulo FROM ieproyectos where codigo ='".$codigo."'");
                                             
-                                            //SQL para obtener archivos comision
-                                            $query5 = mysqli_query($connection, "SELECT tfgarchivoscomision.ruta, DATE_FORMAT(tfgarchivoscomision.fecha, '%d/%m/%Y %H:%m:%s')  as fecha, tfgarchivoscomision.nom_archivo, tfgmiembroscomision.nombre, tfgmiembroscomision.apellido1  FROM tfgarchivoscomision, tfgmiembroscomision where tfgarchivoscomision.tfg ='"
+                                            //SQL para obtener archivos COMIEX
+                                            $query5 = mysqli_query($connection, "SELECT iearchivoscomiex.ruta, DATE_FORMAT(iearchivoscomiex.fecha, '%d/%m/%Y %H:%m:%s')  as fecha, iearchivoscomiex.nom_archivo, iemiembroscomiex.nombre, iemiembroscomiex.apellido1  FROM iearchivoscomiex, tfgmiembroscomision where tfgarchivoscomision.tfg ='"
                                                         .$codigo."' and tfgarchivoscomision.etapa=".$etapa." and tfgarchivoscomision.miembrocomision = tfgmiembroscomision.id order by fecha desc;");
                                             
-                                            $tfg = mysqli_fetch_assoc($query4);
+                                            $proyecto = mysqli_fetch_assoc($query4);
                                            
                                     ?>
-                                    <h3><b>Registro de Archivos: </b><?php echo  $tfg['titulo']. " (".$codigo. "). <b>Etapa: </b>" ;
+                                    <h3><b>Registro de archivos: </b><?php echo  $proyecto['titulo']. " (".$codigo. "). <b>Etapa: </b>" ;
                                                 if( $etapa == 1){
-                                                   echo " Envío Tema"; 
+                                                   echo "Evaluación"; 
                                                 }
                                                 else{
                                                     if( $etapa == 2 ){
@@ -87,7 +89,7 @@
                                 <div class="ibox-content">
                                     <div class="row">
                                         <div class="col-lg-12">
-                                            <br><h3>Registro archivos Comisión</h3>
+                                            <br><h3>Registro archivos COMIEX</h3>
                                         </div>
                                         <div class="col-lg-12">
                                             <?php
@@ -103,7 +105,7 @@
                                                     echo " <div class='icon'>
                                                             <i class='fa fa-file'></i>
                                                         </div>";
-                                                    echo " <div class='file-name' word-wrap: break-word;>". $array['nom_archivo'] ."<br>";
+                                                    echo " <div class='file-name' style= 'word-wrap: break-word' >". $array['nom_archivo'] ."<br>";
                                                  
                                                     echo "<small>Subido:" .$array['fecha']. "</small></br>";
                                                      echo "<small>Subido Por: " .$array['nombre']." ".$array['apellido1'] . "</small>";
@@ -142,7 +144,7 @@
                                                     echo " <div class='icon'>
                                                             <i class='fa fa-file'></i>
                                                         </div>";
-                                                    echo " <div class='file-name' word-wrap: break-word;>". $array['nom_archivo'] ."<br>";
+                                                    echo " <div class='file-name' style= 'word-wrap: break-word' >". $array['nom_archivo'] ."<br>";
                                                  
                                                     echo "<small>Subido: " .$array['fecha']. "</small></br>";
                                                     echo "<small>Subido Por: " .$array['nombre']." ".$array['apellido1'] . "</small>";
@@ -163,7 +165,7 @@
                                     
                                     <div class="row">
                                         <div class="col-lg-12">
-                                           <br> <h3>Registro archivos asesores</h3>
+                                           <br> <h3>Registro archivos Evaluadores</h3>
                                         </div>
                                         <div class="col-lg-12">
                                             <?php
@@ -179,7 +181,7 @@
                                                     echo " <div class='icon'>
                                                             <i class='fa fa-file'></i>
                                                         </div>";
-                                                    echo " <div class='file-name' word-wrap: break-word;>". $array['nom_archivo'] ."<br>";
+                                                    echo " <div class='file-name' style= 'word-wrap: break-word' >". $array['nom_archivo'] ."<br>";
                                                  
                                                     echo "<small>Subido: " .$array['fecha']. "</small><br>";
                                                     echo "<small>Subido Por: " .$array['nombre']." ".$array['apellido1'] . "</small>";
