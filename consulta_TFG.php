@@ -43,7 +43,7 @@ and open the template in the editor.
                         <div class="col-lg-12">
                             <div class="ibox float-e-margins">
 
-                                <div class="ibox-title panel-heading panel-success">
+                                <div class="ibox-title panel-heading panel" id="panelEstadoFinal">
                                     <h5>Consulta Específica TFG</h5>
 
                                     <div class="ibox-tools">
@@ -1635,8 +1635,9 @@ and open the template in the editor.
 
                                                                         //pintar panels
                                                                         var estados = {Aprobada: "panel-primary", AprobadaconObservaciones: "panel-warning",
-                                                                            NoAprobada: "panel-danger", Enejecución: "panel-success", Inactiva: "panel"};
-                                                                        var estadosant = {ant1: "<?php echo $etapa1 ?>", ant2: "<?php echo $etapa2 ?>", ant3: "<?php echo $etapa3 ?>"};
+                                                                            NoAprobada: "panel-danger", Enejecución: "panel-success", Inactiva: "panel", Activo: "panel-success",
+                                                                            Aprobadaparadefensa: "panel-primary", Inactivo: "panel-danger", Finalizado: "panel-primary"};
+                                                                        var estadosant = {ant1: "<?php echo $etapa1 ?>", ant2: "<?php echo $etapa2 ?>", ant3: "<?php echo $etapa3 ?>", ant4: "<?php echo $data["estado"] ?>"};
                                                                         function pintando(estado, panel, estadoan, n) {
                                                                             estado = estado.replace(/\s/g, "");
                                                                             estadoan = estado.replace(/\s/g, "");
@@ -1648,6 +1649,7 @@ and open the template in the editor.
                                                                             pintando($("#estado1").val(), "panelEstado1", estadosant["ant1"], 1);
                                                                             pintando($("#estado2").val(), "panelEstado2", estadosant["ant2"], 2);
                                                                             pintando($("#estado3").val(), "panelEstado3", estadosant["ant3"], 3);
+                                                                            pintando($("#estadotfg").val(), "panelEstadoFinal", estadosant["ant4"], 4);
                                                                         }
                                                                         function initSelects() {
                                                                             // alert("<?php echo $etapa1 ?>");

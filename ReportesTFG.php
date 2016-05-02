@@ -129,7 +129,7 @@
                                         </div>
                                         <div class="col-md-4">
                                             <select name="carrera" id="carrera" class="form-control">
-                                                <option value="todas">Ninguna</option>
+                                                <option value="Ninguna">Ninguna</option>
                                                 <?php
                                                 $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
                                                 if (!$connection) {
@@ -159,7 +159,7 @@
                                         </div>
                                         <div class="col-md-4">
                                             <select name="lineaInvest" id="linea" class="form-control">
-                                                <option value="todas">Ninguna</option>
+                                                <option value="Ninguna">Ninguna</option>
                                                 <?php
                                                 $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
                                                 if (!$connection) {
@@ -187,7 +187,7 @@
                                         </div>
                                         <div class="col-md-4">
                                             <select name="modalidad" id="modalidad" class="form-control">
-                                                <option value="todas">Ninguna</option>
+                                                <option value="Ninguna">Ninguna</option>
                                                 <?php
                                                 $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
                                                 if (!$connection) {
@@ -252,29 +252,35 @@
     </body>
     <script>
                                                     reporte();
-
-
                                                     var estadoTFG = {};
                                                     var estadosE1 = {};
                                                     var estadosE2 = {};
                                                     var estadosE3 = {};
-
                                                     function reporte() {
                                                         $("#report").click(function (evento) {
                                                             evento.preventDefault();
                                                             parametros();
-                                                            data = {estadoTFG:["pla"]};
-
-                                                            $.get("funcionalidad/reportesTFG.php", data, function (data) {
+                                                            var carrera = $("#carrera").val();
+                                                            var linea = $("#linea").val();
+                                                            var modalidad = $("#modalidad").val();
+                                                            var datarange = $("#datarange").startDate;
+                                                            alert(datarange);
+                                                            var Etfg = {};
+                                                            Etfg = JSON.stringify(estadoTFG);
+                                                            var Etfg1 = {};
+                                                            Etfg1 = JSON.stringify(estadosE1);
+                                                            var Etfg2 = {};
+                                                            Etfg2 = JSON.stringify(estadosE2);
+                                                            var Etfg3 = {};
+                                                            Etfg3 = JSON.stringify(estadosE3);
+                                                            $.get("funcionalidad/reportesTFG.php", {Etfg: Etfg, Etfg1: Etfg1, Etfg2: Etfg2, Etfg3: Etfg3, carrera: carrera, linea: linea, modalidad: modalidad, datarange: datarange}, function (data) {
                                                                 alert(data);
                                                             }).fail(function () {
 
                                                             });
-
                                                             //alert("ksjadsa");
-                                                            
-                                                        });
 
+                                                        });
                                                     }
 
                                                     function parametros() {
@@ -296,8 +302,7 @@
                                                                 //alert("ETFG" + n + i);
                                                                 var x = $("#ETFG" + n + i).prop("value");
                                                                 eval("estadosE" + n + ".ETFG" + n + i + "=\"" + x + "\";");
-                                                               // alert(eval("estadosE" + n + ".ETFG" + n + i));
-
+                                                                alert(eval("estadosE" + n + ".ETFG" + n + i));
                                                             }
                                                         }
                                                     }
@@ -307,7 +312,7 @@
                                                             if (ischeck("ETFG" + i)) {
                                                                 var x = $("#ETFG" + i).prop("value");
                                                                 eval("estadoTFG" + ".ETFG" + i + "=\"" + x + "\";");
-                                                               // alert(eval("estadoTFG" + ".ETFG" + i));
+                                                                // alert(eval("estadoTFG" + ".ETFG" + i));
 
                                                             }
                                                         }
@@ -318,7 +323,13 @@
                                                         //locale: {
                                                         format: 'YYYY-MM-DD',
                                                         separator: " / ",
+                                                        startDate: moment().subtract('days', 29),
+                                                        endDate: moment()
                                                         //}
+                                                    }, function (start, end, label) {
+
+                                                        startDate = start;
+                                                        endDate = end;
                                                     });
                                                     /*
                                                      $(function () {

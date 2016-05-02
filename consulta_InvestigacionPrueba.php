@@ -37,7 +37,7 @@
                         <div class="col-lg-12">
                             <div class="ibox float-e-margins">
 
-                                <div class="ibox-title panel-heading panel-success">
+                                <div class="ibox-title panel-heading panel" id="panelEstadoFinal">
                                     <h5>Consulta Específica Investigación</h5>
 
                                     <div class="ibox-tools">
@@ -115,7 +115,7 @@
                                     </div>
                                     <!--fin primera informacion -->
 
-                                    <!-- estudiantes -->
+                                    <!-- investigadores -->
                                     <div class="row">
 
                                         <div class="col-lg-9 col-lg-offset-1">
@@ -129,7 +129,7 @@
                                                     $consulta2 = "select ieinvestigadores.id, concat(ieinvestigadores.nombre,' ',  ieinvestigadores.apellido1, ' ', ieinvestigadores.apellido2) as nombre
                                                     from ieproyectos,ieinvestigadores, ieinvestigan where ieproyectos.codigo = ieinvestigan.proyecto and ieinvestigan.investigador = ieinvestigadores.id and ieproyectos.codigo ='$codigo'";
                                                     $query2 = mysqli_query($connection, $consulta2);
-                                                    
+
                                                     while ($data2 = mysqli_fetch_assoc($query2)) {
                                                         echo "<div class='row'>";
                                                         echo "<div class='col-lg-6 col-lg-offset-1'>";
@@ -141,18 +141,17 @@
                                                         echo "</div>";
                                                         echo "</div>";
                                                     }
-                                                    
                                                     ?>
 
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- fin estudiantes -->
+                                    <!-- fin investigadores -->
 
                                     <?php
                                     cantidadEvaluadores($codigo, $connection);
-                                    
+                                    //echo $GLOBALS["cantEvaluador"];
                                     evaluadores($codigo, $connection);
                                     //echo $evaluador1;
                                     //echo $evaluador2;
@@ -173,228 +172,226 @@
                                                         <div id="etapa1" class="ibox-content">
                                                             <!-- etapa 1 -->
                                                             <!-- archivos -->
-                                                            
-                                                              <div class="col-lg-12">
-                                                              <div class="panel panel-default">
-                                                              <div class="panel-body">
-                                                              <form action="funcionalidad/CargarArchivoBlobInvExt.php" method="post" enctype="multipart/form-data" id="directorForm">
-                                                              <div class="row">
+                                                            <div class="col-lg-12">
+                                                                <div class="panel panel-default">
+                                                                    <div class="panel-body">
+                                                                        <form action="funcionalidad/CargarArchivoBlobInvExt.php" method="post" enctype="multipart/form-data" id="directorForm">
+                                                                            <div class="row">
 
-                                                              <div class="col-lg-12 ">
-                                                              <label>Archivos</label>
-                                                              <br/><br/>
+                                                                                <div class="col-lg-12 ">
+                                                                                    <label>Archivos</label>
+                                                                                    <br/><br/>
 
-                                                              </div>
+                                                                                </div>
 
-                                                              <div class="col-lg-12 ">
-                                                              <div class="col-lg-5 col-lg-offset-1">
-                                                              <label class="form-label">COMIEX</label><br>
+                                                                                <div class="col-lg-12 ">
+                                                                                    <div class="col-lg-5 col-lg-offset-1">
+                                                                                        <label class="form-label">COMIEX</label><br>
 
 
-                                                              <?php
-                                                              $consulta3 = "SELECT * FROM iearchivoscomiex where proyecto = '" . $codigo . "' and etapa = 1 order by fecha desc limit 1;";
-                                                              $query3 = mysqli_query($connection, $consulta3);
-                                                              if ($data3 = mysqli_fetch_assoc($query3)) {
-                                                              echo " <div class=' file-box'>";
-                                                              echo " <div class='file'>";
-                                                              echo " <a href='" . $data3['ruta'] . "'>";
-                                                              echo "  <span class='corner'></span> ";
-                                                              echo " <div class='icon'>
+                                                                                        <?php
+                                                                                        $consulta3 = "SELECT * FROM iearchivoscomiex where proyecto = '" . $codigo . "' and etapa = 1 order by fecha desc limit 1;";
+                                                                                        $query3 = mysqli_query($connection, $consulta3);
+                                                                                        if ($data3 = mysqli_fetch_assoc($query3)) {
+                                                                                            echo " <div class=' file-box'>";
+                                                                                            echo " <div class='file'>";
+                                                                                            echo " <a href='" . $data3['ruta'] . "'>";
+                                                                                            echo "  <span class='corner'></span> ";
+                                                                                            echo " <div class='icon'>
                                                               <i class='fa fa-file'></i>
                                                               </div>";
-                                                              echo " <div class='file-name'style= 'word-wrap: break-word;'> " . $data3['nom_archivo'] . "<br>";
+                                                                                            echo " <div class='file-name'style= 'word-wrap: break-word;'> " . $data3['nom_archivo'] . "<br>";
 
-                                                              echo "<small>Agregado: " . $data3['fecha'] . "</small>";
-                                                              echo "</div>";
-                                                              echo "</a>";
-                                                              echo "</div>";
-                                                              echo "</div>";
-                                                              } else {
-                                                              echo "<span class='label label-warning big'>No existen archivos recientes.</span><br>";
-                                                              }
-                                                              ?>
-                                                              <?php if ($usuarioPermisos->getMiembrocomiex() && !getInvestigador($usuarioSesion->getId())  && $usuarioSesion->getId() != $data["coorId"] && !verificarEvaluador($usuarioSesion->getId())) { ?>
-                                                              <div class="form-group">
-                                                              <input class = 'form-control' name = 'codigoProyecto' id='codigoProyecto' type="hidden" value='<?php echo $codigo ?>'>
-                                                              <input class = 'form-control' name = 'etapa' id = 'etapa' value ='1' type="hidden">
-                                                              <input class = 'form-control' name = 'tipo' id = 'tipo' value ='archivoComiex' type="hidden">
-                                                              <input class = 'form-control' name = 'isInvestigacion' value= '1' type="hidden">
-                                                              <label>Adjuntar Documento:</label>
-                                                              <input accept=".docx,.doc,.pdf" type="file" name="archivo" id="archivo" onchange="uploadFile()" class ="btn btn-primary btn-outline">
-                                                              <div hidden id="divProgress" class="progress progress-striped active">
-                                                              <div  id="progressBar"   aria-valuemax="100" aria-valuemin="0" aria-valuenow="45" role="progressbar" class="progress-bar progress-bar-danger ">
-                                                              </div>
-                                                              </div>
-                                                              <h3 id="status"></h3>
-                                                              <p id="loaded_n_total"></p>
-                                                              </div>
-                                                              <?php } ?>
-                                                              </div>
+                                                                                            echo "<small>Agregado: " . $data3['fecha'] . "</small>";
+                                                                                            echo "</div>";
+                                                                                            echo "</a>";
+                                                                                            echo "</div>";
+                                                                                            echo "</div>";
+                                                                                        } else {
+                                                                                            echo "<span class='label label-warning big'>No existen archivos recientes.</span><br>";
+                                                                                        }
+                                                                                        ?>
+                                                                                        <?php if ($usuarioPermisos->getMiembrocomiex() && !getInvestigador($usuarioSesion->getId()) && $usuarioSesion->getId() != $data["coorId"] && !verificarEvaluador($usuarioSesion->getId())) { ?>
+                                                                                            <div class="form-group">
+                                                                                                <input class = 'form-control' name = 'codigoProyecto' id='codigoProyecto' type="hidden" value='<?php echo $codigo ?>'>
+                                                                                                <input class = 'form-control' name = 'etapa' id = 'etapa' value ='1' type="hidden">
+                                                                                                <input class = 'form-control' name = 'tipo' id = 'tipo' value ='archivoComiex' type="hidden">
+                                                                                                <input class = 'form-control' name = 'isInvestigacion' value= '1' type="hidden">
+                                                                                                <label>Adjuntar Documento:</label>
+                                                                                                <input accept=".docx,.doc,.pdf" type="file" name="archivo" id="archivo" onchange="uploadFile()" class ="btn btn-primary btn-outline">
+                                                                                                <div hidden id="divProgress" class="progress progress-striped active">
+                                                                                                    <div  id="progressBar"   aria-valuemax="100" aria-valuemin="0" aria-valuenow="45" role="progressbar" class="progress-bar progress-bar-danger ">
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <h3 id="status"></h3>
+                                                                                                <p id="loaded_n_total"></p>
+                                                                                            </div>
+                                                                                        <?php } ?>
+                                                                                    </div>
 
 
-                                                              <div class="col-lg-5 col-lg-offset-1">
-                                                              <label class="form-label">Investigadores</label><br>
-                                                              <?php
-                                                              $consulta3 = "SELECT * FROM iearchivosinvestigadores where proyecto ='" . $codigo ."' and etapa = 1 order by fecha desc limit 1;";
-                                                              $query3 = mysqli_query($connection, $consulta3);
-                                                              if ($data3 = mysqli_fetch_assoc($query3)) {
-                                                              echo " <div class=' file-box'>";
-                                                              echo " <div class='file'>";
-                                                              echo " <a href='" . $data3['ruta'] . "'>";
-                                                              echo "  <span class='corner'></span> ";
-                                                              echo " <div class='icon'>
+                                                                                    <div class="col-lg-5 col-lg-offset-1">
+                                                                                        <label class="form-label">Investigadores</label><br>
+                                                                                        <?php
+                                                                                        $consulta3 = "SELECT * FROM iearchivosinvestigadores where proyecto ='" . $codigo . "' and etapa = 1 order by fecha desc limit 1;";
+                                                                                        $query3 = mysqli_query($connection, $consulta3);
+                                                                                        if ($data3 = mysqli_fetch_assoc($query3)) {
+                                                                                            echo " <div class=' file-box'>";
+                                                                                            echo " <div class='file'>";
+                                                                                            echo " <a href='" . $data3['ruta'] . "'>";
+                                                                                            echo "  <span class='corner'></span> ";
+                                                                                            echo " <div class='icon'>
                                                               <i class='fa fa-file'></i>
                                                               </div>";
-                                                              echo " <div class='file-name'style= 'word-wrap: break-word;'> " . $data3['nom_archivo'] . "<br>";
+                                                                                            echo " <div class='file-name'style= 'word-wrap: break-word;'> " . $data3['nom_archivo'] . "<br>";
 
-                                                              echo "<small>Agregado: " . $data3['fecha'] . "</small>";
-                                                              echo "</div>";
-                                                              echo "</a>";
-                                                              echo "</div>";
-                                                              echo "</div>";
-                                                              } else {
-                                                              echo "<span class='label label-warning big'>No existen archivos recientes.</span><br>";
-                                                              }
-                                                              ?>
+                                                                                            echo "<small>Agregado: " . $data3['fecha'] . "</small>";
+                                                                                            echo "</div>";
+                                                                                            echo "</a>";
+                                                                                            echo "</div>";
+                                                                                            echo "</div>";
+                                                                                        } else {
+                                                                                            echo "<span class='label label-warning big'>No existen archivos recientes.</span><br>";
+                                                                                        }
+                                                                                        ?>
 
-                                                              <?php if (getInvestigador($usuarioSesion->getId()) &&  !verificarEvaluador($usuarioSesion->getId())) { ?>
-                                                              <div class="form-group">
-                                                              <input class = 'form-control' name = 'codigoProyecto' id='codigoProyecto' type="hidden" value='<?php echo $codigo ?>'>
-                                                              <input class = 'form-control' name = 'etapa' id = 'etapa' value ='1' type="hidden">
-                                                              <input class = 'form-control' name = 'tipo' id = 'tipo' value ='archivoInvestigador' type="hidden">
-                                                              <input class = 'form-control' name = 'isInvestigacion' id = 'isInvestigacion' value= '1' type="hidden">
-                                                              <label>Adjuntar Documento:</label>
-                                                              <input accept=".docx,.doc,.pdf" type="file" name="archivo" id="archivo" onchange="uploadFile()" class ="btn btn-primary btn-outline">
-                                                              <div hidden id="divProgress" class="progress progress-striped active">
-                                                              <div  id="progressBar"   aria-valuemax="100" aria-valuemin="0" aria-valuenow="45" role="progressbar" class="progress-bar progress-bar-danger ">
-                                                              </div>
-                                                              </div>
-                                                              <h3 id="status"></h3>
-                                                              <p id="loaded_n_total"></p>
-                                                              </div>
-                                                              <?php } ?>
-                                                              </div>
+                                                                                        <?php if (getInvestigador($usuarioSesion->getId()) && $usuarioSesion->getId() != $evaluador1 && $usuarioSesion->getId() != $evaluador2) { ?>
+                                                                                            <div class="form-group">
+                                                                                                <input class = 'form-control' name = 'codigoProyecto' id='codigoProyecto' type="hidden" value='<?php echo $codigo ?>'>
+                                                                                                <input class = 'form-control' name = 'etapa' id = 'etapa' value ='1' type="hidden">
+                                                                                                <input class = 'form-control' name = 'tipo' id = 'tipo' value ='archivoInvestigador' type="hidden">
+                                                                                                <input class = 'form-control' name = 'isInvestigacion' id = 'isInvestigacion' value= '1' type="hidden">
+                                                                                                <label>Adjuntar Documento:</label>
+                                                                                                <input accept=".docx,.doc,.pdf" type="file" name="archivo" id="archivo" onchange="uploadFile()" class ="btn btn-primary btn-outline">
+                                                                                                <div hidden id="divProgress" class="progress progress-striped active">
+                                                                                                    <div  id="progressBar"   aria-valuemax="100" aria-valuemin="0" aria-valuenow="45" role="progressbar" class="progress-bar progress-bar-danger ">
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <h3 id="status"></h3>
+                                                                                                <p id="loaded_n_total"></p>
+                                                                                            </div>
+                                                                                        <?php } ?>
+                                                                                    </div>
 
 
-                                                              </div>
-                                                              <div class="col-lg-12 ">
-                                                              <div class="col-lg-5 col-lg-offset-1">
+                                                                                </div>
+                                                                                <div class="col-lg-12 ">
+                                                                                    <div class="col-lg-5 col-lg-offset-1">
 
-                                                              <label class="control-label">Evaluador 1</label><br>
-                                                              <?php
-                                                              $consulta3 = "SELECT * FROM iearchivosevaluadores where proyecto = '" . $codigo . "' and evaluador = '" . $evaluador1 . "' and etapa = 1 order by fecha desc limit 1;";
-                                                              $query3 = mysqli_query($connection, $consulta3);
-                                                              if ($data3 = mysqli_fetch_assoc($query3)) {
-                                                              echo " <div class=' file-box'>";
-                                                              echo " <div class='file'>";
-                                                              echo " <a href='" . $data3['ruta'] . "'>";
-                                                              echo "  <span class='corner'></span> ";
-                                                              echo " <div class='icon'>
+                                                                                        <label class="control-label">Evaluador 1</label><br>
+                                                                                        <?php
+                                                                                        $consulta3 = "SELECT * FROM iearchivosevaluadores where proyecto = '" . $codigo . "' and evaluador = '" . $evaluador1 . "' and etapa = 1 order by fecha desc limit 1;";
+                                                                                        $query3 = mysqli_query($connection, $consulta3);
+                                                                                        if ($data3 = mysqli_fetch_assoc($query3)) {
+                                                                                            echo " <div class=' file-box'>";
+                                                                                            echo " <div class='file'>";
+                                                                                            echo " <a href='" . $data3['ruta'] . "'>";
+                                                                                            echo "  <span class='corner'></span> ";
+                                                                                            echo " <div class='icon'>
                                                               <i class='fa fa-file'></i>
                                                               </div>";
-                                                              echo " <div class='file-name'style= 'word-wrap: break-word;'> " . $data3['nom_archivo'] . "<br>";
+                                                                                            echo " <div class='file-name'style= 'word-wrap: break-word;'> " . $data3['nom_archivo'] . "<br>";
 
-                                                              echo "<small>Agregado: " . $data3['fecha'] . "</small>";
-                                                              echo "</div>";
-                                                              echo "</a>";
-                                                              echo "</div>";
-                                                              echo "</div>";
-                                                              } else {
-                                                              echo "<span class='label label-warning big'>No existen archivos recientes.</span><br>";
-                                                              }
-                                                              ?>
+                                                                                            echo "<small>Agregado: " . $data3['fecha'] . "</small>";
+                                                                                            echo "</div>";
+                                                                                            echo "</a>";
+                                                                                            echo "</div>";
+                                                                                            echo "</div>";
+                                                                                        } else {
+                                                                                            echo "<span class='label label-warning big'>No existen archivos recientes.</span><br>";
+                                                                                        }
+                                                                                        ?>
 
-                                                              <?php if ($usuarioSesion->getId() == $evaluador1) { ?>
-                                                              <div class="form-group">
-                                                              <input class = 'form-control' name = 'codigoProyecto' id='codigoProyecto' type="hidden" value='<?php echo $codigo ?>'>
-                                                              <input class = 'form-control' name = 'etapa' id = 'etapa' value ='1' type="hidden">
-                                                              <input class = 'form-control' name = 'tipo' id = 'tipo' value ='archivoEvaluador' type="hidden">
-                                                              <input class = 'form-control' name = 'isInvestigacion' value= '1' type="hidden">
-                                                              <label>Adjuntar Documento:</label>
-                                                              <input accept=".docx,.doc,.pdf" type="file" name="archivo" id="archivo" onchange="uploadFile()" class ="btn btn-primary btn-outline">
-                                                              <div hidden id="divProgress" class="progress progress-striped active">
-                                                              <div  id="progressBar"   aria-valuemax="100" aria-valuemin="0" aria-valuenow="45" role="progressbar" class="progress-bar progress-bar-danger ">
-                                                              </div>
-                                                              </div>
-                                                              <h3 id="status"></h3>
-                                                              <p id="loaded_n_total"></p>
-                                                              </div>
-                                                              <?php } ?>
-
-
-                                                              </div>
-                                                              <?php if ($GLOBALS['cantEvaluador'] == 2) { ?>
-                                                              <div class="col-lg-5 col-lg-offset-1">
+                                                                                        <?php if ($usuarioSesion->getId() == $evaluador1) { ?>
+                                                                                            <div class="form-group">
+                                                                                                <input class = 'form-control' name = 'codigoProyecto' id='codigoProyecto' type="hidden" value='<?php echo $codigo ?>'>
+                                                                                                <input class = 'form-control' name = 'etapa' id = 'etapa' value ='1' type="hidden">
+                                                                                                <input class = 'form-control' name = 'tipo' id = 'tipo' value ='archivoEvaluador' type="hidden">
+                                                                                                <input class = 'form-control' name = 'isInvestigacion' value= '1' type="hidden">
+                                                                                                <label>Adjuntar Documento:</label>
+                                                                                                <input accept=".docx,.doc,.pdf" type="file" name="archivo" id="archivo" onchange="uploadFile()" class ="btn btn-primary btn-outline">
+                                                                                                <div hidden id="divProgress" class="progress progress-striped active">
+                                                                                                    <div  id="progressBar"   aria-valuemax="100" aria-valuemin="0" aria-valuenow="45" role="progressbar" class="progress-bar progress-bar-danger ">
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <h3 id="status"></h3>
+                                                                                                <p id="loaded_n_total"></p>
+                                                                                            </div>
+                                                                                        <?php } ?>
 
 
-                                                              <label class="control-label">Evaluador 2</label><br>
-                                                              <?php
-                                                              $consulta3 = "SELECT * FROM iearchivosevaluadores where proyecto = '" . $codigo . "' and evaluador = '" . $evaluador2 . "' and etapa = 1 order by fecha desc limit 1;";
-                                                              $query3 = mysqli_query($connection, $consulta3);
-                                                              if ($data3 = mysqli_fetch_assoc($query3)) {
-                                                              echo " <div class=' file-box'>";
-                                                              echo " <div class='file'>";
-                                                              echo " <a href='" . $data3['ruta'] . "'>";
-                                                              echo "  <span class='corner'></span> ";
-                                                              echo " <div class='icon'>
+                                                                                    </div>
+                                                                                    <?php if ($GLOBALS['cantEvaluador'] == 2) { ?>
+                                                                                        <div class="col-lg-5 col-lg-offset-1">
+
+
+                                                                                            <label class="control-label">Evaluador 2</label><br>
+                                                                                            <?php
+                                                                                            $consulta3 = "SELECT * FROM iearchivosevaluadores where proyecto = '" . $codigo . "' and evaluador = '" . $evaluador2 . "' and etapa = 1 order by fecha desc limit 1;";
+                                                                                            $query3 = mysqli_query($connection, $consulta3);
+                                                                                            if ($data3 = mysqli_fetch_assoc($query3)) {
+                                                                                                echo " <div class=' file-box'>";
+                                                                                                echo " <div class='file'>";
+                                                                                                echo " <a href='" . $data3['ruta'] . "'>";
+                                                                                                echo "  <span class='corner'></span> ";
+                                                                                                echo " <div class='icon'>
                                                               <i class='fa fa-file'></i>
                                                               </div>";
-                                                              echo " <div class='file-name'style= 'word-wrap: break-word;'> " . $data3['nom_archivo'] . "<br>";
+                                                                                                echo " <div class='file-name'style= 'word-wrap: break-word;'> " . $data3['nom_archivo'] . "<br>";
 
-                                                              echo "<small>Agregado: " . $data3['fecha'] . "</small>";
-                                                              echo "</div>";
-                                                              echo "</a>";
-                                                              echo "</div>";
-                                                              echo "</div>";
-                                                              } else {
-                                                              echo "<span class='label label-warning '>No existen archivos recientes.</span><br>";
-                                                              }
-                                                              ?>
+                                                                                                echo "<small>Agregado: " . $data3['fecha'] . "</small>";
+                                                                                                echo "</div>";
+                                                                                                echo "</a>";
+                                                                                                echo "</div>";
+                                                                                                echo "</div>";
+                                                                                            } else {
+                                                                                                echo "<span class='label label-warning '>No existen archivos recientes.</span><br>";
+                                                                                            }
+                                                                                            ?>
 
-                                                              <?php if ($usuarioSesion->getId() == $evaluador2) { ?>
-                                                              <div class="form-group">
-                                                              <input class = 'form-control' name = 'codigoProyecto' id='codigoProyecto' type="hidden" value='<?php echo $codigo ?>'>
-                                                              <input class = 'form-control' name = 'etapa' id = 'etapa' value ='1' type="hidden">
-                                                              <input class = 'form-control' name = 'tipo' id = 'tipo' value ='archivoEvaluador' type="hidden">
-                                                              <input class = 'form-control' name = 'isInvestigacion' value= '1' type="hidden">
-                                                              <label>Adjuntar Documento:</label>
-                                                              <input accept=".docx,.doc,.pdf" type="file" name="archivo" id="archivo" onchange="uploadFile()" class ="btn btn-primary btn-outline">
-                                                              <div hidden id="divProgress" class="progress progress-striped active">
-                                                              <div  id="progressBar"   aria-valuemax="100" aria-valuemin="0" aria-valuenow="45" role="progressbar" class="progress-bar progress-bar-danger ">
-                                                              </div>
-                                                              </div>
-                                                              <h3 id="status"></h3>
-                                                              <p id="loaded_n_total"></p>
-                                                              </div>
-                                                              <?php } ?>
+                                                                                            <?php if ($usuarioSesion->getId() == $evaluador2) { ?>
+                                                                                                <div class="form-group">
+                                                                                                    <input class = 'form-control' name = 'codigoProyecto' id='codigoProyecto' type="hidden" value='<?php echo $codigo ?>'>
+                                                                                                    <input class = 'form-control' name = 'etapa' id = 'etapa' value ='1' type="hidden">
+                                                                                                    <input class = 'form-control' name = 'tipo' id = 'tipo' value ='archivoEvaluador' type="hidden">
+                                                                                                    <input class = 'form-control' name = 'isInvestigacion' value= '1' type="hidden">
+                                                                                                    <label>Adjuntar Documento:</label>
+                                                                                                    <input accept=".docx,.doc,.pdf" type="file" name="archivo" id="archivo" onchange="uploadFile()" class ="btn btn-primary btn-outline">
+                                                                                                    <div hidden id="divProgress" class="progress progress-striped active">
+                                                                                                        <div  id="progressBar"   aria-valuemax="100" aria-valuemin="0" aria-valuenow="45" role="progressbar" class="progress-bar progress-bar-danger ">
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                    <h3 id="status"></h3>
+                                                                                                    <p id="loaded_n_total"></p>
+                                                                                                </div>
+                                                                                            <?php } ?>
 
-                                                              </div>
-                                                              <?php }
-                                                              ?>
+                                                                                        </div>
+                                                                                    <?php }
+                                                                                    ?>
 
+                                                                                </div>
+                                                                                <div class="col-lg-offset-10">
+                                                                                    <div class="form-group">
+                                                                                        <input id="guardarArchivo1" type="submit" class="btn btn-primary btn-outline disabled" value="Guardar Archivo"disabled >
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </form>
+                                                                        <div class="col-lg-offset-10">
+                                                                            <form method="post" action='registro_archivos_inv_ext.php'>
+                                                                                <div class="form-group" >
+                                                                                    <input type="hidden" name='codigo' value='<?php echo $codigo ?>'>
+                                                                                    <input type='hidden' name='etapa' value='1'>
+                                                                                    <input id="input-1" type="submit"  class="btn btn-primary" value="Registro de Archivos">
+                                                                                </div>
+                                                                            </form>
+                                                                        </div>                     
+                                                                    </div>
+                                                                </div>
                                                             </div>
-                                                        <div class="col-lg-offset-10">
-                                                              <div class="form-group">
-                                                              <input id="guardarArchivo1" type="submit" class="btn btn-primary btn-outline disabled" value="Guardar Archivo"disabled >
-                                                              </div>
-                                                        </div>
-                                                    </div>
-                                                </form>
-                                             <div class="col-lg-offset-10">
-                                            <form method="post" action='registro_archivos_investigacion.php'>
-                                                <div class="form-group" >
-                                                    <input type="hidden" name='codigo' value='<?php echo $codigo ?>'>
-                                                    <input type='hidden' name='etapa' value='1'>
-                                                    <input type='hidden' name='coordinadorId' value='<?php echo $data['coorId'] ?>'>
-                                                    <input id="input-1" type="submit"  class="btn btn-primary" value="Registro de Archivos">
-                                                </div>
-                                           </form>
-                                            </div>                     
-                                            </div>
-                                        </div>
-                                    </div>
-                                                              <!-- fin archivos -->
-                                                              <?php  ?>
+                                                            <!-- fin archivos -->
+                                                            <?php ?>
                                                             <!-- comentarios -->
                                                             <div class="col-lg-12">
                                                                 <div class="panel panel-default">
@@ -408,15 +405,15 @@
 
                                                                             </div>
 
-                                                                            <div class="col-lg-4">
+                                                                            <div class="col-lg-6">
                                                                                 <div class="ibox float-e-margins">
                                                                                     <div class="ibox-title">
-                                                                                        <h5>Investigador</h5>
+                                                                                        <h5>Investigadores</h5>
 
-                                                                                        <?php // if ($usuarioPermisos->getMiembrocomisiontfg()) { ?>
-                                                                                        <button class="btn btn-primary btn-xs m-l-sm" onclick="edit1()" type="button">Edit</button>
-                                                                                        <button id="BM11" etapa="1" comentario="CM11" class="btn btn-primary  btn-xs" onclick="save1()" type="button">Save</button>
-                                                                                        <?php // } ?>
+                                                                                        <?php if (getInvestigador($usuarioSesion->getId())) { ?>
+                                                                                            <button class="btn btn-primary btn-xs m-l-sm" onclick="edit1('CI11')" type="button">Edit</button>
+                                                                                            <button id="BI11" etapa="1" comentario="CI11" class="btn btn-primary  btn-xs" onclick="save1('CI11')" type="button">Save</button>
+                                                                                        <?php } ?>
                                                                                         <div class="ibox-tools">
                                                                                             <a class="collapse-link">
                                                                                                 <i class="fa fa-chevron-up"></i>
@@ -424,7 +421,7 @@
                                                                                         </div>
                                                                                     </div>
                                                                                     <div class="ibox-content no-padding">
-                                                                                        <div id="CM11" class="click1edit wrapper p-md">
+                                                                                        <div id="CI11" class="click1edit wrapper p-md">
                                                                                             <?php
                                                                                             comentarioInvestigador($codigo, 1, $connection);
                                                                                             ?>
@@ -433,13 +430,40 @@
 
                                                                                 </div>
                                                                             </div>
-                                                                            <div class="col-lg-4">
+
+                                                                            <div class="col-lg-6">
+                                                                                <div class="ibox float-e-margins">
+                                                                                    <div class="ibox-title">
+                                                                                        <h5>Miembro de Comiex</h5>
+
+                                                                                        <?php if (($usuarioPermisos->getMiembrocomiex())) { ?>
+                                                                                            <button class="btn btn-primary btn-xs m-l-sm" onclick="edit4('CM11')" type="button">Edit</button>
+                                                                                            <button id="BM11" etapa="1" comentario="CM11" class="btn btn-primary  btn-xs" onclick="save4('CM11')" type="button">Save</button>
+                                                                                        <?php } ?>
+                                                                                        <div class="ibox-tools">
+                                                                                            <a class="collapse-link">
+                                                                                                <i class="fa fa-chevron-up"></i>
+                                                                                            </a>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="ibox-content no-padding">
+                                                                                        <div id="CM11" class="click4edit wrapper p-md">
+                                                                                            <?php
+                                                                                            comentarioMiembroComiex($codigo, 1, $connection);
+                                                                                            ?>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="col-lg-6">
                                                                                 <div class="ibox float-e-margins">
                                                                                     <div class="ibox-title">
                                                                                         <h5>Evaluador 1</h5>
                                                                                         <?php if ($usuarioPermisos->getId() == $evaluador1) { ?>
-                                                                                            <button class="btn btn-primary btn-xs m-l-sm" onclick="edit2()" type="button">Edit</button>
-                                                                                            <button id="BA11" etapa="1" comentario="CA11" class="btn btn-primary  btn-xs" onclick="save2()" type="button">Save</button>
+                                                                                            <button class="btn btn-primary btn-xs m-l-sm" onclick="edit2('CE11')" type="button">Edit</button>
+                                                                                            <button id="BE11" etapa="1" comentario="CE11" class="btn btn-primary  btn-xs" onclick="save2('CE11')" type="button">Save</button>
                                                                                         <?php } ?>
                                                                                         <div class="ibox-tools">
                                                                                             <a class="collapse-link">
@@ -449,7 +473,7 @@
                                                                                     </div>
                                                                                     <div class="ibox-content no-padding">
 
-                                                                                        <div id="CA11" class="click2edit wrapper p-md">
+                                                                                        <div id="CE11" class="click2edit wrapper p-md">
                                                                                             <?php
                                                                                             comentarioEvaluador($codigo, 1, $evaluador1, $connection);
                                                                                             ?>
@@ -458,16 +482,17 @@
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
+
                                                                             <?php if ($GLOBALS['cantEvaluador'] == 2) { ?>
-                                                                                <div class="col-lg-4">
+                                                                                <div class="col-lg-6">
                                                                                     <div class="ibox float-e-margins">
                                                                                         <div class="ibox-title">
                                                                                             <h5>Evaluador 2</h5>
                                                                                             <?php
                                                                                             if ($usuarioPermisos->getId() == $evaluador2) {
                                                                                                 ?>
-                                                                                                <button class="btn btn-primary btn-xs m-l-sm" onclick="edit3()" type="button">Edit</button>
-                                                                                                <button id="BA21" etapa="1" comentario="CA21" class="btn btn-primary  btn-xs" onclick="save3()" type="button">Save</button>
+                                                                                                <button class="btn btn-primary btn-xs m-l-sm" onclick="edit3('CE21')" type="button">Edit</button>
+                                                                                                <button id="BE21" etapa="1" comentario="CE21" class="btn btn-primary  btn-xs" onclick="save3('CE21')" type="button">Save</button>
                                                                                                 <?php
                                                                                             }
                                                                                             ?>
@@ -479,7 +504,7 @@
                                                                                         </div>
                                                                                         <div class="ibox-content no-padding">
 
-                                                                                            <div id="CA21" class="click3edit wrapper p-md">
+                                                                                            <div id="CE21" class="click3edit wrapper p-md">
                                                                                                 <?php
                                                                                                 comentarioEvaluador($codigo, 1, $evaluador2, $connection);
                                                                                                 ?>
@@ -508,7 +533,10 @@
                                                                     <div class="form-group">
 
 
-                                                                        <select id="estado1" class="form-control m-b" name="account" onchange="pintandoPanels()">
+                                                                        <select id="estado1" class="form-control m-b" name="account" onchange="pintandoPanels()"<?php
+                                                                        if (!$usuarioPermisos->getCoordinadorinvestigacion()) {
+                                                                            echo "disabled"
+                                                                            ?> <?php } ?>>
                                                                             <option value="Aprobada">Aprobada</option>
                                                                             <option value="Aprobada con Observaciones">Aprobada con Observaciones</option>
                                                                             <option value="No Aprobada">No Aprobada</option>
@@ -522,13 +550,13 @@
                                                             <div class="row">
                                                                 <div class="col-lg-2 col-lg-offset-9">
                                                                     <div class="form-group">
-                                                                        <input id="BE1" estado="estado1" etapa="1" type="button" class="btn btn-primary" value="Guardar Estado">
+                                                                        <?php if ($usuarioPermisos->getCoordinadorinvestigacion()) { ?> 
+                                                                            <input id="BE1" estado="estado1" etapa="1" type="button" class="btn btn-primary" value="Guardar Estado">
+                                                                        <?php } ?>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                             <!-- fin estado -->
-
-
                                                             <!-- fin etapa 1 -->
                                                         </div>
                                                     </div>
@@ -545,7 +573,7 @@
                                             <div class="col-lg-12">
                                                 <div class="ibox collapsed">
                                                     <div id="panelEstado2" class="ibox-title panel ">
-                                                        <h5>Etapa #2. Anteproyecto o Propuesta</h5>
+                                                        <h5>Etapa #2. Ante Proyecto o Propuesta</h5>
                                                         <div id="collapse2" class="ibox-tools">
                                                             <a id="col2" class="collapse-link">
                                                                 <i class="fa fa-chevron-up"></i>
@@ -556,224 +584,215 @@
                                                         <!-- archivos Etapa 2 -->
 
                                                         <div class="col-lg-12">
-                                                              <div class="panel panel-default">
-                                                              <div class="panel-body">
-                                                              <form action="funcionalidad/CargarArchivoBlobInvExt.php" method="post" enctype="multipart/form-data" id="directorForm">
-                                                              <div class="row">
+                                                            <div class="panel panel-default">
+                                                                <div class="panel-body">
+                                                                    <form action="funcionalidad/CargarArchivoBlobInvExt.php" method="post" enctype="multipart/form-data" id="directorForm">
+                                                                        <div class="row">
 
-                                                              <div class="col-lg-12 ">
-                                                              <label>Archivos</label>
-                                                              <br/><br/>
+                                                                            <div class="col-lg-12 ">
+                                                                                <label>Archivos</label>
+                                                                                <br/><br/>
 
-                                                              </div>
+                                                                            </div>
 
-                                                              <div class="col-lg-12 ">
-                                                              <div class="col-lg-5 col-lg-offset-1">
-                                                              <label class="form-label">COMIEX</label><br>
-
-
-                                                              <?php
-                                                              $consulta3 = "SELECT * FROM iearchivoscomiex where proyecto = '" . $codigo . "' and etapa = 2 order by fecha desc limit 1;";
-                                                              $query3 = mysqli_query($connection, $consulta3);
-                                                              if ($data3 = mysqli_fetch_assoc($query3)) {
-                                                              echo " <div class=' file-box'>";
-                                                              echo " <div class='file'>";
-                                                              echo " <a href='" . $data3['ruta'] . "'>";
-                                                              echo "  <span class='corner'></span> ";
-                                                              echo " <div class='icon'>
-                                                              <i class='fa fa-file'></i>
-                                                              </div>";
-                                                              echo " <div class='file-name'style= 'word-wrap: break-word;'> " . $data3['nom_archivo'] . "<br>";
-
-                                                              echo "<small>Agregado: " . $data3['fecha'] . "</small>";
-                                                              echo "</div>";
-                                                              echo "</a>";
-                                                              echo "</div>";
-                                                              echo "</div>";
-                                                              } else {
-                                                              echo "<span class='label label-warning big'>No existen archivos recientes.</span><br>";
-                                                              }
-                                                              ?>
-                                                              <?php if ($usuarioPermisos->getMiembrocomiex() && !getInvestigador($usuarioSesion->getId())  && $usuarioSesion->getId() != $data["coorId"] && !verificarEvaluador($usuarioSesion->getId())) { ?>
-                                                              <div class="form-group">
-                                                              <input class = 'form-control' name = 'codigoProyecto' id='codigoProyecto' type="hidden" value='<?php echo $codigo ?>'>
-                                                              <input class = 'form-control' name = 'etapa' id = 'etapa' value ='2' type="hidden">
-                                                              <input class = 'form-control' name = 'tipo' id = 'tipo' value ='archivoComiex' type="hidden">
-                                                              <input class = 'form-control' name = 'isInvestigacion' value= '1' type="hidden">
-                                                              <label>Adjuntar Documento:</label>
-                                                              <input accept=".docx,.doc,.pdf" type="file" name="archivo" id="archivo2" onchange="uploadFile2()" class ="btn btn-primary btn-outline">
-                                                              <div hidden id="divProgress2" class="progress progress-striped active">
-                                                              <div  id="progressBar2"   aria-valuemax="100" aria-valuemin="0" aria-valuenow="45" role="progressbar" class="progress-bar progress-bar-danger ">
-                                                              </div>
-                                                              </div>
-                                                              <h3 id="status2"></h3>
-                                                              <p id="loaded_n_total2"></p>
-                                                              </div>
-                                                              <?php } ?>
-                                                              </div>
+                                                                            <div class="col-lg-12 ">
+                                                                                <div class="col-lg-5 col-lg-offset-1">
+                                                                                    <label class="form-label">COMIEX</label><br>
 
 
-                                                              <div class="col-lg-5 col-lg-offset-1">
-                                                              <label class="form-label">Investigadores</label><br>
-                                                              <?php
-                                                              $consulta3 = "SELECT * FROM iearchivosinvestigadores where proyecto ='" . $codigo ."' and etapa = 2 order by fecha desc limit 1;";
-                                                              $query3 = mysqli_query($connection, $consulta3);
-                                                              if ($data3 = mysqli_fetch_assoc($query3)) {
-                                                              echo " <div class=' file-box'>";
-                                                              echo " <div class='file'>";
-                                                              echo " <a href='" . $data3['ruta'] . "'>";
-                                                              echo "  <span class='corner'></span> ";
-                                                              echo " <div class='icon'>
-                                                              <i class='fa fa-file'></i>
-                                                              </div>";
-                                                              echo " <div class='file-name'style= 'word-wrap: break-word;'> " . $data3['nom_archivo'] . "<br>";
+                                                                                    <?php
+                                                                                    $consulta3 = "SELECT * FROM iearchivoscomiex where proyecto = '" . $codigo . "' and etapa = 2 order by fecha desc limit 1;";
+                                                                                    $query3 = mysqli_query($connection, $consulta3);
+                                                                                    if ($data3 = mysqli_fetch_assoc($query3)) {
+                                                                                        echo " <div class=' file-box'>";
+                                                                                        echo " <div class='file'>";
+                                                                                        echo " <a href='" . $data3['ruta'] . "'>";
+                                                                                        echo "  <span class='corner'></span> ";
+                                                                                        echo " <div class='icon'><i class='fa fa-file'></i></div>";
+                                                                                        echo " <div class='file-name'style= 'word-wrap: break-word;'> " . $data3['nom_archivo'] . "<br>";
 
-                                                              echo "<small>Agregado: " . $data3['fecha'] . "</small>";
-                                                              echo "</div>";
-                                                              echo "</a>";
-                                                              echo "</div>";
-                                                              echo "</div>";
-                                                              } else {
-                                                              echo "<span class='label label-warning big'>No existen archivos recientes.</span><br>";
-                                                              }
-                                                              ?>
-
-                                                              <?php if (getInvestigador($usuarioSesion->getId()) && $usuarioSesion->getId() != $evaluador1 && $usuarioSesion->getId() != $evaluador2) { ?>
-                                                              <div class="form-group">
-                                                              <input class = 'form-control' name = 'codigoProyecto' id='codigoProyecto' type="hidden" value='<?php echo $codigo ?>'>
-                                                              <input class = 'form-control' name = 'etapa' id = 'etapa' value ='2' type="hidden">
-                                                              <input class = 'form-control' name = 'tipo' id = 'tipo' value ='archivoInvestigador' type="hidden">
-                                                              <input class = 'form-control' name = 'isInvestigacion' id = 'isInvestigacion' value= '2' type="hidden">
-                                                              <label>Adjuntar Documento:</label>
-                                                              <input accept=".docx,.doc,.pdf" type="file" name="archivo" id="archivo2" onchange="uploadFile2()" class ="btn btn-primary btn-outline">
-                                                              <div hidden id="divProgress2" class="progress progress-striped active">
-                                                              <div  id="progressBar2"   aria-valuemax="100" aria-valuemin="0" aria-valuenow="45" role="progressbar" class="progress-bar progress-bar-danger ">
-                                                              </div>
-                                                              </div>
-                                                              <h3 id="status2"></h3>
-                                                              <p id="loaded_n_total2"></p>
-                                                              </div>
-                                                              <?php } ?>
-                                                              </div>
+                                                                                        echo "<small>Agregado: " . $data3['fecha'] . "</small>";
+                                                                                        echo "</div>";
+                                                                                        echo "</a>";
+                                                                                        echo "</div>";
+                                                                                        echo "</div>";
+                                                                                    } else {
+                                                                                        echo "<span class='label label-warning big'>No existen archivos recientes.</span><br>";
+                                                                                    }
+                                                                                    ?>
+                                                                                    <?php if ($usuarioPermisos->getMiembrocomiex() && !getInvestigador($usuarioSesion->getId()) && $usuarioSesion->getId() != $data["coorId"] && !verificarEvaluador($usuarioSesion->getId())) { ?>
+                                                                                        <div class="form-group">
+                                                                                            <input class = 'form-control' name = 'codigoProyecto' id='codigoProyecto' type="hidden" value='<?php echo $codigo ?>'>
+                                                                                            <input class = 'form-control' name = 'etapa' id = 'etapa' value ='2' type="hidden">
+                                                                                            <input class = 'form-control' name = 'tipo' id = 'tipo' value ='archivoComiex' type="hidden">
+                                                                                            <input class = 'form-control' name = 'isInvestigacion' value= '1' type="hidden">
+                                                                                            <label>Adjuntar Documento:</label>
+                                                                                            <input accept=".docx,.doc,.pdf" type="file" name="archivo" id="archivo2" onchange="uploadFile2()" class ="btn btn-primary btn-outline">
+                                                                                            <div hidden id="divProgress2" class="progress progress-striped active">
+                                                                                                <div  id="progressBar2"   aria-valuemax="100" aria-valuemin="0" aria-valuenow="45" role="progressbar" class="progress-bar progress-bar-danger ">
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <h3 id="status2"></h3>
+                                                                                            <p id="loaded_n_total2"></p>
+                                                                                        </div>
+                                                                                    <?php } ?>
+                                                                                </div>
 
 
-                                                              </div>
-                                                              <div class="col-lg-12 ">
-                                                              <div class="col-lg-5 col-lg-offset-1">
+                                                                                <div class="col-lg-5 col-lg-offset-1">
+                                                                                    <label class="form-label">Investigadores</label><br>
+                                                                                    <?php
+                                                                                    $consulta3 = "SELECT * FROM iearchivosinvestigadores where proyecto ='" . $codigo . "' and etapa = 2 order by fecha desc limit 1;";
+                                                                                    $query3 = mysqli_query($connection, $consulta3);
+                                                                                    if ($data3 = mysqli_fetch_assoc($query3)) {
+                                                                                        echo " <div class=' file-box'>";
+                                                                                        echo " <div class='file'>";
+                                                                                        echo " <a href='" . $data3['ruta'] . "'>";
+                                                                                        echo "  <span class='corner'></span> ";
+                                                                                        echo " <div class='icon'><i class='fa fa-file'></i></div>";
+                                                                                        echo " <div class='file-name'style= 'word-wrap: break-word;'> " . $data3['nom_archivo'] . "<br>";
 
-                                                              <label class="control-label">Evaluador 1</label><br>
-                                                              <?php
-                                                              $consulta3 = "SELECT * FROM iearchivosevaluadores where proyecto = '" . $codigo . "' and evaluador = '" . $evaluador1 . "' and etapa = 2 order by fecha desc limit 1;";
-                                                              $query3 = mysqli_query($connection, $consulta3);
-                                                              if ($data3 = mysqli_fetch_assoc($query3)) {
-                                                              echo " <div class=' file-box'>";
-                                                              echo " <div class='file'>";
-                                                              echo " <a href='" . $data3['ruta'] . "'>";
-                                                              echo "  <span class='corner'></span> ";
-                                                              echo " <div class='icon'>
-                                                              <i class='fa fa-file'></i>
-                                                              </div>";
-                                                              echo " <div class='file-name'style= 'word-wrap: break-word;'> " . $data3['nom_archivo'] . "<br>";
+                                                                                        echo "<small>Agregado: " . $data3['fecha'] . "</small>";
+                                                                                        echo "</div>";
+                                                                                        echo "</a>";
+                                                                                        echo "</div>";
+                                                                                        echo "</div>";
+                                                                                    } else {
+                                                                                        echo "<span class='label label-warning big'>No existen archivos recientes.</span><br>";
+                                                                                    }
+                                                                                    ?>
 
-                                                              echo "<small>Agregado: " . $data3['fecha'] . "</small>";
-                                                              echo "</div>";
-                                                              echo "</a>";
-                                                              echo "</div>";
-                                                              echo "</div>";
-                                                              } else {
-                                                              echo "<span class='label label-warning big'>No existen archivos recientes.</span><br>";
-                                                              }
-                                                              ?>
-
-                                                              <?php if ($usuarioSesion->getId() == $evaluador1) { ?>
-                                                              <div class="form-group">
-                                                              <input class = 'form-control' name = 'codigoProyecto' id='codigoProyecto' type="hidden" value='<?php echo $codigo ?>'>
-                                                              <input class = 'form-control' name = 'etapa' id = 'etapa' value ='2' type="hidden">
-                                                              <input class = 'form-control' name = 'tipo' id = 'tipo' value ='archivoEvaluador' type="hidden">
-                                                              <input class = 'form-control' name = 'isInvestigacion' value= '1' type="hidden">
-                                                              <label>Adjuntar Documento:</label>
-                                                              <input accept=".docx,.doc,.pdf" type="file" name="archivo" id="archivo2" onchange="uploadFile()" class ="btn btn-primary btn-outline">
-                                                              <div hidden id="divProgress2" class="progress progress-striped active">
-                                                              <div  id="progressBar2"   aria-valuemax="100" aria-valuemin="0" aria-valuenow="45" role="progressbar" class="progress-bar progress-bar-danger ">
-                                                              </div>
-                                                              </div>
-                                                              <h3 id="status2"></h3>
-                                                              <p id="loaded_n_total2"></p>
-                                                              </div>
-                                                              <?php } ?>
+                                                                                    <?php if (getInvestigador($usuarioSesion->getId()) && $usuarioSesion->getId() != $evaluador1 && $usuarioSesion->getId() != $evaluador2) { ?>
+                                                                                        <div class="form-group">
+                                                                                            <input class = 'form-control' name = 'codigoProyecto' id='codigoProyecto' type="hidden" value='<?php echo $codigo ?>'>
+                                                                                            <input class = 'form-control' name = 'etapa' id = 'etapa' value ='2' type="hidden">
+                                                                                            <input class = 'form-control' name = 'tipo' id = 'tipo' value ='archivoInvestigador' type="hidden">
+                                                                                            <input class = 'form-control' name = 'isInvestigacion' id = 'isInvestigacion' value= '2' type="hidden">
+                                                                                            <label>Adjuntar Documento:</label>
+                                                                                            <input accept=".docx,.doc,.pdf" type="file" name="archivo" id="archivo2" onchange="uploadFile2()" class ="btn btn-primary btn-outline">
+                                                                                            <div hidden id="divProgress2" class="progress progress-striped active">
+                                                                                                <div  id="progressBar2"   aria-valuemax="100" aria-valuemin="0" aria-valuenow="45" role="progressbar" class="progress-bar progress-bar-danger ">
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <h3 id="status2"></h3>
+                                                                                            <p id="loaded_n_total2"></p>
+                                                                                        </div>
+                                                                                    <?php } ?>
+                                                                                </div>
 
 
-                                                              </div>
-                                                              <?php if ($GLOBALS['cantEvaluador'] == 2) { ?>
-                                                              <div class="col-lg-5 col-lg-offset-1">
+                                                                            </div>
+                                                                            <div class="col-lg-12 ">
+                                                                                <div class="col-lg-5 col-lg-offset-1">
+
+                                                                                    <label class="control-label">Evaluador 1</label><br>
+                                                                                    <?php
+                                                                                    $consulta3 = "SELECT * FROM iearchivosevaluadores where proyecto = '" . $codigo . "' and evaluador = '" . $evaluador1 . "' and etapa = 2 order by fecha desc limit 1;";
+                                                                                    $query3 = mysqli_query($connection, $consulta3);
+                                                                                    if ($data3 = mysqli_fetch_assoc($query3)) {
+                                                                                        echo " <div class=' file-box'>";
+                                                                                        echo " <div class='file'>";
+                                                                                        echo " <a href='" . $data3['ruta'] . "'>";
+                                                                                        echo "  <span class='corner'></span> ";
+                                                                                        echo " <div class='icon'><i class='fa fa-file'></i></div>";
+                                                                                        echo " <div class='file-name'style= 'word-wrap: break-word;'> " . $data3['nom_archivo'] . "<br>";
+
+                                                                                        echo "<small>Agregado: " . $data3['fecha'] . "</small>";
+                                                                                        echo "</div>";
+                                                                                        echo "</a>";
+                                                                                        echo "</div>";
+                                                                                        echo "</div>";
+                                                                                    } else {
+                                                                                        echo "<span class='label label-warning big'>No existen archivos recientes.</span><br>";
+                                                                                    }
+                                                                                    ?>
+
+                                                                                    <?php if ($usuarioSesion->getId() == $evaluador1) { ?>
+                                                                                        <div class="form-group">
+                                                                                            <input class = 'form-control' name = 'codigoProyecto' id='codigoProyecto' type="hidden" value='<?php echo $codigo ?>'>
+                                                                                            <input class = 'form-control' name = 'etapa' id = 'etapa' value ='2' type="hidden">
+                                                                                            <input class = 'form-control' name = 'tipo' id = 'tipo' value ='archivoEvaluador' type="hidden">
+                                                                                            <input class = 'form-control' name = 'isInvestigacion' value= '1' type="hidden">
+                                                                                            <label>Adjuntar Documento:</label>
+                                                                                            <input accept=".docx,.doc,.pdf" type="file" name="archivo" id="archivo2" onchange="uploadFile()" class ="btn btn-primary btn-outline">
+                                                                                            <div hidden id="divProgress2" class="progress progress-striped active">
+                                                                                                <div  id="progressBar2"   aria-valuemax="100" aria-valuemin="0" aria-valuenow="45" role="progressbar" class="progress-bar progress-bar-danger ">
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <h3 id="status2"></h3>
+                                                                                            <p id="loaded_n_total2"></p>
+                                                                                        </div>
+                                                                                    <?php } ?>
 
 
-                                                              <label class="control-label">Evaluador 2</label><br>
-                                                              <?php
-                                                              $consulta3 = "SELECT * FROM iearchivosevaluadores where proyecto = '" . $codigo . "' and evaluador = '" . $evaluador2 . "' and etapa = 2 order by fecha desc limit 1;";
-                                                              $query3 = mysqli_query($connection, $consulta3);
-                                                              if ($data3 = mysqli_fetch_assoc($query3)) {
-                                                              echo " <div class=' file-box'>";
-                                                              echo " <div class='file'>";
-                                                              echo " <a href='" . $data3['ruta'] . "'>";
-                                                              echo "  <span class='corner'></span> ";
-                                                              echo " <div class='icon'>
-                                                              <i class='fa fa-file'></i>
-                                                              </div>";
-                                                              echo " <div class='file-name'style= 'word-wrap: break-word;'> " . $data3['nom_archivo'] . "<br>";
+                                                                                </div>
+                                                                                <?php if ($GLOBALS['cantEvaluador'] == 2) { ?>
+                                                                                    <div class="col-lg-5 col-lg-offset-1">
 
-                                                              echo "<small>Agregado: " . $data3['fecha'] . "</small>";
-                                                              echo "</div>";
-                                                              echo "</a>";
-                                                              echo "</div>";
-                                                              echo "</div>";
-                                                              } else {
-                                                              echo "<span class='label label-warning '>No existen archivos recientes.</span><br>";
-                                                              }
-                                                              ?>
 
-                                                              <?php if ($usuarioSesion->getId() == $evaluador2) { ?>
-                                                              <div class="form-group">
-                                                              <input class = 'form-control' name = 'codigoProyecto' id='codigoProyecto' type="hidden" value='<?php echo $codigo ?>'>
-                                                              <input class = 'form-control' name = 'etapa' id = 'etapa' value ='2' type="hidden">
-                                                              <input class = 'form-control' name = 'tipo' id = 'tipo' value ='archivoEvaluador' type="hidden">
-                                                              <input class = 'form-control' name = 'isInvestigacion' value= '1' type="hidden">
-                                                              <label>Adjuntar Documento:</label>
-                                                              <input accept=".docx,.doc,.pdf" type="file" name="archivo" id="archivo" onchange="uploadFile()" class ="btn btn-primary btn-outline">
-                                                              <div hidden id="divProgress" class="progress progress-striped active">
-                                                              <div  id="progressBar"   aria-valuemax="100" aria-valuemin="0" aria-valuenow="45" role="progressbar" class="progress-bar progress-bar-danger ">
-                                                              </div>
-                                                              </div>
-                                                              <h3 id="status"></h3>
-                                                              <p id="loaded_n_total"></p>
-                                                              </div>
-                                                              <?php } ?>
+                                                                                        <label class="control-label">Evaluador 2</label><br>
+                                                                                        <?php
+                                                                                        $consulta3 = "SELECT * FROM iearchivosevaluadores where proyecto = '" . $codigo . "' and evaluador = '" . $evaluador2 . "' and etapa = 2 order by fecha desc limit 1;";
+                                                                                        $query3 = mysqli_query($connection, $consulta3);
+                                                                                        if ($data3 = mysqli_fetch_assoc($query3)) {
+                                                                                            echo " <div class=' file-box'>";
+                                                                                            echo " <div class='file'>";
+                                                                                            echo " <a href='" . $data3['ruta'] . "'>";
+                                                                                            echo "  <span class='corner'></span> ";
+                                                                                            echo " <div class='icon'><i class='fa fa-file'></i></div>";
+                                                                                            echo " <div class='file-name'style= 'word-wrap: break-word;'> " . $data3['nom_archivo'] . "<br>";
 
-                                                              </div>
-                                                              <?php }
-                                                              ?>
+                                                                                            echo "<small>Agregado: " . $data3['fecha'] . "</small>";
+                                                                                            echo "</div>";
+                                                                                            echo "</a>";
+                                                                                            echo "</div>";
+                                                                                            echo "</div>";
+                                                                                        } else {
+                                                                                            echo "<span class='label label-warning '>No existen archivos recientes.</span><br>";
+                                                                                        }
+                                                                                        ?>
 
+                                                                                        <?php if ($usuarioSesion->getId() == $evaluador2) { ?>
+                                                                                            <div class="form-group">
+                                                                                                <input class = 'form-control' name = 'codigoProyecto' id='codigoProyecto' type="hidden" value='<?php echo $codigo ?>'>
+                                                                                                <input class = 'form-control' name = 'etapa' id = 'etapa' value ='2' type="hidden">
+                                                                                                <input class = 'form-control' name = 'tipo' id = 'tipo' value ='archivoEvaluador' type="hidden">
+                                                                                                <input class = 'form-control' name = 'isInvestigacion' value= '1' type="hidden">
+                                                                                                <label>Adjuntar Documento:</label>
+                                                                                                <input accept=".docx,.doc,.pdf" type="file" name="archivo" id="archivo" onchange="uploadFile()" class ="btn btn-primary btn-outline">
+                                                                                                <div hidden id="divProgress" class="progress progress-striped active">
+                                                                                                    <div  id="progressBar"   aria-valuemax="100" aria-valuemin="0" aria-valuenow="45" role="progressbar" class="progress-bar progress-bar-danger ">
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <h3 id="status"></h3>
+                                                                                                <p id="loaded_n_total"></p>
+                                                                                            </div>
+                                                                                        <?php } ?>
+
+                                                                                    </div>
+                                                                                <?php }
+                                                                                ?>
+
+                                                                            </div>
+                                                                            <div class="col-lg-offset-10">
+                                                                                <div class="form-group">
+                                                                                    <input id="guardarArchivo2" type="submit" class="btn btn-primary btn-outline disabled" value="Guardar Archivo"disabled >
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </form>
+                                                                    <div class="col-lg-offset-10">
+                                                                        <form method="post" action='registro_archivos_inv_ext.php'>
+                                                                            <div class="form-group" >
+                                                                                <input type="hidden" name='codigo' value='<?php echo $codigo ?>'>
+                                                                                <input type='hidden' name='etapa' value='2'>
+                                                                                <input id="input-1" type="submit"  class="btn btn-primary" value="Registro de Archivos">
+                                                                            </div>
+                                                                        </form>
+                                                                    </div>
+                                                                </div>
                                                             </div>
-                                                        <div class="col-lg-offset-10">
-                                                              <div class="form-group">
-                                                              <input id="guardarArchivo2" type="submit" class="btn btn-primary btn-outline disabled" value="Guardar Archivo"disabled >
-                                                              </div>
                                                         </div>
-                                                    </div>
-                                                </form>
-                                                                  <div class="col-lg-offset-10">
-                                                                      <form method="post" action='registro_archivos_investigacion.php'>
-                                                                          <div class="form-group" >
-                                                                              <input type="hidden" name='codigo' value='<?php echo $codigo ?>'>
-                                                                              <input type='hidden' name='etapa' value='2'>
-                                                                              <input type='hidden' name='coordinadorId' value='<?php echo $data['coorId'] ?>'>
-                                                                              <input id="input-1" type="submit"  class="btn btn-primary" value="Registro de Archivos">
-                                                                          </div>
-                                                                      </form>
-                                                                  </div>
-                                            </div>
-                                        </div>
-                                    </div>
                                                         <!-- fin archivos -->
 
                                                         <!-- comentarios -->
@@ -789,38 +808,13 @@
 
                                                                         </div>
 
-                                                                        <div class="col-lg-4">
+                                                                        <div class="col-lg-6">
                                                                             <div class="ibox float-e-margins">
                                                                                 <div class="ibox-title">
-                                                                                    <h5>Invstigador</h5>
-                                                                                    <?php // if ($usuarioPermisos->getMiembrocomisiontfg()) { ?>
-                                                                                    <button  class="btn btn-primary btn-xs m-l-sm" onclick="edit1()" type="button">Edit</button>
-                                                                                    <button id="BM12" etapa="2" comentario="CM12" class="btn btn-primary  btn-xs" onclick="save1()" type="button">Save</button>
-                                                                                    <?php //} ?>
-                                                                                    <div class="ibox-tools">
-                                                                                        <a class="collapse-link">
-                                                                                            <i class="fa fa-chevron-up"></i>
-                                                                                        </a>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="ibox-content no-padding">
-
-                                                                                    <div id="CM12" class="click1edit wrapper p-md">
-                                                                                        <?php
-                                                                                        comentarioInvestigador($codigo, 2, $connection);
-                                                                                        ?>
-                                                                                    </div>
-
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-lg-4">
-                                                                            <div class="ibox float-e-margins">
-                                                                                <div class="ibox-title">
-                                                                                    <h5>Evaluador 1</h5>
-                                                                                    <?php if ($usuarioPermisos->getId() == $evaluador1) { ?>
-                                                                                        <button  class="btn btn-primary btn-xs m-l-sm" onclick="edit2()" type="button">Edit</button>
-                                                                                        <button id="BA12" etapa="2" comentario="CA12" class="btn btn-primary  btn-xs" onclick="save2()" type="button">Save</button>
+                                                                                    <h5>Investigador</h5>
+                                                                                    <?php if (getInvestigador($usuarioSesion->getId())) { ?>
+                                                                                        <button  class="btn btn-primary btn-xs m-l-sm" onclick="edit1('CI12')" type="button">Edit</button>
+                                                                                        <button id="BI12" etapa="2" comentario="CI12" class="btn btn-primary  btn-xs" onclick="save1('CI12')" type="button">Save</button>
                                                                                     <?php } ?>
                                                                                     <div class="ibox-tools">
                                                                                         <a class="collapse-link">
@@ -830,7 +824,59 @@
                                                                                 </div>
                                                                                 <div class="ibox-content no-padding">
 
-                                                                                    <div id="CA12" class="click2edit wrapper p-md">
+                                                                                    <div id="CI12" class="click1edit wrapper p-md">
+                                                                                        <?php
+                                                                                        comentarioInvestigador($codigo, 2, $connection);
+                                                                                        ?>
+                                                                                    </div>
+
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="col-lg-6">
+                                                                            <div class="ibox float-e-margins">
+                                                                                <div class="ibox-title">
+                                                                                    <h5>Miembro Comiex</h5>
+                                                                                    <?php if (($usuarioPermisos->getMiembrocomiex())) { ?>
+                                                                                        <button  class="btn btn-primary btn-xs m-l-sm" onclick="edit4('CM12')" type="button">Edit</button>
+                                                                                        <button id="BM12" etapa="2" comentario="CM12" class="btn btn-primary  btn-xs" onclick="save4('CM12')" type="button">Save</button>
+                                                                                    <?php } ?>
+                                                                                    <div class="ibox-tools">
+                                                                                        <a class="collapse-link">
+                                                                                            <i class="fa fa-chevron-up"></i>
+                                                                                        </a>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="ibox-content no-padding">
+
+                                                                                    <div id="CM12" class="click4edit wrapper p-md">
+                                                                                        <?php
+                                                                                        comentarioMiembroComiex($codigo, 2, $connection);
+                                                                                        ?>
+                                                                                    </div>
+
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="col-lg-6">
+                                                                            <div class="ibox float-e-margins">
+                                                                                <div class="ibox-title">
+                                                                                    <h5>Evaluador 1</h5>
+                                                                                    <?php if ($usuarioPermisos->getId() == $evaluador1) { ?>
+                                                                                        <button  class="btn btn-primary btn-xs m-l-sm" onclick="edit2('CE12')" type="button">Edit</button>
+                                                                                        <button id="BE12" etapa="2" comentario="CE12" class="btn btn-primary  btn-xs" onclick="save2('CE12')" type="button">Save</button>
+                                                                                    <?php } ?>
+                                                                                    <div class="ibox-tools">
+                                                                                        <a class="collapse-link">
+                                                                                            <i class="fa fa-chevron-up"></i>
+                                                                                        </a>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="ibox-content no-padding">
+
+                                                                                    <div id="CE12" class="click2edit wrapper p-md">
                                                                                         <?php
                                                                                         comentarioEvaluador($codigo, 2, $evaluador1, $connection);
                                                                                         ?>
@@ -839,16 +885,17 @@
                                                                                 </div>
                                                                             </div>
                                                                         </div>
+
                                                                         <?php if ($GLOBALS['cantEvaluador'] == 2) { ?>
-                                                                            <div class="col-lg-4">
+                                                                            <div class="col-lg-6">
                                                                                 <div class="ibox float-e-margins">
                                                                                     <div class="ibox-title">
                                                                                         <h5>Evaluador 2</h5>
                                                                                         <?php
                                                                                         if ($usuarioPermisos->getId() == $evaluador2) {
                                                                                             ?>
-                                                                                            <button  class="btn btn-primary btn-xs m-l-sm" onclick="edit3()" type="button">Edit</button>
-                                                                                            <button id="BA22" etapa="2" comentario="CA22" class="btn btn-primary  btn-xs" onclick="save3()" type="button">Save</button>
+                                                                                            <button  class="btn btn-primary btn-xs m-l-sm" onclick="edit3('CE22')" type="button">Edit</button>
+                                                                                            <button id="BE22" etapa="2" comentario="CE22" class="btn btn-primary  btn-xs" onclick="save3('CE22')" type="button">Save</button>
                                                                                             <?php
                                                                                         }
                                                                                         ?>
@@ -860,7 +907,7 @@
                                                                                     </div>
                                                                                     <div class="ibox-content no-padding">
 
-                                                                                        <div id="CA22" class="click3edit wrapper p-md">
+                                                                                        <div id="CE22" class="click3edit wrapper p-md">
                                                                                             <?php
                                                                                             comentarioEvaluador($codigo, 2, $evaluador2, $connection);
                                                                                             ?>
@@ -870,8 +917,6 @@
                                                                                 </div>
                                                                             </div>
                                                                         <?php } ?>
-
-
 
                                                                     </div>
                                                                 </div>
@@ -891,7 +936,10 @@
                                                                 <div class="form-group">
 
 
-                                                                    <select id="estado2" class="form-control m-b" name="account" onchange="pintandoPanels()">
+                                                                    <select id="estado2" class="form-control m-b" name="account" onchange="pintandoPanels()"<?php
+                                                                    if (!$usuarioPermisos->getCoordinadorinvestigacion()) {
+                                                                        echo "disabled"
+                                                                        ?> <?php } ?>>
                                                                         <option value="Aprobada">Aprobada</option>
                                                                         <option value="Aprobada con Observaciones">Aprobada con Observaciones</option>
                                                                         <option value="No Aprobada">No Aprobada</option>
@@ -905,7 +953,10 @@
                                                         <div class="row">
                                                             <div class="col-lg-2 col-lg-offset-9">
                                                                 <div class="form-group">
-                                                                    <input id="BE2" estado="estado2" etapa="2" type="button" class="btn btn-primary" value="Guardar Estado">
+
+                                                                    <?php if ($usuarioPermisos->getCoordinadorinvestigacion()) { ?> 
+                                                                        <input id="BE2" estado="estado2" etapa="2" type="button" class="btn btn-primary" value="Guardar Estado">
+                                                                    <?php } ?>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -934,227 +985,226 @@
                                                         </div>
                                                     </div>
                                                     <div class="ibox-content">
-                                                       
-                                                          <!-- archivos -->
-                                                         <div class="col-lg-12">
-                                                              <div class="panel panel-default">
-                                                              <div class="panel-body">
-                                                              <form action="funcionalidad/CargarArchivoBlobInvExt.php" method="post" enctype="multipart/form-data" id="directorForm">
-                                                              <div class="row">
 
-                                                              <div class="col-lg-12 ">
-                                                              <label>Archivos</label>
-                                                              <br/><br/>
+                                                        <!-- archivos -->
+                                                        <div class="col-lg-12">
+                                                            <div class="panel panel-default">
+                                                                <div class="panel-body">
+                                                                    <form action="funcionalidad/CargarArchivoBlobInvExt.php" method="post" enctype="multipart/form-data" id="directorForm">
+                                                                        <div class="row">
 
-                                                              </div>
+                                                                            <div class="col-lg-12 ">
+                                                                                <label>Archivos</label>
+                                                                                <br/><br/>
 
-                                                              <div class="col-lg-12 ">
-                                                              <div class="col-lg-5 col-lg-offset-1">
-                                                              <label class="form-label">COMIEX</label><br>
+                                                                            </div>
+
+                                                                            <div class="col-lg-12 ">
+                                                                                <div class="col-lg-5 col-lg-offset-1">
+                                                                                    <label class="form-label">COMIEX</label><br>
 
 
-                                                              <?php
-                                                              $consulta3 = "SELECT * FROM iearchivoscomiex where proyecto = '" . $codigo . "' and etapa = 3 order by fecha desc limit 1;";
-                                                              $query3 = mysqli_query($connection, $consulta3);
-                                                              if ($data3 = mysqli_fetch_assoc($query3)) {
-                                                              echo " <div class=' file-box'>";
-                                                              echo " <div class='file'>";
-                                                              echo " <a href='" . $data3['ruta'] . "'>";
-                                                              echo "  <span class='corner'></span> ";
-                                                              echo " <div class='icon'>
+                                                                                    <?php
+                                                                                    $consulta3 = "SELECT * FROM iearchivoscomiex where proyecto = '" . $codigo . "' and etapa = 3 order by fecha desc limit 1;";
+                                                                                    $query3 = mysqli_query($connection, $consulta3);
+                                                                                    if ($data3 = mysqli_fetch_assoc($query3)) {
+                                                                                        echo " <div class=' file-box'>";
+                                                                                        echo " <div class='file'>";
+                                                                                        echo " <a href='" . $data3['ruta'] . "'>";
+                                                                                        echo "  <span class='corner'></span> ";
+                                                                                        echo " <div class='icon'>
                                                               <i class='fa fa-file'></i>
                                                               </div>";
-                                                              echo " <div class='file-name'style= 'word-wrap: break-word;'> " . $data3['nom_archivo'] . "<br>";
+                                                                                        echo " <div class='file-name'style= 'word-wrap: break-word;'> " . $data3['nom_archivo'] . "<br>";
 
-                                                              echo "<small>Agregado: " . $data3['fecha'] . "</small>";
-                                                              echo "</div>";
-                                                              echo "</a>";
-                                                              echo "</div>";
-                                                              echo "</div>";
-                                                              } else {
-                                                              echo "<span class='label label-warning big'>No existen archivos recientes.</span><br>";
-                                                              }
-                                                              ?>
-                                                              <?php if ($usuarioPermisos->getMiembrocomiex() && !getInvestigador($usuarioSesion->getId())  && $usuarioSesion->getId() != $data["coorId"]  && !verificarEvaluador($usuarioSesion->getId()) ) { ?>
-                                                              <div class="form-group">
-                                                              <input class = 'form-control' name = 'codigoProyecto' id='codigoProyecto' type="hidden" value='<?php echo $codigo ?>'>
-                                                              <input class = 'form-control' name = 'etapa' id = 'etapa' value ='3' type="hidden">
-                                                              <input class = 'form-control' name = 'tipo' id = 'tipo' value ='archivoComiex' type="hidden">
-                                                              <input class = 'form-control' name = 'isInvestigacion' value= '1' type="hidden">
-                                                              <label>Adjuntar Documento:</label>
-                                                              <input accept=".docx,.doc,.pdf" type="file" name="archivo" id="archivo3" onchange="uploadFile3()" class ="btn btn-primary btn-outline">
-                                                              <div hidden id="divProgress3" class="progress progress-striped active">
-                                                              <div  id="progressBar3"   aria-valuemax="100" aria-valuemin="0" aria-valuenow="45" role="progressbar" class="progress-bar progress-bar-danger ">
-                                                              </div>
-                                                              </div>
-                                                              <h3 id="status3"></h3>
-                                                              <p id="loaded_n_total3"></p>
-                                                              </div>
-                                                              <?php } ?>
-                                                              </div>
+                                                                                        echo "<small>Agregado: " . $data3['fecha'] . "</small>";
+                                                                                        echo "</div>";
+                                                                                        echo "</a>";
+                                                                                        echo "</div>";
+                                                                                        echo "</div>";
+                                                                                    } else {
+                                                                                        echo "<span class='label label-warning big'>No existen archivos recientes.</span><br>";
+                                                                                    }
+                                                                                    ?>
+                                                                                    <?php if ($usuarioPermisos->getMiembrocomiex() && !getInvestigador($usuarioSesion->getId()) && $usuarioSesion->getId() != $data["coorId"] && !verificarEvaluador($usuarioSesion->getId())) { ?>
+                                                                                        <div class="form-group">
+                                                                                            <input class = 'form-control' name = 'codigoProyecto' id='codigoProyecto' type="hidden" value='<?php echo $codigo ?>'>
+                                                                                            <input class = 'form-control' name = 'etapa' id = 'etapa' value ='3' type="hidden">
+                                                                                            <input class = 'form-control' name = 'tipo' id = 'tipo' value ='archivoComiex' type="hidden">
+                                                                                            <input class = 'form-control' name = 'isInvestigacion' value= '1' type="hidden">
+                                                                                            <label>Adjuntar Documento:</label>
+                                                                                            <input accept=".docx,.doc,.pdf" type="file" name="archivo" id="archivo3" onchange="uploadFile3()" class ="btn btn-primary btn-outline">
+                                                                                            <div hidden id="divProgress3" class="progress progress-striped active">
+                                                                                                <div  id="progressBar3"   aria-valuemax="100" aria-valuemin="0" aria-valuenow="45" role="progressbar" class="progress-bar progress-bar-danger ">
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <h3 id="status3"></h3>
+                                                                                            <p id="loaded_n_total3"></p>
+                                                                                        </div>
+                                                                                    <?php } ?>
+                                                                                </div>
 
 
-                                                              <div class="col-lg-5 col-lg-offset-1">
-                                                              <label class="form-label">Investigadores</label><br>
-                                                              <?php
-                                                              $consulta3 = "SELECT * FROM iearchivosinvestigadores where proyecto ='" . $codigo ."' and etapa = 3 order by fecha desc limit 1;";
-                                                              $query3 = mysqli_query($connection, $consulta3);
-                                                              if ($data3 = mysqli_fetch_assoc($query3)) {
-                                                              echo " <div class=' file-box'>";
-                                                              echo " <div class='file'>";
-                                                              echo " <a href='" . $data3['ruta'] . "'>";
-                                                              echo "  <span class='corner'></span> ";
-                                                              echo " <div class='icon'>
+                                                                                <div class="col-lg-5 col-lg-offset-1">
+                                                                                    <label class="form-label">Investigadores</label><br>
+                                                                                    <?php
+                                                                                    $consulta3 = "SELECT * FROM iearchivosinvestigadores where proyecto ='" . $codigo . "' and etapa = 3 order by fecha desc limit 1;";
+                                                                                    $query3 = mysqli_query($connection, $consulta3);
+                                                                                    if ($data3 = mysqli_fetch_assoc($query3)) {
+                                                                                        echo " <div class=' file-box'>";
+                                                                                        echo " <div class='file'>";
+                                                                                        echo " <a href='" . $data3['ruta'] . "'>";
+                                                                                        echo "  <span class='corner'></span> ";
+                                                                                        echo " <div class='icon'>
                                                               <i class='fa fa-file'></i>
                                                               </div>";
-                                                              echo " <div class='file-name'style= 'word-wrap: break-word;'> " . $data3['nom_archivo'] . "<br>";
+                                                                                        echo " <div class='file-name'style= 'word-wrap: break-word;'> " . $data3['nom_archivo'] . "<br>";
 
-                                                              echo "<small>Agregado: " . $data3['fecha'] . "</small>";
-                                                              echo "</div>";
-                                                              echo "</a>";
-                                                              echo "</div>";
-                                                              echo "</div>";
-                                                              } else {
-                                                              echo "<span class='label label-warning big'>No existen archivos recientes.</span><br>";
-                                                              }
-                                                              ?>
+                                                                                        echo "<small>Agregado: " . $data3['fecha'] . "</small>";
+                                                                                        echo "</div>";
+                                                                                        echo "</a>";
+                                                                                        echo "</div>";
+                                                                                        echo "</div>";
+                                                                                    } else {
+                                                                                        echo "<span class='label label-warning big'>No existen archivos recientes.</span><br>";
+                                                                                    }
+                                                                                    ?>
 
-                                                              <?php if (getInvestigador($usuarioSesion->getId()) && $usuarioSesion->getId() != $evaluador1 && $usuarioSesion->getId() != $evaluador2) { ?>
-                                                              <div class="form-group">
-                                                              <input class = 'form-control' name = 'codigoProyecto' id='codigoProyecto' type="hidden" value='<?php echo $codigo ?>'>
-                                                              <input class = 'form-control' name = 'etapa' id = 'etapa' value ='3' type="hidden">
-                                                              <input class = 'form-control' name = 'tipo' id = 'tipo' value ='archivoInvestigador' type="hidden">
-                                                              <input class = 'form-control' name = 'isInvestigacion' id = 'isInvestigacion' value= '2' type="hidden">
-                                                              <label>Adjuntar Documento:</label>
-                                                              <input accept=".docx,.doc,.pdf" type="file" name="archivo" id="archivo3" onchange="uploadFile3()" class ="btn btn-primary btn-outline">
-                                                              <div hidden id="divProgress3" class="progress progress-striped active">
-                                                              <div  id="progressBar3"   aria-valuemax="100" aria-valuemin="0" aria-valuenow="45" role="progressbar" class="progress-bar progress-bar-danger ">
-                                                              </div>
-                                                              </div>
-                                                              <h3 id="status3"></h3>
-                                                              <p id="loaded_n_total3"></p>
-                                                              </div>
-                                                              <?php } ?>
-                                                              </div>
+                                                                                    <?php if (getInvestigador($usuarioSesion->getId()) && $usuarioSesion->getId() != $evaluador1 && $usuarioSesion->getId() != $evaluador2) { ?>
+                                                                                        <div class="form-group">
+                                                                                            <input class = 'form-control' name = 'codigoProyecto' id='codigoProyecto' type="hidden" value='<?php echo $codigo ?>'>
+                                                                                            <input class = 'form-control' name = 'etapa' id = 'etapa' value ='3' type="hidden">
+                                                                                            <input class = 'form-control' name = 'tipo' id = 'tipo' value ='archivoInvestigador' type="hidden">
+                                                                                            <input class = 'form-control' name = 'isInvestigacion' id = 'isInvestigacion' value= '2' type="hidden">
+                                                                                            <label>Adjuntar Documento:</label>
+                                                                                            <input accept=".docx,.doc,.pdf" type="file" name="archivo" id="archivo3" onchange="uploadFile3()" class ="btn btn-primary btn-outline">
+                                                                                            <div hidden id="divProgress3" class="progress progress-striped active">
+                                                                                                <div  id="progressBar3"   aria-valuemax="100" aria-valuemin="0" aria-valuenow="45" role="progressbar" class="progress-bar progress-bar-danger ">
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <h3 id="status3"></h3>
+                                                                                            <p id="loaded_n_total3"></p>
+                                                                                        </div>
+                                                                                    <?php } ?>
+                                                                                </div>
 
 
-                                                              </div>
-                                                              <div class="col-lg-12 ">
-                                                              <div class="col-lg-5 col-lg-offset-1">
+                                                                            </div>
+                                                                            <div class="col-lg-12 ">
+                                                                                <div class="col-lg-5 col-lg-offset-1">
 
-                                                              <label class="control-label">Evaluador 1</label><br>
-                                                              <?php
-                                                              $consulta3 = "SELECT * FROM iearchivosevaluadores where proyecto = '" . $codigo . "' and evaluador = '" . $evaluador1 . "' and etapa = 3 order by fecha desc limit 1;";
-                                                              $query3 = mysqli_query($connection, $consulta3);
-                                                              if ($data3 = mysqli_fetch_assoc($query3)) {
-                                                              echo " <div class=' file-box'>";
-                                                              echo " <div class='file'>";
-                                                              echo " <a href='" . $data3['ruta'] . "'>";
-                                                              echo "  <span class='corner'></span> ";
-                                                              echo " <div class='icon'>
+                                                                                    <label class="control-label">Evaluador 1</label><br>
+                                                                                    <?php
+                                                                                    $consulta3 = "SELECT * FROM iearchivosevaluadores where proyecto = '" . $codigo . "' and evaluador = '" . $evaluador1 . "' and etapa = 3 order by fecha desc limit 1;";
+                                                                                    $query3 = mysqli_query($connection, $consulta3);
+                                                                                    if ($data3 = mysqli_fetch_assoc($query3)) {
+                                                                                        echo " <div class=' file-box'>";
+                                                                                        echo " <div class='file'>";
+                                                                                        echo " <a href='" . $data3['ruta'] . "'>";
+                                                                                        echo "  <span class='corner'></span> ";
+                                                                                        echo " <div class='icon'>
                                                               <i class='fa fa-file'></i>
                                                               </div>";
-                                                              echo " <div class='file-name'style= 'word-wrap: break-word;'> " . $data3['nom_archivo'] . "<br>";
+                                                                                        echo " <div class='file-name'style= 'word-wrap: break-word;'> " . $data3['nom_archivo'] . "<br>";
 
-                                                              echo "<small>Agregado: " . $data3['fecha'] . "</small>";
-                                                              echo "</div>";
-                                                              echo "</a>";
-                                                              echo "</div>";
-                                                              echo "</div>";
-                                                              } else {
-                                                              echo "<span class='label label-warning big'>No existen archivos recientes.</span><br>";
-                                                              }
-                                                              ?>
+                                                                                        echo "<small>Agregado: " . $data3['fecha'] . "</small>";
+                                                                                        echo "</div>";
+                                                                                        echo "</a>";
+                                                                                        echo "</div>";
+                                                                                        echo "</div>";
+                                                                                    } else {
+                                                                                        echo "<span class='label label-warning big'>No existen archivos recientes.</span><br>";
+                                                                                    }
+                                                                                    ?>
 
-                                                              <?php if ($usuarioSesion->getId() == $evaluador1) { ?>
-                                                              <div class="form-group">
-                                                              <input class = 'form-control' name = 'codigoProyecto' id='codigoProyecto' type="hidden" value='<?php echo $codigo ?>'>
-                                                              <input class = 'form-control' name = 'etapa' id = 'etapa' value ='3' type="hidden">
-                                                              <input class = 'form-control' name = 'tipo' id = 'tipo' value ='archivoEvaluador' type="hidden">
-                                                              <input class = 'form-control' name = 'isInvestigacion' value= '1' type="hidden">
-                                                              <label>Adjuntar Documento:</label>
-                                                              <input accept=".docx,.doc,.pdf" type="file" name="archivo" id="archivo3" onchange="uploadFile3()" class ="btn btn-primary btn-outline">
-                                                              <div hidden id="divProgress3" class="progress progress-striped active">
-                                                              <div  id="progressBar3"   aria-valuemax="100" aria-valuemin="0" aria-valuenow="45" role="progressbar" class="progress-bar progress-bar-danger ">
-                                                              </div>
-                                                              </div>
-                                                              <h3 id="status3"></h3>
-                                                              <p id="loaded_n_total3"></p>
-                                                              </div>
-                                                              <?php } ?>
-
-
-                                                              </div>
-                                                              <?php if ($GLOBALS['cantEvaluador'] == 2) { ?>
-                                                              <div class="col-lg-5 col-lg-offset-1">
+                                                                                    <?php if ($usuarioSesion->getId() == $evaluador1) { ?>
+                                                                                        <div class="form-group">
+                                                                                            <input class = 'form-control' name = 'codigoProyecto' id='codigoProyecto' type="hidden" value='<?php echo $codigo ?>'>
+                                                                                            <input class = 'form-control' name = 'etapa' id = 'etapa' value ='3' type="hidden">
+                                                                                            <input class = 'form-control' name = 'tipo' id = 'tipo' value ='archivoEvaluador' type="hidden">
+                                                                                            <input class = 'form-control' name = 'isInvestigacion' value= '1' type="hidden">
+                                                                                            <label>Adjuntar Documento:</label>
+                                                                                            <input accept=".docx,.doc,.pdf" type="file" name="archivo" id="archivo3" onchange="uploadFile3()" class ="btn btn-primary btn-outline">
+                                                                                            <div hidden id="divProgress3" class="progress progress-striped active">
+                                                                                                <div  id="progressBar3"   aria-valuemax="100" aria-valuemin="0" aria-valuenow="45" role="progressbar" class="progress-bar progress-bar-danger ">
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <h3 id="status3"></h3>
+                                                                                            <p id="loaded_n_total3"></p>
+                                                                                        </div>
+                                                                                    <?php } ?>
 
 
-                                                              <label class="control-label">Evaluador 2</label><br>
-                                                              <?php
-                                                              $consulta3 = "SELECT * FROM iearchivosevaluadores where proyecto = '" . $codigo . "' and evaluador = '" . $evaluador2 . "' and etapa = 3 order by fecha desc limit 1;";
-                                                              $query3 = mysqli_query($connection, $consulta3);
-                                                              if ($data3 = mysqli_fetch_assoc($query3)) {
-                                                              echo " <div class=' file-box'>";
-                                                              echo " <div class='file'>";
-                                                              echo " <a href='" . $data3['ruta'] . "'>";
-                                                              echo "  <span class='corner'></span> ";
-                                                              echo " <div class='icon'>
+                                                                                </div>
+                                                                                <?php if ($GLOBALS['cantEvaluador'] == 2) { ?>
+                                                                                    <div class="col-lg-5 col-lg-offset-1">
+
+
+                                                                                        <label class="control-label">Evaluador 2</label><br>
+                                                                                        <?php
+                                                                                        $consulta3 = "SELECT * FROM iearchivosevaluadores where proyecto = '" . $codigo . "' and evaluador = '" . $evaluador2 . "' and etapa = 3 order by fecha desc limit 1;";
+                                                                                        $query3 = mysqli_query($connection, $consulta3);
+                                                                                        if ($data3 = mysqli_fetch_assoc($query3)) {
+                                                                                            echo " <div class=' file-box'>";
+                                                                                            echo " <div class='file'>";
+                                                                                            echo " <a href='" . $data3['ruta'] . "'>";
+                                                                                            echo "  <span class='corner'></span> ";
+                                                                                            echo " <div class='icon'>
                                                               <i class='fa fa-file'></i>
                                                               </div>";
-                                                              echo " <div class='file-name'style= 'word-wrap: break-word;'> " . $data3['nom_archivo'] . "<br>";
+                                                                                            echo " <div class='file-name'style= 'word-wrap: break-word;'> " . $data3['nom_archivo'] . "<br>";
 
-                                                              echo "<small>Agregado: " . $data3['fecha'] . "</small>";
-                                                              echo "</div>";
-                                                              echo "</a>";
-                                                              echo "</div>";
-                                                              echo "</div>";
-                                                              } else {
-                                                              echo "<span class='label label-warning '>No existen archivos recientes.</span><br>";
-                                                              }
-                                                              ?>
+                                                                                            echo "<small>Agregado: " . $data3['fecha'] . "</small>";
+                                                                                            echo "</div>";
+                                                                                            echo "</a>";
+                                                                                            echo "</div>";
+                                                                                            echo "</div>";
+                                                                                        } else {
+                                                                                            echo "<span class='label label-warning '>No existen archivos recientes.</span><br>";
+                                                                                        }
+                                                                                        ?>
 
-                                                              <?php if ($usuarioSesion->getId() == $evaluador2) { ?>
-                                                              <div class="form-group">
-                                                              <input class = 'form-control' name = 'codigoProyecto' id='codigoProyecto' type="hidden" value='<?php echo $codigo ?>'>
-                                                              <input class = 'form-control' name = 'etapa' id = 'etapa' value ='3' type="hidden">
-                                                              <input class = 'form-control' name = 'tipo' id = 'tipo' value ='archivoEvaluador' type="hidden">
-                                                              <input class = 'form-control' name = 'isInvestigacion' value= '1' type="hidden">
-                                                              <label>Adjuntar Documento:</label>
-                                                              <input accept=".docx,.doc,.pdf" type="file" name="archivo" id="archivo3" onchange="uploadFile3()" class ="btn btn-primary btn-outline">
-                                                              <div hidden id="divProgress3" class="progress progress-striped active">
-                                                              <div  id="progressBar3"   aria-valuemax="100" aria-valuemin="0" aria-valuenow="45" role="progressbar" class="progress-bar progress-bar-danger ">
-                                                              </div>
-                                                              </div>
-                                                              <h3 id="status3"></h3>
-                                                              <p id="loaded_n_total3"></p>
-                                                              </div>
-                                                              <?php } ?>
+                                                                                        <?php if ($usuarioSesion->getId() == $evaluador2) { ?>
+                                                                                            <div class="form-group">
+                                                                                                <input class = 'form-control' name = 'codigoProyecto' id='codigoProyecto' type="hidden" value='<?php echo $codigo ?>'>
+                                                                                                <input class = 'form-control' name = 'etapa' id = 'etapa' value ='3' type="hidden">
+                                                                                                <input class = 'form-control' name = 'tipo' id = 'tipo' value ='archivoEvaluador' type="hidden">
+                                                                                                <input class = 'form-control' name = 'isInvestigacion' value= '1' type="hidden">
+                                                                                                <label>Adjuntar Documento:</label>
+                                                                                                <input accept=".docx,.doc,.pdf" type="file" name="archivo" id="archivo3" onchange="uploadFile3()" class ="btn btn-primary btn-outline">
+                                                                                                <div hidden id="divProgress3" class="progress progress-striped active">
+                                                                                                    <div  id="progressBar3"   aria-valuemax="100" aria-valuemin="0" aria-valuenow="45" role="progressbar" class="progress-bar progress-bar-danger ">
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <h3 id="status3"></h3>
+                                                                                                <p id="loaded_n_total3"></p>
+                                                                                            </div>
+                                                                                        <?php } ?>
 
-                                                              </div>
-                                                              <?php }
-                                                              ?>
+                                                                                    </div>
+                                                                                <?php }
+                                                                                ?>
 
+                                                                            </div>
+                                                                            <div class="col-lg-offset-10">
+                                                                                <div class="form-group">
+                                                                                    <input id="guardarArchivo3" type="submit" class="btn btn-primary btn-outline disabled" value="Guardar Archivo"disabled >
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </form>
+                                                                    <div class="col-lg-offset-10">
+                                                                        <form method="post" action='registro_archivos_inv_ext.php'>
+                                                                            <div class="form-group" >
+                                                                                <input type="hidden" name='codigo' value='<?php echo $codigo ?>'>
+                                                                                <input type='hidden' name='etapa' value='3'>
+                                                                                <input id="input-1" type="submit"  class="btn btn-primary" value="Registro de Archivos">
+                                                                            </div>
+                                                                        </form>
+                                                                    </div>
+                                                                </div>
                                                             </div>
-                                                        <div class="col-lg-offset-10">
-                                                              <div class="form-group">
-                                                              <input id="guardarArchivo3" type="submit" class="btn btn-primary btn-outline disabled" value="Guardar Archivo"disabled >
-                                                              </div>
                                                         </div>
-                                                    </div>
-                                                </form>
-                                                                  <div class="col-lg-offset-10">
-                                                                      <form method="post" action='registro_archivos_investigacion.php'>
-                                                                          <div class="form-group" >
-                                                                              <input type="hidden" name='codigo' value='<?php echo $codigo ?>'>
-                                                                              <input type='hidden' name='etapa' value='3'>
-                                                                              <input type='hidden' name='coordinadorId' value='<?php echo $data['coorId'] ?>'>
-                                                                              <input id="input-1" type="submit"  class="btn btn-primary" value="Registro de Archivos">
-                                                                          </div>
-                                                                      </form>
-                                                                  </div>
-                                            </div>
-                                        </div>
-                                    </div>
                                                         <!-- fin archivos -->
                                                         <!-- comentarios -->
                                                         <div class="col-lg-12">
@@ -1169,39 +1219,13 @@
 
                                                                         </div>
 
-                                                                        <div class="col-lg-4">
+                                                                        <div class="col-lg-6">
                                                                             <div class="ibox float-e-margins">
                                                                                 <div class="ibox-title">
                                                                                     <h5>Investigador</h5>
-                                                                                    <?php //if ($usuarioPermisos->getMiembrocomisiontfg()) {  ?>
-                                                                                    <button  class="btn btn-primary btn-xs m-l-sm" onclick="edit1()" type="button">Edit</button>
-                                                                                    <button id="BM13" etapa="3" comentario="CM13" class="btn btn-primary  btn-xs" onclick="save1()" type="button">Save</button>
-                                                                                    <?php //}  ?>
-                                                                                    <div class="ibox-tools">
-                                                                                        <a class="collapse-link">
-                                                                                            <i class="fa fa-chevron-up"></i>
-                                                                                        </a>
-
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="ibox-content no-padding">
-
-                                                                                    <div id="CM13" class="click1edit wrapper p-md">
-                                                                                        <?php
-                                                                                        comentarioInvestigador($codigo, 3, $connection);
-                                                                                        ?>
-                                                                                    </div>
-
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-lg-4">
-                                                                            <div class="ibox float-e-margins">
-                                                                                <div class="ibox-title">
-                                                                                    <h5>Evaluador 1</h5>
-                                                                                    <?php if ($usuarioPermisos->getId() == $evaluador1) { ?>
-                                                                                        <button  class="btn btn-primary btn-xs m-l-sm" onclick="edit2()" type="button">Edit</button>
-                                                                                        <button id="BA13" etapa="3" comentario="CA13" class="btn btn-primary  btn-xs" onclick="save2()" type="button">Save</button>
+                                                                                    <?php if (getInvestigador($usuarioSesion->getId())) { ?>
+                                                                                        <button  class="btn btn-primary btn-xs m-l-sm" onclick="edit1('CI13')" type="button">Edit</button>
+                                                                                        <button id="BI13" etapa="3" comentario="CI13" class="btn btn-primary  btn-xs" onclick="save1('CI13')" type="button">Save</button>
                                                                                     <?php } ?>
                                                                                     <div class="ibox-tools">
                                                                                         <a class="collapse-link">
@@ -1212,7 +1236,61 @@
                                                                                 </div>
                                                                                 <div class="ibox-content no-padding">
 
-                                                                                    <div id="CA13" class="click2edit wrapper p-md">
+                                                                                    <div id="CI13" class="click1edit wrapper p-md">
+                                                                                        <?php
+                                                                                        comentarioInvestigador($codigo, 3, $connection);
+                                                                                        ?>
+                                                                                    </div>
+
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="col-lg-6">
+                                                                            <div class="ibox float-e-margins">
+                                                                                <div class="ibox-title">
+                                                                                    <h5>Miembro Comiex</h5>
+                                                                                    <?php if ($usuarioPermisos->getMiembrocomiex()) { ?>
+                                                                                        <button  class="btn btn-primary btn-xs m-l-sm" onclick="edit4('CM13')" type="button">Edit</button>
+                                                                                        <button id="BM13" etapa="3" comentario="CM13" class="btn btn-primary  btn-xs" onclick="save4('CM13')" type="button">Save</button>
+                                                                                    <?php } ?>
+                                                                                    <div class="ibox-tools">
+                                                                                        <a class="collapse-link">
+                                                                                            <i class="fa fa-chevron-up"></i>
+                                                                                        </a>
+
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="ibox-content no-padding">
+
+                                                                                    <div id="CM13" class="click4edit wrapper p-md">
+                                                                                        <?php
+                                                                                        comentarioMiembroComiex($codigo, 3, $connection);
+                                                                                        ?>
+                                                                                    </div>
+
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="col-lg-6">
+                                                                            <div class="ibox float-e-margins">
+                                                                                <div class="ibox-title">
+                                                                                    <h5>Evaluador 1</h5>
+                                                                                    <?php if ($usuarioPermisos->getId() == $evaluador1) { ?>
+                                                                                        <button  class="btn btn-primary btn-xs m-l-sm" onclick="edit2('CE13')" type="button">Edit</button>
+                                                                                        <button id="BE13" etapa="3" comentario="CE13" class="btn btn-primary  btn-xs" onclick="save2('CE13')" type="button">Save</button>
+                                                                                    <?php } ?>
+                                                                                    <div class="ibox-tools">
+                                                                                        <a class="collapse-link">
+                                                                                            <i class="fa fa-chevron-up"></i>
+                                                                                        </a>
+
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="ibox-content no-padding">
+
+                                                                                    <div id="CE13" class="click2edit wrapper p-md">
                                                                                         <?php
                                                                                         comentarioEvaluador($codigo, 3, $evaluador1, $connection);
                                                                                         ?>
@@ -1222,16 +1300,16 @@
                                                                             </div>
                                                                         </div>
 
-                                                                        <div class="col-lg-4">
-                                                                            <?php if ($GLOBALS['cantEvaluador'] == 2) { ?>
+                                                                        <?php if ($GLOBALS['cantEvaluador'] == 2) { ?>
+                                                                            <div class="col-lg-6">
                                                                                 <div class="ibox float-e-margins">
                                                                                     <div class="ibox-title">
                                                                                         <h5>Evaluador 2</h5>
                                                                                         <?php
                                                                                         if ($usuarioPermisos->getId() == $evaluador2) {
                                                                                             ?>
-                                                                                            <button  class="btn btn-primary btn-xs m-l-sm" onclick="edit3()" type="button">Edit</button>
-                                                                                            <button id="BA23" etapa="3" comentario="CA23" class="btn btn-primary  btn-xs" onclick="save3()" type="button">Save</button>
+                                                                                            <button  class="btn btn-primary btn-xs m-l-sm" onclick="edit3('CE23')" type="button">Edit</button>
+                                                                                            <button id="BE23" etapa="3" comentario="CE23" class="btn btn-primary  btn-xs" onclick="save3('CE23')" type="button">Save</button>
                                                                                             <?php
                                                                                         }
                                                                                         ?>
@@ -1244,7 +1322,7 @@
                                                                                     </div>
                                                                                     <div class="ibox-content no-padding">
 
-                                                                                        <div id="CA23" class="click3edit wrapper p-md">
+                                                                                        <div id="CE23" class="click3edit wrapper p-md">
                                                                                             <?php
                                                                                             comentarioEvaluador($codigo, 3, $evaluador2, $connection);
                                                                                             ?>
@@ -1270,7 +1348,10 @@
                                                                 <div class="form-group">
 
 
-                                                                    <select id="estado3" class="form-control m-b" name="account" onchange="pintandoPanels()">
+                                                                    <select id="estado3" class="form-control m-b" name="account" onchange="pintandoPanels()" <?php
+                                                                    if (!$usuarioPermisos->getCoordinadorinvestigacion()) {
+                                                                        echo "disabled"
+                                                                        ?> <?php } ?>>
 
                                                                         <option value="Aprobada">Aprobada</option>
                                                                         <option value="Aprobada con Observaciones">Aprobada con Observaciones</option>
@@ -1285,7 +1366,9 @@
                                                         <div class="row">
                                                             <div class="col-lg-2 col-lg-offset-9">
                                                                 <div class="form-group">
-                                                                    <input id="BE3" estado="estado3" etapa="3" type="button" class="btn btn-primary" value="Guardar Estado">
+                                                                    <?php if ($usuarioPermisos->getCoordinadorinvestigacion()) { ?> 
+                                                                        <input id="BE3" estado="estado3" etapa="3" type="button" class="btn btn-primary" value="Guardar Estado">
+                                                                    <?php } ?>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1310,7 +1393,10 @@
 
                                                 <div class="col-lg-4">
                                                     <div class="form-group">
-                                                        <select id="estadotfg" class="form-control m-b" name="estadotfg">
+                                                        <select id="estadoie" class="form-control m-b" name="estadoie" <?php
+                                                        if (!$usuarioPermisos->getCoordinadorinvestigacion()) {
+                                                            echo "disabled"
+                                                            ?> <?php } ?>>
                                                             <option>Activo</option>
                                                             <option>Aprobada para defensa</option>
                                                             <option>Inactivo</option>
@@ -1321,7 +1407,9 @@
                                                 </div>
                                                 <div class="col-lg-3 col-lg-offset-2">
                                                     <div class="form-group">
-                                                        <input id="BTFG" estado="estadotfg" type="button" class="btn btn-primary" value="Guardar Estado">
+                                                        <?php if ($usuarioPermisos->getCoordinadorinvestigacion()) { ?>
+                                                            <input id="BIE" estado="estadoie" type="button" class="btn btn-primary" value="Guardar Estado">
+                                                        <?php } ?>
                                                     </div>
                                                 </div>
 
@@ -1336,24 +1424,24 @@
                                                 <div class="col-lg-6">
                                                     <div class="form-group" id="">
                                                         <div class="input-group date">
-                                                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" id="fecha" class="form-control" value="<?php echo substr($data['fechaFinal'], 0, 11) ?>">
+                                                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" id="fecha" class="form-control" value="<?php echo substr($data['fechaFinal'], 0, 11) ?>" <?php
+                                                            if (!$usuarioPermisos->getCoordinadorinvestigacion()) {
+                                                                echo "disabled"
+                                                                ?> <?php } ?>>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-3 col-lg-offset-2">
                                                     <div class="form-group">
-                                                        <input id="FTFG" estado="fechatfg" type="button" class="btn btn-primary" value="Guardar Fecha">
+                                                        <?php if ($usuarioPermisos->getCoordinadorinvestigacion()) { ?>
+                                                            <input id="FIE" estado="fechatfg" type="button" class="btn btn-primary" value="Guardar Fecha">
+                                                        <?php } ?>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-
-
-
                                     <!-- fin estado final -->
-
-
                                     <!--fin adentro panel mas grande -->
                                 </div>
                             </div>
@@ -1389,6 +1477,13 @@
 
             function comentarioInvestigador($cod, $eta, $conn) {
                 $consulta = "select comentario from iecomentariosinvestigador where etapa = $eta and proyecto ='$cod'";
+                $query = mysqli_query($conn, $consulta);
+                $data = mysqli_fetch_assoc($query);
+                echo " " . $data["comentario"] . " ";
+            }
+
+            function comentarioMiembroComiex($cod, $eta, $conn) {
+                $consulta = "select comentario from iecomentarioscomiex where etapa = $eta and proyecto ='$cod'";
                 $query = mysqli_query($conn, $consulta);
                 $data = mysqli_fetch_assoc($query);
                 echo " " . $data["comentario"] . " ";
@@ -1435,36 +1530,33 @@
                     $cont++;
                 }
             }
-            
-            function getInvestigador($investigadorId){
-                
+
+            function getInvestigador($investigadorId) {
+
                 global $arrayInvestigadores;
-                for($i = 0 ; $i < count($arrayInvestigadores); $i++ ){
-                    if($arrayInvestigadores[$i] == $investigadorId){
-                      
+                for ($i = 0; $i < count($arrayInvestigadores); $i++) {
+                    if ($arrayInvestigadores[$i] == $investigadorId) {
                         return true;
                     }
-                    
                 }
                 return false;
             }
-            
-            function verificarEvaluador($usuarioId){//verifica si es evaluador o no
+
+            function verificarEvaluador($usuarioId) {//verifica si es evaluador o no
                 global $evaluador1;
                 global $evaluador2;
-                if(isset($evaluador1)){
-                    if($usuarioId == $evaluador1){
+                if (isset($evaluador1)) {
+                    if ($usuarioId == $evaluador1) {
                         return true;
                     }
                 }
-                if(isset($evaluador2)){
-                    if($usuarioId == $evaluador2){
+                if (isset($evaluador2)) {
+                    if ($usuarioId == $evaluador2) {
                         return true;
                     }
                 }
                 return false;
             }
-            
             ?>
 
             <script>
@@ -1482,88 +1574,79 @@
                                                                             calendarWeeks: true,
                                                                             autoclose: true
                                                                         });
-                                                                        var edit1 = function () {
-                                                                            $('.click1edit').summernote({focus: true});
+                                                                        var edit1 = function (comen) {
+                                                                            $('#' + comen + '.click1edit').summernote({focus: true});
                                                                         };
-                                                                        var save1 = function () {
-                                                                            var aHTML = $('.click1edit').code(); //save HTML If you need(aHTML: array).
-                                                                            $('.click1edit').destroy();
+                                                                        var save1 = function (comen) {
+                                                                            var aHTML = $('#' + comen + '.click1edit').code(); //save HTML If you need(aHTML: array).
+                                                                            $('#' + comen + '.click1edit').destroy();
                                                                         };
-                                                                        var edit2 = function () {
-                                                                            $('.click2edit').summernote({focus: true});
+                                                                        var edit2 = function (comen) {
+                                                                            $('#' + comen + '.click2edit').summernote({focus: true});
                                                                         };
-                                                                        var save2 = function () {
-                                                                            var aHTML = $('.click2edit').code(); //save HTML If you need(aHTML: array).
-                                                                            $('.click2edit').destroy();
+                                                                        var save2 = function (comen) {
+                                                                            var aHTML = $('#' + comen + '.click2edit').code(); //save HTML If you need(aHTML: array).
+                                                                            $('#' + comen + '.click2edit').destroy();
                                                                         };
-                                                                        var edit3 = function () {
-                                                                            $('.click3edit').summernote({focus: true});
+                                                                        var edit3 = function (comen) {
+                                                                            $('#' + comen + '.click3edit').summernote({focus: true});
                                                                         };
-                                                                        var save3 = function () {
-                                                                            var aHTML = $('.click3edit').code(); //save HTML If you need(aHTML: array).
-                                                                            $('.click3edit').destroy();
+                                                                        var save3 = function (comen) {
+                                                                            var aHTML = $('#' + comen + '.click3edit').code(); //save HTML If you need(aHTML: array).
+                                                                            $('#' + comen + '.click3edit').destroy();
                                                                         };
+                                                                        var edit4 = function (comen) {
+                                                                            $('#' + comen + '.click4edit').summernote({focus: true});
+                                                                        };
+                                                                        var save4 = function (comen) {
+                                                                            var aHTML = $('#' + comen + '.click4edit').code(); //save HTML If you need(aHTML: array).
+                                                                            $('#' + comen + '.click4edit').destroy();
+                                                                        };
+
                                                                         $(document).ready(function () {
                                                                             //init de botones
-                                                                            /*
-                                                                             guardarComentarioMiembro("BM11");
-                                                                             guardarComentarioAsesor("BA11");
-                                                                             guardarComentarioAsesor("BA21");
-                                                                             guardarComentarioAsesor("BA12");
-                                                                             guardarComentarioAsesor("BA13");
-                                                                             guardarComentarioAsesor("BA22");
-                                                                             guardarComentarioAsesor("BA23");
-                                                                             guardarComentarioMiembro("BM12");
-                                                                             guardarComentarioMiembro("BM13");
-                                                                             guardarEstado("BE1");
-                                                                             guardarEstado("BE2");
-                                                                             guardarEstado("BE3");
-                                                                             guardarEstadoFin("BTFG");
+                                                                            
+                                                                             
+                                                                             guardarComentarioEvaluador("BE11");
+                                                                             guardarComentarioEvaluador("BE21");
+                                                                             guardarComentarioEvaluador("BE12");
+                                                                             guardarComentarioEvaluador("BE13");
+                                                                             guardarComentarioEvaluador("BE22");
+                                                                             guardarComentarioEvaluador("BE23");
+                                                                             
+                                                                             guardarComentarioComiex("BM11"); 
+                                                                             guardarComentarioComiex("BM12");
+                                                                             guardarComentarioComiex("BM13");
+                                                                             
+                                                                             guardarComentarioInvestigador("BI11"); 
+                                                                             guardarComentarioInvestigador("BI12");
+                                                                             guardarComentarioInvestigador("BI13");
+                                                                             
+                                                                             guardarEstadoIE("BE1");
+                                                                             guardarEstadoIE("BE2");
+                                                                             guardarEstadoIE("BE3");
+                                                                             guardarEstadoFinIE("BIE");
                                                                              guardarFecha();
                                                                              //init de panels y otras cosas
+                                                                             
                                                                              initSelects();
                                                                              pintandoPanels();
-                                                                             inac(1);
-                                                                             inac(2);
-                                                                             inac(3);
-                                                                             */ });
+                                                                             
+                                                                            inac(1);
+                                                                            inac(2);
+                                                                            inac(3);
+                                                                        });
                                                                         //sets de informacion a la base de datos
-                                                                        function  guardarComentarioAsesor(btn) { // btn boton del save para asesores
-                                                                            $(
-                                                                                    "#" + btn).
-                                                                                    click(function (
-                                                                                            evento) {
-                                                                                        evento.
-                                                                                                preventDefault();
-                                                                                        var
-                                                                                                cod = "<?php echo $codigo ?>
-
-
-
-                                                                                        "; var ide = <?php echo $usuarioSesion->getId()
-            ?>;
-                                                                                                var eta = $("#" + btn).attr("etapa");
-                                                                                                var coment = $("#" + btn).attr("comentario");
-                                                                                        var com = $("#" + coment).text();
-                                                                                        com = com.trim();
-                                                                                        $.get("funcionalidad/ComentarioAsesor.php", {comentario: com, tfg: cod, etapa: eta, id: ide}, function (data) {
-                                                                                            //alert(data);
-                                                                                        }).fail(function () {
-                                                                                            //alert("error");
-                                                                                        });
-                                                                                    });
-                                                                        }
-
-                                                                        function guardarComentarioMiembro(btn) {
+                                                                        function  guardarComentarioEvaluador(btn) { // btn boton del save para eVALUADORES
                                                                             $("#" + btn).click(function (evento) {
                                                                                 evento.preventDefault();
                                                                                 var cod = "<?php echo $codigo ?>";
-                                                                                var ide = <?php echo $usuarioSesion->getId() ?>;
+                                                                                var ide = "<?php echo $usuarioSesion->getId() ?>";
                                                                                 var eta = $("#" + btn).attr("etapa");
                                                                                 var coment = $("#" + btn).attr("comentario");
                                                                                 var com = $("#" + coment).text();
                                                                                 com = com.trim();
-                                                                                $.get("funcionalidad/ComentarioMiembro.php", {comentario: com, tfg: cod, etapa: eta, id: ide}, function (data) {
+                                                                                $.get("funcionalidad/ComentarioEvaluador.php", {comentario: com, ie: cod, etapa: eta, id: ide}, function (data) {
                                                                                     //alert(data);
                                                                                 }).fail(function () {
                                                                                     //alert("error");
@@ -1571,15 +1654,49 @@
                                                                             });
                                                                         }
 
-                                                                        function guardarEstado(btn) { // btn boton de guardar la etapa 
+                                                                        function guardarComentarioComiex(btn) {
                                                                             $("#" + btn).click(function (evento) {
                                                                                 evento.preventDefault();
-                                                                                //alert("<?php echo $codigo ?>");
+                                                                                var cod = "<?php echo $codigo ?>";
+                                                                                var ide = "<?php echo $usuarioSesion->getId() ?>";
+                                                                                var eta = $("#" + btn).attr("etapa");
+                                                                                var coment = $("#" + btn).attr("comentario");
+                                                                                var com = $("#" + coment).text();
+                                                                                com = com.trim();
+                                                                                $.get("funcionalidad/ComentarioComiex.php", {comentario: com, ie: cod, etapa: eta, id: ide}, function (data) {
+                                                                                    //alert(data);
+                                                                                }).fail(function () {
+                                                                                    //alert("error");
+                                                                                });
+                                                                            });
+                                                                        }
+                                                                        
+                                                                        function guardarComentarioInvestigador(btn) {
+                                                                            $("#" + btn).click(function (evento) {
+                                                                                evento.preventDefault();
+                                                                                var cod = "<?php echo $codigo ?>";
+                                                                                var ide = "<?php echo $usuarioSesion->getId() ?>";
+                                                                                var eta = $("#" + btn).attr("etapa");
+                                                                                var coment = $("#" + btn).attr("comentario");
+                                                                                var com = $("#" + coment).text();
+                                                                                com = com.trim();
+                                                                                $.get("funcionalidad/ComentarioInvestigador.php", {comentario: com, ie: cod, etapa: eta, id: ide}, function (data) {
+                                                                                    //alert(data);
+                                                                                }).fail(function () {
+                                                                                    //alert("error");
+                                                                                });
+                                                                            });
+                                                                        }
+
+                                                                        function guardarEstadoIE(btn) { // btn boton de guardar la etapa 
+                                                                            $("#" + btn).click(function (evento) {
+                                                                                evento.preventDefault();
+                                                                                
                                                                                 var cod = "<?php echo $codigo ?>";
                                                                                 var eta = $("#" + btn).attr("etapa");
                                                                                 var est = $("#" + btn).attr("estado");
                                                                                 var estad = $("#" + est).val();
-                                                                                $.get("funcionalidad/TFGestado.php", {estado: estad, tfg: cod, etapa: eta}, function (data) {
+                                                                                $.get("funcionalidad/IEestado.php", {estado: estad, ie: cod, etapa: eta}, function (data) {
                                                                                     //alert(data);
                                                                                 }).fail(function () {
                                                                                     //alert("error");
@@ -1588,25 +1705,26 @@
                                                                             });
                                                                         }
 
-                                                                        function guardarEstadoFin(btn) { // btn boton del guardar estado final
+                                                                        function guardarEstadoFinIE(btn) { // btn boton del guardar estado final
                                                                             $("#" + btn).click(function (evento) {
                                                                                 evento.preventDefault();
                                                                                 var cod = "<?php echo $codigo ?>";
                                                                                 var est = $("#" + btn).attr("estado");
                                                                                 var estad = $("#" + est).val();
-                                                                                $.get("funcionalidad/TFGestadoFin.php", {estado: estad, tfg: cod}, function (data) {
+                                                                                $.get("funcionalidad/IEestadoFin.php", {estado: estad, ie: cod}, function (data) {
                                                                                     //alert(data);
                                                                                 }).fail(function () {
                                                                                     //alert("error");
                                                                                 });
                                                                             });
                                                                         }
+                                                                        
                                                                         function guardarFecha() {
-                                                                            $("#FTFG").click(function (evento) {
+                                                                            $("#FIE").click(function (evento) {
                                                                                 evento.preventDefault();
                                                                                 var cod = "<?php echo $codigo ?>";
                                                                                 var fecha = $("#fecha").val();
-                                                                                $.get("funcionalidad/TFGfecha.php", {fecha: fecha, tfg: cod}, function (data) {
+                                                                                $.get("funcionalidad/IEfecha.php", {fecha: fecha, ie: cod}, function (data) {
                                                                                     //alert(data);
                                                                                 }).fail(function () {
                                                                                     //alert("error");
@@ -1618,9 +1736,10 @@
 
 
                                                                         //pintar panels
-                                                                        var estados = {Aprobada: "panel-primary", AprobadaconObservaciones: "panel-warning",
-                                                                            NoAprobada: "panel-danger", Enejecución: "panel-success", Inactiva: "panel"};
-                                                                        var estadosant = {ant1: "<?php echo $etapa1 ?>", ant2: "<?php echo $etapa2 ?>", ant3: "<?php echo $etapa3 ?>"};
+                                                                       var estados = {Aprobada: "panel-primary", AprobadaconObservaciones: "panel-warning",
+                                                                            NoAprobada: "panel-danger", Enejecución: "panel-success", Inactiva: "panel", Activo: "panel-success",
+                                                                            Aprobadaparadefensa: "panel-primary", Inactivo: "panel-danger", Finalizado: "panel-primary"};
+                                                                        var estadosant = {ant1: "<?php echo $etapa1 ?>", ant2: "<?php echo $etapa2 ?>", ant3: "<?php echo $etapa3 ?>", ant4: "<?php echo $data["estado"] ?>"};
                                                                         function pintando(estado, panel, estadoan, n) {
                                                                             estado = estado.replace(/\s/g, "");
                                                                             estadoan = estado.replace(/\s/g, "");
@@ -1629,20 +1748,20 @@
                                                                             estadosant["ant" + n] = estado;
                                                                         }
                                                                         function pintandoPanels() {
-                                                                            /*
+                                                                            
                                                                              pintando($("#estado1").val(), "panelEstado1", estadosant["ant1"], 1);
                                                                              pintando($("#estado2").val(), "panelEstado2", estadosant["ant2"], 2);
                                                                              pintando($("#estado3").val(), "panelEstado3", estadosant["ant3"], 3);
-                                                                             */
+                                                                             pintando($("#estadoie").val(), "panelEstadoFinal", estadosant["ant4"], 4);
                                                                         }
                                                                         function initSelects() {
-                                                                            /*
+                                                                            
                                                                              // alert("<?php echo $etapa1 ?>");
                                                                              $("#estado1").val("<?php echo $etapa1 ?>");
                                                                              $("#estado2").val("<?php echo $etapa2 ?>");
                                                                              $("#estado3").val("<?php echo $etapa3 ?>");
-                                                                             $("#estadotfg").val("<?php echo $data["estado"] ?>");
-                                                                             */
+                                                                             $("#estadoie").val("<?php echo $data["estado"] ?>");
+                                                                             
                                                                         }
                                                                         //metodo para que el usuario no pueda marcar la opcion de inactivo en una etapa
                                                                         function inac(etapa) {
@@ -1656,6 +1775,7 @@
 
                                                                             });
                                                                         }
+
                                                                         //metodo para habilitar/deshabilitar la siguiente etapa 
                                                                         function etapa(opcion, etapasig) {
 
