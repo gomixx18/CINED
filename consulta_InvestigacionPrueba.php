@@ -152,7 +152,7 @@
 
                                     <?php
                                     cantidadEvaluadores($codigo, $connection);
-                                    echo $GLOBALS["cantEvaluador"];
+                                    
                                     evaluadores($codigo, $connection);
                                     //echo $evaluador1;
                                     //echo $evaluador2;
@@ -257,7 +257,7 @@
                                                               }
                                                               ?>
 
-                                                              <?php if (getInvestigador($usuarioSesion->getId()) && $usuarioSesion->getId() != $evaluador1 && $usuarioSesion->getId() != $evaluador2) { ?>
+                                                              <?php if (getInvestigador($usuarioSesion->getId()) &&  !verificarEvaluador($usuarioSesion->getId())) { ?>
                                                               <div class="form-group">
                                                               <input class = 'form-control' name = 'codigoProyecto' id='codigoProyecto' type="hidden" value='<?php echo $codigo ?>'>
                                                               <input class = 'form-control' name = 'etapa' id = 'etapa' value ='1' type="hidden">
@@ -381,10 +381,11 @@
                                                     </div>
                                                 </form>
                                              <div class="col-lg-offset-10">
-                                            <form method="post" action='registro_archivos_inv_ext.php'>
+                                            <form method="post" action='registro_archivos_investigacion.php'>
                                                 <div class="form-group" >
                                                     <input type="hidden" name='codigo' value='<?php echo $codigo ?>'>
                                                     <input type='hidden' name='etapa' value='1'>
+                                                    <input type='hidden' name='coordinadorId' value='<?php echo $data['coorId'] ?>'>
                                                     <input id="input-1" type="submit"  class="btn btn-primary" value="Registro de Archivos">
                                                 </div>
                                            </form>
@@ -544,7 +545,7 @@
                                             <div class="col-lg-12">
                                                 <div class="ibox collapsed">
                                                     <div id="panelEstado2" class="ibox-title panel ">
-                                                        <h5>Etapa #2. Ante Proyecto o Propuesta</h5>
+                                                        <h5>Etapa #2. Anteproyecto o Propuesta</h5>
                                                         <div id="collapse2" class="ibox-tools">
                                                             <a id="col2" class="collapse-link">
                                                                 <i class="fa fa-chevron-up"></i>
@@ -761,10 +762,11 @@
                                                     </div>
                                                 </form>
                                                                   <div class="col-lg-offset-10">
-                                                                      <form method="post" action='registro_archivos_inv_ext.php'>
+                                                                      <form method="post" action='registro_archivos_investigacion.php'>
                                                                           <div class="form-group" >
                                                                               <input type="hidden" name='codigo' value='<?php echo $codigo ?>'>
                                                                               <input type='hidden' name='etapa' value='2'>
+                                                                              <input type='hidden' name='coordinadorId' value='<?php echo $data['coorId'] ?>'>
                                                                               <input id="input-1" type="submit"  class="btn btn-primary" value="Registro de Archivos">
                                                                           </div>
                                                                       </form>
@@ -1141,10 +1143,11 @@
                                                     </div>
                                                 </form>
                                                                   <div class="col-lg-offset-10">
-                                                                      <form method="post" action='registro_archivos_inv_ext.php'>
+                                                                      <form method="post" action='registro_archivos_investigacion.php'>
                                                                           <div class="form-group" >
                                                                               <input type="hidden" name='codigo' value='<?php echo $codigo ?>'>
                                                                               <input type='hidden' name='etapa' value='3'>
+                                                                              <input type='hidden' name='coordinadorId' value='<?php echo $data['coorId'] ?>'>
                                                                               <input id="input-1" type="submit"  class="btn btn-primary" value="Registro de Archivos">
                                                                           </div>
                                                                       </form>
