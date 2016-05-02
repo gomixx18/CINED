@@ -19,8 +19,16 @@ select * from tfg where tfg.fechaInicio between '2015-04-05' and '2017-04-05';
   
  */
 
-$checkEta []= array($_REQUEST["estadoTFG"]);
+$Etfg= $_REQUEST["Etfg"];
+$Etfg1= $_REQUEST["Etfg1"];
+$Etfg2= $_REQUEST["Etfg2"];
+$Etfg3= $_REQUEST["Etfg3"];
+$carrera = $_REQUEST["carrera"];
+$linea = $_REQUEST["linea"];
+$modalidad = $_REQUEST["modalidad"];
+//$datarange = $_REQUEST["datarange"];
 
+//$array = json_decode($json);
 /*
 $checkEta1 = $_POST["estadosE1"];
 $checkEta2 = $_POST["estadosE2"];
@@ -28,7 +36,7 @@ $checkEta3 = $_POST["estadosE3"];
 */
 //<form method="POST" role="form" id="reporte" name="reporte" action="funcionalidad/reportesTFG.php">
 
-echo $checkEta;
+echo $Etfg.$Etfg1.$Etfg2.$Etfg3.$carrera.$linea.$modalidad;
 /*
 $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
 if ($connection) {
