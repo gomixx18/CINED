@@ -85,12 +85,33 @@ try {
     
     if($resultado){
         
-        
-        @session_start();
-        header("Location: ../consulta_TFG.php?codigo=".$codigo);
+        echo '<html>';
+
+    echo '<head>';
+    echo '<title></title>';
+
+    echo '</head>';
+
+    echo '<body onload="enviar()" hidden>';
+        echo '<script language="JavaScript">';
+        echo 'function enviar(){';
+        echo 'document.form.submit();';
+        echo '}';
+        echo '</script>';
+        echo '<form id="form" name="form" method="POST" action="../consulta_TFG.php" >';
+        echo '<input type="text" value="' . $codigo . '" name="codigo" />';
+        echo '</form>';
+
+
+        echo '</body>';
+
+        echo '</html>';
+
+
+        // header("Location: ../consulta_TFG.php?codigo=".$codigo);
         exit();
     }else{
-        @session_start(); 
+   
     $_SESSION["error"] = "¡Error al Cargar el archivo! Error Insert BD";
     header("Location: ../navegacion/500.php");
     exit();
@@ -98,7 +119,7 @@ try {
    
 }
 catch(ServiceException $e){
-    @session_start(); 
+    
     $_SESSION["error"] = "¡Error al Cargar el archivo! conexion al servicio de Blobs";
     header("Location: ../navegacion/500.php");
     exit();

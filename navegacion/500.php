@@ -34,7 +34,14 @@
                     <p>
                         <?php
                             @session_start();
+                            
+                            if(!isset($_SESSION["error"])){
+                                header("Location: ../index.php");
+                                exit();
+                            }
                             echo $_SESSION["error"];
+                           
+                            unset($_SESSION['error']);
                         ?>
                     </p>
                 </div>

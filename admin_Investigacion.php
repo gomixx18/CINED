@@ -15,6 +15,7 @@
         <link href="css/animate.css" rel="stylesheet">
         <link href="css/style.css" rel="stylesheet">
         <?php
+       
         include 'navegacion/nav-lateral.php';
         ?>
     </head>
@@ -175,7 +176,7 @@
                                                                  id = '" . $data["codigo"] . "' > Modificar</button></td> ";
 
 
-                                                            echo "<form method= 'GET' action = 'consulta_Investigacion.php'>";
+                                                            echo "<form method= 'POST' action = 'consulta_Investigacion.php'>";
                                                             echo "<input type='hidden' name='codigo' value= '" . $data["codigo"] . "'/> ";
                                                             echo "<td>" . "<button type='submit' data-toggle='modal' class='btn btn-primary'
                                                                  id = '" . $data["codigo"] . "' > Consultar</button></td> ";

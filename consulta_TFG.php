@@ -23,6 +23,9 @@ and open the template in the editor.
         <link href="css/plugins/summernote/summernote-bs3.css" rel="stylesheet">
 
         <?php
+        if(!isset($_POST['codigo'])){
+            header("Location:   admin_TFG.php");
+        }
         include 'navegacion/nav-lateral.php';
         ?>
     </head>
@@ -56,7 +59,7 @@ and open the template in the editor.
                                 <div class="ibox-content">
 
                                     <?php
-                                    $codigo = $_GET["codigo"];
+                                    $codigo = $_POST["codigo"];
 
                                     $consulta = "select tfg.titulo, concat(tfgdirectores.nombre,' ',tfgdirectores.apellido1,' ',tfgdirectores.apellido2)as directortfg, 
                                                 concat(tfgencargados.nombre,' ',tfgencargados.apellido1,' ',tfgencargados.apellido2) as encargadotfg,
