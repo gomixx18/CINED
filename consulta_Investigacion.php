@@ -18,7 +18,7 @@
         <link href="css/plugins/summernote/summernote-bs3.css" rel="stylesheet">
 
         <?php
-        if(!isset($_POST['codigo'])){
+        if (!isset($_POST['codigo'])) {
             header("Location: admin_Investigacion.php");
         }
         include 'navegacion/nav-lateral.php';
@@ -53,11 +53,10 @@
                                 <div class="ibox-content">
 
                                     <?php
-                                    
-                                    
-                                    
                                     $codigo = $_POST["codigo"];
                                     $arrayInvestigadores = array();
+                                    $arrayInvestigadoresnom = array();
+                                    $arrayInvestigadorestime = array();
                                     $consulta = "select ieproyectos.titulo,
                                       concat(iecoordinadoresinvestigacion.nombre,' ',iecoordinadoresinvestigacion.apellido1,' ',iecoordinadoresinvestigacion.apellido2)as coordinador,
                                       lineasinvestigacion.nombre as lineainvestigacion,
@@ -132,8 +131,8 @@
                                                     <br/>
                                                     <br/>
                                                     <?php
-                                                    $consulta2 = "select ieinvestigadores.id, concat(ieinvestigadores.nombre,' ',  ieinvestigadores.apellido1, ' ', ieinvestigadores.apellido2) as nombre
-                                                    from ieproyectos,ieinvestigadores, ieinvestigan where ieinvestigan.estado = 1 and ieproyectos.codigo = ieinvestigan.proyecto and ieinvestigan.investigador = ieinvestigadores.id and ieproyectos.codigo ='$codigo'";
+                                                    $consulta2 = "select ieinvestigadores.id, concat(ieinvestigadores.nombre,' ',  ieinvestigadores.apellido1, ' ', ieinvestigadores.apellido2) as nombre,ieinvestigan.tiempoacademico "
+                                                            . "from ieproyectos,ieinvestigadores, ieinvestigan where ieproyectos.codigo = ieinvestigan.proyecto and ieinvestigan.investigador = ieinvestigadores.id and ieinvestigan.estado = '1'and ieproyectos.codigo ='$codigo'";
                                                     $query2 = mysqli_query($connection, $consulta2);
 
                                                     while ($data2 = mysqli_fetch_assoc($query2)) {
@@ -142,6 +141,9 @@
                                                         echo "<label>Nombre: " . $data2["nombre"] . "</label>";
                                                         echo "</div>";
                                                         array_push($arrayInvestigadores, $data2['id']);
+                                                        array_push($arrayInvestigadoresnom, $data2['nombre']);
+                                                        array_push($arrayInvestigadorestime, $data2['tiempoacademico']);
+
                                                         echo "<div class='col-lg-5'>";
                                                         echo "<label>Cedula: " . $data2["id"] . "</label>";
                                                         echo "</div>";
@@ -157,9 +159,8 @@
 
                                     <?php
                                     cantidadEvaluadores($codigo, $connection);
-                                  
+
                                     evaluadores($codigo, $connection);
-                                   
                                     ?>
 
                                     <!-- etapa 1 -->
@@ -1384,69 +1385,145 @@
                                             </div>
 
                                         </div>
-                                        <!-- fin etapa 3 -->
-
-
-                                        <!-- estado final -->
+                                    </div>
+                                    <!-- fin etapa 3 -->
+                                    
+                                    <!-- tiempos academicos -->
+                                    <div class="wrapper wrapper-content animated fadeIn">
                                         <div class="row">
-                                            <div class="col-lg-5 col-lg-offset-1">
-                                                <div class="col-lg-4">
-                                                    <div class="form-group">
-                                                        <label class="control-label">Estado del TFG:</label>
+                                            <div class="col-lg-12">
+                                                <div class="ibox collapsed">
+                                                    <div id="panelEstado3" class="ibox-title panel ">
+                                                        <h5>Tiempos academicos</h5>
+                                                        <div id="collapse3" class="ibox-tools">
+                                                            <a id="col3" class="collapse-link">
+                                                                <i class="fa fa-chevron-up"></i>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="ibox-content">
+                                                        <label>Investigadores</label>                                                        
+                                                        <?php
+                                                        for ($i = 0; $i < count($arrayInvestigadores); $i++) {
+                                                            echo "</br>";
+                                                            echo "</br>";
+                                                            echo "<div class='row'>";
+
+                                                            echo "<div class='col-lg-3 col-lg-offset-1'>";
+                                                            echo "<label>Nombre: " . $arrayInvestigadoresnom[$i] . "</label>";
+                                                            echo "</div>";
+
+                                                            echo "<div class='col-lg-3'>";
+                                                            echo "<label class='control-label'>Cedula: " . $arrayInvestigadores[$i] . "</label>";
+                                                            echo "</div>";
+
+                                                            echo "<div class='col-lg-4'>";
+                                                            echo "<label class='control-label'>Tiempo academico:</label>";
+                                                            echo "<select id='$arrayInvestigadores[$i]' class='form-control' name='account' onchange='sumar()'>";
+                                                            echo "<option value='0.125'>1/8</option>";
+                                                            echo "<option value='0.25'>1/4</option>";
+                                                            echo "<option value='0.5'>1/2</option>";
+                                                            echo "<option value='1'>1</option>";
+                                                            echo "<option value='0'>0</option>";
+                                                            echo "</select>";
+                                                            echo "</div>";
+
+                                                            echo "</div>";
+                                                        }
+                                                        ?>
+                                                        <br>
+                                                        <br>
+                                                        <div class="row">
+                                                            <div class='col-lg-12'>
+                                                                <div class='col-lg-4 col-lg-offset-3'>
+                                                                    <label>Tiempo academico total:</label>
+                                                                </div>
+                                                                <div class='col-lg-3'>
+                                                                    <input id="totalAcademico" name="" type="text" value="" class="form-control" disabled> 
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <br>
+                                                        <br>
+                                                        <div class="row">
+                                                            <div class='col-lg-12'>
+                                                                <div class='col-lg-2 col-lg-offset-7'>
+                                                                    <input id="tiempo" type="button" class="btn btn-primary" value="Guardar Cambios">
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+
+
                                                     </div>
                                                 </div>
+                                            </div>
 
-                                                <div class="col-lg-4">
-                                                    <div class="form-group">
-                                                        <select id="estadoie" class="form-control m-b" name="estadoie" <?php
+                                        </div>
+                                    </div>
+                                    <!-- fin tiempos academicos -->
+
+                                    
+                                    <!-- estado final -->
+                                    <div class="row">
+                                        <div class="col-lg-5 col-lg-offset-1">
+                                            <div class="col-lg-4">
+                                                <div class="form-group">
+                                                    <label class="control-label">Estado del TFG:</label>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-4">
+                                                <div class="form-group">
+                                                    <select id="estadoie" class="form-control m-b" name="estadoie" <?php
+                                                    if (!$usuarioPermisos->getCoordinadorinvestigacion()) {
+                                                        echo "disabled"
+                                                        ?> <?php } ?>>
+                                                        <option>Activo</option>
+                                                        <option>Aprobada para defensa</option>
+                                                        <option>Inactivo</option>
+                                                        <option>Finalizado</option>
+                                                    </select>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3 col-lg-offset-2">
+                                                <div class="form-group">
+                                                    <?php if ($usuarioPermisos->getCoordinadorinvestigacion()) { ?>
+                                                        <input id="BIE" estado="estadoie" type="button" class="btn btn-primary" value="Guardar Estado">
+                                                    <?php } ?>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-lg-5 col-lg-offset-1">
+                                            <div class="col-lg-3">
+                                                <div class="form-group">
+                                                    <label class="control-label">Fecha de finalizacion:</label>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-6">
+                                                <div class="form-group" id="">
+                                                    <div class="input-group date">
+                                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" id="fecha" class="form-control" value="<?php echo substr($data['fechaFinal'], 0, 11) ?>" <?php
                                                         if (!$usuarioPermisos->getCoordinadorinvestigacion()) {
                                                             echo "disabled"
                                                             ?> <?php } ?>>
-                                                            <option>Activo</option>
-                                                            <option>Aprobada para defensa</option>
-                                                            <option>Inactivo</option>
-                                                            <option>Finalizado</option>
-                                                        </select>
-
                                                     </div>
                                                 </div>
-                                                <div class="col-lg-3 col-lg-offset-2">
-                                                    <div class="form-group">
-                                                        <?php if ($usuarioPermisos->getCoordinadorinvestigacion()) { ?>
-                                                            <input id="BIE" estado="estadoie" type="button" class="btn btn-primary" value="Guardar Estado">
-                                                        <?php } ?>
-                                                    </div>
-                                                </div>
-
                                             </div>
-                                            <div class="col-lg-5 col-lg-offset-1">
-                                                <div class="col-lg-3">
-                                                    <div class="form-group">
-                                                        <label class="control-label">Fecha de finalizacion:</label>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-lg-6">
-                                                    <div class="form-group" id="">
-                                                        <div class="input-group date">
-                                                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" id="fecha" class="form-control" value="<?php echo substr($data['fechaFinal'], 0, 11) ?>" <?php
-                                                            if (!$usuarioPermisos->getCoordinadorinvestigacion()) {
-                                                                echo "disabled"
-                                                                ?> <?php } ?>>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-3 col-lg-offset-2">
-                                                    <div class="form-group">
-                                                        <?php if ($usuarioPermisos->getCoordinadorinvestigacion()) { ?>
-                                                            <input id="FIE" estado="fechatfg" type="button" class="btn btn-primary" value="Guardar Fecha">
-                                                        <?php } ?>
-                                                    </div>
+                                            <div class="col-lg-3 col-lg-offset-2">
+                                                <div class="form-group">
+                                                    <?php if ($usuarioPermisos->getCoordinadorinvestigacion()) { ?>
+                                                        <input id="FIE" estado="fechatfg" type="button" class="btn btn-primary" value="Guardar Fecha">
+                                                    <?php } ?>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <!-- fin estado final -->
+                                    
                                     <!--fin adentro panel mas grande -->
                                 </div>
                             </div>
@@ -1563,7 +1640,26 @@
                 return false;
             }
             ?>
+             <div id="mod-info" class="modal fade" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="text-center"><h3 id="titulo-modal" class="m-t-none m-b"></h3>
+                                <div class="text-center">
+                                    <label id="texto-modal"></label>
+                                    <br>
+                                    <button class="btn btn-sm btn-primary" id="cerrar" type="button" name="cerrar" data-dismiss="modal">Cerrar</button>
 
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+            
             <script>
                                                                         String.prototype.trim = function () {
                                                                             return this.replace(/^\s+|\s+$/g, "");
@@ -1610,33 +1706,35 @@
 
                                                                         $(document).ready(function () {
                                                                             //init de botones
-                                                                            
-                                                                             
-                                                                             guardarComentarioEvaluador("BE11");
-                                                                             guardarComentarioEvaluador("BE21");
-                                                                             guardarComentarioEvaluador("BE12");
-                                                                             guardarComentarioEvaluador("BE13");
-                                                                             guardarComentarioEvaluador("BE22");
-                                                                             guardarComentarioEvaluador("BE23");
-                                                                             
-                                                                             guardarComentarioComiex("BM11"); 
-                                                                             guardarComentarioComiex("BM12");
-                                                                             guardarComentarioComiex("BM13");
-                                                                             
-                                                                             guardarComentarioInvestigador("BI11"); 
-                                                                             guardarComentarioInvestigador("BI12");
-                                                                             guardarComentarioInvestigador("BI13");
-                                                                             
-                                                                             guardarEstadoIE("BE1");
-                                                                             guardarEstadoIE("BE2");
-                                                                             guardarEstadoIE("BE3");
-                                                                             guardarEstadoFinIE("BIE");
-                                                                             guardarFecha();
-                                                                             //init de panels y otras cosas
-                                                                             
-                                                                             initSelects();
-                                                                             pintandoPanels();
-                                                                             
+
+
+                                                                            guardarComentarioEvaluador("BE11");
+                                                                            guardarComentarioEvaluador("BE21");
+                                                                            guardarComentarioEvaluador("BE12");
+                                                                            guardarComentarioEvaluador("BE13");
+                                                                            guardarComentarioEvaluador("BE22");
+                                                                            guardarComentarioEvaluador("BE23");
+
+                                                                            guardarComentarioComiex("BM11");
+                                                                            guardarComentarioComiex("BM12");
+                                                                            guardarComentarioComiex("BM13");
+
+                                                                            guardarComentarioInvestigador("BI11");
+                                                                            guardarComentarioInvestigador("BI12");
+                                                                            guardarComentarioInvestigador("BI13");
+
+                                                                            guardarEstadoIE("BE1");
+                                                                            guardarEstadoIE("BE2");
+                                                                            guardarEstadoIE("BE3");
+                                                                            guardarEstadoFinIE("BIE");
+                                                                            guardarFecha();
+                                                                            guardarTiempos();
+                                                                            //init de panels y otras cosas
+
+                                                                            initSelects();
+                                                                            pintandoPanels();
+                                                                            init();
+                                                                            sumar();
                                                                             inac(1);
                                                                             inac(2);
                                                                             inac(3);
@@ -1652,9 +1750,9 @@
                                                                                 var com = $("#" + coment).text();
                                                                                 com = com.trim();
                                                                                 $.get("funcionalidad/ComentarioEvaluador.php", {comentario: com, ie: cod, etapa: eta, id: ide}, function (data) {
-                                                                                    //alert(data);
-                                                                                }).fail(function () {
-                                                                                    //alert("error");
+                                                                                    modal(" Se guardo el comentario con exito",data);
+                                                                                }).fail(function (data) {
+                                                                                    modal("Ocurrio algun problema",data);
                                                                                 });
                                                                             });
                                                                         }
@@ -1669,13 +1767,13 @@
                                                                                 var com = $("#" + coment).text();
                                                                                 com = com.trim();
                                                                                 $.get("funcionalidad/ComentarioComiex.php", {comentario: com, ie: cod, etapa: eta, id: ide}, function (data) {
-                                                                                    //alert(data);
-                                                                                }).fail(function () {
-                                                                                    //alert("error");
+                                                                                    modal(" Se guardo el comentario con exito",data);
+                                                                                }).fail(function (data) {
+                                                                                     modal("Ocurrio algun problema",data);
                                                                                 });
                                                                             });
                                                                         }
-                                                                        
+
                                                                         function guardarComentarioInvestigador(btn) {
                                                                             $("#" + btn).click(function (evento) {
                                                                                 evento.preventDefault();
@@ -1686,9 +1784,9 @@
                                                                                 var com = $("#" + coment).text();
                                                                                 com = com.trim();
                                                                                 $.get("funcionalidad/ComentarioInvestigador.php", {comentario: com, ie: cod, etapa: eta, id: ide}, function (data) {
-                                                                                    //alert(data);
-                                                                                }).fail(function () {
-                                                                                    //alert("error");
+                                                                                   modal(" Se guardo el comentario con exito",data);
+                                                                                }).fail(function (data) {
+                                                                                    modal("Ocurrio algun problema",data);
                                                                                 });
                                                                             });
                                                                         }
@@ -1696,17 +1794,17 @@
                                                                         function guardarEstadoIE(btn) { // btn boton de guardar la etapa 
                                                                             $("#" + btn).click(function (evento) {
                                                                                 evento.preventDefault();
-                                                                                
+
                                                                                 var cod = "<?php echo $codigo ?>";
                                                                                 var eta = $("#" + btn).attr("etapa");
                                                                                 var est = $("#" + btn).attr("estado");
                                                                                 var estad = $("#" + est).val();
                                                                                 $.get("funcionalidad/IEestado.php", {estado: estad, ie: cod, etapa: eta}, function (data) {
-                                                                                    //alert(data);
-                                                                                }).fail(function () {
-                                                                                    //alert("error");
+                                                                                     modal(" Se guardo el estado de la etapa con exito",data);
+                                                                                }).fail(function (data) {
+                                                                                    modal("Ocurrio algun problema",data);
                                                                                 });
-                                                                                //etapa(estad, eta);
+                                                                                
                                                                             });
                                                                         }
 
@@ -1717,31 +1815,80 @@
                                                                                 var est = $("#" + btn).attr("estado");
                                                                                 var estad = $("#" + est).val();
                                                                                 $.get("funcionalidad/IEestadoFin.php", {estado: estad, ie: cod}, function (data) {
-                                                                                    //alert(data);
-                                                                                }).fail(function () {
-                                                                                    //alert("error");
+                                                                                    modal(" Se guardo la estado final con exito",data);
+                                                                                }).fail(function (data) {
+                                                                                   modal("Ocurrio algun problema",data);
                                                                                 });
                                                                             });
                                                                         }
-                                                                        
+
                                                                         function guardarFecha() {
                                                                             $("#FIE").click(function (evento) {
                                                                                 evento.preventDefault();
                                                                                 var cod = "<?php echo $codigo ?>";
                                                                                 var fecha = $("#fecha").val();
                                                                                 $.get("funcionalidad/IEfecha.php", {fecha: fecha, ie: cod}, function (data) {
-                                                                                    //alert(data);
-                                                                                }).fail(function () {
-                                                                                    //alert("error");
+                                                                                    modal(" Se guardo la fecha con exito",data);
+                                                                                }).fail(function (data) {
+                                                                                     modal("Ocurrio algun problema",data);
                                                                                 });
                                                                             });
+                                                                        }
+                                                                        
+                                                                         function guardarTiempos() {
+                                                                            $("#tiempo").click(function (evento) {
+                                                                                evento.preventDefault();
+                                                                                alert("lala");
+                                                                                var cod = "<?php echo $codigo ?>";
+                                                                                var tiempos = [];
+                                                                                var investigadores = <?php echo '["' . implode('", "', $arrayInvestigadores) . '"]' ?>;
+                                                                                for (var i = 0; i < investigadores.length; i++) {
+                                                                                    tiempos[tiempos.length] = parseFloat($("#" + investigadores[i]).val());
+                                                                                }
+                                                                                var invs = {};
+                                                                                invs = JSON.stringify(investigadores);
+                                                                                var tiemp = {};
+                                                                                tiemp = JSON.stringify(tiempos);
 
-
+                                                                                $.get("funcionalidad/IEtiempo.php", {investigadores: invs, tiempos: tiemp, ie: cod}, function (data) {
+                                                                                    modal(" Se guardaron los tiempos academicos con exito",data);
+                                                                                }).fail(function (data) {
+                                                                                    modal("Ocurrio algun problema",data);
+                                                                                });
+                                                                            });
                                                                         }
 
 
+
+                                                                        function init(){
+                                                                            var investigadores = <?php echo '["' . implode('", "', $arrayInvestigadores) . '"]' ?>;
+                                                                            var tiempos = <?php echo '["' . implode('", "', $arrayInvestigadorestime) . '"]' ?>;
+                                                                            for (var i = 0; i < investigadores.length; i++) {
+                                                                               //alert($("#" + investigadores[i]).val());
+                                                                                $("#" + investigadores[i]).val(tiempos[i]);
+                                                                            }
+                                                                        
+                                                                        }
+                                                                        function sumar() {
+                                                                            var total = 0;
+                                                                            var investigadores = <?php echo '["' . implode('", "', $arrayInvestigadores) . '"]' ?>;
+
+                                                                            for (var i = 0; i < investigadores.length; i++) {
+                                                                               //alert($("#" + investigadores[i]).val());
+                                                                                total += parseFloat($("#" + investigadores[i]).val());
+
+                                                                            }
+                                                                            $("#totalAcademico").val(total);
+                                                                        }
+                                                                        function modal(titulo,msj) {
+                                                                            $('#mod-info').modal('show');
+                                                                            $("#titulo-modal").text(titulo);
+                                                                            $("#texto-modal").text(msj);
+                                                                                
+                                                                        }
+
                                                                         //pintar panels
-                                                                       var estados = {Aprobada: "panel-primary", AprobadaconObservaciones: "panel-warning",
+                                                                        var estados = {Aprobada: "panel-primary", AprobadaconObservaciones: "panel-warning",
                                                                             NoAprobada: "panel-danger", Enejecución: "panel-success", Inactiva: "panel", Activo: "panel-success",
                                                                             Aprobadaparadefensa: "panel-primary", Inactivo: "panel-danger", Finalizado: "panel-primary"};
                                                                         var estadosant = {ant1: "<?php echo $etapa1 ?>", ant2: "<?php echo $etapa2 ?>", ant3: "<?php echo $etapa3 ?>", ant4: "<?php echo $data["estado"] ?>"};
@@ -1753,20 +1900,20 @@
                                                                             estadosant["ant" + n] = estado;
                                                                         }
                                                                         function pintandoPanels() {
-                                                                            
-                                                                             pintando($("#estado1").val(), "panelEstado1", estadosant["ant1"], 1);
-                                                                             pintando($("#estado2").val(), "panelEstado2", estadosant["ant2"], 2);
-                                                                             pintando($("#estado3").val(), "panelEstado3", estadosant["ant3"], 3);
-                                                                             pintando($("#estadoie").val(), "panelEstadoFinal", estadosant["ant4"], 4);
+
+                                                                            pintando($("#estado1").val(), "panelEstado1", estadosant["ant1"], 1);
+                                                                            pintando($("#estado2").val(), "panelEstado2", estadosant["ant2"], 2);
+                                                                            pintando($("#estado3").val(), "panelEstado3", estadosant["ant3"], 3);
+                                                                            pintando($("#estadoie").val(), "panelEstadoFinal", estadosant["ant4"], 4);
                                                                         }
                                                                         function initSelects() {
-                                                                            
-                                                                             // alert("<?php echo $etapa1 ?>");
-                                                                             $("#estado1").val("<?php echo $etapa1 ?>");
-                                                                             $("#estado2").val("<?php echo $etapa2 ?>");
-                                                                             $("#estado3").val("<?php echo $etapa3 ?>");
-                                                                             $("#estadoie").val("<?php echo $data["estado"] ?>");
-                                                                             
+
+                                                                            // alert("<?php echo $etapa1 ?>");
+                                                                            $("#estado1").val("<?php echo $etapa1 ?>");
+                                                                            $("#estado2").val("<?php echo $etapa2 ?>");
+                                                                            $("#estado3").val("<?php echo $etapa3 ?>");
+                                                                            $("#estadoie").val("<?php echo $data["estado"] ?>");
+
                                                                         }
                                                                         //metodo para que el usuario no pueda marcar la opcion de inactivo en una etapa
                                                                         function inac(etapa) {
