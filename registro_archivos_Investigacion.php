@@ -39,14 +39,13 @@
                                 <div class="ibox-title">
                                     <?php
                                            
-                                            if(!isset($_POST['codigo']) || !isset($_POST['coordinadorId']) || !isset($_POST['etapa'])){
+                                            if(!isset($_POST['codigo']) || !isset($_POST['etapa'])){
                                                 @session_start();
                                                 
                                                 exit();
                                                
                                             }
                                             $codigo = $_POST['codigo'];
-                                            $director = $_POST['coordinadorId'];
                                             $etapa = $_POST['etapa'];
                                            
                                             $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
@@ -61,14 +60,14 @@
                             
                                             //SQL para archivos Evaluadores
                                             $query2 = mysqli_query($connection, "SELECT iearchivosevaluadores.ruta, DATE_FORMAT(iearchivosevaluadores.fecha, '%d/%m/%Y %H:%m:%s')  as fecha, iearchivosevaluadores.nom_archivo, ieevaluadores.nombre, ieevaluadores.apellido1 FROM iearchivosevaluadores, ieevaluadores where iearchivosevaluadores.proyecto ='"
-                                                        .$codigo."' and iearchivosevaluadores.etapa=".$etapa." and iearchivosevaluadores.evaluador = ieevaluadores.id order by iearchivosinvestigadores.fecha desc;");
+                                                        .$codigo."' and iearchivosevaluadores.etapa=".$etapa." and iearchivosevaluadores.evaluador = ieevaluadores.id order by iearchivosevaluadores.fecha desc;");
                                             
                                             //SQL para obtener TITULO Proyecto
                                             $query4 = mysqli_query($connection, "SELECT titulo FROM ieproyectos where codigo ='".$codigo."'");
                                             
                                             //SQL para obtener archivos COMIEX
-                                            $query5 = mysqli_query($connection, "SELECT iearchivoscomiex.ruta, DATE_FORMAT(iearchivoscomiex.fecha, '%d/%m/%Y %H:%m:%s')  as fecha, iearchivoscomiex.nom_archivo, iemiembroscomiex.nombre, iemiembroscomiex.apellido1  FROM iearchivoscomiex, tfgmiembroscomision where tfgarchivoscomision.tfg ='"
-                                                        .$codigo."' and iearchivoscomiex.etapa=".$etapa." and iearchivoscomiex.miembrocomision = tfgmiembroscomision.id order by iearchivosinvestigadores.fecha desc;");
+                                            $query5 = mysqli_query($connection, "SELECT iearchivoscomiex.ruta, DATE_FORMAT(iearchivoscomiex.fecha, '%d/%m/%Y %H:%m:%s')  as fecha, iearchivoscomiex.nom_archivo, iemiembroscomiex.nombre, iemiembroscomiex.apellido1  FROM iearchivoscomiex, iemiembroscomiex where iearchivoscomiex.proyecto =
+					'".$codigo."' and iearchivoscomiex.etapa=".$etapa." and iearchivoscomiex.miembrocomiex = iemiembroscomiex.id order by iearchivoscomiex.fecha desc;");
                                             
                                             $proyecto = mysqli_fetch_assoc($query4);
                                            

@@ -384,7 +384,7 @@
                                                                             </div>
                                                                         </form>
                                                                         <div class="col-lg-offset-10">
-                                                                            <form method="post" action='registro_archivos_inv_ext.php'>
+                                                                            <form method="post" action='registro_archivos_investigacion.php'>
                                                                                 <div class="form-group" >
                                                                                     <input type="hidden" name='codigo' value='<?php echo $codigo ?>'>
                                                                                     <input type='hidden' name='etapa' value='1'>
@@ -787,7 +787,7 @@
                                                                         </div>
                                                                     </form>
                                                                     <div class="col-lg-offset-10">
-                                                                        <form method="post" action='registro_archivos_inv_ext.php'>
+                                                                        <form method="post" action='registro_archivos_investigacion.php'>
                                                                             <div class="form-group" >
                                                                                 <input type="hidden" name='codigo' value='<?php echo $codigo ?>'>
                                                                                 <input type='hidden' name='etapa' value='2'>
@@ -1199,7 +1199,7 @@
                                                                         </div>
                                                                     </form>
                                                                     <div class="col-lg-offset-10">
-                                                                        <form method="post" action='registro_archivos_inv_ext.php'>
+                                                                        <form method="post" action='registro_archivos_investigacion.php'>
                                                                             <div class="form-group" >
                                                                                 <input type="hidden" name='codigo' value='<?php echo $codigo ?>'>
                                                                                 <input type='hidden' name='etapa' value='3'>
