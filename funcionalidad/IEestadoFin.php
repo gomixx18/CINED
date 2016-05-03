@@ -5,7 +5,7 @@ session_start();
 $ie = $_REQUEST["ie"];
 $estado = $_REQUEST["estado"];
 
-echo $tfg . $estado;
+echo $ie . $estado;
 $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
 
 if ($connection) {

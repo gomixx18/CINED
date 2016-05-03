@@ -12,6 +12,6 @@ $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
 if ($connection) {
     $sentenciaSQL = "replace into iecomentariosevaluadores set etapa ='$etapa', proyecto ='$ie', comentario ='$comentario', evaluador ='$id'";
     $resultado = mysqli_query($connection, $sentenciaSQL);
-    echo $id.$tfg.$etapa.$comentario;
+    echo $id.$ie.$etapa.$comentario;
     mysqli_close($connection);
 }
