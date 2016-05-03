@@ -23,9 +23,6 @@ and open the template in the editor.
         <link href="css/plugins/summernote/summernote-bs3.css" rel="stylesheet">
 
         <?php
-        if(!isset($_POST['codigo'])){
-            header("Location:   admin_TFG.php");
-        }
         include 'navegacion/nav-lateral.php';
         ?>
     </head>
@@ -59,7 +56,7 @@ and open the template in the editor.
                                 <div class="ibox-content">
 
                                     <?php
-                                    $codigo = $_POST["codigo"];
+                                    $codigo = $_GET["codigo"];
 
                                     $consulta = "select tfg.titulo, concat(tfgdirectores.nombre,' ',tfgdirectores.apellido1,' ',tfgdirectores.apellido2)as directortfg, 
                                                 concat(tfgencargados.nombre,' ',tfgencargados.apellido1,' ',tfgencargados.apellido2) as encargadotfg,
@@ -1316,7 +1313,6 @@ and open the template in the editor.
                                         </div>
 
                                     </div>
-
                                     <!-- fin etapa 3 -->
 
 
@@ -1496,6 +1492,26 @@ and open the template in the editor.
         }
         ?>
 
+        <div id="mod-info" class="modal fade" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="text-center"><h3 id="titulo-modal" class="m-t-none m-b"></h3>
+                                <div class="text-center">
+                                    <label id="texto-modal"></label>
+                                    <br>
+                                    <button class="btn btn-sm btn-primary" id="cerrar" type="button" name="cerrar" data-dismiss="modal">Cerrar</button>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <script>
                                                                         String.prototype.trim = function () {
                                                                             return this.replace(/^\s+|\s+$/g, "");
@@ -1566,9 +1582,9 @@ and open the template in the editor.
                                                                                 var com = $("#" + coment).text();
                                                                                 com = com.trim();
                                                                                 $.get("funcionalidad/ComentarioAsesor.php", {comentario: com, tfg: cod, etapa: eta, id: ide}, function (data) {
-                                                                                    //alert(data);
-                                                                                }).fail(function () {
-                                                                                    //alert("error");
+                                                                                    modal(" Se guardo el comentario con exito",data);
+                                                                                }).fail(function (data) {
+                                                                                    modal("Ocurrio algun problema",data);
                                                                                 });
                                                                             });
                                                                         }
@@ -1583,9 +1599,9 @@ and open the template in the editor.
                                                                                 var com = $("#" + coment).text();
                                                                                 com = com.trim();
                                                                                 $.get("funcionalidad/ComentarioMiembro.php", {comentario: com, tfg: cod, etapa: eta, id: ide}, function (data) {
-                                                                                    //alert(data);
-                                                                                }).fail(function () {
-                                                                                    //alert("error");
+                                                                                    modal(" Se guardo el comentario con exito",data);
+                                                                                }).fail(function (data) {
+                                                                                    modal("Ocurrio algun problema",data);
                                                                                 });
                                                                             });
                                                                         }
@@ -1599,11 +1615,11 @@ and open the template in the editor.
                                                                                 var est = $("#" + btn).attr("estado");
                                                                                 var estad = $("#" + est).val();
                                                                                 $.get("funcionalidad/TFGestado.php", {estado: estad, tfg: cod, etapa: eta}, function (data) {
-                                                                                    //alert(data);
-                                                                                }).fail(function () {
-                                                                                    //alert("error");
+                                                                                   modal(" Se guardo el estado de la etapa con exito",data);
+                                                                                }).fail(function (data) {
+                                                                                   modal("Ocurrio algun problema",data);
                                                                                 });
-                                                                                //etapa(estad, eta);
+                                                                                
                                                                             });
                                                                         }
 
@@ -1614,9 +1630,9 @@ and open the template in the editor.
                                                                                 var est = $("#" + btn).attr("estado");
                                                                                 var estad = $("#" + est).val();
                                                                                 $.get("funcionalidad/TFGestadoFin.php", {estado: estad, tfg: cod}, function (data) {
-                                                                                    //alert(data);
-                                                                                }).fail(function () {
-                                                                                    //alert("error");
+                                                                                    modal(" Se guardo el estado final con exito",data);
+                                                                                }).fail(function (data) {
+                                                                                    modal("Ocurrio algun problema",data);
                                                                                 });
                                                                             });
                                                                         }
@@ -1626,13 +1642,17 @@ and open the template in the editor.
                                                                                 var cod = "<?php echo $codigo ?>";
                                                                                 var fecha = $("#fecha").val();
                                                                                 $.get("funcionalidad/TFGfecha.php", {fecha: fecha, tfg: cod}, function (data) {
-                                                                                    //alert(data);
-                                                                                }).fail(function () {
-                                                                                    //alert("error");
+                                                                                    modal(" Se guardo la fecha con exito",data);
+                                                                                }).fail(function (data) {
+                                                                                    modal("Ocurrio algun problema",data);
                                                                                 });
                                                                             });
-
-
+                                                                        }
+                                                                        function modal(titulo,msj) {
+                                                                            $('#mod-info').modal('show');
+                                                                            $("#titulo-modal").text(titulo);
+                                                                            $("#texto-modal").text(msj);
+                                                                                
                                                                         }
 
 
