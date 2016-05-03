@@ -133,7 +133,7 @@
                                                     <br/>
                                                     <?php
                                                     $consulta2 = "select ieinvestigadores.id, concat(ieinvestigadores.nombre,' ',  ieinvestigadores.apellido1, ' ', ieinvestigadores.apellido2) as nombre
-                                                    from ieproyectos,ieinvestigadores, ieinvestigan where ieproyectos.codigo = ieinvestigan.proyecto and ieinvestigan.investigador = ieinvestigadores.id and ieproyectos.codigo ='$codigo'";
+                                                    from ieproyectos,ieinvestigadores, ieinvestigan where ieinvestigan.estado = 1 and ieproyectos.codigo = ieinvestigan.proyecto and ieinvestigan.investigador = ieinvestigadores.id and ieproyectos.codigo ='$codigo'";
                                                     $query2 = mysqli_query($connection, $consulta2);
 
                                                     while ($data2 = mysqli_fetch_assoc($query2)) {
@@ -246,8 +246,8 @@
                                                                                             echo " <a href='" . $data3['ruta'] . "'>";
                                                                                             echo "  <span class='corner'></span> ";
                                                                                             echo " <div class='icon'>
-                                                              <i class='fa fa-file'></i>
-                                                              </div>";
+                                                                                                    <i class='fa fa-file'></i>
+                                                                                                    </div>";
                                                                                             echo " <div class='file-name'style= 'word-wrap: break-word;'> " . $data3['nom_archivo'] . "<br>";
 
                                                                                             echo "<small>Agregado: " . $data3['fecha'] . "</small>";
@@ -260,7 +260,7 @@
                                                                                         }
                                                                                         ?>
 
-                                                                                        <?php if (getInvestigador($usuarioSesion->getId()) && $usuarioSesion->getId() != $evaluador1 && $usuarioSesion->getId() != $evaluador2) { ?>
+                                                                                        <?php if (getInvestigador($usuarioSesion->getId()) && !verificarEvaluador($usuarioSesion->getId())) { ?>
                                                                                             <div class="form-group">
                                                                                                 <input class = 'form-control' name = 'codigoProyecto' id='codigoProyecto' type="hidden" value='<?php echo $codigo ?>'>
                                                                                                 <input class = 'form-control' name = 'etapa' id = 'etapa' value ='1' type="hidden">
@@ -293,8 +293,8 @@
                                                                                             echo " <a href='" . $data3['ruta'] . "'>";
                                                                                             echo "  <span class='corner'></span> ";
                                                                                             echo " <div class='icon'>
-                                                              <i class='fa fa-file'></i>
-                                                              </div>";
+                                                                                                    <i class='fa fa-file'></i>
+                                                                                                    </div>";
                                                                                             echo " <div class='file-name'style= 'word-wrap: break-word;'> " . $data3['nom_archivo'] . "<br>";
 
                                                                                             echo "<small>Agregado: " . $data3['fecha'] . "</small>";
@@ -340,8 +340,8 @@
                                                                                                 echo " <a href='" . $data3['ruta'] . "'>";
                                                                                                 echo "  <span class='corner'></span> ";
                                                                                                 echo " <div class='icon'>
-                                                              <i class='fa fa-file'></i>
-                                                              </div>";
+                                                                                                        <i class='fa fa-file'></i>
+                                                                                                        </div>";
                                                                                                 echo " <div class='file-name'style= 'word-wrap: break-word;'> " . $data3['nom_archivo'] . "<br>";
 
                                                                                                 echo "<small>Agregado: " . $data3['fecha'] . "</small>";

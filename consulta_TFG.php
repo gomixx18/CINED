@@ -140,7 +140,7 @@ and open the template in the editor.
                                                     <br/>
                                                     <?php
                                                     $consulta2 = "select tfgestudiantes.id, concat(tfgestudiantes.nombre,' ',  tfgestudiantes.apellido1, ' ', tfgestudiantes.apellido2) as nombre 
-                                                                  from tfg,tfgestudiantes, tfgrealizan where tfg.codigo = tfgrealizan.tfg and tfgrealizan.estudiante = tfgestudiantes.id and tfg.codigo ='" . $codigo . "'";
+                                                                  from tfg,tfgestudiantes, tfgrealizan where tfgrealizan.estado = 1 and tfg.codigo = tfgrealizan.tfg and tfgrealizan.estudiante = tfgestudiantes.id and tfg.codigo ='" . $codigo . "'";
                                                     $query2 = mysqli_query($connection, $consulta2);
 
                                                     while ($data2 = mysqli_fetch_assoc($query2)) {
