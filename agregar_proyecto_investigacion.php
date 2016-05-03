@@ -101,7 +101,7 @@
                                 <div class="ibox-content">
 
                                     <form id="form" method="POST" action="funcionalidad/crearInvestigacion.php" class="wizard-big">
-                                        <h1>TFG</h1>
+                                        <h1>Proyecto de Investigación</h1>
                                         <fieldset>
                                             <h2>Información del Trabajo</h2>
                                             <div class="row">
@@ -272,7 +272,7 @@
 
                                         <!-- coordinador -->
 
-                                        <h1>Encargado de TFG</h1>
+                                        <h1>Coordinador de Investogación</h1>
                                         <fieldset>
                                             <h2>Asignar Coordinador de Investigación</h2>
                                             <h3>Encargado: </h3>
