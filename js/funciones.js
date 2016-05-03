@@ -220,8 +220,14 @@ function validarGuardar(tipo ){
             return true;
         }
     }
-    $("#errorEstudiante").empty();
-    $("#errorEstudiante").append("<font color='red'><b>No puede eliminar todos los estudiantes.</b></font>")
+    if(tipo === "estudiante"){
+        $("#errorEstudiante").empty();
+        $("#errorEstudiante").append("<font color='red'><b>No puede eliminar todos los estudiantes.</b></font>");
+    }
+    if(tipo === "asesor"){
+        $("#errorAsesor").empty();
+        $("#errorAsesor").append("<font color='red'><b>No puede eliminar todos los estudiantes.</b></font>");
+    }
     return false;
 }
 

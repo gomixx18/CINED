@@ -386,7 +386,7 @@
                                             ?> 
 
                                         </div>
-                                            <p id='errorEstudiante' > </p>
+                                            <p id='errorAsesor' > </p>
                                         </div>
                                         
                                        
