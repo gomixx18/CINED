@@ -44,6 +44,7 @@ echo '</script>';
 echo '<form id="form" name="form" method="POST" action="../modificar_TFG.php" >';
 echo '<input type="text" value="'. $codigo. '" name="codigo" />';
 echo '<input type="text" value="Modificación de Director de TFG" name="estudiantes" />';
+echo '<input type="text" value="director" name="tabSelect" />';
 echo '</form>';
 
 

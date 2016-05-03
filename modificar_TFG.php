@@ -23,6 +23,11 @@
         if (isset($_POST["codigo"])===false) {
             header("Location: admin_TFG.php");
         }
+        $tabselect = "titulo";
+        if (isset($_POST["tabSelect"])) {
+            $tabselect = $_POST["tabSelect"];
+        }
+        
         include 'navegacion/nav-lateral.php';
         ?>
     </head>
@@ -55,10 +60,10 @@
                     <div class="col-lg-12">
                         <div class="tabs-container">
                             <ul class="nav nav-tabs">
-                                <li class="active"><a data-toggle="tab" href="#tab-1"> Título</a></li>
-                                <li class=""><a data-toggle="tab" href="#tab-2">Estudiantes</a></li>
-                                <li class=""><a data-toggle="tab" href="#tab-3">Directores</a></li>
-                                <li class=""><a data-toggle="tab" href="#tab-4">Asesores</a></li>
+                                <li id="lititulo" class=""><a data-toggle="tab" href="#tab-1"> Título</a></li>
+                                <li id="liEstudiante" class=""><a data-toggle="tab" href="#tab-2">Estudiantes</a></li>
+                                <li id="liDirector" class=""><a data-toggle="tab" href="#tab-3">Directores</a></li>
+                                <li id="liAsesor" class=""><a data-toggle="tab" href="#tab-4">Asesores</a></li>
 
                             </ul>
                             <div class="tab-content">
@@ -533,7 +538,7 @@
                                                                         var titulo = $("#nomProyecto").val();
 
                                                                         $.get("funcionalidad/TFGTitulo.php", {titulo: titulo, tfg: cod}, function (data) {
-                                                                            alert(data);
+                                                                            
                                                                             $("#menjmodal").text(data);
                                                                             $('#modal-form').modal('show');
                                                                         });
@@ -608,11 +613,51 @@
 
         </script>
         <script>
-            
+            $(document).ready(function(){
             if(<?php echo $banderaEstudiantes  ?>){
                 $('#modal-form').modal('show');
             }
+            });
         </script>
+        <script>
+            $(document).ready(function(){
+                
+            var selectedTab = "<?php echo $tabselect  ?>" ;
+        
+            if(selectedTab === "estudiante"){
+                $('#liEstudiante').addClass("active");
+                $('#tab-1').removeClass("active");
+                $('#tab-2').addClass("active");
+                $('#tab-3').removeClass("active");
+                $('#tab-4').removeClass("active");
+            }
+            if(selectedTab === "asesor"){
+                $('#liAsesor').addClass("active");
+                $('#tab-1').removeClass("active");
+                $('#tab-2').removeClass("active");
+                $('#tab-3').removeClass("active");
+                $('#tab-4').addClass("active");
+            }
+            if(selectedTab === "director"){
+                $('#liDirector').addClass("active");
+                $('#tab-1').removeClass("active");
+                $('#tab-2').removeClass("active");
+                $('#tab-3').addClass("active");
+                $('#tab-4').removeClass("active");
+                
+            }
+            if(selectedTab === "titulo"){
+                
+                $('#lititulo').addClass("active");
+                $('#tab-1').addClass("active");
+                $('#tab-2').removeClass("active");
+                $('#tab-3').removeClass("active");
+                $('#tab-4').removeClass("active");
+                
+            }
+            });
+        </script>
+
 
     </body>
 </html>
