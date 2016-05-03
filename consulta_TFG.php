@@ -1261,8 +1261,9 @@ and open the template in the editor.
 
                                                                                     </div>
                                                                                 </div>
-                                                                            </div>
+                                                                           
                                                                         <?php } ?>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
