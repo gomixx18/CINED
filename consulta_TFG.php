@@ -56,7 +56,7 @@ and open the template in the editor.
                                 <div class="ibox-content">
 
                                     <?php
-                                    $codigo = $_GET["codigo"];
+                                    $codigo = $_POST["codigo"];
 
                                     $consulta = "select tfg.titulo, concat(tfgdirectores.nombre,' ',tfgdirectores.apellido1,' ',tfgdirectores.apellido2)as directortfg, 
                                                 concat(tfgencargados.nombre,' ',tfgencargados.apellido1,' ',tfgencargados.apellido2) as encargadotfg,
