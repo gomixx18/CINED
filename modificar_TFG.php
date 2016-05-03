@@ -2,12 +2,13 @@
 
 <html>
     <head>
-        
+
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <title>Consulta Específica TFG</title>
 
+        
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
         <link href="css/plugins/dataTables/datatables.min.css" rel="stylesheet">
@@ -19,6 +20,9 @@
         <link href="css/plugins/iCheck/custom.css" rel="stylesheet">
         <script src="js/funciones.js" type="text/javascript"></script>
         <?php
+        if (isset($_POST["codigo"])===false) {
+            header("Location: admin_TFG.php");
+        }
         include 'navegacion/nav-lateral.php';
         ?>
     </head>
@@ -31,6 +35,13 @@
                     <div class="col-lg-10">
                         <h2>Modificar un TFG Específico </h2>
                         <?php
+                        $mensaje = "Sin cambios";
+                        $banderaEstudiantes = false;
+                        if (isset($_POST["estudiantes"])) {
+                            $banderaEstudiantes = true;
+                            $mensaje = $_POST["estudiantes"];
+                        }
+                        
                         $codigo = $_POST["codigo"];
                         $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
                         if (!$connection) {
@@ -63,7 +74,7 @@
                                         <div class="col-lg-6 col-lg-offset-1">
                                             <div class="col-lg-3">
                                                 <div class="form-group">
-                                                    <label class="control-label">Titulo del tfg:</label>
+                                                    <label>Titulo del tfg:</label>
                                                 </div>
                                             </div>
                                             <div class="col-lg-6">
@@ -73,7 +84,7 @@
 
                                             </div>
 
-                                            <div class="col-lg-3 col-lg-offset-2">
+                                            <div class="col-lg-3 col-lg-offset-6">
                                                 <div class="form-group">
                                                     <input id="guardarTitulo" type="button" class="btn btn-primary" value="Guardar Título">
                                                 </div>
@@ -87,39 +98,55 @@
                                 <div id="tab-2" class="tab-pane">
                                     <div class="panel-body">
                                         <h4>Modificar Estudiantes</h4>
-
-                                        <div class="col-lg-4" id="estudiantes">
+                                        <form method="POST" action="funcionalidad/modificarEstudiantesTFG.php" onsubmit="return validarGuardar('estudiante')">
+                                            <input name="codigo" type="hidden"  value="<?php echo $codigo  ?>" />
+                                        <div class="col-lg-4">    
+                                        <div id="estudiantes">
                                             <?php
                                             $consulta = "select tfgestudiantes.id, concat(tfgestudiantes.nombre,' ',  tfgestudiantes.apellido1, ' ', tfgestudiantes.apellido2) as nombre 
-                                                                  from tfg,tfgestudiantes, tfgrealizan where tfg.codigo = tfgrealizan.tfg and tfgrealizan.estudiante = tfgestudiantes.id and tfg.codigo ='" . $codigo . "'";
+                                                                  from tfg,tfgestudiantes, tfgrealizan where tfgrealizan.estado= 1 and tfg.codigo = tfgrealizan.tfg and tfgrealizan.estudiante = tfgestudiantes.id and tfg.codigo ='" . $codigo . "'";
                                             $query2 = mysqli_query($connection, $consulta);
                                             $contador = 1;
                                             while ($data2 = mysqli_fetch_assoc($query2)) {
-                                                echo "<div id='divEstud".$contador ."'>";
-                                                echo "<div class='row'>";
-                                                echo "<div class='col-lg-10'>";
+                                                echo "<div id='divEstud" . $contador . "'>";
+
                                                 echo "<label>Estudiante:</label>";
-                                                echo "<input id='' name='' type='text' value='" . $data2['nombre'] . "' class='form-control input-sm m-b-xs required' disabled>";
+                                                echo "<div class='row'>";
+                                                echo "<div class='col-lg-12'>";
+                                                echo "<input id='' name='' type='text' value='" . $data2['nombre'] . "' class='form-control' disabled>";
+                                                echo "</div>";
                                                 echo "</div>";
 
-                                                echo "<div class = 'col-lg-5'>";
                                                 echo "<label>Cedula:</label>";
-                                                echo "<input id = 'idEstudiante".$contador ."' name = 'nameEstudiante".$contador ."' type = 'text' value = " . $data2['id'] . " class = 'form-control input-sm m-b-xs required' disabled >";
+                                                echo "<div class='row'>";
+                                                echo "<div class = 'col-lg-5'>";
+                                                echo "<input id = 'idEstudiante" . $contador . "' type = 'text' value = " . $data2['id'] . " class = 'form-control' disabled >";
+                                                echo "<input name = 'nameEstudiante" . $contador . "' type = 'hidden' value = " . $data2['id'] . " class = 'form-control'>";
+
                                                 echo "</div>";
 
+                                                echo "<div class = 'col-lg-3'>";
+                                                echo "Activo";
+                                                echo "<input type='radio' value='1' class='i-checks' name='activo" . $data2['id'] . "' checked='checked'>";
+                                                echo "</div>";
+                                                echo "<div class = 'col-lg-3'>";
+                                                echo "Inactivo";
+                                                echo "<input type='radio' value='0' class='ni-checks' name='activo" . $data2['id'] . "' >";
+                                                echo "</div>";
+                                                echo "</div></br>";
+                                                echo "</div>";
+                                         
 
-                                                echo "<div class='col-lg-3'> <br> <input type='radio' value='1' class='i-checks' name='activo" . $contador . "' checked='checked'>";
-                                                echo "       ";
-                                                echo "<input type='radio' value='0' class='ni-checks' name='activo" . $contador . "' >";
-                                                echo "</div>";
-                                                echo "</div>";
-                                                echo "</div>";
-                                                
+
                                                 $contador++;
                                             }
                                             ?> 
 
                                         </div>
+                                            <p id='errorEstudiante' > </p>
+                                        </div>
+                                        
+                                       
 
                                         <div class="col-lg-8" id="estudiantesTabla">
 
@@ -156,7 +183,7 @@
                                                                                 echo "<td name = 'nombre'>" . $data["nombre"] . "</td>";
                                                                                 echo "<td name = 'apellido1'>" . $data["apellido1"] . "</td>";
                                                                                 echo "<td name = 'apellido2'>" . $data["apellido2"] . "</td>";
-                                                                                echo '<td class="center"><div class="i-checks"><input type="radio" value="' . $data["id"] . '" name="radEstudiante" nombreaux = "'. $data["nombre"] .'" ap1aux = "'. $data["apellido1"] .'" ap2aux = "'. $data["apellido2"] .'"></div></td>';
+                                                                                echo '<td class="center"><div class="i-checks"><input type="radio" value="' . $data["id"] . '" name="radEstudiante" nombreaux = "' . $data["nombre"] . '" ap1aux = "' . $data["apellido1"] . '" ap2aux = "' . $data["apellido2"] . '"></div></td>';
                                                                                 echo "</tr>";
                                                                             }
                                                                             ?>
@@ -175,8 +202,8 @@
                                                                     </table>
                                                                 </div>
                                                             </div>
-                                                            <button name="btnSelectEstu"  class="btn btn-primary btn-rounded" onclick='selectEstudiantes2()' type="button" placeholder='agregar'>Asignar Estudiante</button>
-                                                            <a data-toggle="modal" class="btn btn-primary btn-rounded" href="#modal-form">Registrar Estudiante</a>
+                                                            <button name="btnSelectEstu"  class="btn btn-primary btn-rounded" onclick='selectEstudiantes2("estudiante")' type="button" placeholder='agregar'>Asignar Estudiante</button>
+                                                            <button class="btn btn-primary btn-rounded" type="submit" name="modificarEstudiantesTFG.php">Guardar Cambios</button>
                                                         </div>
 
                                                     </div>
@@ -187,50 +214,64 @@
                                             <!--fin tabla estudiantes -->
 
                                         </div>
+                                     </form>
                                     </div>
                                 </div>
                                 <div id = "tab-3" class = "tab-pane">
-                                    <div class = "panel-body">
-                                        <h4>Modificar directores</h4>
-                                        <div class="col-lg-4" id="asesores">
+                                    <div class="panel-body">
+                                        <h4>Modificar Director TFG</h4>
+                                        <form method="POST" action="funcionalidad/modificarDirectoresTFG.php">
+                                            <input name="codigo" type="hidden"  value="<?php echo $codigo  ?>" />
+                                        <div class="col-lg-4">    
+                                        <div id="estudiantes2">
                                             <?php
-                                            /* $consulta = "select tfgasesores.id,concat(tfgasesores.nombre,' ',  tfgasesores.apellido1, ' ', tfgasesores.apellido2) as nombre  from tfg,tfgasesores,"
-                                              . "tfgasesoran where tfg.codigo = tfgasesoran.tfg and "
-                                              . "tfgasesoran.asesor =  tfgasesores.id and tfg.codigo ='$codigo'";
-                                              $query2 = mysqli_query($connection, $consulta);
+                                            $consulta = "select tfgdirectores.id, concat(tfgdirectores.nombre,' ',  tfgdirectores.apellido1, ' ', tfgdirectores.apellido2) as nombre 
+                                                                  from tfg,tfgdirectores where tfg.directortfg = tfgdirectores.id and tfg.codigo ='" . $codigo . "'";
+                                            $query2 = mysqli_query($connection, $consulta);
+                                            $contador = 1;
+                                            while ($data2 = mysqli_fetch_assoc($query2)) {
+                                                echo "<div id='divEstud" . $contador . "'>";
 
-                                              while ($data2 = mysqli_fetch_assoc($query2)) {
-                                              echo "<div class='row'>";
-                                              echo "<div class='col-lg-10'>";
-                                              echo "<label>Asesor:</label>";
-                                              echo "<input id='' name='' type='text' value='" . $data2['nombre'] . "' class='form-control input-sm m-b-xs required' disabled>";
-                                              echo "</div>";
+                                                echo "<label>Director:</label>";
+                                                echo "<div class='row'>";
+                                                echo "<div class='col-lg-12'>";
+                                                echo "<input id='' name='' type='text' value='" . $data2['nombre'] . "' class='form-control' disabled>";
+                                                echo "</div>";
+                                                echo "</div>";
 
-                                              echo "<div class = 'col-lg-5'>";
-                                              echo "<label>Cedula:</label>";
-                                              echo "<input id = '' name = '' type = 'text' value = " . $data2['id'] . " class = 'form-control input-sm m-b-xs required' disabled >";
-                                              echo "</div>";
+                                                echo "<label>Cedula:</label>";
+                                                echo "<div class='row'>";
+                                                echo "<div class = 'col-lg-5'>";
+                                                echo "<input id = 'idEstudiante" . $contador . "' type = 'text' value = " . $data2['id'] . " class = 'form-control' disabled >";
+                                                echo "<input name = 'nameDirector" . $contador . "' type = 'hidden' value = " . $data2['id'] . " class = 'form-control'>";
+
+                                                echo "</div>";
+
+                                                
+                                                echo "</div></br>";
+                                                echo "</div>";
+                                         
 
 
-                                              echo "<div class='col-lg-3'> <br> <input type='radio' value='1' class='i-checks' name='activo" . $data2["id"] . "'>";
-                                              echo "       ";
-                                              echo "<input type='radio' value='0' class='ni-checks' name='activo" . $data2["id"] . "' checked='checked'>";
-                                              echo "</div>";
-                                              echo "</div>";
-                                              } */
+                                                $contador++;
+                                            }
                                             ?> 
 
                                         </div>
+                                            <p id='errorDirector' > </p>
+                                        </div>
+                                        
+                                       
 
-                                        <div class="col-lg-8" id="directoresTabla">
+                                        <div class="col-lg-8" id="estudiantesTabla2">
 
-                                            <!-- inicio tabla directores -->
+                                            <!-- inicio tabla estudiantes -->
                                             <div class="row">
                                                 <div class="col-lg-12">
                                                     <div class="ibox float-e-margins">
 
                                                         <div class="ibox-title">
-                                                            <h5>Consulta de Directores</h5>
+                                                            <h5>Consulta de Directores TFG</h5>
                                                         </div>
                                                         <div class="ibox-content">
 
@@ -243,6 +284,8 @@
                                                                                 <th name="nombre">Nombre</th>
                                                                                 <th name="apellido1">Primer Apellido</th>
                                                                                 <th name="apellido2">Segundo Apellido</th>
+                                                                                <th name="apellido1">Especialidad</th>
+                                                                                <th name="apellido2">Titulo</th>
                                                                                 <th name="accion">Acción</th>
                                                                             </tr>
                                                                         </thead>
@@ -257,7 +300,9 @@
                                                                                 echo "<td name = 'nombre'>" . $data["nombre"] . "</td>";
                                                                                 echo "<td name = 'apellido1'>" . $data["apellido1"] . "</td>";
                                                                                 echo "<td name = 'apellido2'>" . $data["apellido2"] . "</td>";
-                                                                                echo '<td class="center"><div class="i-checks"><input type="radio" value="' . $data["id"] . '" name="radEstudiante" ></div></td>';
+                                                                                echo "<td name = 'especialidad'>" . $data["especialidad"] . "</td>";
+                                                                                echo "<td name = 'titulo'>" . $data["titulo"] . "</td>";
+                                                                                echo '<td class="center"><div class="i-checks"><input type="radio" value="' . $data["id"] . '"  name="radEstudiante" tituloaux = "' . $data["titulo"] . '" especialidadaux = "' . $data["especialidad"] . '" nombreaux = "' . $data["nombre"] . '" ap1aux = "' . $data["apellido1"] . '" ap2aux = "' . $data["apellido2"] . '"></div></td>';
                                                                                 echo "</tr>";
                                                                             }
                                                                             ?>
@@ -270,14 +315,16 @@
                                                                                 <th>Nombre</th>
                                                                                 <th>Primer Apellido</th>
                                                                                 <th>Segundo Apellido</th>
+                                                                                <th>Titulo</th>
+                                                                                <th>Acción</th>
                                                                                 <th>Acción</th>
                                                                             </tr>
                                                                         </tfoot>
                                                                     </table>
                                                                 </div>
                                                             </div>
-                                                            <button name="btnSelectEstu"  class="btn btn-primary btn-rounded" onclick='selectEstudiantes()' type="button" placeholder='agregar'>Asignar Director</button>
-                                                            <a data-toggle="modal" class="btn btn-primary btn-rounded" href="#modal-form">Registrar Director</a>
+                                                            
+                                                            <button class="btn btn-primary btn-rounded" type="submit" name="modificarDirectoresTFG">Cambiar Director</button>
                                                         </div>
 
                                                     </div>
@@ -285,47 +332,68 @@
                                                 </div>
 
                                             </div>
-                                            <!--fin tabla directores -->
+                                            <!--fin tabla estudiantes -->
 
                                         </div>
+                                     </form>
                                     </div>
                                 </div>
-                                <div id = "tab-4" class = "tab-pane">
-                                    <div class = "panel-body">
+                                    <div id = "tab-4" class = "tab-pane">
+                                    <div class="panel-body">
                                         <h4>Modificar Asesores</h4>
-                                        <div class="col-lg-4" id="asesores">
+                                        <form method="POST" action="funcionalidad/modificarAsesoresTFG.php" onsubmit="return validarGuardar('asesor')">
+                                            <input name="codigo" type="hidden"  value="<?php echo $codigo  ?>" />
+                                        <div class="col-lg-4">    
+                                        <div id="estudiantes3">
                                             <?php
-                                            $consulta = "select tfgasesores.id,concat(tfgasesores.nombre,' ',  tfgasesores.apellido1, ' ', tfgasesores.apellido2) as nombre  from tfg,tfgasesores,"
-                                                    . "tfgasesoran where tfg.codigo = tfgasesoran.tfg and "
-                                                    . "tfgasesoran.asesor =  tfgasesores.id and tfg.codigo ='$codigo'";
+                                            $consulta = "select tfgasesores.id, concat(tfgasesores.nombre,' ',  tfgasesores.apellido1, ' ', tfgasesores.apellido2) as nombre 
+                                                                  from tfg,tfgasesores, tfgasesoran where tfgasesoran.estado= 1 and tfg.codigo = tfgasesoran.tfg and tfgasesoran.asesor = tfgasesores.id and tfg.codigo ='" . $codigo . "'";
                                             $query2 = mysqli_query($connection, $consulta);
-
+                                            $contador = 1;
                                             while ($data2 = mysqli_fetch_assoc($query2)) {
+                                                echo "<div id='divEstud" . $contador . "'>";
+
+                                                echo "<label>Estudiante:</label>";
                                                 echo "<div class='row'>";
-                                                echo "<div class='col-lg-10'>";
-                                                echo "<label>Asesor:</label>";
-                                                echo "<input id='' name='' type='text' value='" . $data2['nombre'] . "' class='form-control input-sm m-b-xs required' disabled>";
+                                                echo "<div class='col-lg-12'>";
+                                                echo "<input id='' name='' type='text' value='" . $data2['nombre'] . "' class='form-control' disabled>";
+                                                echo "</div>";
                                                 echo "</div>";
 
-                                                echo "<div class = 'col-lg-5'>";
                                                 echo "<label>Cedula:</label>";
-                                                echo "<input id = '' name = '' type = 'text' value = " . $data2['id'] . " class = 'form-control input-sm m-b-xs required' disabled >";
+                                                echo "<div class='row'>";
+                                                echo "<div class = 'col-lg-5'>";
+                                                echo "<input id = 'idEstudiante" . $contador . "' type = 'text' value = " . $data2['id'] . " class = 'form-control' disabled >";
+                                                echo "<input name = 'nameAsesor" . $contador . "' type = 'hidden' value = " . $data2['id'] . " class = 'form-control'>";
+
                                                 echo "</div>";
 
+                                                echo "<div class = 'col-lg-3'>";
+                                                echo "Activo";
+                                                echo "<input type='radio' value='1' class='i-checks' name='activoAsesor" . $data2['id'] . "' checked='checked'>";
+                                                echo "</div>";
+                                                echo "<div class = 'col-lg-3'>";
+                                                echo "Inactivo";
+                                                echo "<input type='radio' value='0' class='ni-checks' name='activoAsesor" . $data2['id'] . "' >";
+                                                echo "</div>";
+                                                echo "</div></br>";
+                                                echo "</div>";
+                                         
 
-                                                echo "<div class='col-lg-3'> <br> <input type='radio' value='1' class='i-checks' name='activo" . $data2["id"] . "' checked='checked'>";
-                                                echo "       ";
-                                                echo "<input type='radio' value='0' class='ni-checks' name='activo" . $data2["id"] . "' >";
-                                                echo "</div>";
-                                                echo "</div>";
+
+                                                $contador++;
                                             }
                                             ?> 
 
                                         </div>
+                                            <p id='errorEstudiante' > </p>
+                                        </div>
+                                        
+                                       
 
-                                        <div class="col-lg-8" id="asesoresTabla">
+                                        <div class="col-lg-8" id="estudiantesTabla3">
 
-                                            <!-- inicio tabla asesores -->
+                                            <!-- inicio tabla estudiantes -->
                                             <div class="row">
                                                 <div class="col-lg-12">
                                                     <div class="ibox float-e-margins">
@@ -344,6 +412,8 @@
                                                                                 <th name="nombre">Nombre</th>
                                                                                 <th name="apellido1">Primer Apellido</th>
                                                                                 <th name="apellido2">Segundo Apellido</th>
+                                                                                <th name="especialidad">Especialidad</th>
+                                                                                <th name="titulo">Título</th>
                                                                                 <th name="accion">Acción</th>
                                                                             </tr>
                                                                         </thead>
@@ -358,7 +428,9 @@
                                                                                 echo "<td name = 'nombre'>" . $data["nombre"] . "</td>";
                                                                                 echo "<td name = 'apellido1'>" . $data["apellido1"] . "</td>";
                                                                                 echo "<td name = 'apellido2'>" . $data["apellido2"] . "</td>";
-                                                                                echo '<td class="center"><div class="i-checks"><input type="radio" value="' . $data["id"] . '" name="radEstudiante" ></div></td>';
+                                                                                echo "<td name = 'especialidad'>" . $data["especialidad"] . "</td>";
+                                                                                echo "<td name = 'titulo'>" . $data["titulo"] . "</td>";
+                                                                                echo '<td class="center"><div class="i-checks"><input type="radio" value="' . $data["id"] . '" name="radEstudiante" nombreaux = "' . $data["nombre"] . '" ap1aux = "' . $data["apellido1"] . '" ap2aux = "' . $data["apellido2"] . '"></div></td>';
                                                                                 echo "</tr>";
                                                                             }
                                                                             ?>
@@ -377,8 +449,8 @@
                                                                     </table>
                                                                 </div>
                                                             </div>
-                                                            <button name="btnSelectEstu"  class="btn btn-primary btn-rounded" onclick='selectEstudiantes()' type="button" placeholder='agregar'>Asignar Asesor</button>
-                                                            <a data-toggle="modal" class="btn btn-primary btn-rounded" href="#modal-form">Registrar Asesor</a>
+                                                            <button name="btnSelectEstu"  class="btn btn-primary btn-rounded" onclick='selectEstudiantes2("asesor")' type="button" placeholder='agregar'>Asignar Asesor</button>
+                                                            <button class="btn btn-primary btn-rounded" type="submit" name="modificarAsesoresTFG">Guardar Cambios</button>
                                                         </div>
 
                                                     </div>
@@ -386,9 +458,10 @@
                                                 </div>
 
                                             </div>
-                                            <!--fin tabla asesores -->
+                                            <!--fin tabla estudiantes -->
 
                                         </div>
+                                     </form>
                                     </div>
                                 </div>
                             </div>
@@ -432,20 +505,10 @@
                 <div class="modal-content">
                     <div class="modal-body">
                         <div class="row">
-                            <div class=""><h3 class="m-t-none m-b"> <i class="fa fa-plus-square-o"></i> Agregar Estudiante</h3>
-
-                                <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Identificación</label></i> <input required type="text" placeholder="Identificacion" class="form-control" id="idRegistroEstudiante"></div>
-                                <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Nombre</label> </i> <input required type="text" placeholder="Nombre" class="form-control" id="nombreRegistroEstudiante"></div>
-                                <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Primer Apellido</label></i> <input required type="text" placeholder="Primer Apellido" class="form-control" id="apellido1RegistroEstudiante"></div>
-                                <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Segundo Apellido</label></i> <input required type="text" placeholder="Segundo Apellido" class="form-control" id="apellido2RegistroEstudiante"></div>
-                                <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Correo</label></i> <input required type="email" placeholder="Correo" class="form-control" id="correoRegistroEstudiante"></div>
-
-                                <div>
-                                    <label class=""> <i class="fa fa-exclamation-circle"> Rellene los datos obligatorios.</i></label><br> 
-                                    <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="button" id="btnAgregarEstudianteModal" data-dismiss="modal"><strong>Registrar</strong></button>
-                                    <button type="button" data-dismiss="modal" class="btn btn-sm btn-secundary pull-right m-t-n-xs" style="margin-right: 20px;" ><strong>Cancelar</strong></button>
-
-
+                            <div class=""><h3 class="m-t-none m-b"><p id="menjmodal"> <?php echo $mensaje?></p></h3>
+                                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sus cambios han sido guardados exitósamente.</p>
+                                <div>    
+                                    <button type="button" data-dismiss="modal" class="btn btn-sm btn-secundary pull-right m-t-n-xs" style="margin-right: 20px;" ><strong>Aceptar</strong></button>
                                 </div>
 
                             </div>
@@ -456,33 +519,11 @@
         </div>
 
         <script>
-                                                                $('.i-checks').iCheck({
-                                                                    checkboxClass: 'icheckbox_square-green',
-                                                                    radioClass: 'iradio_square-green'
-                                                                });
-                                                                $('.ni-checks').iCheck({
-                                                                    checkboxClass: 'icheckbox_square-red',
-                                                                    radioClass: 'iradio_square-red'
-                                                                });
+
                                                                 $(document).ready(function () {
                                                                     guardarTitulo();
                                                                 });
-                                                                /* $(document).ready(function () {
-                                                                 
-                                                                 $("#btnAgregarEstudianteModal").click(function (evento) {
-                                                                 evento.preventDefault();
-                                                                 var idaux = $("#idRegistroEstudiante").val();
-                                                                 var nomaux = $("#nombreRegistroEstudiante").val();
-                                                                 var ape1aux = $("#apellido1RegistroEstudiante").val();
-                                                                 var ape2aux = $("#apellido2RegistroEstudiante").val();
-                                                                 var correoaux = $("#correoRegistroEstudiante").val();
-                                                                 table.destroy();
-                                                                 $("#tablaEstudiantes").load("tablas/tablaEstudiantes.php", {id: idaux, nombre: nomaux, apellido1: ape1aux, apellido2: ape2aux, correo: correoaux}, function () {
-                                                                 
-                                                                 
-                                                                 });
-                                                                 });
-                                                                 });*/
+
 
                                                                 function guardarTitulo() {
 
@@ -492,11 +533,86 @@
                                                                         var titulo = $("#nomProyecto").val();
 
                                                                         $.get("funcionalidad/TFGTitulo.php", {titulo: titulo, tfg: cod}, function (data) {
-                                                                            alert("asdasd");
+                                                                            alert(data);
+                                                                            $("#menjmodal").text(data);
+                                                                            $('#modal-form').modal('show');
                                                                         });
                                                                     });
                                                                 }
 
+                                                                $(document).ready(function () {
+                                                                    $('.i-checks').iCheck({
+                                                                        checkboxClass: 'icheckbox_square-green',
+                                                                        radioClass: 'iradio_square-green',
+                                                                    });
+                                                                });
+                                                                $('.ni-checks').iCheck({
+                                                                    checkboxClass: 'icheckbox_square-red',
+                                                                    radioClass: 'iradio_square-red'
+                                                                });
+                                                                
+                                                                
+
         </script>
+        <script>
+            $(document).ready(function () {
+
+                function getFecha() {
+
+                    var meses = new Array("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
+                    $fecha = new Date();
+                    $dia = $fecha.getDate();
+                    $mes = $fecha.getMonth();
+                    $anno = $fecha.getFullYear();
+                    $hora = $fecha.getHours();
+                    $minutos = $fecha.getMinutes();
+                    $segundos = $fecha.getSeconds();
+                    return $dia + "/" + meses[$mes] + '/' + $anno + ' ' + $hora + ':' + $minutos + ':' + $segundos;
+                }
+                ;
+
+
+                table = $('.dataTables-example').DataTable({
+                    dom: '<"html5buttons"B>lTfgitp',
+                    buttons: [
+                        {extend: 'copy'},
+                        {extend: 'csv'},
+                        {extend: 'excel', title: 'Reporte de Estudiantes'},
+                        {extend: 'pdf',
+                            title: 'Estudiantes Reporte',
+                            message: 'Reporte Generado el: ' + getFecha(),
+                            exportOptions: {
+                                columns: [0, 1, 2, 3, 4]
+                            },
+                        },
+                        {extend: 'print',
+                            customize: function (win) {
+                                $(win.document.body).addClass('white-bg');
+                                $(win.document.body).css('font-size', '10px');
+
+                                $(win.document.body).find('table')
+                                        .addClass('compact')
+                                        .css('font-size', 'inherit');
+                            }
+                        },
+                    ]
+                });
+
+
+                
+
+            });
+
+            
+
+
+        </script>
+        <script>
+            
+            if(<?php echo $banderaEstudiantes  ?>){
+                $('#modal-form').modal('show');
+            }
+        </script>
+
     </body>
 </html>

@@ -11,3 +11,5 @@ if ($connection) {
     $query = mysqli_query($connection, $consulta);
     mysqli_close($connection);
 }
+
+echo 'Modificación del Título';
