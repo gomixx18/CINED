@@ -5,7 +5,6 @@ session_start();
 $tfg = $_REQUEST["tfg"];
 $estado = $_REQUEST["estado"];
 $numero = $_REQUEST["etapa"];
-$tituloTFG = $_REQUEST["titulo"];
 echo $tfg . $estado . $numero;
 $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
 
@@ -23,24 +22,13 @@ if ($connection) {
             
         }
         
+     $array2 = array();
      
-     
-     $q3 = "select correo from tfgestudiantes where id = '";
      for ($index1 = 0;$index1 < count($array1);$index1++) {
         
-      $s2 += strval(array_values($array1)[$index1]['estudiante']) . ", ";
+         $q3 = "select correo from tfgestudiantes where id = '";
      }
-     
-     $q3 = $q3 . $s2 . "'"; //error aqui
-     $r2 = mysqli_query($connection, $q3);
-     $row = $r2->fetch_assoc();
-     $correo= $row['correo'];
-     
-     emailEtapa3($connection, $correos, $tituloTFG);
-     
-     $array2 = array(); // guardar correos que se ocupan en un array
-    
-     
+         
          
      
     }
