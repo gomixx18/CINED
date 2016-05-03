@@ -111,14 +111,14 @@
                                                         $SQLsentencia = "SELECT tfg.codigo, tfg.titulo, lineasinvestigacion.nombre as lineainvestigacion, 
                                                                                     carreras.nombre as carrera, tfg.estado, modalidades.nombre as modalidad
                                                                                     FROM tfg, lineasinvestigacion, carreras, modalidades
-                                                                                    where tfg.estado = 'Activo' and tfg.lineainvestigacion = lineasinvestigacion.codigo and
+                                                                                    where tfg.lineainvestigacion = lineasinvestigacion.codigo and
                                                                                     tfg.carrera = carreras.codigo and tfg.modalidad = modalidades.codigo";
                                                     } else {
                                                         if ($usuarioPermisos->getEstudiante()) {
                                                             $SQLsentencia = "SELECT tfg.codigo, tfg.titulo, lineasinvestigacion.nombre as lineainvestigacion, 
                                                                                     carreras.nombre as carrera, tfg.estado, modalidades.nombre as modalidad
                                                                                     FROM tfg, lineasinvestigacion, carreras, modalidades, tfgrealizan, tfgestudiantes
-                                                                                    where tfg.estado = 'Activo' and tfg.lineainvestigacion = lineasinvestigacion.codigo and
+                                                                                    where tfg.lineainvestigacion = lineasinvestigacion.codigo and
                                                                                     tfg.carrera = carreras.codigo and tfg.modalidad = modalidades.codigo and tfg.codigo = tfgrealizan.tfg and tfgestudiantes.id = tfgrealizan.estudiante and tfgestudiantes.id =" . $usuarioSesion->getID();
                                                         } else {
                                                             $SQLsentencia = "SELECT tfg.codigo, tfg.titulo, lineasinvestigacion.nombre as lineainvestigacion, 
@@ -137,7 +137,7 @@
                                                                 $SQLsentencia = $SQLsentencia . ", tfgmiembroscomision, tfgevaluan ";
                                                             }
 
-                                                            $SQLsentencia = $SQLsentencia . "where tfg.estado = 'Activo' and tfg.lineainvestigacion = lineasinvestigacion.codigo and
+                                                            $SQLsentencia = $SQLsentencia . "where tfg.lineainvestigacion = lineasinvestigacion.codigo and
                                                                                     tfg.carrera = carreras.codigo and tfg.modalidad = modalidades.codigo and ";
 
                                                             if ($usuarioPermisos->getDirectortfg()) {

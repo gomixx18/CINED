@@ -109,7 +109,7 @@
                                                                 lineasinvestigacion.nombre as lineainvestigacion, 
                                                                 carreras.nombre as carrera, catedras.nombre as catedra, ieproyectos.isExtension
                                                                 FROM ieproyectos, lineasinvestigacion, carreras, catedras
-                                                                where  ieproyectos.estado = 'Activo' and ieproyectos.lineainvestigacion = lineasinvestigacion.codigo and
+                                                                where  ieproyectos.lineainvestigacion = lineasinvestigacion.codigo and
                                                                 ieproyectos.carrera = carreras.codigo and ieproyectos.catedra = catedras.codigo
                                                                 and ieproyectos.isExtension = 1";
                                                     } else {
@@ -131,7 +131,7 @@
                                                             $SQLsentencia = $SQLsentencia . ", iemiembroscomiex, ierevisan ";
                                                         }
 
-                                                        $SQLsentencia = $SQLsentencia . " where  ieproyectos.estado = 'Activo' and ieproyectos.lineainvestigacion = lineasinvestigacion.codigo and
+                                                        $SQLsentencia = $SQLsentencia . " where ieproyectos.lineainvestigacion = lineasinvestigacion.codigo and
                                                                 ieproyectos.carrera = carreras.codigo and ieproyectos.catedra = catedras.codigo
                                                                 and ieproyectos.isExtension = 1 and ";
 
