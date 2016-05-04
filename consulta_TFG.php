@@ -57,6 +57,11 @@ and open the template in the editor.
 
                                     <?php
                                     $codigo = $_POST["codigo"];
+                                    $arrayEstudiantes = array();
+                                    $arrayEstCorreos = array();
+                                    $arrayAsesores = array();
+                                    $arrayDirector = array();
+                                    $arrayComision = array();
 
                                     $consulta = "select tfg.titulo, concat(tfgdirectores.nombre,' ',tfgdirectores.apellido1,' ',tfgdirectores.apellido2)as directortfg, 
                                                 concat(tfgencargados.nombre,' ',tfgencargados.apellido1,' ',tfgencargados.apellido2) as encargadotfg,
@@ -139,7 +144,7 @@ and open the template in the editor.
                                                     <br/>
                                                     <br/>
                                                     <?php
-                                                    $consulta2 = "select tfgestudiantes.id, concat(tfgestudiantes.nombre,' ',  tfgestudiantes.apellido1, ' ', tfgestudiantes.apellido2) as nombre 
+                                                    $consulta2 = "select tfgestudiantes.id, concat(tfgestudiantes.nombre,' ',  tfgestudiantes.apellido1, ' ', tfgestudiantes.apellido2) as nombre, tfgestudiantes.correo as correo
                                                                   from tfg,tfgestudiantes, tfgrealizan where tfgrealizan.estado = 1 and tfg.codigo = tfgrealizan.tfg and tfgrealizan.estudiante = tfgestudiantes.id and tfg.codigo ='" . $codigo . "'";
                                                     $query2 = mysqli_query($connection, $consulta2);
 
@@ -152,6 +157,8 @@ and open the template in the editor.
                                                         echo "<label>Cedula: " . $data2["id"] . "</label>";
                                                         echo "</div>";
                                                         echo "</div>";
+                                                        array_push($arrayEstudiantes, $data2['id']);
+                                                        array_push($arrayEstCorreos, $data2['correo']);
                                                     }
                                                     ?> 
 
@@ -260,6 +267,7 @@ and open the template in the editor.
                                                                                             echo "</a>";
                                                                                             echo "</div>";
                                                                                             echo "</div>";
+                                                                                            
                                                                                         } else {
                                                                                             echo "<span class='label label-warning big'>No existen archivos recientes.</span><br>";
                                                                                         }
@@ -1612,13 +1620,23 @@ and open the template in the editor.
                                                                                 evento.preventDefault();
                                                                                 //alert("<?php echo $codigo ?>");
                                                                                 var cod = "<?php echo $codigo ?>";
+                                                                                var titulo= "<?php echo $data['titulo'] ?>";
+                                                                                var dir = "<?php echo $data["directortfg"]?>";
                                                                                 var eta = $("#" + btn).attr("etapa");
                                                                                 var est = $("#" + btn).attr("estado");
                                                                                 var estad = $("#" + est).val();
-                                                                                $.get("funcionalidad/TFGestado.php", {estado: estad, tfg: cod, etapa: eta}, function (data) {
-                                                                                   modal(" Se guardo el estado de la etapa con exito",data);
+                                                                                var estudiantesID = <?php echo '["' . implode('", "', $arrayEstudiantes) . '"]' ?>;
+                                                                                var estudiantesC = <?php echo '["' . implode('", "', $arrayEstCorreos) . '"]' ?>;
+                                                                                
+                                                                                var est = {};
+                                                                                est = JSON.stringify(estudiantesID);
+                                                                                var estC = {};
+                                                                                estC = JSON.stringify(estudiantesC);
+                                                                                
+                                                                                $.get("funcionalidad/TFGestado.php", {estado: estad, tfg: cod, titulo: titulo, etapa: eta, estID: est, estCorreos: estC}, function (data) {
+                                                                                   modal(" Se guardó el estado de la etapa con éxito.",data);
                                                                                 }).fail(function (data) {
-                                                                                   modal("Ocurrio algun problema",data);
+                                                                                   modal("Ocurrió algún problema.",data);
                                                                                 });
                                                                                 
                                                                             });

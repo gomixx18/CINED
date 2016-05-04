@@ -61,38 +61,29 @@ function sendPassReset($id, $email,  $connection) {
     }
 }
 
-function emailEtapa3($connection, $codigo){
-    
-    //obtener estudiantes de tfg de base de datos
-    $stmt = $connection->prepare('SELECT estudiante FROM tfgrealizan WHERE tfg = ?');
-    $stmt->bind_param('s', $codigo);
-    $stmt->execute();
-    $stmt->bind_result($codigo);
-    
-   while($stmt->fetch()){
-       $str += $codigo;
-   }
+function emailEtapa($connection, $titulo , $codigo, $correos, $etapa, $estado){
+
     
     
-//    $mail = new PHPMailer();
-//    $recipient = $ad;
-//    $mail->IsSMTP(); // enable SMTP
-//    $mail->SMTPAuth = true; // authentication enabled
-//    $mail->SMTPSecure = 'ssl';
-//    $mail->Host = "smtp.gmail.com";
-//    $mail->Port = 465; // or 587
-//    $mail->IsHTML(true);
-//    $mail->CharSet = "UTF-8";
-//    $mail->Username = "cined.web@gmail.com";
-//    $mail->Password = "cined1234";
-//    $mail->SetFrom("cined.web@gmail.com");
-//    $mail->AddAddress($recipient);
-//    $mail->Subject = $subject;
-//    $mail->Body = $body;
-//    $mail->WordWrap = $wordWrap;
-//     
-//
-//    return $mail->send();
+    $mail = new PHPMailer();
+    $recipient = $correos;
+    $mail->IsSMTP(); // enable SMTP
+    $mail->SMTPAuth = true; // authentication enabled
+    $mail->SMTPSecure = 'ssl';
+    $mail->Host = "smtp.gmail.com";
+    $mail->Port = 465; // or 587
+    $mail->IsHTML(true);
+    $mail->CharSet = "UTF-8";
+    $mail->Username = "cined.web@gmail.com";
+    $mail->Password = "cined1234";
+    $mail->SetFrom("cined.web@gmail.com");
+    $mail->AddAddress($recipient);
+    $mail->Subject = "CINED - Aprobación de Etapa de TFG";
+    $mail->Body = "La etapa: " .$etapa ." del TFG: " . $titulo . " ha sido establecida como " .$estado."." ;
+    $mail->WordWrap = 100;
+     
+
+    return $mail->send();
 }
 
 ?>
