@@ -63,7 +63,8 @@ and open the template in the editor.
                                     $arrayDirector = array();
                                     $arrayComision = array();
 
-                                    $consulta = "select tfg.titulo, concat(tfgdirectores.nombre,' ',tfgdirectores.apellido1,' ',tfgdirectores.apellido2)as directortfg, 
+                                    $consulta = "select tfg.titulo, concat(tfgdirectores.nombre,' ',tfgdirectores.apellido1,' ',tfgdirectores.apellido2)as directortfg,
+                                                tfgdirectores.correo as correodirector,
                                                 concat(tfgencargados.nombre,' ',tfgencargados.apellido1,' ',tfgencargados.apellido2) as encargadotfg,
                                                 lineasinvestigacion.nombre as lineainvestigacion, carreras.nombre as carrera, modalidades.nombre as modalidad, tfg.estado, tfg.fechaFinal, tfg.directortfg as directorId
                                                 from tfgdirectores, tfg, tfgencargados,lineasinvestigacion,carreras,modalidades 
@@ -139,7 +140,7 @@ and open the template in the editor.
                                         <div class="col-lg-9 col-lg-offset-1">
                                             <div class="panel panel-default">
                                                 <div class="panel-body">
-
+                                                      
                                                     <label>Estudiantes</label>
                                                     <br/>
                                                     <br/>
@@ -1468,8 +1469,9 @@ and open the template in the editor.
         }
 
         function asesores($cod, $conn) {
-
-            $consulta = "select tfgasesores.id from tfg,tfgasesores,"
+            global $asesoresCorreos;
+            $asesoresCorreos = array();
+            $consulta = "select tfgasesores.id, tfgasesores.correo from tfg,tfgasesores,"
                     . "tfgasesoran where tfg.codigo = tfgasesoran.tfg and "
                     . "tfgasesoran.asesor =  tfgasesores.id and tfg.codigo ='$cod' and tfgasesoran.estado = 1";
 
@@ -1480,7 +1482,11 @@ and open the template in the editor.
                 global $$asesores;
                 $$asesores = $data["id"];
                 $cont++;
+                
+                array_push($asesoresCorreos, $data["correo"]);
+               
             }
+            echo count($asesoresCorreos);
         }
 
         function verificarAsesor($usuarioId) {//valida si es asesor
@@ -1621,19 +1627,20 @@ and open the template in the editor.
                                                                                 //alert("<?php echo $codigo ?>");
                                                                                 var cod = "<?php echo $codigo ?>";
                                                                                 var titulo= "<?php echo $data['titulo'] ?>";
-                                                                                var dir = "<?php echo $data["directortfg"]?>";
+                                                                                var dir = "<?php echo $data["correodirector"]?>";
                                                                                 var eta = $("#" + btn).attr("etapa");
                                                                                 var est = $("#" + btn).attr("estado");
                                                                                 var estad = $("#" + est).val();
-                                                                                var estudiantesID = <?php echo '["' . implode('", "', $arrayEstudiantes) . '"]' ?>;
-                                                                                var estudiantesC = <?php echo '["' . implode('", "', $arrayEstCorreos) . '"]' ?>;
                                                                                 
-                                                                                var est = {};
-                                                                                est = JSON.stringify(estudiantesID);
+                                                                                var estudiantesC = <?php echo '["' . implode('", "', $arrayEstCorreos) . '"]' ?>;
+                                                                                var asesores = <?php echo '["' . implode('", "',  $asesoresCorreos) . '"]' ?>;
+                                                                               // var asesores = "<?php $_GLOBALS['asesoresCorreos'] ?>";
+                                                                               
+                                                                                
                                                                                 var estC = {};
                                                                                 estC = JSON.stringify(estudiantesC);
                                                                                 
-                                                                                $.get("funcionalidad/TFGestado.php", {estado: estad, tfg: cod, titulo: titulo, etapa: eta, estID: est, estCorreos: estC}, function (data) {
+                                                                                $.get("funcionalidad/TFGestado.php", {estado: estad, tfg: cod, titulo: titulo, etapa: eta, estID: est, estCorreos: estC, director:dir, asesores: asesores}, function (data) {
                                                                                    modal(" Se guardó el estado de la etapa con éxito.",data);
                                                                                 }).fail(function (data) {
                                                                                    modal("Ocurrió algún problema.",data);

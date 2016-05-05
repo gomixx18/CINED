@@ -66,7 +66,7 @@ function emailEtapa($connection, $titulo , $codigo, $correos, $etapa, $estado){
     
     
     $mail = new PHPMailer();
-    $recipient = $correos;
+    
     $mail->IsSMTP(); // enable SMTP
     $mail->SMTPAuth = true; // authentication enabled
     $mail->SMTPSecure = 'ssl';
@@ -77,10 +77,14 @@ function emailEtapa($connection, $titulo , $codigo, $correos, $etapa, $estado){
     $mail->Username = "cined.web@gmail.com";
     $mail->Password = "cined1234";
     $mail->SetFrom("cined.web@gmail.com");
-    $mail->AddAddress($recipient);
+    
     $mail->Subject = "CINED - Aprobación de Etapa de TFG";
     $mail->Body = "La etapa: " .$etapa ." del TFG: " . $titulo . " ha sido establecida como " .$estado."." ;
     $mail->WordWrap = 100;
+    
+    for ($index = 0;$index < count($correos);$index++) {
+        $mail->AddAddress($correos[$index]);
+    }
      
 
     return $mail->send();
