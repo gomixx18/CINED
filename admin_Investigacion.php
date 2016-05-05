@@ -172,8 +172,13 @@
                                                             echo "<td>" . $data["lineainvestigacion"] . "</td>";
                                                             echo "<td>" . $data["catedra"] . "</td>";
                                                             echo "<td>" . $data["estado"] . "</td>";
+                                                            
+															
+															echo "<form method= 'posT' action = 'modificar_Investigacion.php'>";
+                                                            echo "<input type='hidden' name='codigo' value= '" . $data["codigo"] . "'/> ";
                                                             echo "<td>" . "<button type='submit' data-toggle='modal' class='btn btn-primary'
                                                                  id = '" . $data["codigo"] . "' > Modificar</button></td> ";
+                                                            echo "</form>";
 
 
                                                             echo "<form method= 'POST' action = 'consulta_Investigacion.php'>";
