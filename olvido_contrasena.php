@@ -48,7 +48,15 @@
                 });
             });
         </script>
-        <div class="passwordBox animated fadeInDown">
+               
+        <div class="passwordBox animated fadeInDown" style="padding-top: 0px">
+            
+            <div class="middle-box text-center ">
+            <div>
+                <h1 class="logo-name">CINED</h1>
+            </div>
+            </div>
+            
             <div class="row">
                 <div class="col-md-12">
                     <div class="ibox-content">

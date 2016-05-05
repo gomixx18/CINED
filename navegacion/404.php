@@ -25,11 +25,7 @@
 
         <div class="error-desc">
             La pagina que busca no se encuentra disponible. 
-            <form class="form-inline m-t" role="form">
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Search for page">
-                </div>
-                <button type="submit" class="btn btn-primary">Search</button>
+                <a href="../index.php"><button type="" class="btn btn-primary">volver al Inicio</button></a>
             </form>
         </div>
     </div>
