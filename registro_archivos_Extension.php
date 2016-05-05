@@ -54,7 +54,7 @@
                                                 header("Location: ../navegacion/500.php");
                                             }
                                             
-                                            //SQL para archivos Investigadores
+                                            //SQL para archivos Docentes
                                             $query1 = mysqli_query($connection, "SELECT iearchivosinvestigadores.ruta, DATE_FORMAT(iearchivosinvestigadores.fecha, '%d/%m/%Y %H:%m:%s')  as fecha, iearchivosinvestigadores.nom_archivo, ieinvestigadores.nombre, ieinvestigadores.apellido1  FROM iearchivosinvestigadores, ieinvestigadores where iearchivosinvestigadores.proyecto ='"
                                                         .$codigo."' and iearchivosinvestigadores.etapa=".$etapa." and iearchivosinvestigadores.investigador = ieinvestigadores.id order by iearchivosinvestigadores.fecha desc;");
                             
@@ -127,7 +127,7 @@
                                     
                                     <div class="row">
                                         <div class="col-lg-12">
-                                            <br><h3>Registro archivos Investigadores</h3>
+                                            <br><h3>Registro archivos Docentes</h3>
                                         </div>
                                         <div class="col-lg-12">
                                             <?php

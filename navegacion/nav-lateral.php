@@ -12,7 +12,9 @@ if(!isset($_SESSION['user'])){
 $usuarioSesion = $_SESSION["user"];
 $usuarioPermisos = $_SESSION['permisos'];
 ?>
-
+<head>
+    <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico" />
+</head>
 <nav class="navbar-default navbar-static-side" role="navigation">
                 <div class="sidebar-collapse">
                     <ul class="nav metismenu" id="side-menu">
