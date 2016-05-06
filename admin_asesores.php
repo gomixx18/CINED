@@ -260,8 +260,8 @@
                                     <div>
                                         <label class=""> <i class="fa fa-exclamation-circle"> Rellene los datos obligatorios.</i></label><br><br> 
 
-                                        <button class="btn btn-sm btn-danger pull-left m-t-n-xs" type="" name="desactivarAsesor" id="desactivar" ><i class="fa fa-warning"></i><strong> Desactivar</strong></button>
-                                        <button class="btn btn-sm btn-info pull-left m-t-n-xs" type="" name="activarAsesor" id="activar" ><i class="fa fa-check-circle"></i><strong> Activar</strong></button>
+                                        <button class="btn btn-sm btn-danger pull-left m-t-n-xs" type="button" name="desactivarAsesor" id="desactivar" ><i class="fa fa-warning"></i><strong> Desactivar</strong></button>
+                                        <button class="btn btn-sm btn-info pull-left m-t-n-xs" type="button" name="activarAsesor" id="activar" ><i class="fa fa-check-circle"></i><strong> Activar</strong></button>
                                         <input name="estado" id="estado" type="text" hidden>
                                         <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit" name="TFGModificarAsesor"><strong>Modificar</strong></button>
                                         <button type="button" data-dismiss="modal" class="btn btn-sm btn-secundary pull-right m-t-n-xs" style="margin-right: 20px;" ><strong>Cancelar</strong></button>
@@ -284,8 +284,6 @@
                 estado = modal.find('#estado');
                 t = modal.find('#tituloEstado');
                 var recipient = button.attr('id');
-
-
 
                 modal.find('#id').val(recipient);
 
