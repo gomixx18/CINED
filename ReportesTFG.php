@@ -317,7 +317,7 @@
                                                                 var x = $("#ETFG" + n + i).prop("value");
 
                                                                 eval("estadosE" + n + "[estadosE" + n + ".length]=\"" + x + "\";");
-                                                                alert(eval("estadosE" + n));
+                                                                //alert(eval("estadosE" + n));
                                                             }
                                                         }
                                                     }
