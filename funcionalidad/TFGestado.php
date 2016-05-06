@@ -1,38 +1,38 @@
 <?php
-require("email.php");
+
 session_start();
 
 $tfg = $_REQUEST["tfg"];
 $estado = $_REQUEST["estado"];
 $numero = $_REQUEST["etapa"];
+$fecha_actual=date("y/m/d");
 echo $tfg . $estado . $numero;
 $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
-$titulo = $_REQUEST["titulo"];
-$estID = json_decode($_REQUEST["estID"], true);
-$estCorreos = json_decode($_REQUEST["estCorreos"], true);
-$director = $_REQUEST["director"];
-$asesores = $_REQUEST["asesores"];
-
-$destinatarios = array();
-
-
-for ($index = 0;$index < count($asesores);$index++) {
-    array_push($destinatarios, $asesores[$index]);
-}
-for ($index = 0;$index < count($estCorreos);$index++) {
-    array_push($destinatarios, $estCorreos[$index]);
-}
-array_push($destinatarios, $director);
-
 
 if ($connection) {
-    $consulta = "update tfgetapas set estado = \"$estado\" where numero = $numero and tfg = '$tfg'";
+    $consulta = "update tfgetapas set estado = \"$estado\", fechaAprobacion ='$fecha_actual'  where numero = $numero and tfg = '$tfg'";
     $query = mysqli_query($connection, $consulta);
+
+    //enviar correo al cambiar estado de la etapa
+    $q2 = "select estudiante from tfgrealizan where tfg = '" . $tfg . "'";
+    $result = mysqli_query($connection, $q2);
+    if ($result) {
+              
+       while ($row = mysqli_fetch_assoc($result)) { // loop to store the data in an associative array.
+            $array1[] = $row;
+            
+        }
         
-    //meter correos en un solo array
-    emailEtapa($connection, $titulo , $tfg, $destinatarios, $numero, $estado); 
+     $array2 = array();
      
-    
+     for ($index1 = 0;$index1 < count($array1);$index1++) {
+        
+         $q3 = "select correo from tfgestudiantes where id = '";
+     }
+         
+         
+     
+    }
 
 
     mysqli_close($connection);
