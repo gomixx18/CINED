@@ -58,7 +58,7 @@ if ($connection) {
     // insertar estudiantes
     
     foreach ($arrayDocentes as $docente){
-        $sqlDocentes= "INSERT INTO tfgrealizan (estudiante, tfg) VALUES ('".$docente."', '".$codigo."')";
+        $sqlDocentes= "INSERT INTO tfgrealizan (estudiante, tfg,estado) VALUES ('".$docente."', '".$codigo."',1)";
         $resultadoDocentes = mysqli_query($connection, $sqlDocentes);
     }
 
@@ -68,16 +68,16 @@ if ($connection) {
     $resultadoMiembros = mysqli_query($connection, $sqlMiembros); // aca estan los miebros de la comision activos
     
      while ($data = mysqli_fetch_assoc($resultadoMiembros)){
-        $sqlMiembrosAsoc= "INSERT INTO tfgevaluan (miembrocomisiontfg, tfg) VALUES ('".$data["id"]."', '".$codigo."')";
+        $sqlMiembrosAsoc= "INSERT INTO tfgevaluan (miembrocomisiontfg, tfg,estado) VALUES ('".$data["id"]."', '".$codigo."',1)";
         $resultadoMiembrosAsoc = mysqli_query($connection, $sqlMiembrosAsoc);
      }
      
     // ligar asesores
-    $sqlEvaluador1 = "INSERT INTO tfgasesoran (asesor, tfg) VALUES ('".$asesor1."', '".$codigo."')";
+    $sqlEvaluador1 = "INSERT INTO tfgasesoran (asesor, tfg,estado) VALUES ('".$asesor1."', '".$codigo."',1)";
     $resultadoAsesor1 = mysqli_query($connection, $sqlEvaluador1);
     
     if($asesor2 != "ninguno" && $asesor1 != $asesor2){
-        $sqlAsesor2 = "INSERT INTO tfgasesoran (asesor, tfg) VALUES ('".$asesor2."', '".$codigo."')";
+        $sqlAsesor2 = "INSERT INTO tfgasesoran (asesor, tfg,estado) VALUES ('".$asesor2."', '".$codigo."',1)";
         $resultadoAsesor2 = mysqli_query($connection, $sqlAsesor2);
     }
     

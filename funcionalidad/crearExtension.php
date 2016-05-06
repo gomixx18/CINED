@@ -59,7 +59,7 @@ if ($connection) {
     // insertar Docentes
     
     foreach ($arrayDocentes as $docente){
-        $sqlDocentes= "INSERT INTO ieinvestigan (investigador, proyecto) VALUES ('".$docente."', '".$codigo."')";
+        $sqlDocentes= "INSERT INTO ieinvestigan (investigador, proyecto, estado) VALUES ('".$docente."', '".$codigo."', 1)";
         $resultadoDocentes = mysqli_query($connection, $sqlDocentes);
     }
 
@@ -69,16 +69,16 @@ if ($connection) {
     $resultadoMiembros = mysqli_query($connection, $sqlMiembros); // aca estan los miebros de la comision activos
     
      while ($data = mysqli_fetch_assoc($resultadoMiembros)){
-        $sqlMiembrosAsoc= "INSERT INTO ierevisan (miembrocomiex, proyecto) VALUES ('".$data["id"]."', '".$codigo."')";
+        $sqlMiembrosAsoc= "INSERT INTO ierevisan (miembrocomiex, proyecto, estado) VALUES ('".$data["id"]."', '".$codigo."',1)";
         $resultadoMiembrosAsoc = mysqli_query($connection, $sqlMiembrosAsoc);
      }
      
     // ligar evaluadores
-    $sqlEvaluador1 = "INSERT INTO ieevaluan (evaluador, proyecto) VALUES ('".$evaluador1."', '".$codigo."')";
+    $sqlEvaluador1 = "INSERT INTO ieevaluan (evaluador, proyecto, estado) VALUES ('".$evaluador1."', '".$codigo."',1)";
     $resultadoEvaluador1 = mysqli_query($connection, $sqlEvaluador1);
     
     if($evaluador2 != "ninguno" && $evaluador1 != $evaluador2){
-        $sqlEvaluador2 = "INSERT INTO ieevaluan (evaluador, proyecto) VALUES ('".$evaluador2."', '".$codigo."')";
+        $sqlEvaluador2 = "INSERT INTO ieevaluan (evaluador, proyecto, estado) VALUES ('".$evaluador2."', '".$codigo."',1)";
         $resultadoEvaluador2 = mysqli_query($connection, $sqlEvaluador2);
     }
     
