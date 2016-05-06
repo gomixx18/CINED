@@ -1469,7 +1469,7 @@
                                         <div class="col-lg-5 col-lg-offset-1">
                                             <div class="col-lg-4">
                                                 <div class="form-group">
-                                                    <label class="control-label">Estado del TFG:</label>
+                                                    <label class="control-label">Estado del proyecto de extension:</label>
                                                 </div>
                                             </div>
 
