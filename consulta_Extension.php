@@ -1591,7 +1591,7 @@
             function cantidadEvaluadores($cod, $conn) {
 
                 $cantEval = "select count(*) as evaluadores from ieproyectos,ieevaluadores,ieevaluan
-                                                                                  where ieproyectos.codigo = ieevaluan.proyecto and ieevaluan.evaluador =  ieevaluadores.id and ieproyectos.codigo ='$cod'";
+                            where ieproyectos.codigo = ieevaluan.proyecto and ieevaluan.evaluador =  ieevaluadores.id and ieproyectos.codigo ='$cod' and ieevaluan.estado = 1";
                 $query = mysqli_query($conn, $cantEval);
                 $data = mysqli_fetch_assoc($query);
                 global $cantEvaluador;
@@ -1601,7 +1601,7 @@
             function evaluadores($cod, $conn) {
 
                 $consulta = "select ieevaluadores.id from ieproyectos,ieevaluadores,ieevaluan
-                            where ieproyectos.codigo = ieevaluan.proyecto and ieevaluan.evaluador =  ieevaluadores.id and ieproyectos.codigo ='$cod'";
+                            where ieproyectos.codigo = ieevaluan.proyecto and ieevaluan.evaluador =  ieevaluadores.id and ieproyectos.codigo ='$cod' and ieevaluan.estado = 1";
 
                 $query = mysqli_query($conn, $consulta);
                 $cont = 1;
