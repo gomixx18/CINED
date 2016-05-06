@@ -1486,7 +1486,7 @@ and open the template in the editor.
                 array_push($asesoresCorreos, $data["correo"]);
                
             }
-            echo count($asesoresCorreos);
+            
         }
 
         function verificarAsesor($usuarioId) {//valida si es asesor
