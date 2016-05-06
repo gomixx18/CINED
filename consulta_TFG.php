@@ -23,6 +23,9 @@ and open the template in the editor.
         <link href="css/plugins/summernote/summernote-bs3.css" rel="stylesheet">
 
         <?php
+        if (!isset($_POST['codigo'])) {
+            header("Location: admin_TFG.php");
+        }
         include 'navegacion/nav-lateral.php';
         ?>
     </head>

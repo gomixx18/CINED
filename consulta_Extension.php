@@ -132,7 +132,7 @@
                                                     <br/>
                                                     <?php
                                                     $consulta2 = "select ieinvestigadores.id, concat(ieinvestigadores.nombre,' ',  ieinvestigadores.apellido1, ' ', ieinvestigadores.apellido2) as nombre,ieinvestigan.tiempoacademico "
-                                                            . "from ieproyectos,ieinvestigadores, ieinvestigan where ieproyectos.codigo = ieinvestigan.proyecto and ieinvestigan.investigador = ieinvestigadores.id and ieinvestigan.estado = '1'and ieproyectos.codigo ='$codigo'";
+                                                            . "from ieproyectos,ieinvestigadores, ieinvestigan where ieproyectos.codigo = ieinvestigan.proyecto and ieinvestigan.investigador = ieinvestigadores.id and ieinvestigan.estado = 1 and ieproyectos.codigo ='$codigo'";
                                                     $query2 = mysqli_query($connection, $consulta2);
 
                                                     while ($data2 = mysqli_fetch_assoc($query2)) {
