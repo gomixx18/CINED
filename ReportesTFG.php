@@ -62,6 +62,14 @@
                                     </div>
                                     </br>
                                     <div class="row">
+                                        <div class="col-md-4">
+                                            <h4>Filtrado por etapas</h4>
+                                        </div>
+                                        </br>
+                                    </div>
+                                    <div class="row">
+
+
                                         <div class="col-md-2">
 
                                             <label>
@@ -252,10 +260,10 @@
     </body>
     <script>
                                                     reporte();
-                                                    var estadoTFG = {};
-                                                    var estadosE1 = {};
-                                                    var estadosE2 = {};
-                                                    var estadosE3 = {};
+                                                    var estadoTFG = [];
+                                                    var estadosE1 = [];
+                                                    var estadosE2 = [];
+                                                    var estadosE3 = [];
                                                     function reporte() {
                                                         $("#report").click(function (evento) {
                                                             evento.preventDefault();
@@ -263,8 +271,8 @@
                                                             var carrera = $("#carrera").val();
                                                             var linea = $("#linea").val();
                                                             var modalidad = $("#modalidad").val();
-                                                            var datarange = $("#datarange").startDate;
-                                                            alert(datarange);
+                                                            
+
                                                             var Etfg = {};
                                                             Etfg = JSON.stringify(estadoTFG);
                                                             var Etfg1 = {};
@@ -273,15 +281,21 @@
                                                             Etfg2 = JSON.stringify(estadosE2);
                                                             var Etfg3 = {};
                                                             Etfg3 = JSON.stringify(estadosE3);
-                                                            $.get("funcionalidad/reportesTFG.php", {Etfg: Etfg, Etfg1: Etfg1, Etfg2: Etfg2, Etfg3: Etfg3, carrera: carrera, linea: linea, modalidad: modalidad, datarange: datarange}, function (data) {
+                                                            $.get("funcionalidad/reportesTFG.php", {Etfg: Etfg, Etfg1: Etfg1, Etfg2: Etfg2, Etfg3: Etfg3, carrera: carrera, linea: linea, modalidad: modalidad, fechainicio: inifecha, fechafin: finfecha}, function (data) {
                                                                 alert(data);
                                                             }).fail(function () {
 
                                                             });
+                                                             estadoTFG = [];
+                                                             estadosE1 = [];
+                                                             estadosE2 = [];
+                                                             estadosE3 = [];
                                                             //alert("ksjadsa");
 
                                                         });
                                                     }
+
+
 
                                                     function parametros() {
                                                         if (ischeck("ETFG")) {
@@ -299,10 +313,11 @@
                                                     function esteta(n) {
                                                         for (var i = 1; i < 5; i++) {
                                                             if (ischeck("ETFG" + n + i)) {
-                                                                //alert("ETFG" + n + i);
+
                                                                 var x = $("#ETFG" + n + i).prop("value");
-                                                                eval("estadosE" + n + ".ETFG" + n + i + "=\"" + x + "\";");
-                                                                alert(eval("estadosE" + n + ".ETFG" + n + i));
+
+                                                                eval("estadosE" + n + "[estadosE" + n + ".length]=\"" + x + "\";");
+                                                                alert(eval("estadosE" + n));
                                                             }
                                                         }
                                                     }
@@ -311,25 +326,32 @@
                                                         for (var i = 1; i < 5; i++) {
                                                             if (ischeck("ETFG" + i)) {
                                                                 var x = $("#ETFG" + i).prop("value");
-                                                                eval("estadoTFG" + ".ETFG" + i + "=\"" + x + "\";");
+                                                                eval("estadoTFG[estadoTFG.length]=\"" + x + "\";");
                                                                 // alert(eval("estadoTFG" + ".ETFG" + i));
 
                                                             }
                                                         }
                                                     }
+                                                    $('input[name="daterange"]').on('apply.daterangepicker', function (ev, picker) {
+                                                        picker.startDate.format('YYYY-MM-DD');
+                                                        picker.endDate.format('YYYY-MM-DD');
+                                                        inifecha = (picker.startDate.format('YYYY-MM-DD'));
+                                                        finfecha = (picker.endDate.format('YYYY-MM-DD'));
 
-
+                                                    });
+                                                    var inifecha = "";
+                                                    var finfecha = "";
                                                     $('input[name="daterange"]').daterangepicker({
                                                         //locale: {
                                                         format: 'YYYY-MM-DD',
                                                         separator: " / ",
                                                         startDate: moment().subtract('days', 29),
                                                         endDate: moment()
-                                                        //}
+                                                                //}
                                                     }, function (start, end, label) {
 
-                                                        startDate = start;
-                                                        endDate = end;
+                                                        //startDate = start;
+                                                        //endDate = end;
                                                     });
                                                     /*
                                                      $(function () {
