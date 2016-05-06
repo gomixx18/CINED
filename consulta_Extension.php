@@ -237,7 +237,7 @@
 
 
                                                                                     <div class="col-lg-5 col-lg-offset-1">
-                                                                                        <label class="form-label">Investigadores</label><br>
+                                                                                        <label class="form-label">Docentes</label><br>
                                                                                         <?php
                                                                                         $consulta3 = "SELECT * FROM iearchivosinvestigadores where proyecto ='" . $codigo . "' and etapa = 1 order by fecha desc limit 1;";
                                                                                         $query3 = mysqli_query($connection, $consulta3);
@@ -385,7 +385,7 @@
                                                                             </div>
                                                                         </form>
                                                                         <div class="col-lg-offset-10">
-                                                                            <form method="post" action='registro_archivos_investigacion.php'>
+                                                                            <form method="post" action='registro_archivos_extension.php'>
                                                                                 <div class="form-group" >
                                                                                     <input type="hidden" name='codigo' value='<?php echo $codigo ?>'>
                                                                                     <input type='hidden' name='etapa' value='1'>
@@ -788,7 +788,7 @@
                                                                         </div>
                                                                     </form>
                                                                     <div class="col-lg-offset-10">
-                                                                        <form method="post" action='registro_archivos_investigacion.php'>
+                                                                        <form method="post" action='registro_archivos_extension.php'>
                                                                             <div class="form-group" >
                                                                                 <input type="hidden" name='codigo' value='<?php echo $codigo ?>'>
                                                                                 <input type='hidden' name='etapa' value='2'>
@@ -1200,7 +1200,7 @@
                                                                         </div>
                                                                     </form>
                                                                     <div class="col-lg-offset-10">
-                                                                        <form method="post" action='registro_archivos_investigacion.php'>
+                                                                        <form method="post" action='registro_archivos_extension.php'>
                                                                             <div class="form-group" >
                                                                                 <input type="hidden" name='codigo' value='<?php echo $codigo ?>'>
                                                                                 <input type='hidden' name='etapa' value='3'>
