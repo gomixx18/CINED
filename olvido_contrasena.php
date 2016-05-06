@@ -84,9 +84,10 @@
                 </div>
             </div>
             <hr/>
-            <div class="footer">
+            
+        </div>
+        <div class="footer">
                 Universidad Nacional  &copy; 2015-2016
-            </div>
         </div>
 
     </body>

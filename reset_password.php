@@ -16,12 +16,13 @@ include 'elements.php';
         <script src="js/jquery-2.1.1.js"></script>
         <link href="css/animate.css" rel="stylesheet">
         <link href="css/style.css" rel="stylesheet">
-        
+
     <nav class="navbar navbar-default navbar-static-top" id='nav2' role="navigation" style="margin-bottom: 0">
         <div class="navbar-header">
-            <img src="img/logo_escuela.gif" alt="" class='img-shadow left'/>
             <h3 class="navbar-brand" >CINED</h3>
+
         </div>
+
     </nav>
 </head>
 
@@ -56,6 +57,7 @@ include 'elements.php';
 
                         if (data.status === 'success') {
                             err = err.text("Su contraseña ha sido reestablecida.").css('color', 'green');
+                            
                         } else if (data.status === 'error') {
                             err = err.text("Ha ocurrido un error.").css('color', 'red');
                         } else if (data.status === 'expirado') {
@@ -65,12 +67,18 @@ include 'elements.php';
                         }
 
                         err.fadeIn(1000);
+                        
                         $('*').css('cursor', 'default');
+                        
+                        setTimeout(function redirectPage(){
+                            window.location.href = "http://cined.cloudapp.net/";
+                        },3000);
                     }
                 });
                 return false;
             });
         });
+
     </script>
     <div class="passwordBox animated fadeInDown">
         <div class="row">
@@ -111,7 +119,9 @@ include 'elements.php';
         </div>
     </div>
 
-
+    <div class="footer">
+        Universidad Nacional  &copy; 2015-2016
+    </div>
 
 
 
