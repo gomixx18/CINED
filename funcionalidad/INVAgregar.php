@@ -7,6 +7,7 @@ if (isset($_POST["INVAgregarInvestigador"])) {
     $ap1 = $_POST["apellido1"];
     $ap2 = $_POST["apellido2"];
     $correo = $_POST["correo"];
+    $tipo = "Investigador";
     $pass = "a" . substr(md5(microtime()), 1, 7);
     $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
 
@@ -25,7 +26,7 @@ if (isset($_POST["INVAgregarInvestigador"])) {
             $resultadoUsuarios = mysqli_query($connection, $sentenciaSQLusarios); 
         }
 
-        newUserMail($id, $pass, $correo);
+        newUserMail($id, $pass, $nombre,$tipo, $correo);
         mysqli_close($connection);
     }   
    
@@ -39,6 +40,7 @@ if (isset($_POST["INVAgregarCoordinador"])) {
     $ap1 = $_POST["apellido1"];
     $ap2 = $_POST["apellido2"];
     $correo = $_POST["correo"];
+    $tipo = "Coordinador de Investigación";
     $pass = "a" . substr(md5(microtime()), 1, 7);
 
     $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
@@ -58,7 +60,7 @@ if (isset($_POST["INVAgregarCoordinador"])) {
             $resultadoUsuarios = mysqli_query($connection, $sentenciaSQLusarios); 
         }
 
-       newUserMail($id, $pass, $correo);
+       newUserMail($id, $pass, $nombre,$tipo, $correo);
         mysqli_close($connection);
     }
     
@@ -73,6 +75,7 @@ if (isset($_POST["INVAgregarEvaluador"])) {
     $ap1 = $_POST["apellido1"];
     $ap2 = $_POST["apellido2"];
     $correo = $_POST["correo"];
+    $tipo = "Evaluador";
     $pass = "a" . substr(md5(microtime()), 1, 7);
     
     $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
@@ -91,7 +94,7 @@ if (isset($_POST["INVAgregarEvaluador"])) {
             $resultadoUsuarios = mysqli_query($connection, $sentenciaSQLusarios); 
         }
 
-        newUserMail($id, $pass, $correo);
+        newUserMail($id, $pass, $nombre,$tipo, $correo);
         mysqli_close($connection);
     }
     
@@ -104,6 +107,7 @@ if (isset($_POST["INVAgregarMiembro"])) {
     $ap1 = $_POST["apellido1"];
     $ap2 = $_POST["apellido2"];
     $correo = $_POST["correo"];
+    $tipo = "Miembro de COMIEX";
     $pass = "a" . substr(md5(microtime()), 1, 7);
     $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
 
@@ -122,7 +126,7 @@ if (isset($_POST["INVAgregarMiembro"])) {
             $resultadoUsuarios = mysqli_query($connection, $sentenciaSQLusarios); 
         }
 
-        newUserMail($id, $pass, $correo);
+        newUserMail($id, $pass, $nombre,$tipo, $correo);
         mysqli_close($connection);
     }
     header("Location: ../admin_MiembroComiex.php");

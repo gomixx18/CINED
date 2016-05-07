@@ -25,71 +25,79 @@ if ($connection) {
         $usuario = mysqli_fetch_assoc($result2);
 
         if ($usuario['encargadotfg']) {
-            $sentenciaSQLespecifica = "SELECT correo FROM tfgencargados where id= " . $id;
+            $sentenciaSQLespecifica = "SELECT nombre, correo FROM tfgencargados where id= " . $id;
             $resultadoEspecifico = mysqli_query($connection, $sentenciaSQLespecifica);
             $row = mysqli_fetch_assoc($resultadoEspecifico);
             $correo = $row['correo'];
+            $nombre = $row['nombre'];
             $sentencia->close();
            sendPassReset($id, $correo,  $connection);
         }
         if ($usuario['asesortfg']) {
-            $sentenciaSQLespecifica = "SELECT correo FROM tfgasesores where id= " . $id;
+            $sentenciaSQLespecifica = "SELECT nombre, correo FROM tfgasesores where id= " . $id;
             $resultadoEspecifico = mysqli_query($connection, $sentenciaSQLespecifica);
             $row = mysqli_fetch_assoc($resultadoEspecifico);
             $correo = $row['correo'];
-            
+            $nombre = $row['nombre'];
             $sentencia->close();
-            sendPassReset($id, $correo, $connection);
+            sendPassReset($id, $correo, $nombre,  $connection);
         }
         if ($usuario['directortfg']) {
 
-            $sentenciaSQLespecifica = "SELECT correo FROM tfgdirectores where id= " . $id;
+            $sentenciaSQLespecifica = "SELECT nombre, correo FROM tfgdirectores where id= " . $id;
             $resultadoEspecifico = mysqli_query($connection, $sentenciaSQLespecifica);
             $row = mysqli_fetch_assoc($resultadoEspecifico);
             $correo = $row['correo'];
-            sendPassReset($id, $correo, $connection);
+            $nombre = $row['nombre'];
+            sendPassReset($id, $correo, $nombre,  $connection);
         } // fin directores
         if ($usuario['estudiante']) {
-            $sentenciaSQLespecifica = "SELECT correo FROM tfgestudiantes where id= " . $id;
+            $sentenciaSQLespecifica = "SELECT nombre, correo FROM tfgestudiantes where id= " . $id;
             $resultadoEspecifico = mysqli_query($connection, $sentenciaSQLespecifica);
             $row = mysqli_fetch_assoc($resultadoEspecifico);
             $correo = $row['correo'];
-           sendPassReset($id, $correo, $connection);
+            $nombre = $row['nombre'];
+           sendPassReset($id, $correo, $nombre,  $connection);
         }
         if ($usuario['miembrocomisiontfg']) {
-            $sentenciaSQLespecifica = "SELECT correo FROM tfgmiembroscomision where id= " . $id;
+            $sentenciaSQLespecifica = "SELECT nombre, correo FROM tfgmiembroscomision where id= " . $id;
             $resultadoEspecifico = mysqli_query($connection, $sentenciaSQLespecifica);
             $row = mysqli_fetch_assoc($resultadoEspecifico);
             $correo = $row['correo'];
-            sendPassReset($id, $correo, $connection);
+            $nombre = $row['nombre'];
+            sendPassReset($id, $correo, $nombre,  $connection);
         }
         if ($usuario['investigador']) {
-            $sentenciaSQLespecifica = "SELECT correo FROM ieinvestigadores where id= " . $id;
+            $sentenciaSQLespecifica = "SELECT nombre, correo FROM ieinvestigadores where id= " . $id;
             $resultadoEspecifico = mysqli_query($connection, $sentenciaSQLespecifica);
             $row = mysqli_fetch_assoc($resultadoEspecifico);
             $correo = $row['correo'];
-            sendPassReset($id, $correo, $connection);
+            $nombre = $row['nombre'];
+            sendPassReset($id, $correo, $nombre,  $connection);
         }
         if ($usuario['coordinadorinvestigacion']) {
-            $sentenciaSQLespecifica = "SELECT correo FROM iecoordinadoresinvestigacion where id= " . $id;
+            $sentenciaSQLespecifica = "SELECT nombre, correo FROM iecoordinadoresinvestigacion where id= " . $id;
             $resultadoEspecifico = mysqli_query($connection, $sentenciaSQLespecifica);
             $row = mysqli_fetch_assoc($resultadoEspecifico);
             $correo = $row['correo'];
+            $nombre = $row['nombre'];
             sendPassReset($id, $correo, $connection );
         }
         if ($usuario['evaluador']) {
-            $sentenciaSQLespecifica = "SELECT correo FROM ieevaluadores where id= " . $id;
+            $sentenciaSQLespecifica = "SELECT nombre, correo FROM ieevaluadores where id= " . $id;
             $resultadoEspecifico = mysqli_query($connection, $sentenciaSQLespecifica);
             $row = mysqli_fetch_assoc($resultadoEspecifico);
             $correo = $row['correo'];
-            sendPassReset($id, $correo, $connection);
+            $nombre = $row['nombre'];
+            sendPassReset($id, $correo, $nombre,  $connection);
         }
         if ($usuario['miembrocomiex']) {
-            $sentenciaSQLespecifica = "SELECT correo FROM iemiembroscomiex where id= " . $id;
+            $sentenciaSQLespecifica = "SELECT nombre, correo FROM iemiembroscomiex where id= " . $id;
             $resultadoEspecifico = mysqli_query($connection, $sentenciaSQLespecifica);
             $row = mysqli_fetch_assoc($resultadoEspecifico);
             $correo = $row['correo'];
-            sendPassReset($id, $correo, $connection);
+            $nombre = $row['nombre'];
+            sendPassReset($id, $correo, $nombre,  $connection);
         }
 
         $response_array['status'] = 'success';

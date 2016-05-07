@@ -143,7 +143,7 @@ and open the template in the editor.
                                         <div class="col-lg-9 col-lg-offset-1">
                                             <div class="panel panel-default">
                                                 <div class="panel-body">
-                                                      
+
                                                     <label>Estudiantes</label>
                                                     <br/>
                                                     <br/>
@@ -271,7 +271,6 @@ and open the template in the editor.
                                                                                             echo "</a>";
                                                                                             echo "</div>";
                                                                                             echo "</div>";
-                                                                                            
                                                                                         } else {
                                                                                             echo "<span class='label label-warning big'>No existen archivos recientes.</span><br>";
                                                                                         }
@@ -527,9 +526,9 @@ and open the template in the editor.
 
 
                                                                         <select id="estado1" class="form-control m-b" name="account" onchange="pintandoPanels()" <?php
-                                                                        if (!$usuarioPermisos->getEncargadotfg()) {
-                                                                            echo "disabled"
-                                                                            ?> <?php } ?>>
+                                                                            if (!$usuarioPermisos->getEncargadotfg()) {
+                                                                                echo "disabled"
+                                                                                ?> <?php } ?>>
                                                                             <option value="Aprobada">Aprobada</option>
                                                                             <option value="Aprobada con Observaciones">Aprobada con Observaciones</option>
                                                                             <option value="No Aprobada">No Aprobada</option>    
@@ -911,9 +910,9 @@ and open the template in the editor.
 
 
                                                                     <select id="estado2" class="form-control m-b" name="account" onchange="pintandoPanels()" <?php
-                                                                    if (!$usuarioPermisos->getEncargadotfg()) {
-                                                                        echo "disabled"
-                                                                        ?> <?php } ?>>
+                                                                        if (!$usuarioPermisos->getEncargadotfg()) {
+                                                                            echo "disabled"
+                                                                            ?> <?php } ?>>
                                                                         <option value="Aprobada">Aprobada</option>
                                                                         <option value="Aprobada con Observaciones">Aprobada con Observaciones</option>
                                                                         <option value="No Aprobada">No Aprobada</option>    
@@ -1273,8 +1272,8 @@ and open the template in the editor.
 
                                                                                     </div>
                                                                                 </div>
-                                                                           
-                                                                        <?php } ?>
+
+                                                                            <?php } ?>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -1295,9 +1294,9 @@ and open the template in the editor.
 
 
                                                                     <select id="estado3" class="form-control m-b" name="account" onchange="pintandoPanels()" <?php
-                                                                    if (!$usuarioPermisos->getEncargadotfg()) {
-                                                                        echo "disabled"
-                                                                        ?> <?php } ?>>
+                                                                            if (!$usuarioPermisos->getEncargadotfg()) {
+                                                                                echo "disabled"
+                                                                                ?> <?php } ?>>
 
                                                                         <option value="Aprobada">Aprobada</option>
                                                                         <option value="Aprobada con Observaciones">Aprobada con Observaciones</option>
@@ -1343,11 +1342,11 @@ and open the template in the editor.
                                             <div class="col-lg-4">
                                                 <div class="form-group">
                                                     <select id="estadotfg" class="form-control m-b" name="estadotfg" <?php
-                                                    if (!$usuarioPermisos->getEncargadotfg()) {
-                                                        echo "disabled"
-                                                        ?> <?php } ?>>
+                                                                    if (!$usuarioPermisos->getEncargadotfg()) {
+                                                                        echo "disabled"
+                                                                        ?> <?php } ?>>
                                                         <option>Activo</option>
-                                                        <option>Aprobada para defensa</option>
+                                                        <option>Aprobado para defensa</option>
                                                         <option>Inactivo</option>
                                                         <option>Finalizado</option>
                                                     </select> 
@@ -1374,9 +1373,9 @@ and open the template in the editor.
                                                 <div class="form-group" id="">
                                                     <div class="input-group date">
                                                         <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input <?php
-                                                        if (!$usuarioPermisos->getEncargadotfg()) {
-                                                            echo "disabled"
-                                                            ?> <?php } ?>
+                                                    if (!$usuarioPermisos->getEncargadotfg()) {
+                                                        echo "disabled"
+                                                        ?> <?php } ?>
                                                             type="text" id="fecha" class="form-control" value="<?php echo substr($data['fechaFinal'], 0, 11) ?>">
                                                     </div>
                                                 </div>
@@ -1404,10 +1403,6 @@ and open the template in the editor.
                             </div>
                         </div>
                     </div>
-
-
-
-
                 </div>
 
                 <div class="footer">
@@ -1485,11 +1480,9 @@ and open the template in the editor.
                 global $$asesores;
                 $$asesores = $data["id"];
                 $cont++;
-                
+
                 array_push($asesoresCorreos, $data["correo"]);
-               
             }
-            
         }
 
         function verificarAsesor($usuarioId) {//valida si es asesor
@@ -1600,9 +1593,9 @@ and open the template in the editor.
                                                                                 var com = $("#" + coment).text();
                                                                                 com = com.trim();
                                                                                 $.get("funcionalidad/ComentarioAsesor.php", {comentario: com, tfg: cod, etapa: eta, id: ide}, function (data) {
-                                                                                    modal(" Se guardo el comentario con exito",data);
+                                                                                    modal(" Se guardo el comentario con exito", data);
                                                                                 }).fail(function (data) {
-                                                                                    modal("Ocurrio algun problema",data);
+                                                                                    modal("Ocurrio algun problema", data);
                                                                                 });
                                                                             });
                                                                         }
@@ -1617,9 +1610,9 @@ and open the template in the editor.
                                                                                 var com = $("#" + coment).text();
                                                                                 com = com.trim();
                                                                                 $.get("funcionalidad/ComentarioMiembro.php", {comentario: com, tfg: cod, etapa: eta, id: ide}, function (data) {
-                                                                                    modal(" Se guardo el comentario con exito",data);
+                                                                                    modal(" Se guardo el comentario con exito", data);
                                                                                 }).fail(function (data) {
-                                                                                    modal("Ocurrio algun problema",data);
+                                                                                    modal("Ocurrio algun problema", data);
                                                                                 });
                                                                             });
                                                                         }
@@ -1627,28 +1620,29 @@ and open the template in the editor.
                                                                         function guardarEstado(btn) { // btn boton de guardar la etapa 
                                                                             $("#" + btn).click(function (evento) {
                                                                                 evento.preventDefault();
-                                                                                //alert("<?php echo $codigo ?>");
+
                                                                                 var cod = "<?php echo $codigo ?>";
-                                                                                var titulo= "<?php echo $data['titulo'] ?>";
-                                                                                var dir = "<?php echo $data["correodirector"]?>";
+                                                                                var titulo = "<?php echo $data['titulo'] ?>";
+                                                                                var dir = "<?php echo $data["correodirector"] ?>";
                                                                                 var eta = $("#" + btn).attr("etapa");
                                                                                 var est = $("#" + btn).attr("estado");
                                                                                 var estad = $("#" + est).val();
-                                                                                
+
                                                                                 var estudiantesC = <?php echo '["' . implode('", "', $arrayEstCorreos) . '"]' ?>;
-                                                                                var asesores = <?php echo '["' . implode('", "',  $asesoresCorreos) . '"]' ?>;
-                                                                               // var asesores = "<?php $_GLOBALS['asesoresCorreos'] ?>";
-                                                                               
-                                                                                
+                                                                                var asesores = <?php echo '["' . implode('", "', $asesoresCorreos) . '"]' ?>;
+
+                                                                                var asesoresC = {};
+                                                                                asesoresC = JSON.stringify(asesores);
+
                                                                                 var estC = {};
                                                                                 estC = JSON.stringify(estudiantesC);
-                                                                                
-                                                                                $.get("funcionalidad/TFGestado.php", {estado: estad, tfg: cod, titulo: titulo, etapa: eta, estID: est, estCorreos: estC, director:dir, asesores: asesores}, function (data) {
-                                                                                   modal(" Se guardó el estado de la etapa con éxito.",data);
+
+                                                                                $.get("funcionalidad/TFGestado.php", {estado: estad, tfg: cod, titulo: titulo, etapa: eta, estCorreos: estC, director: dir, asesores: asesoresC}, function (data) {
+                                                                                    modal(" Se guardó el estado de la etapa con éxito.", data);
                                                                                 }).fail(function (data) {
-                                                                                   modal("Ocurrió algún problema.",data);
+                                                                                    modal("Ocurrió algún problema.", data);
                                                                                 });
-                                                                                
+
                                                                             });
                                                                         }
 
@@ -1658,10 +1652,22 @@ and open the template in the editor.
                                                                                 var cod = "<?php echo $codigo ?>";
                                                                                 var est = $("#" + btn).attr("estado");
                                                                                 var estad = $("#" + est).val();
-                                                                                $.get("funcionalidad/TFGestadoFin.php", {estado: estad, tfg: cod}, function (data) {
-                                                                                    modal(" Se guardo el estado final con exito",data);
+                                                                                var etapa = "Final";
+                                                                                var titulo = "<?php echo $data['titulo'] ?>";
+                                                                                var estudiantesC = <?php echo '["' . implode('", "', $arrayEstCorreos) . '"]' ?>;
+                                                                                var asesores = <?php echo '["' . implode('", "', $asesoresCorreos) . '"]' ?>;
+                                                                                var dir = "<?php echo $data["correodirector"] ?>";
+
+                                                                                var estC = {};
+                                                                                estC = JSON.stringify(estudiantesC);
+
+                                                                                var asesoresC = {};
+                                                                                asesoresC = JSON.stringify(asesores);
+
+                                                                                $.get("funcionalidad/TFGestadoFin.php", {estado: estad, tfg: cod, titulo: titulo, etapa: etapa, director: dir, estCorreos: estC, asesores: asesoresC}, function (data) {
+                                                                                    modal(" Se guardó el estado final con exito", data);
                                                                                 }).fail(function (data) {
-                                                                                    modal("Ocurrio algun problema",data);
+                                                                                    modal("Ocurrió algún problema", data);
                                                                                 });
                                                                             });
                                                                         }
@@ -1671,17 +1677,17 @@ and open the template in the editor.
                                                                                 var cod = "<?php echo $codigo ?>";
                                                                                 var fecha = $("#fecha").val();
                                                                                 $.get("funcionalidad/TFGfecha.php", {fecha: fecha, tfg: cod}, function (data) {
-                                                                                    modal(" Se guardo la fecha con exito",data);
+                                                                                    modal(" Se guardó la fecha con exito", data);
                                                                                 }).fail(function (data) {
-                                                                                    modal("Ocurrio algun problema",data);
+                                                                                    modal("Ocurrió algún problema", data);
                                                                                 });
                                                                             });
                                                                         }
-                                                                        function modal(titulo,msj) {
+                                                                        function modal(titulo, msj) {
                                                                             $('#mod-info').modal('show');
                                                                             $("#titulo-modal").text(titulo);
                                                                             $("#texto-modal").text(msj);
-                                                                                
+
                                                                         }
 
 
