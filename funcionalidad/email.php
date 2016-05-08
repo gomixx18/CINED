@@ -105,8 +105,8 @@ function emailEtapa($titulo, $correos, $etapa, $estado, $type) {
                 break;
             }
         case 3: {
-                $mail->Subject = "CINED - Aprobación de Etapa Proyecto de Investigación";
-                $mail->Body = "La etapa #" . $etapa . " del TFG:<b> " . $titulo . "</b> ha sido establecida como: " . $estado . ".";
+                $mail->Subject = "CINED - Cambio de estado de etapa de Proyecto de Investigación";
+                $mail->Body = "La etapa #" . $etapa . " del proyecto de investigación:<b> " . $titulo . "</b> ha sido establecida como: " . $estado . ".";
                 break;
             }
         case 4: {
@@ -115,7 +115,7 @@ function emailEtapa($titulo, $correos, $etapa, $estado, $type) {
                 break;
             }
         case 5: {
-                $mail->Subject = "CINED - Aprobación de Etapa Proyecto de Extensión";
+                $mail->Subject = "CINED - Cambio de estado de etapa Proyecto de Extensión";
                 $mail->Body = "La etapa #" . $etapa . " del proyecto de extensión:<b> " . $titulo . "</b> ha sido establecida como: " . $estado . ".";
                 break;
             }

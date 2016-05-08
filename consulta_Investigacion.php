@@ -57,8 +57,9 @@
                                     $arrayInvestigadores = array();
                                     $arrayInvestigadoresnom = array();
                                     $arrayInvestigadorestime = array();
+                                    $arrayInvestigadorescorreo = array();
                                     $consulta = "select ieproyectos.titulo,
-                                      concat(iecoordinadoresinvestigacion.nombre,' ',iecoordinadoresinvestigacion.apellido1,' ',iecoordinadoresinvestigacion.apellido2)as coordinador,
+                                      concat(iecoordinadoresinvestigacion.nombre,' ',iecoordinadoresinvestigacion.apellido1,' ',iecoordinadoresinvestigacion.apellido2)as coordinador, iecoordinadoresinvestigacion.correo as correoCoordinador,
                                       lineasinvestigacion.nombre as lineainvestigacion,
                                       carreras.nombre as carrera,
                                       catedras.nombre as catedra,
@@ -86,7 +87,7 @@
 
 
                                                 <div class='form-group'>
-                                                    <label>Titulo</label>
+                                                    <label>Título</label>
                                                     <input class = 'form-control' name = 'titulo' id = 'titulo' value ='<?php echo $data["titulo"] ?>' disabled>
                                                 </div>
 
@@ -96,7 +97,7 @@
                                                 </div>
 
                                                 <div class='form-group'>
-                                                    <label>Catedra</label>
+                                                    <label>Cátedra</label>
                                                     <input class = 'form-control' name = 'modalidad' id = 'modalidad' value ='<?php echo $data["catedra"] ?>' disabled>
                                                 </div>
                                             </form>
@@ -111,7 +112,7 @@
                                                     <input class = 'form-control' name = 'director' id = 'director' value ='<?php echo $data["coordinador"] ?>' disabled>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label>Linea de Investigación</label>
+                                                    <label>Línea de Investigación</label>
                                                     <input class="form-control" placeholder="" name="linea" id="linea" value='<?php echo $data["lineainvestigacion"] ?>' disabled>
                                                 </div>
                                             </form>
@@ -131,7 +132,7 @@
                                                     <br/>
                                                     <br/>
                                                     <?php
-                                                    $consulta2 = "select ieinvestigadores.id, concat(ieinvestigadores.nombre,' ',  ieinvestigadores.apellido1, ' ', ieinvestigadores.apellido2) as nombre,ieinvestigan.tiempoacademico "
+                                                    $consulta2 = "select ieinvestigadores.id, concat(ieinvestigadores.nombre,' ',  ieinvestigadores.apellido1, ' ', ieinvestigadores.apellido2) as nombre, ieinvestigadores.correo as correo, ieinvestigan.tiempoacademico "
                                                             . "from ieproyectos,ieinvestigadores, ieinvestigan where ieproyectos.codigo = ieinvestigan.proyecto and ieinvestigan.investigador = ieinvestigadores.id and ieinvestigan.estado = 1 and ieproyectos.codigo ='$codigo'";
                                                     $query2 = mysqli_query($connection, $consulta2);
 
@@ -143,7 +144,7 @@
                                                         array_push($arrayInvestigadores, $data2['id']);
                                                         array_push($arrayInvestigadoresnom, $data2['nombre']);
                                                         array_push($arrayInvestigadorestime, $data2['tiempoacademico']);
-
+                                                        array_push($arrayInvestigadorescorreo, $data2['correo']);
                                                         echo "<div class='col-lg-5'>";
                                                         echo "<label>Cedula: " . $data2["id"] . "</label>";
                                                         echo "</div>";
@@ -204,8 +205,8 @@
                                                                                             echo " <a href='" . $data3['ruta'] . "'>";
                                                                                             echo "  <span class='corner'></span> ";
                                                                                             echo " <div class='icon'>
-                                                              <i class='fa fa-file'></i>
-                                                              </div>";
+                                                                                                <i class='fa fa-file'></i>
+                                                                                                </div>";
                                                                                             echo " <div class='file-name'style= 'word-wrap: break-word;'> " . $data3['nom_archivo'] . "<br>";
 
                                                                                             echo "<small>Agregado: " . $data3['fecha'] . "</small>";
@@ -1387,14 +1388,14 @@
                                         </div>
                                     </div>
                                     <!-- fin etapa 3 -->
-                                    
+
                                     <!-- tiempos academicos -->
                                     <div class="wrapper wrapper-content animated fadeIn">
                                         <div class="row">
                                             <div class="col-lg-12">
                                                 <div class="ibox collapsed">
                                                     <div id="panelEstado3" class="ibox-title panel ">
-                                                        <h5>Tiempos academicos</h5>
+                                                        <h5>Tiempos académicos</h5>
                                                         <div id="collapse3" class="ibox-tools">
                                                             <a id="col3" class="collapse-link">
                                                                 <i class="fa fa-chevron-up"></i>
@@ -1436,7 +1437,7 @@
                                                         <div class="row">
                                                             <div class='col-lg-12'>
                                                                 <div class='col-lg-4 col-lg-offset-3'>
-                                                                    <label>Tiempo academico total:</label>
+                                                                    <label>Tiempo académico total:</label>
                                                                 </div>
                                                                 <div class='col-lg-3'>
                                                                     <input id="totalAcademico" name="" type="text" value="" class="form-control" disabled> 
@@ -1463,13 +1464,13 @@
                                     </div>
                                     <!-- fin tiempos academicos -->
 
-                                    
+
                                     <!-- estado final -->
                                     <div class="row">
                                         <div class="col-lg-5 col-lg-offset-1">
                                             <div class="col-lg-4">
                                                 <div class="form-group">
-                                                    <label class="control-label">Estado del Investigacion:</label>
+                                                    <label class="control-label">Estado de la Investigación:</label>
                                                 </div>
                                             </div>
 
@@ -1499,7 +1500,7 @@
                                         <div class="col-lg-5 col-lg-offset-1">
                                             <div class="col-lg-3">
                                                 <div class="form-group">
-                                                    <label class="control-label">Fecha de finalizacion:</label>
+                                                    <label class="control-label">Fecha de finalización:</label>
                                                 </div>
                                             </div>
 
@@ -1523,7 +1524,7 @@
                                         </div>
                                     </div>
                                     <!-- fin estado final -->
-                                    
+
                                     <!--fin adentro panel mas grande -->
                                 </div>
                             </div>
@@ -1599,8 +1600,9 @@
             }
 
             function evaluadores($cod, $conn) {
-
-                $consulta = "select ieevaluadores.id from ieproyectos,ieevaluadores,ieevaluan
+                global $evaluadoresCorreos;
+                $evaluadoresCorreos = array();
+                $consulta = "select ieevaluadores.id, ieevaluadores.correo from ieproyectos,ieevaluadores,ieevaluan
                             where ieproyectos.codigo = ieevaluan.proyecto and ieevaluan.evaluador =  ieevaluadores.id and ieproyectos.codigo ='$cod' and ieevaluan.estado = 1";
 
                 $query = mysqli_query($conn, $consulta);
@@ -1610,6 +1612,7 @@
                     global $$evaluadores;
                     $$evaluadores = $data["id"];
                     $cont++;
+                    array_push($evaluadoresCorreos, $data["correo"]);
                 }
             }
 
@@ -1640,26 +1643,26 @@
                 return false;
             }
             ?>
-             <div id="mod-info" class="modal fade" aria-hidden="true" style="display: none;">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="text-center"><h3 id="titulo-modal" class="m-t-none m-b"></h3>
-                                <div class="text-center">
-                                    <label id="texto-modal"></label>
-                                    <br>
-                                    <button class="btn btn-sm btn-primary" id="cerrar" type="button" name="cerrar" data-dismiss="modal">Cerrar</button>
+            <div id="mod-info" class="modal fade" aria-hidden="true" style="display: none;">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="text-center"><h3 id="titulo-modal" class="m-t-none m-b"></h3>
+                                    <div class="text-center">
+                                        <label id="texto-modal"></label>
+                                        <br>
+                                        <button class="btn btn-sm btn-primary" id="cerrar" type="button" name="cerrar" data-dismiss="modal">Cerrar</button>
+
+                                    </div>
 
                                 </div>
-
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-            
+
             <script>
                                                                         String.prototype.trim = function () {
                                                                             return this.replace(/^\s+|\s+$/g, "");
@@ -1750,9 +1753,9 @@
                                                                                 var com = $("#" + coment).text();
                                                                                 com = com.trim();
                                                                                 $.get("funcionalidad/ComentarioEvaluador.php", {comentario: com, ie: cod, etapa: eta, id: ide}, function (data) {
-                                                                                    modal(" Se guardo el comentario con exito",data);
+                                                                                    modal(" Se guardo el comentario con exito", data);
                                                                                 }).fail(function (data) {
-                                                                                    modal("Ocurrio algun problema",data);
+                                                                                    modal("Ocurrio algun problema", data);
                                                                                 });
                                                                             });
                                                                         }
@@ -1767,9 +1770,9 @@
                                                                                 var com = $("#" + coment).text();
                                                                                 com = com.trim();
                                                                                 $.get("funcionalidad/ComentarioComiex.php", {comentario: com, ie: cod, etapa: eta, id: ide}, function (data) {
-                                                                                    modal(" Se guardo el comentario con exito",data);
+                                                                                    modal(" Se guardo el comentario con exito", data);
                                                                                 }).fail(function (data) {
-                                                                                     modal("Ocurrio algun problema",data);
+                                                                                    modal("Ocurrio algun problema", data);
                                                                                 });
                                                                             });
                                                                         }
@@ -1784,9 +1787,9 @@
                                                                                 var com = $("#" + coment).text();
                                                                                 com = com.trim();
                                                                                 $.get("funcionalidad/ComentarioInvestigador.php", {comentario: com, ie: cod, etapa: eta, id: ide}, function (data) {
-                                                                                   modal(" Se guardo el comentario con exito",data);
+                                                                                    modal(" Se guardo el comentario con exito", data);
                                                                                 }).fail(function (data) {
-                                                                                    modal("Ocurrio algun problema",data);
+                                                                                    modal("Ocurrio algun problema", data);
                                                                                 });
                                                                             });
                                                                         }
@@ -1794,30 +1797,52 @@
                                                                         function guardarEstadoIE(btn) { // btn boton de guardar la etapa 
                                                                             $("#" + btn).click(function (evento) {
                                                                                 evento.preventDefault();
-
+                                                                                var type = 3;
                                                                                 var cod = "<?php echo $codigo ?>";
+                                                                                var titulo = "<?php echo $data['titulo'] ?>";
+                                                                                var coor = "<?php echo $data['correoCoordinador'] ?>";
                                                                                 var eta = $("#" + btn).attr("etapa");
                                                                                 var est = $("#" + btn).attr("estado");
+                                                                                var investigadoresC = <?php echo '["' . implode('", "', $arrayInvestigadorescorreo) . '"]' ?>;
+                                                                                var evaluadoresC = <?php echo '["' . implode('", "', $evaluadoresCorreos) . '"]' ?>;
                                                                                 var estad = $("#" + est).val();
-                                                                                $.get("funcionalidad/IEestado.php", {estado: estad, ie: cod, etapa: eta}, function (data) {
-                                                                                     modal(" Se guardo el estado de la etapa con exito",data);
+
+                                                                                var investigadores = {};
+                                                                                investigadores = JSON.stringify(investigadoresC);
+
+                                                                                var evaluadores = {};
+                                                                                evaluadores = JSON.stringify(evaluadoresC);
+
+                                                                                $.get("funcionalidad/IEestado.php", {titulo: titulo, estado: estad, ie: cod, etapa: eta, coordinador: coor, investigadores: investigadores, evaluadores: evaluadores, type: type}, function (data) {
+                                                                                    modal(" Se guardó el estado de la etapa con éxito.", data);
                                                                                 }).fail(function (data) {
-                                                                                    modal("Ocurrio algun problema",data);
+                                                                                    modal("Ocurrió algún problema.", data);
                                                                                 });
-                                                                                
+
                                                                             });
                                                                         }
 
                                                                         function guardarEstadoFinIE(btn) { // btn boton del guardar estado final
                                                                             $("#" + btn).click(function (evento) {
                                                                                 evento.preventDefault();
+                                                                                var type = 4;
+                                                                                var titulo = "<?php echo $data['titulo'] ?>";
+                                                                                var coor = "<?php echo $data['correoCoordinador'] ?>";
                                                                                 var cod = "<?php echo $codigo ?>";
+                                                                                var investigadoresC = <?php echo '["' . implode('", "', $arrayInvestigadorescorreo) . '"]' ?>;
+                                                                                var evaluadoresC = <?php echo '["' . implode('", "', $evaluadoresCorreos) . '"]' ?>;
                                                                                 var est = $("#" + btn).attr("estado");
                                                                                 var estad = $("#" + est).val();
-                                                                                $.get("funcionalidad/IEestadoFin.php", {estado: estad, ie: cod}, function (data) {
-                                                                                    modal(" Se guardo la estado final con exito",data);
+                                                                                var etapa = "Final";
+                                                                                var investigadores = {};
+                                                                                investigadores = JSON.stringify(investigadoresC);
+
+                                                                                var evaluadores = {};
+                                                                                evaluadores = JSON.stringify(evaluadoresC);
+                                                                                $.get("funcionalidad/IEestado.php", {titulo: titulo, estado: estad, ie: cod, etapa:etapa, coordinador: coor, investigadores: investigadores, evaluadores: evaluadores, type: type}, function (data) {
+                                                                                    modal(" Se guardó el estado final con éxito", data);
                                                                                 }).fail(function (data) {
-                                                                                   modal("Ocurrio algun problema",data);
+                                                                                    modal("Ocurrio algun problema", data);
                                                                                 });
                                                                             });
                                                                         }
@@ -1828,14 +1853,14 @@
                                                                                 var cod = "<?php echo $codigo ?>";
                                                                                 var fecha = $("#fecha").val();
                                                                                 $.get("funcionalidad/IEfecha.php", {fecha: fecha, ie: cod}, function (data) {
-                                                                                    modal(" Se guardo la fecha con exito",data);
+                                                                                    modal(" Se guardo la fecha con exito", data);
                                                                                 }).fail(function (data) {
-                                                                                     modal("Ocurrio algun problema",data);
+                                                                                    modal("Ocurrio algun problema", data);
                                                                                 });
                                                                             });
                                                                         }
-                                                                        
-                                                                         function guardarTiempos() {
+
+                                                                        function guardarTiempos() {
                                                                             $("#tiempo").click(function (evento) {
                                                                                 evento.preventDefault();
                                                                                 alert("lala");
@@ -1851,40 +1876,40 @@
                                                                                 tiemp = JSON.stringify(tiempos);
 
                                                                                 $.get("funcionalidad/IEtiempo.php", {investigadores: invs, tiempos: tiemp, ie: cod}, function (data) {
-                                                                                    modal(" Se guardaron los tiempos academicos con exito",data);
+                                                                                    modal(" Se guardaron los tiempos academicos con exito", data);
                                                                                 }).fail(function (data) {
-                                                                                    modal("Ocurrio algun problema",data);
+                                                                                    modal("Ocurrio algun problema", data);
                                                                                 });
                                                                             });
                                                                         }
 
 
 
-                                                                        function init(){
+                                                                        function init() {
                                                                             var investigadores = <?php echo '["' . implode('", "', $arrayInvestigadores) . '"]' ?>;
                                                                             var tiempos = <?php echo '["' . implode('", "', $arrayInvestigadorestime) . '"]' ?>;
                                                                             for (var i = 0; i < investigadores.length; i++) {
-                                                                               //alert($("#" + investigadores[i]).val());
+                                                                                //alert($("#" + investigadores[i]).val());
                                                                                 $("#" + investigadores[i]).val(tiempos[i]);
                                                                             }
-                                                                        
+
                                                                         }
                                                                         function sumar() {
                                                                             var total = 0;
                                                                             var investigadores = <?php echo '["' . implode('", "', $arrayInvestigadores) . '"]' ?>;
 
                                                                             for (var i = 0; i < investigadores.length; i++) {
-                                                                               //alert($("#" + investigadores[i]).val());
+                                                                                //alert($("#" + investigadores[i]).val());
                                                                                 total += parseFloat($("#" + investigadores[i]).val());
 
                                                                             }
                                                                             $("#totalAcademico").val(total);
                                                                         }
-                                                                        function modal(titulo,msj) {
+                                                                        function modal(titulo, msj) {
                                                                             $('#mod-info').modal('show');
                                                                             $("#titulo-modal").text(titulo);
                                                                             $("#texto-modal").text(msj);
-                                                                                
+
                                                                         }
 
                                                                         //pintar panels

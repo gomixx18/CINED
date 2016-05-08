@@ -60,11 +60,8 @@ and open the template in the editor.
 
                                     <?php
                                     $codigo = $_POST["codigo"];
-                                    $arrayEstudiantes = array();
                                     $arrayEstCorreos = array();
-                                    $arrayAsesores = array();
-                                    $arrayDirector = array();
-                                    $arrayComision = array();
+                                   
 
                                     $consulta = "select tfg.titulo, concat(tfgdirectores.nombre,' ',tfgdirectores.apellido1,' ',tfgdirectores.apellido2)as directortfg,
                                                 tfgdirectores.correo as correodirector,
@@ -161,7 +158,7 @@ and open the template in the editor.
                                                         echo "<label>Cedula: " . $data2["id"] . "</label>";
                                                         echo "</div>";
                                                         echo "</div>";
-                                                        array_push($arrayEstudiantes, $data2['id']);
+                                                       
                                                         array_push($arrayEstCorreos, $data2['correo']);
                                                     }
                                                     ?> 

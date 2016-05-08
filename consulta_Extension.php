@@ -131,7 +131,8 @@
                                                     <br/>
                                                     <br/>
                                                     <?php
-                                                    $consulta2 = "select ieinvestigadores.id, concat(ieinvestigadores.nombre,' ',  ieinvestigadores.apellido1, ' ', ieinvestigadores.apellido2) as nombre,ieinvestigan.tiempoacademico "
+                                                    $arrayInvestigadorescorreo = array();
+                                                    $consulta2 = "select ieinvestigadores.id, concat(ieinvestigadores.nombre,' ',  ieinvestigadores.apellido1, ' ', ieinvestigadores.apellido2) as nombre, ieinvestigadores.correo as correo, ieinvestigan.tiempoacademico "
                                                             . "from ieproyectos,ieinvestigadores, ieinvestigan where ieproyectos.codigo = ieinvestigan.proyecto and ieinvestigan.investigador = ieinvestigadores.id and ieinvestigan.estado = 1 and ieproyectos.codigo ='$codigo'";
                                                     $query2 = mysqli_query($connection, $consulta2);
 
@@ -143,6 +144,7 @@
                                                         array_push($arrayInvestigadores, $data2['id']);
                                                         array_push($arrayInvestigadoresnom, $data2['nombre']);
                                                         array_push($arrayInvestigadorestime, $data2['tiempoacademico']);
+                                                        array_push($arrayInvestigadorescorreo, $data2['correo']);
 
                                                         echo "<div class='col-lg-5'>";
                                                         echo "<label>Cedula: " . $data2["id"] . "</label>";
@@ -1599,8 +1601,9 @@
             }
 
             function evaluadores($cod, $conn) {
-
-                $consulta = "select ieevaluadores.id from ieproyectos,ieevaluadores,ieevaluan
+                global $evaluadoresCorreos;
+                $evaluadoresCorreos = array();
+                $consulta = "select ieevaluadores.id, ieevaluadores.correo from ieproyectos,ieevaluadores,ieevaluan
                             where ieproyectos.codigo = ieevaluan.proyecto and ieevaluan.evaluador =  ieevaluadores.id and ieproyectos.codigo ='$cod' and ieevaluan.estado = 1";
 
                 $query = mysqli_query($conn, $consulta);
@@ -1610,6 +1613,7 @@
                     global $$evaluadores;
                     $$evaluadores = $data["id"];
                     $cont++;
+                    array_push($evaluadoresCorreos, $data["correo"]);
                 }
             }
 
@@ -1794,30 +1798,52 @@
                                                                         function guardarEstadoIE(btn) { // btn boton de guardar la etapa 
                                                                             $("#" + btn).click(function (evento) {
                                                                                 evento.preventDefault();
-
+                                                                                var type = 5;
                                                                                 var cod = "<?php echo $codigo ?>";
+                                                                                var titulo = "<?php echo $data['titulo'] ?>";
+                                                                                var coor = "<?php echo $data['correoCoordinador'] ?>";
                                                                                 var eta = $("#" + btn).attr("etapa");
                                                                                 var est = $("#" + btn).attr("estado");
+                                                                                var investigadoresC = <?php echo '["' . implode('", "', $arrayInvestigadorescorreo) . '"]' ?>;
+                                                                                var evaluadoresC = <?php echo '["' . implode('", "', $evaluadoresCorreos) . '"]' ?>;
                                                                                 var estad = $("#" + est).val();
-                                                                                $.get("funcionalidad/IEestado.php", {estado: estad, ie: cod, etapa: eta}, function (data) {
-                                                                                     modal(" Se guardo el estado de la etapa con exito",data);
-                                                                                }).fail(function (data) {
-                                                                                    modal("Ocurrio algun problema",data);
-                                                                                });
+
+                                                                                var investigadores = {};
+                                                                                investigadores = JSON.stringify(investigadoresC);
                                                                                 
+                                                                                var evaluadores = {};
+                                                                                evaluadores = JSON.stringify(evaluadoresC);
+
+                                                                                $.get("funcionalidad/IEestado.php", {titulo: titulo, estado: estad, ie: cod, etapa: eta, coordinador: coor, investigadores: investigadores, evaluadores:evaluadores, type: type}, function (data) {
+                                                                                    modal(" Se guardó el estado de la etapa con éxito.", data);
+                                                                                }).fail(function (data) {
+                                                                                    modal("Ocurrió algún problema.", data);
+                                                                                });
+
                                                                             });
                                                                         }
 
                                                                         function guardarEstadoFinIE(btn) { // btn boton del guardar estado final
                                                                             $("#" + btn).click(function (evento) {
                                                                                 evento.preventDefault();
+                                                                                var type = 6;
+                                                                                var titulo = "<?php echo $data['titulo'] ?>";
+                                                                                var coor = "<?php echo $data['correoCoordinador'] ?>";
                                                                                 var cod = "<?php echo $codigo ?>";
+                                                                                var investigadoresC = <?php echo '["' . implode('", "', $arrayInvestigadorescorreo) . '"]' ?>;
+                                                                                var evaluadoresC = <?php echo '["' . implode('", "', $evaluadoresCorreos) . '"]' ?>;
                                                                                 var est = $("#" + btn).attr("estado");
                                                                                 var estad = $("#" + est).val();
-                                                                                $.get("funcionalidad/IEestadoFin.php", {estado: estad, ie: cod}, function (data) {
-                                                                                    modal(" Se guardo la estado final con exito",data);
+                                                                                var etapa = "Final";
+                                                                                var investigadores = {};
+                                                                                investigadores = JSON.stringify(investigadoresC);
+
+                                                                                var evaluadores = {};
+                                                                                evaluadores = JSON.stringify(evaluadoresC);
+                                                                                $.get("funcionalidad/IEestado.php", {titulo: titulo, estado: estad, ie: cod, etapa:etapa, coordinador: coor, investigadores: investigadores, evaluadores: evaluadores, type: type}, function (data) {
+                                                                                    modal(" Se guardó el estado final con éxito", data);
                                                                                 }).fail(function (data) {
-                                                                                   modal("Ocurrio algun problema",data);
+                                                                                    modal("Ocurrio algun problema", data);
                                                                                 });
                                                                             });
                                                                         }
