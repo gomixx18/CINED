@@ -238,10 +238,8 @@
                                                                             <tfoot>
                                                                                 <tr>
                                                                                     <th>Identificación</th>
-                                                                                    <th>Nombre</th>
-                                                                                 
+                                                                                    <th>Nombre</th>                                                                                 
                                                                                     <th>Acción</th>
-                                                                                
                                                                                     <th>Primer Apellido</th>
                                                                                     <th>Segundo Apellido</th>
                                                                                 </tr>
@@ -672,13 +670,6 @@
 
         <script>
             $(document).ready(function () {
-
-
-
-
-
-
-
 
                 $('#data_1 .input-group.date').datepicker({
                     todayBtn: "linked",

@@ -77,7 +77,7 @@ function sendPassReset($id, $email, $nombre, $connection) {
     }
 }
 
-function emailEtapa($connection, $titulo,$correos, $etapa, $estado, $type) {
+function emailEtapa($titulo, $correos, $etapa, $estado, $type) {
 
     $mail = new PHPMailer();
     $mail->IsSMTP();
@@ -126,13 +126,77 @@ function emailEtapa($connection, $titulo,$correos, $etapa, $estado, $type) {
             }
     }
 
-
-
-
     for ($index = 0; $index < count($correos); $index++) {
         $mail->AddAddress($correos[$index]);
     }
     return $mail->send();
+}
+
+function crearTFG($infoTFG, $correos) {
+
+    $mail = new PHPMailer();
+    $mail->IsSMTP();
+    $mail->SMTPAuth = true;
+    $mail->SMTPSecure = 'ssl';
+    $mail->Host = "smtp.gmail.com";
+    $mail->Port = 465;
+    $mail->IsHTML(true);
+    $mail->CharSet = "UTF-8";
+    $mail->Username = "cined.web@gmail.com";
+    $mail->Password = "cined1234";
+    $mail->SetFrom("cined.web@gmail.com");
+    $mail->WordWrap = 100;
+    $mail->Subject = "CINED - Confirmación de Registro de TFG";
+
+    $body = '<head>
+        <style type = "text/css">  
+    table {
+        border-collapse: collapse;
+    }
+    th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        background-color: #87CEEB;
+        color: white;   
+    }
+
+    table, th, td {
+        border: 1px solid black;
+       
+    }
+    th, td {
+        text-align: left;
+        padding: 6px;
+    }
+    tr:nth-child(even){background-color: #f2f2f2}
+        </style>
+        </head >';
+    $body .= "<h3>Confirmación de registro de TFG</h3><br /><br />"
+            . "Se ha registrado el siguiente TFG en el sistema web de CINED. <br /><br />";
+    $body.= "<table>"
+            . "<thead><th>Título</th>"
+            . "<th>Carrera</th>"
+            . "<th>Modalidad</th>"
+            . "<th>Línea de investigación</th>"
+            . "<th>Fecha de inicio</th>"
+            . "</thead>"
+            . "<tbody>"
+            . "<tr>"
+            . "<td>" . $infoTFG[0] . "</td>"
+            . "<td>" . $infoTFG[1] . "</td>"
+            . "<td>" . $infoTFG[2] . "</td>"
+            . "<td>" . $infoTFG[3] . "</td>"
+            . "<td>" . $infoTFG[4] . "</td>"
+            . "<tr>"
+            . "</tbody>"
+            . "</table>";
+
+    $mail->Body = $body;
+    for ($index = 0; $index < count($correos); $index++) {
+        $mail->AddAddress($correos[$index]);
+    }
+    $err = $mail->send();
+    return $err;
 }
 
 ?>

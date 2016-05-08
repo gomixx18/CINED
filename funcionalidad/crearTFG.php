@@ -1,5 +1,6 @@
 <?php
 
+require ('email.php');
 session_start();
 
 $titulo = $_POST["tituloTFG"];
@@ -26,69 +27,116 @@ for ($i = 1; $i < 7; $i++) {
     }
 }
 
-
-
 $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
-
 
 if ($connection) {
 
     $sqlCodigo = "SELECT * FROM consecutivos where tipo = 'TFG'";
     $resultadoCodigo = mysqli_query($connection, $sqlCodigo);
     $annoActual = date("Y");
-    
+
     $data = mysqli_fetch_assoc($resultadoCodigo);
     if ($data["anno"] == $annoActual) {
-        $numeroCambio = (int)$data["numero"] + 1;
+        $numeroCambio = (int) $data["numero"] + 1;
         $sqlcambioConsecutivo = "UPDATE consecutivos SET numero= " . $numeroCambio . " WHERE tipo='TFG'";
-        $codigo = "TFG-" . $data["numero"] ."-". $data["anno"] ."-". $carrera ."-". $modalidad ."-". $lineaInvestigacion ;
+        $codigo = "TFG-" . $data["numero"] . "-" . $data["anno"] . "-" . $carrera . "-" . $modalidad . "-" . $lineaInvestigacion;
     } else {
-        $annoCambio = (int)$annoActual;
+        $annoCambio = (int) $annoActual;
         $sqlcambioConsecutivo = "UPDATE consecutivos SET numero= 1, anno = " . $annoCambio . " WHERE tipo='TFG'";
-        $codigo = "TFG-1-". $data["anno"] ."-". $carrera ."-". $modalidad ."-". $lineaInvestigacion ;
+        $codigo = "TFG-1-" . $data["anno"] . "-" . $carrera . "-" . $modalidad . "-" . $lineaInvestigacion;
     }
-    $resultadoCambioConsecutivo = mysqli_query($connection, $sqlcambioConsecutivo); 
+    $resultadoCambioConsecutivo = mysqli_query($connection, $sqlcambioConsecutivo);
 
     $sqExtension = "INSERT INTO tfg (codigo, titulo, directortfg, encargadotfg, lineainvestigacion, carrera, estado, modalidad, fechaInicio, fechaFinal) VALUES ('" . $codigo . "', '" . $titulo . "', '" . $director . "', '" . $encargado . "', '" . $lineaInvestigacion . "', '" . $carrera . "', 'Activo', '" . $modalidad . "', '" . $fechaInicio . "', '" . $fechaFinal . "')";
     $resultadoTFG = mysqli_query($connection, $sqExtension); // ingresar TFG
-
-
-    
-
     // insertar estudiantes
-    
-    foreach ($arrayDocentes as $docente){
-        $sqlDocentes= "INSERT INTO tfgrealizan (estudiante, tfg,estado) VALUES ('".$docente."', '".$codigo."',1)";
+
+    foreach ($arrayDocentes as $docente) {
+        $sqlDocentes = "INSERT INTO tfgrealizan (estudiante, tfg,estado) VALUES ('" . $docente . "', '" . $codigo . "',1)";
         $resultadoDocentes = mysqli_query($connection, $sqlDocentes);
     }
 
-    
+
     //ligar miembros
     $sqlMiembros = "SELECT * FROM tfgmiembroscomision WHERE estado = true";
     $resultadoMiembros = mysqli_query($connection, $sqlMiembros); // aca estan los miebros de la comision activos
-    
-     while ($data = mysqli_fetch_assoc($resultadoMiembros)){
-        $sqlMiembrosAsoc= "INSERT INTO tfgevaluan (miembrocomisiontfg, tfg,estado) VALUES ('".$data["id"]."', '".$codigo."',1)";
+
+    while ($data = mysqli_fetch_assoc($resultadoMiembros)) {
+        $sqlMiembrosAsoc = "INSERT INTO tfgevaluan (miembrocomisiontfg, tfg,estado) VALUES ('" . $data["id"] . "', '" . $codigo . "',1)";
         $resultadoMiembrosAsoc = mysqli_query($connection, $sqlMiembrosAsoc);
-     }
-     
+    }
+
     // ligar asesores
-    $sqlEvaluador1 = "INSERT INTO tfgasesoran (asesor, tfg,estado) VALUES ('".$asesor1."', '".$codigo."',1)";
+    $sqlEvaluador1 = "INSERT INTO tfgasesoran (asesor, tfg,estado) VALUES ('" . $asesor1 . "', '" . $codigo . "',1)";
     $resultadoAsesor1 = mysqli_query($connection, $sqlEvaluador1);
-    
-    if($asesor2 != "ninguno" && $asesor1 != $asesor2){
-        $sqlAsesor2 = "INSERT INTO tfgasesoran (asesor, tfg,estado) VALUES ('".$asesor2."', '".$codigo."',1)";
+
+    if ($asesor2 != "ninguno" && $asesor1 != $asesor2) {
+        $sqlAsesor2 = "INSERT INTO tfgasesoran (asesor, tfg,estado) VALUES ('" . $asesor2 . "', '" . $codigo . "',1)";
         $resultadoAsesor2 = mysqli_query($connection, $sqlAsesor2);
     }
-    
+
     //crear etapas probar                       
-    $sqlEtapas1 = "INSERT INTO tfgetapas (numero, estado, tfg) VALUES (1, 'En ejecución', '".$codigo."')";
+    $sqlEtapas1 = "INSERT INTO tfgetapas (numero, estado, tfg) VALUES (1, 'En ejecución', '" . $codigo . "')";
     $resultadoEtapas1 = mysqli_query($connection, $sqlEtapas1);
-    $sqlEtapas2 = "INSERT INTO tfgetapas (numero, estado, tfg) VALUES (2, 'Inactiva', '".$codigo."')";
+    $sqlEtapas2 = "INSERT INTO tfgetapas (numero, estado, tfg) VALUES (2, 'Inactiva', '" . $codigo . "')";
     $resultadoEtapas2 = mysqli_query($connection, $sqlEtapas2);
-    $sqlEtapas3 = "INSERT INTO tfgetapas (numero, estado, tfg) VALUES (3, 'Inactiva', '".$codigo."')";
+    $sqlEtapas3 = "INSERT INTO tfgetapas (numero, estado, tfg) VALUES (3, 'Inactiva', '" . $codigo . "')";
     $resultadoEtapas3 = mysqli_query($connection, $sqlEtapas3);
+    //enviar correo a usuarios asociados
+    $infoTFG = array();
+    array_push($infoTFG, $titulo);
     
+
+    
+    $sqlC = "SELECT nombre FROM carreras where codigo = " . $carrera;
+    $resultadoC = mysqli_query($connection, $sqlC);
+    $rowC = $resultadoC->fetch_assoc();
+    array_push($infoTFG, $rowC["nombre"]);
+    
+    $sqlMod = "SELECT nombre FROM modalidades where codigo = " . $modalidad;
+    $resultadoMod = mysqli_query($connection, $sqlMod);
+    $rowM = $resultadoMod->fetch_assoc();
+    array_push($infoTFG, $rowM["nombre"]);
+
+    $sqlL = "SELECT nombre FROM lineasinvestigacion where codigo = " . $lineaInvestigacion;
+    $resultadoL = mysqli_query($connection, $sqlL);
+    $rowL = $resultadoL->fetch_assoc();
+    array_push($infoTFG, $rowL["nombre"]);
+    
+    array_push($infoTFG, $fechaInicio);
+    
+    $correos = array();
+    
+    $sqlEn = "SELECT correo FROM tfgencargados where id = " . $encargado;
+    $resultadoEn = mysqli_query($connection, $sqlEn);
+    $rowE = $resultadoEn->fetch_assoc();
+    array_push($correos, $rowE["correo"]);
+    
+    $sqlDir = "SELECT correo FROM tfgdirectores where id = " . $director;
+    $resultadoDir = mysqli_query($connection, $sqlDir);
+    $row1 = $resultadoDir->fetch_assoc();
+    array_push($correos, $row1["correo"]);
+
+    $sqlA1 = "SELECT correo FROM tfgasesores where id = " . $asesor1;
+    $resultadoA1 = mysqli_query($connection, $sqlA1);
+    $row2 = $resultadoA1->fetch_assoc();
+    array_push($correos, $row2["correo"]);
+
+    if ($asesor2 != 'ninguno') {
+        $sqlA2 = "SELECT correo FROM tfgasesores where id = " . $asesor2;
+        $resultadoA2 = mysqli_query($connection, $sqlA2);
+        $row3 = $resultadoA2->fetch_assoc();
+        array_push($correos, $row3["correo"]);
+    }
+
+    $in = join(',', array_fill(0, count($arrayDocentes), '?'));
+    $select = "SELECT correo FROM tfgestudiantes WHERE id IN ('" . implode("','", $arrayDocentes) . "')";
+    $r2 = mysqli_query($connection, $select);
+    while ($row4 = $r2->fetch_assoc()) {
+        array_push($correos, $row4["correo"]);
+    }
+
+    crearTFG($infoTFG, $correos);
 
     mysqli_close($connection);
 }

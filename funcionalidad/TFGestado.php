@@ -32,7 +32,7 @@ if ($connection) {
         }
         array_push($destinatarios, $director);
 
-        emailEtapa($connection, $titulo, $destinatarios, $etapa, $estado, $type);
+        emailEtapa($titulo, $destinatarios, $etapa, $estado, $type);
     
 
 
