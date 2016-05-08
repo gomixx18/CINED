@@ -226,7 +226,7 @@
                                     <div class="form-group"> 
                                         <label>Nombre</label> 
                                         <input name="nombre" id="nombre" required type="text" placeholder="Nombre" class="form-control"></div>                                    
-                                        <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit" name="TFGModificarModalidad"><strong>Modificar</strong></button>
+                                        <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit" name="TFGModificarModalidad"><strong>Guardar Cambios</strong></button>
                                         <button type="button" data-dismiss="modal" class="btn btn-sm btn-secundary pull-right m-t-n-xs" style="margin-right: 20px;" ><strong>Cancelar</strong></button>
 
 

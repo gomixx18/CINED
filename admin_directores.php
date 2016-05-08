@@ -276,7 +276,7 @@
                                         <button class="btn btn-sm btn-danger pull-left m-t-n-xs" type="button" id="desactivar" name="desactivarDirector"><i class="fa fa-warning"></i><strong> Desactivar</strong></button>
                                         <button class="btn btn-sm btn-info pull-left m-t-n-xs" type="button" id="activar" name="activarDirector"><i class="fa fa-check-circle"></i><strong> Activar</strong></button>
                                         <input name="estado" id="estado" type="text" hidden>
-                                        <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit" name="TFGModificarDirector"><strong>Modificar</strong></button>
+                                        <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit" name="TFGModificarDirector"><strong>Guardar Cambios</strong></button>
                                         <button type="button" data-dismiss="modal" class="btn btn-sm btn-secundary pull-right m-t-n-xs" style="margin-right: 20px;" ><strong>Cancelar</strong></button>
 
 
