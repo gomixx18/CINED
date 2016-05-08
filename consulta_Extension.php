@@ -19,7 +19,7 @@
 
         <?php
         if (!isset($_POST['codigo'])) {
-            header("Location: admin_Investigacion.php");
+            header("Location: admin_Extension.php");
         }
         include 'navegacion/nav-lateral.php';
         ?>
@@ -181,7 +181,7 @@
                                                             <div class="col-lg-12">
                                                                 <div class="panel panel-default">
                                                                     <div class="panel-body">
-                                                                        <form action="funcionalidad/CargarArchivoBlobInvExt.php" method="post" enctype="multipart/form-data" id="directorForm">
+                                                                        <form action="funcionalidad/CargarArchivoBlobInvExt_1.php" method="post" enctype="multipart/form-data" id="directorForm">
                                                                             <div class="row">
 
                                                                                 <div class="col-lg-12 ">
@@ -592,7 +592,7 @@
                                                         <div class="col-lg-12">
                                                             <div class="panel panel-default">
                                                                 <div class="panel-body">
-                                                                    <form action="funcionalidad/CargarArchivoBlobInvExt.php" method="post" enctype="multipart/form-data" id="directorForm">
+                                                                    <form action="funcionalidad/CargarArchivoBlobInvExt_1.php" method="post" enctype="multipart/form-data" id="directorForm">
                                                                         <div class="row">
 
                                                                             <div class="col-lg-12 ">
@@ -996,7 +996,7 @@
                                                         <div class="col-lg-12">
                                                             <div class="panel panel-default">
                                                                 <div class="panel-body">
-                                                                    <form action="funcionalidad/CargarArchivoBlobInvExt.php" method="post" enctype="multipart/form-data" id="directorForm">
+                                                                    <form action="funcionalidad/CargarArchivoBlobInvExt_1.php" method="post" enctype="multipart/form-data" id="directorForm">
                                                                         <div class="row">
 
                                                                             <div class="col-lg-12 ">
