@@ -107,7 +107,7 @@
                                             <div class="row">
                                                 <div class="col-lg-6">
                                                     <div class="form-group">
-                                                        <label>Titulo de Trabajo de Extensión</label>
+                                                        <label>Título de Trabajo de Extensión</label>
                                                         <input id="nomProyecto" name="titulo" type="text" class="form-control required">
                                                     </div>
 
@@ -150,7 +150,7 @@
                                                         </select>           
                                                     </div> 
                                                     <div class="form-group">                                              
-                                                        <label>Catedra</label>
+                                                        <label>Cátedra</label>
                                                         <select id="modalidad" name='catedra' aria-required='true' class="select2_catedra form-control required" tabindex="-1">
                                                             <option></option>
                                                             <?php
@@ -211,7 +211,6 @@
                                                                                     <th name="nombre">Nombre</th>
                                                                                     <th name="apellido1">Primer Apellido</th>
                                                                                     <th name="apellido2">Segundo Apellido</th>
-                     
                                                                                     <th name="accion">Acción</th>
                                                                                 </tr>
                                                                             </thead>
@@ -242,7 +241,6 @@
                                                                                     <th>Nombre</th>
                                                                                     <th>Primer Apellido</th>
                                                                                     <th>Segundo Apellido</th>
-                                                                                 
                                                                                     <th>Acción</th>
                                                                                 </tr>
                                                                             </tfoot>
@@ -416,9 +414,9 @@
 
                                         ?>
 
-                                        <h1>Finish</h1>
+                                        <h1>Fechas de inicio y finalización</h1>
                                         <fieldset>
-                                            <h2>Fechas de inicio y final</h2>
+                                            <h2>Fechas de inicio y finalización</h2>
                                             <div class="row">
 
                                                 <div class="col-lg-6" >
@@ -428,8 +426,6 @@
 
                                                     </div>
                                                 </div>
-
-
                                             </div>
                                         </fieldset>
                                     </form>

@@ -107,7 +107,7 @@
                                             <div class="row">
                                                 <div class="col-lg-6">
                                                     <div class="form-group">
-                                                        <label>Titulo de TFG</label>
+                                                        <label>Título de TFG</label>
                                                         <input id="nomProyecto" name="tituloTFG" type="text" class="form-control required">
                                                     </div>
 
@@ -333,7 +333,7 @@
                                                                 <th>Nombre</th>
                                                                 <th>Primer Apellido</th>
                                                                 <th>Segundo Apellido</th>
-                                                                <th>Titulo</th>
+                                                                <th>Título</th>
                                                                 <th>Especialidad</th>                        
                                                                 <th>Seleccionado</th>
                                                             </tr>
@@ -384,7 +384,7 @@
                                                                 <th>Nombre</th>
                                                                 <th>Primer Apellido</th>
                                                                 <th>Segundo Apellido</th>
-                                                                <th>Titulo</th>
+                                                                <th>Título</th>
                                                                 <th>Especialidad</th>                        
                                                                 <th>Seleccionado</th>
                                                             </tr>
@@ -452,9 +452,9 @@
 
                                         ?>
 
-                                        <h1>Finish</h1>
+                                        <h1>Fechas de inicio y finalización</h1>
                                         <fieldset>
-                                            <h2>Fechas de inicio y final</h2>
+                                            <h2>Fechas de inicio y finalización</h2>
                                             <div class="row">
 
                                                 <div class="col-lg-6" >

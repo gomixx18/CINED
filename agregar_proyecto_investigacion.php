@@ -107,7 +107,7 @@
                                             <div class="row">
                                                 <div class="col-lg-6">
                                                     <div class="form-group">
-                                                        <label>Titulo de Trabajo de Investigación</label>
+                                                        <label>Título de Trabajo de Investigación</label>
                                                         <input id="nomProyecto" name="titulo" type="text" class="form-control required">
                                                     </div>
 
@@ -150,7 +150,7 @@
                                                         </select>           
                                                     </div> 
                                                     <div class="form-group">                                              
-                                                        <label>Catedra</label>
+                                                        <label>Cátedra</label>
                                                         <select id="modalidad" name='catedra' aria-required='true' class="select2_catedra form-control required" tabindex="-1">
                                                             <option></option>
                                                             <?php
@@ -272,7 +272,7 @@
 
                                         <!-- coordinador -->
 
-                                        <h1>Coordinador de Investogación</h1>
+                                        <h1>Coordinador de Investigación</h1>
                                         <fieldset>
                                             <h2>Asignar Coordinador de Investigación</h2>
                                             <h3>Encargado: </h3>
@@ -416,9 +416,9 @@
 
                                         ?>
 
-                                        <h1>Finish</h1>
+                                        <h1>Fechas de inicio y finalización</h1>
                                         <fieldset>
-                                            <h2>Fechas de inicio y final</h2>
+                                            <h2>Fechas de inicio y finalización</h2>
                                             <div class="row">
 
                                                 <div class="col-lg-6" >
@@ -630,14 +630,6 @@
 
         <script>
             $(document).ready(function () {
-
-
-
-
-
-
-
-
                 $('#data_1 .input-group.date').datepicker({
                     todayBtn: "linked",
                     keyboardNavigation: false,
@@ -685,14 +677,6 @@
 
                 var elem_3 = document.querySelector('.js-switch_3');
                 var switchery_3 = new Switchery(elem_3, {color: '#1AB394'});
-
-
-
-
-
-
-
-
 
                 $('input[name="daterange"]').daterangepicker();
 
