@@ -132,8 +132,8 @@ function emailEtapa($titulo, $correos, $etapa, $estado, $type) {
     return $mail->send();
 }
 
-function crearTFG($infoTFG, $correos) {
-
+function emailRegistroProyecto($info, $correos, $type) {
+    $proyecto = "";
     $mail = new PHPMailer();
     $mail->IsSMTP();
     $mail->SMTPAuth = true;
@@ -146,8 +146,23 @@ function crearTFG($infoTFG, $correos) {
     $mail->Password = "cined1234";
     $mail->SetFrom("cined.web@gmail.com");
     $mail->WordWrap = 100;
-    $mail->Subject = "CINED - Confirmación de Registro de TFG";
 
+    switch ($type) {
+        case 1: {
+                $op = "Modalidad";
+                $proyecto = "TFG";
+                break;
+            } case 2: {
+                $op = "Cátedra";
+                $proyecto = "Proyecto de Investigación";
+                break;
+            } case 3: {
+                $op = "Cátedra";
+                $proyecto = "Proyecto de Extensión";
+                break;
+            }
+    }
+    $mail->Subject = "CINED - Confirmación de Registro de " . $proyecto;
     $body = '<head>
         <style type = "text/css">  
     table {
@@ -168,35 +183,46 @@ function crearTFG($infoTFG, $correos) {
         text-align: left;
         padding: 6px;
     }
-    tr:nth-child(even){background-color: #f2f2f2}
+    tr:nth-child(even){ background-color: #f2f2f2 }
+    input {
+        background-color: #4CAF50;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        border-radius: 4px;
+        
+    }
         </style>
         </head >';
-    $body .= "<h3>Confirmación de registro de TFG</h3><br /><br />"
-            . "Se ha registrado el siguiente TFG en el sistema web de CINED. <br /><br />";
+    $body .= "<h3>Confirmación de registro de " . $proyecto . "</h3><br /><br />"
+            . "Se ha registrado el siguiente " . $proyecto . " en el sistema web de CINED. <br /><br />";
     $body.= "<table>"
             . "<thead><th>Título</th>"
             . "<th>Carrera</th>"
-            . "<th>Modalidad</th>"
+            . "<th>" . $op . "</th>"
             . "<th>Línea de investigación</th>"
             . "<th>Fecha de inicio</th>"
             . "</thead>"
             . "<tbody>"
             . "<tr>"
-            . "<td>" . $infoTFG[0] . "</td>"
-            . "<td>" . $infoTFG[1] . "</td>"
-            . "<td>" . $infoTFG[2] . "</td>"
-            . "<td>" . $infoTFG[3] . "</td>"
-            . "<td>" . $infoTFG[4] . "</td>"
+            . "<td>" . $info[0] . "</td>"
+            . "<td>" . $info[1] . "</td>"
+            . "<td>" . $info[2] . "</td>"
+            . "<td>" . $info[3] . "</td>"
+            . "<td>" . $info[4] . "</td>"
             . "<tr>"
             . "</tbody>"
-            . "</table>";
+            . "</table><br />";
+    $body .= "<form action='http://cined.cloudapp.net/login.php'>
+              <input type='submit' value='Ir al sitio'>
+              </form>";
 
     $mail->Body = $body;
     for ($index = 0; $index < count($correos); $index++) {
         $mail->AddAddress($correos[$index]);
     }
-    $err = $mail->send();
-    return $err;
+    return $mail->send();
 }
 
 ?>

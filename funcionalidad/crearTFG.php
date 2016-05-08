@@ -129,14 +129,14 @@ if ($connection) {
         array_push($correos, $row3["correo"]);
     }
 
-    $in = join(',', array_fill(0, count($arrayDocentes), '?'));
+    
     $select = "SELECT correo FROM tfgestudiantes WHERE id IN ('" . implode("','", $arrayDocentes) . "')";
     $r2 = mysqli_query($connection, $select);
     while ($row4 = $r2->fetch_assoc()) {
         array_push($correos, $row4["correo"]);
     }
 
-    crearTFG($infoTFG, $correos);
+    emailRegistroProyecto($infoTFG, $correos , 1);
 
     mysqli_close($connection);
 }

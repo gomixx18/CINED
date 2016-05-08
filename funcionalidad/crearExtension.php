@@ -1,7 +1,5 @@
-
-
 <?php
-
+require("email.php");
 session_start();
 
 $titulo = $_POST["titulo"];
@@ -26,9 +24,6 @@ for ($i = 1; $i < 7; $i++) {
         array_push($arrayDocentes, $_POST["nameEstudiante" . $i]);
     }
 }
-
-
-
 $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
 
 
@@ -89,6 +84,51 @@ if ($connection) {
     $resultadoEtapas2 = mysqli_query($connection, $sqlEtapas2);
     $sqlEtapas3 = "INSERT INTO ieetapas (numero, estado, proyecto) VALUES (3, 'Inactiva', '".$codigo."')";
     $resultadoEtapas3 = mysqli_query($connection, $sqlEtapas3);
+    
+    $infoExt = array();
+    array_push($infoExt, $titulo);
+    
+    $sqlC = "SELECT nombre FROM carreras where codigo = " . $carrera;
+    $resultadoC = mysqli_query($connection, $sqlC);
+    $rowC = $resultadoC->fetch_assoc();
+    array_push($infoExt, $rowC["nombre"]);
+    
+    $sqlCat = "SELECT nombre FROM catedras where codigo = " . $catedra;
+    $resultadoCat = mysqli_query($connection, $sqlCat);
+    $rowCat = $resultadoCat->fetch_assoc();
+    array_push($infoExt, $rowCat["nombre"]);
+    
+    $sqlL = "SELECT nombre FROM lineasinvestigacion where codigo = " . $lineaInvestigacion;
+    $resultadoL = mysqli_query($connection, $sqlL);
+    $rowL = $resultadoL->fetch_assoc();
+    array_push($infoExt, $rowL["nombre"]);
+    
+    array_push($infoExt, $fechaInicio);
+    $correos = array();
+    $sqlCI = "SELECT correo FROM iecoordinadoresinvestigacion where id = " . $coordinador;
+    $resultadoCI = mysqli_query($connection, $sqlCI);
+    $rowCI = $resultadoCI->fetch_assoc();
+    array_push($correos, $rowCI["correo"]);
+    
+    $sqlE1 = "SELECT correo FROM ieevaluadores where id = " . $evaluador1;
+    $resultadoE1 = mysqli_query($connection, $sqlE1);
+    $row2 = $resultadoE1->fetch_assoc();
+    array_push($correos, $row2["correo"]);
+    
+    if ($evaluador2 != 'ninguno') {
+        $sqlE2 = "SELECT correo FROM ieevaluadores where id = " . $evaluador2;
+        $resultadoE2 = mysqli_query($connection, $sqlA2);
+        $row3 = $resultadoE2->fetch_assoc();
+        array_push($correos, $row3["correo"]);
+    }
+    
+    $select = "SELECT correo FROM ieinvestigadores WHERE id IN ('" . implode("','", $arrayDocentes) . "')";
+    $r2 = mysqli_query($connection, $select);
+    while ($row4 = $r2->fetch_assoc()) {
+        array_push($correos, $row4["correo"]);
+    }
+    
+    emailRegistroProyecto($infoExt, $correos , 3);
     
 
     mysqli_close($connection);
