@@ -87,7 +87,7 @@ $usuarioPermisos = $_SESSION['permisos'];
                              
                             <?php } ?>
                         <li>
-                            <?php if($usuarioPermisos->getEncargadotfg() || $usuarioPermisos->getCoordinadorinvestigacion() || $usuarioPermisos->getInvestigador()||
+                            <?php if($usuarioPermisos->getCoordinadorinvestigacion() || $usuarioPermisos->getInvestigador()||
                                              $usuarioPermisos->getEvaluador()|| $usuarioPermisos->getMiembrocomiex()){ ?>
                             <a href="index.html"><i class="fa fa-fw fa-book"></i> <span class="nav-label">Proyectos de Investigación</span> <span class="fa arrow"></span></a>
                             <ul id="inv_principal" class="nav nav-second-level collapse">
@@ -121,7 +121,7 @@ $usuarioPermisos = $_SESSION['permisos'];
                             <?php }?>
                         </li>
                         <li>
-                               <?php if($usuarioPermisos->getEncargadotfg() || $usuarioPermisos->getCoordinadorinvestigacion() || $usuarioPermisos->getInvestigador()||
+                               <?php if($usuarioPermisos->getCoordinadorinvestigacion() || $usuarioPermisos->getInvestigador()||
                                              $usuarioPermisos->getEvaluador()|| $usuarioPermisos->getMiembrocomiex()){ ?>
                             <a href="index.html"><i class="fa fa-fw fa-book"></i> <span class="nav-label">Proyectos de Extensión</span> <span class="fa arrow"></span></a>
                             <ul id="ext_principal" class="nav nav-second-level collapse">
