@@ -64,15 +64,15 @@ try {
     $dt = new DateTime();
     $fecha = $dt->format('Y-m-d H:i:s');
     if ($tipo == "archivoEvaluador") {
-        $consulta = "INSERT INTO iearchivosevaluadores (evaluador, etapa, proyecto, ruta, fecha, nom_archivo) VALUES ( " . $usuario . " , " . $etapa .
+        $consulta = "INSERT INTO iearchivosevaluadores (evaluador, etapa, proyecto, ruta, fecha, nom_archivo) VALUES ( '" . $usuario . "' , " . $etapa .
                 " , '" . $codigo . "','" . $archivo_bases . "' ,'" . $fecha ."','".$nombre_archivo."');";
     }
     if($tipo == 'archivoInvestigador'){
-     $consulta  = "INSERT INTO iearchivosinvestigadores (investigador, etapa, proyecto, ruta, fecha, nom_archivo) VALUES ( ".$usuario." , ".$etapa.
+     $consulta  = "INSERT INTO iearchivosinvestigadores (investigador, etapa, proyecto, ruta, fecha, nom_archivo) VALUES ( '".$usuario."' , ".$etapa.
                  " ,'".$codigo."','".$archivo_bases."','".$fecha."','".$nombre_archivo."');";
     }
     if($tipo == 'archivoComiex'){
-       $consulta  = "INSERT INTO iearchivoscomiex (miembrocomiex, etapa, proyecto, ruta, fecha, nom_archivo) VALUES ( ".$usuario." , ".$etapa.
+       $consulta  = "INSERT INTO iearchivoscomiex (miembrocomiex, etapa, proyecto, ruta, fecha, nom_archivo) VALUES ( '".$usuario."' , ".$etapa.
                  " , '".$codigo."','".$archivo_bases."' ,'".$fecha."','".$nombre_archivo."');";
     }
   

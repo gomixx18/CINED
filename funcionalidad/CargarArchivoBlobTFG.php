@@ -69,15 +69,15 @@ try {
     $dt = new DateTime();
     $fecha = $dt->format('Y-m-d H:i:s');
     if ($tipo == "archivoDirector") {
-        $consulta = "INSERT INTO tfgarchivosdirectores (director, etapa, tfg, ruta, fecha, nom_archivo) VALUES ( " . $usuario . " , " . $etapa .
+        $consulta = "INSERT INTO tfgarchivosdirectores (director, etapa, tfg, ruta, fecha, nom_archivo) VALUES ( '" . $usuario . "' , " . $etapa .
                 " , '" . $codigo . "','" . $archivo_bases . "' ,'" . $fecha ."','".$nombre_archivo."');";
     }
     if($tipo == 'archivoAsesor'){
-     $consulta  = "INSERT INTO tfgarchivosasesores (asesor, etapa, tfg, ruta, fecha, nom_archivo) VALUES ( ".$usuario." , ".$etapa.
+     $consulta  = "INSERT INTO tfgarchivosasesores (asesor, etapa, tfg, ruta, fecha, nom_archivo) VALUES ( '".$usuario."' , ".$etapa.
                  " ,'".$codigo."','".$archivo_bases."','".$fecha."','".$nombre_archivo."');";
     }
     if($tipo == 'archivoMiembroComision'){
-       $consulta  = "INSERT INTO tfgarchivoscomision (miembrocomision, etapa, tfg, ruta, fecha, nom_archivo) VALUES ( ".$usuario." , ".$etapa.
+       $consulta  = "INSERT INTO tfgarchivoscomision (miembrocomision, etapa, tfg, ruta, fecha, nom_archivo) VALUES ( '".$usuario."' , ".$etapa.
                  " , '".$codigo."','".$archivo_bases."' ,'".$fecha."','".$nombre_archivo."');";
     }
     echo $consulta;
@@ -85,7 +85,7 @@ try {
     
     if($resultado){
         
-        echo '<html>';
+    echo '<html>';
 
     echo '<head>';
     echo '<title></title>';
