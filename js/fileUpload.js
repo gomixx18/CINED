@@ -44,7 +44,7 @@ function progressHandler(event){
 function completeHandler(event){
 	_("status").innerHTML = event.target.responseText;
 	$("#guardarArchivo1").removeClass('disabled');
-        $("#guardarArchivo1").removeAttr('disabled')
+        $("#guardarArchivo1").removeAttr('disabled');
 }
 function errorHandler(event){
 	_("status").innerHTML = "Subida Fallida";
@@ -150,7 +150,7 @@ function progressHandler3(event){
 function completeHandler3(event){
 	_("status3").innerHTML = event.target.responseText;
 	$("#guardarArchivo3").removeClass('disabled');
-        $("#guardarArchivo3").removeAttr('disabled')
+        $("#guardarArchivo3").removeAttr('disabled');
 }
 function errorHandler3(event){
 	_("status3").innerHTML = "Subida Fallida";
