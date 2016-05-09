@@ -91,41 +91,56 @@ function emailEtapa($titulo, $correos, $etapa, $estado, $type) {
     $mail->Password = "cined1234";
     $mail->SetFrom("cined.web@gmail.com");
     $mail->WordWrap = 100;
+    $mail->Body = "<head>
+        <style type = 'text/css'>  
+  
+    input {
+        background-color: #00519e;
+        color: white;
+        padding: 12px 18px;
+        margin: 8px 0;
+        border: none;
+        border-radius: 4px;
+        
+    }
+        </style>
+        </head >";
 
     switch ($type) {
         case 1: {
                 $mail->Subject = "CINED - Cambio de estado de etapa de TFG";
-                $mail->Body = "La etapa #" . $etapa . " del TFG:<b> " . $titulo . "</b> ha sido establecida como: " . $estado . ".";
+                $mail->Body .= "La etapa #" . $etapa . " del TFG:<b> " . $titulo . "</b> ha sido establecida como: " . $estado . ".<br />";
                 break;
             }
         case 2: {
                 $mail->Subject = "CINED - Aprobación Final de TFG";
-                $mail->Body = "Le informamos que el TFG: <b>" . $titulo . "</b> ha sido aprobado para la defensa.<br /><br />"
-                        . "- CINED Web";
+                $mail->Body .= "Le informamos que el TFG: <b>" . $titulo . "</b> ha sido aprobado para la defensa.<br /><br />";
                 break;
             }
         case 3: {
                 $mail->Subject = "CINED - Cambio de estado de etapa de Proyecto de Investigación";
-                $mail->Body = "La etapa #" . $etapa . " del proyecto de investigación:<b> " . $titulo . "</b> ha sido establecida como: " . $estado . ".";
+                $mail->Body .= "La etapa #" . $etapa . " del proyecto de investigación:<b> " . $titulo . "</b> ha sido establecida como: " . $estado . ".<br />";
                 break;
             }
         case 4: {
                 $mail->Subject = "CINED - Aprobación Final Proyecto de Investigación";
-                $mail->Body = "Le informamos que el proyecto de investigación:<b> " . $titulo . "</b> ha sido aprobado para la defensa.";
+                $mail->Body .= "Le informamos que el proyecto de investigación:<b> " . $titulo . "</b> ha sido aprobado para la defensa.<br />";
                 break;
             }
         case 5: {
                 $mail->Subject = "CINED - Cambio de estado de etapa Proyecto de Extensión";
-                $mail->Body = "La etapa #" . $etapa . " del proyecto de extensión:<b> " . $titulo . "</b> ha sido establecida como: " . $estado . ".";
+                $mail->Body .= "La etapa #" . $etapa . " del proyecto de extensión:<b> " . $titulo . "</b> ha sido establecida como: " . $estado . ".<br />";
                 break;
             }
         case 6: {
                 $mail->Subject = "CINED - Aprobación Final Proyecto de Extensión";
-                $mail->Body = "Le informamos que el proyecto de extensión: <b>" . $titulo . "</b> ha sido aprobado para la defensa.";
+                $mail->Body .= "Le informamos que el proyecto de extensión: <b>" . $titulo . "</b> ha sido aprobado para la defensa.<br />";
                 break;
             }
     }
-
+    $mail->Body .= "<br /><form action='http://cined.cloudapp.net/login.php'>
+              <input type='submit' value='Ir al sitio'>
+              </form>";
     for ($index = 0; $index < count($correos); $index++) {
         $mail->AddAddress($correos[$index]);
     }
@@ -171,7 +186,7 @@ function emailRegistroProyecto($info, $correos, $type) {
     th {
         padding-top: 12px;
         padding-bottom: 12px;
-        background-color: #87CEEB;
+        background-color: #00799e;
         color: white;   
     }
 
@@ -185,7 +200,7 @@ function emailRegistroProyecto($info, $correos, $type) {
     }
     tr:nth-child(even){ background-color: #f2f2f2 }
     input {
-        background-color: #4CAF50;
+        background-color: #00519e;
         color: white;
         padding: 14px 20px;
         margin: 8px 0;
