@@ -3,18 +3,41 @@
 session_start();
 if (isset($_POST["INVModificarInvestigador"])) {
     $nombre = $_POST["nombre"];
+    $isEstudiante = 0;
+    if($_POST["isEstudiante"] === "on"){
+        $isEstudiante = 1;
+    }
     $id = $_POST["id"];
     $ap1 = $_POST["apellido1"];
     $ap2 = $_POST["apellido2"];
     $correo = $_POST["correo"];
-    $estado = $_POST["estado"];
+    $pass = "123";
+    $catedra = $_POST["catedra"];
+    $carrera = $_POST["carrera"];
+
+    $unidadAcademica = "";
+    if($catedra != "Ninguna"){   
+        $unidadAcademica .= $catedra . ",";
+    }
+    if($carrera != "Ninguna"){   
+        $unidadAcademica .= $carrera. ",";
+    }
+    if(isset($_POST["cined"])){   
+        $unidadAcademica .= "CINED". ",";
+    }
+    if(isset($_POST["otros"])){   
+        $unidadAcademica .= "otros". ",";
+    }
+    
+    $unidadAcademica = substr($unidadAcademica, 0, strlen($unidadAcademica)-1);
     
 
     $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
 
 
     if ($connection) {
-        $sentenciaSQL = "UPDATE ieinvestigadores SET nombre = '" . $nombre . "', apellido1 ='" . $ap1 . "', apellido2 ='" . $ap2 . "', correo ='" . $correo . "', estado = $estado WHERE id ='" . $id . "'";
+
+        $sentenciaSQL = "UPDATE ieinvestigadores SET nombre = '" . $nombre . "', apellido1 ='" . $ap1 . "', apellido2 ='" . $ap2 . "', correo ='" . $correo ."', isEstudiante =" . $isEstudiante.", unidadAcademica = '".$unidadAcademica. "' WHERE id ='" . $id . "'";
         $resultado = mysqli_query($connection, $sentenciaSQL);
         mysqli_close($connection);
     }

@@ -68,6 +68,8 @@
                                                     <th>Primer Apellido</th>
                                                     <th>Segundo Apellido</th>
                                                     <th>Correo</th>
+                                                    <th>Estudiante</th>
+                                                    <th>Unidad Académica</th>
                                                     <th>Estado</th>
                                                     <th>Acción</th>
                                                 </tr>
@@ -90,6 +92,13 @@
                                                     echo "<td>" . $data["apellido1"] . "</td>";
                                                     echo "<td>" . $data["apellido2"] . "</td>";
                                                     echo "<td>" . $data["correo"] . "</td>";
+                                                    if($data["isEstudiante"]){
+                                                        echo "<td>Si</td>";
+                                                    }
+                                                    else{
+                                                        echo "<td>No</td>";
+                                                    }
+                                                    echo "<td>" . $data["unidadAcademica"] . "</td>";
                                                     if ($data["estado"] == '1') {
                                                         echo "<td>Activo</td>";
                                                     } else {
@@ -97,11 +106,11 @@
                                                     }
                                                     echo "<td>" . "<button type='submit' data-toggle='modal' class='btn btn-primary'
                                                                 data-target='#mod-form' id = '" . $data["id"] . "' nombre = '" . $data["nombre"] . "' apellido1 = '" . $data["apellido1"] .
-                                                    "' apellido2 = '" . $data["apellido2"] . "'activo = '" . $data["estado"] . "' correo = '" . $data["correo"] . "' isEstudiante = '" . $data["isEstudiante"] . "' > Modificar</button></td> ";
+                                                    "' apellido2 = '" . $data["apellido2"] . "'activo = '" . $data["estado"] . "' correo = '" . $data["correo"] . "' isEstudiante = '" . $data["isEstudiante"] . "' uAcademica =  '" . $data["unidadAcademica"] . "' > Modificar</button></td> ";
                                                     echo "</tr>";
                                                 }
 
-                                                mysqli_close($connection);
+                                         
                                                 ?>
                                             </tbody>
                                             <tfoot>
@@ -111,6 +120,8 @@
                                                     <th>Primer Apellido</th>
                                                     <th>Segundo Apellido</th>
                                                     <th>Correo</th>
+                                                    <th>Estudiante</th>
+                                                    <th>Unidad Académica</th>
                                                     <th>Estado</th>
                                                     <th>Acción</th>
                                                 </tr>
@@ -124,7 +135,7 @@
                     </div>
 
                     <div class="col-md-10"></div>
-                    <a data-toggle="modal" class="btn btn-primary" href="#modal-form">Registrar Investigador</a>
+                    <a data-toggle="modal" class="btn btn-primary" href="#modal-form" >Registrar Investigador</a>
 
                 </div>
 
@@ -217,7 +228,7 @@
                                     <div class="checkbox checkbox-success checkbox-circle">
                                         <input type="checkbox" id="isEstudiante" name="isEstudiante">
                                         <label for="checkbox8" >
-                                            Es estudiante?
+                                            ¿Es estudiante?
                                         </label>
                                     </div>
 
@@ -226,6 +237,57 @@
                                     <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Primer Apellido</label></i> <input required type="text" placeholder="Primer Apellido" class="form-control" name="apellido1"></div>
                                     <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Segundo Apellido</label></i> <input required type="text" placeholder="Segundo Apellido" class="form-control" name="apellido2"></div>
                                     <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Correo</label></i> <input required type="email" placeholder="Correo" class="form-control" name="correo"></div>
+                                    <label>Unidad Académica</label>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                        <div class="form-group">                                              
+                                            <label>Catedra</label>
+                                            <select name='catedra' aria-required='true' class="select2_catedra form-control " tabindex="-1">
+                                                <option value="Ninguna">Ninguna</option>
+                                                <?php
+                                        
+                                                if (!$connection) {
+                                                    exit("<label class='error'>Error de conexión</label>");
+                                                }
+
+                                                $query = mysqli_query($connection, "SELECT * FROM catedras");
+                                                while ($data = mysqli_fetch_assoc($query)) {
+                                                    echo "<option value=" . $data["nombre"] . ">" . $data["nombre"] . "</option>";
+                                                }
+                                                ?>
+                                            </select>       
+                                            </div> 
+                                        </div> 
+                                        <div class="form-group">  
+                                             <div class="col-lg-3">
+                                            <label>Carrera</label>
+                                            <select name='carrera' aria-required='true' class="form-control " tabindex="-1">
+                                                <option value="Ninguna">Ninguna</option>
+                                                <?php
+                                                if (!$connection) {
+                                                    exit("<label class='error'>Error de conexión</label>");
+                                                }
+
+                                                $query = mysqli_query($connection, "SELECT * FROM carreras");
+                                                while ($data = mysqli_fetch_assoc($query)) {
+                                                    echo "<option value=" . $data["nombre"] . ">" . $data["nombre"] . "</option>";
+                                                }
+                                                
+                                                ?>
+                                            </select>     
+                                            </div>  
+                                        </div>  
+                                        
+                                        <div class="col-lg-3">
+                                            <label>CINED</label>
+                                            <div class="i-checks" ><input name="cined" type="checkbox" value="CINED"> </div>
+                                        </div>  
+                                        <div class="col-lg-3">
+                                            <label>Otros</label>
+                                            <div class="i-checks"><input name="otros" type="checkbox" value="CINED"> </div>
+                                        </div>  
+                                       
+                                    </div>  
 
                                     <div>
                                         <label class=""> <i class="fa fa-exclamation-circle"> Rellene los datos obligatorios.</i></label><br> 
@@ -251,7 +313,7 @@
                                     <div class="checkbox checkbox-success checkbox-circle">
                                         <input type="checkbox" id="isEstudiante" name="isEstudiante">
                                         <label for="checkbox8">
-                                            Es estudiante?
+                                            ¿Es estudiante?
                                         </label>
                                     </div>
                                     <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Identificación</label></i> <input name="id" id="id" required type="text" placeholder="Identificacion" class="form-control" readonly></div>
@@ -259,7 +321,59 @@
                                     <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Primer Apellido</label></i> <input name="apellido1" id="apellido1" required type="text" placeholder="Primer Apellido" class="form-control"></div>
                                     <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Segundo Apellido</label></i> <input name="apellido2" id="apellido2" required type="text" placeholder="Segundo Apellido" class="form-control"></div>
                                     <div class="form-group"> <i class="fa fa-exclamation-circle"> <label>Correo</label></i> <input name="correo" id="correo" required type="email" placeholder="Correo" class="form-control"></div>
+                                    <label>Unidad Académica</label>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                        <div class="form-group">                                              
+                                            <label>Catedra</label>
+                                            <select id="catedra" name='catedra' aria-required='true' class="select2_catedra form-control " tabindex="-1">
+                                                <option value="Ninguna" selected="">Ninguna</option>
+                                                <?php
+                                        
+                                                if (!$connection) {
+                                                    exit("<label class='error'>Error de conexión</label>");
+                                                }
 
+                                                $query = mysqli_query($connection, "SELECT * FROM catedras");
+                                                while ($data = mysqli_fetch_assoc($query)) {
+                                                    echo "<option value=" . $data["nombre"] . ">" . $data["nombre"] . "</option>";
+                                                }
+                                                ?>
+                                            </select>       
+                                            </div> 
+                                        </div> 
+                                        <div class="form-group">  
+                                             <div class="col-lg-3">
+                                            <label>Carrera</label>
+                                            <select id="carrera" name='carrera' aria-required='true' class="form-control " tabindex="-1">
+                                                <option value="Ninguna" selected="">Ninguna</option>
+                                                <?php
+                                                if (!$connection) {
+                                                    exit("<label class='error'>Error de conexión</label>");
+                                                }
+
+                                                $query = mysqli_query($connection, "SELECT * FROM carreras");
+                                                while ($data = mysqli_fetch_assoc($query)) {
+                                                    echo "<option value=" . $data["nombre"] . ">" . $data["nombre"] . "</option>";
+                                                }
+                                                mysqli_close($connection);
+                    
+                                                ?>
+                                            </select>     
+                                            </div>  
+                                        </div>  
+                                        
+                                        <div class="col-lg-3">
+                                            <label>CINED</label>
+                                            <div class="i-checks" id="cined"><input  name="cined" type="checkbox" value="CINED"> </div>
+                                            
+                                        </div>  
+                                        <div class="col-lg-3">
+                                            <label>Otros</label>
+                                            <div class="i-checks" id="otros"><input name="otros" type="checkbox" value="CINED"> </div>
+                                        </div> 
+                                       
+                                    </div> 
                                     <div>
                                         <label class=""> <i class="fa fa-exclamation-circle"> Rellene los datos obligatorios.</i></label><br> <br>
                                         <button class="btn btn-sm btn-danger pull-left m-t-n-xs" type="button" id="desactivar" name="desactivarInvestigador"><i class="fa fa-warning"></i><strong> Desactivar</strong></button>
@@ -305,6 +419,53 @@
 
                 recipient = button.attr('correo');
                 modal.find('#correo').val(recipient);
+                
+                recipient = button.attr('uAcademica');
+                var auxUnidad = recipient.split(",");
+                
+                modal.find('#carrera').val("Ninguna");
+                modal.find('#catedra').val("Ninguna");
+                for(var i=0; i < $('#carrera option').size(); i++){
+                    for(var j=0; j<auxUnidad.length; j++){
+  
+                        if($('#carrera option').eq(i).val() === auxUnidad[j]){
+                             modal.find('#carrera').val(auxUnidad[j]);
+              
+                        }
+                    }
+                }
+                for(var i=0; i < $('#catedra option').size(); i++){
+                    for(var j=0; j<auxUnidad.length; j++){              
+                        if($('#catedra option').eq(i).val() === auxUnidad[j]){
+                             modal.find('#catedra').val(auxUnidad[j]);
+                           
+                        }
+                    }
+                }
+                
+                
+                $("#cined").find(".icheckbox_square-green").removeClass("checked");
+     
+                for(var j=0; j<auxUnidad.length; j++){
+                    if(auxUnidad[j] === 'CINED'){
+                        
+                        $("#cined").find(".icheckbox_square-green").addClass("checked");
+                      
+                    }
+                }
+                
+          
+                $("#otros").find(".icheckbox_square-green").removeClass("checked");
+                for(var j=0; j<auxUnidad.length; j++){
+                 
+                    if(auxUnidad[j] === "otros"){
+                       
+                       $("#otros").find(".icheckbox_square-green").addClass("checked");
+                    }
+                }
+                
+                
+    
 
                 recipient = button.attr('isEstudiante');
 
