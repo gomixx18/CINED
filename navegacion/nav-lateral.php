@@ -92,7 +92,7 @@ $usuarioPermisos = $_SESSION['permisos'];
                             <a href="index.html"><i class="fa fa-fw fa-book"></i> <span class="nav-label">Proyectos de Investigación</span> <span class="fa arrow"></span></a>
                             <ul id="inv_principal" class="nav nav-second-level collapse">
                                 <li>
-                                    <?php if($usuarioPermisos->getEncargadotfg() || $usuarioPermisos->getCoordinadorinvestigacion()){ ?>
+                                    <?php if($usuarioPermisos->getCoordinadorinvestigacion()){ ?>
                                     <a href="javascript:;" data-toggle="collapse" data-target="#inv_admin"> Administración de Usuarios<i class="fa fa-fw fa-caret-down"></i></a>                                  
                                     <ul id="inv_admin" class="nav nav-third-level collapse">
                                         <li>
@@ -126,7 +126,7 @@ $usuarioPermisos = $_SESSION['permisos'];
                             <a href="index.html"><i class="fa fa-fw fa-book"></i> <span class="nav-label">Proyectos de Extensión</span> <span class="fa arrow"></span></a>
                             <ul id="ext_principal" class="nav nav-second-level collapse">
                                 <li>
-                                     <?php if($usuarioPermisos->getEncargadotfg() || $usuarioPermisos->getCoordinadorinvestigacion()){ ?>
+                                     <?php if($usuarioPermisos->getCoordinadorinvestigacion()){ ?>
                                     <a href="javascript:;" data-toggle="collapse" data-target="#ext_admin"> Administración de Usuarios<i class="fa fa-fw fa-caret-down"></i></a>                                  
                                     <ul id="ext_admin" class="nav nav-third-level collapse">
                                         <li>
@@ -153,7 +153,7 @@ $usuarioPermisos = $_SESSION['permisos'];
                              <?php } ?>
                         </li>
                         <li>
-                            <?php if($usuarioPermisos->getEncargadotfg() || $usuarioPermisos->getCoordinadorinvestigacion()){ ?>
+                            <?php if($usuarioPermisos->getCoordinadorinvestigacion()){ ?>
                             <a href="index.html"><i class="fa fa-fw fa-list"></i> <span class="nav-label">General</span> <span class="fa arrow"></span></a>
                             <ul id="ext_principal" class="nav nav-second-level collapse">
                                 <li>
