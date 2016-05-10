@@ -41,6 +41,10 @@
 
                 </div>
                 <div class="wrapper wrapper-content animated fadeInRight">
+				
+					<a data-toggle="modal" class="btn btn-primary" href="#modal-form">Registrar Carrera</a>
+					<br/>
+					<br/>
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="ibox float-e-margins">
@@ -73,7 +77,8 @@
                                                 <tr>
                                                     <th>Código</th>
                                                     <th>Nombre</th>
-                                                    <th colspan="2">Acción</th>
+                                                    <th>Acción</th>
+													<th>Acción</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -104,7 +109,8 @@
                                                 <tr>
                                                     <th>Código</th>
                                                     <th>Nombre</th>
-                                                    <th colspan="2">Acción</th>
+                                                    <th>Acción</th>
+													<th>Acción</th>
                                                 </tr>
                                             </tfoot>
                                         </table>
@@ -115,8 +121,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-10"></div>
-                    <a data-toggle="modal" class="btn btn-primary" href="#modal-form">Registrar Carrera</a>
+                  
 
                 </div>
 

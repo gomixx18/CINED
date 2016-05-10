@@ -41,6 +41,10 @@
 
                 </div>
                 <div class="wrapper wrapper-content animated fadeInRight">
+				
+					<a class="btn btn-primary" href="agregar_proyecto_extension.php">Registrar Proyecto de Extensión</a>
+					<br/>
+					<br/>
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="ibox float-e-margins">
@@ -221,8 +225,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-10"></div>
-                    <a class="btn btn-primary" href="agregar_proyecto_extension.php">Registrar Proyecto de Extensión</a>
+
 
                 </div>
 
