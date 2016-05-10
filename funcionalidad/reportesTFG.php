@@ -20,12 +20,12 @@ $Etfg1 = json_decode($_REQUEST["Etfg1"], true);
 $Etfg2 = json_decode($_REQUEST["Etfg2"], true);
 $Etfg3 = json_decode($_REQUEST["Etfg3"], true);
 
-$carrera = $_REQUEST["carrera"];
-$linea = $_REQUEST["linea"];
-$modalidad = $_REQUEST["modalidad"];
+$carrera = json_decode($_REQUEST["carrera"], true);
+$linea = json_decode($_REQUEST["linea"], true);
+$modalidad = json_decode($_REQUEST["modalidad"], true);
 $fechainicio = $_REQUEST["fechainicio"];
 $fechafin = $_REQUEST["fechafin"];
-
+$estadistica = $_REQUEST["estadistica"];
 //echo $carrera.$linea.$modalidad.$fechainicio.$fechafin;
 
 $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
@@ -84,7 +84,7 @@ if ($connection) {
         }
         $primera = false;
         $bandera = false;
-        
+
 
         for ($i = 0; $i < count($Etfg3); $i++) {
             $q1 = $q1 . " tfgetapas.estado = '$Etfg3[$i]' ";
@@ -100,25 +100,57 @@ if ($connection) {
         if (!$primera) {
             $q1 = $q1 . " and ";
         }
+        $primera = false;
+        
         $q1 = $q1 . " tfg.fechaInicio between '$fechainicio' and '$fechafin' ";
     }
 
-    if ($carrera != "Ninguna") {
-        $q1 = $q1 . " and carrera ='" . $carrera . "'";
-    }
-    if ($modalidad != "Ninguna") {
+    if (count($carrera) > 0) {
         if (!$primera) {
             $q1 = $q1 . " and ";
         }
-        $q1 = $q1 . " modalidad ='" . $modalidad . "'";
+        $primera = false;
+        
+        for ($i = 0; $i < count($carrera); $i++) {
+
+            $q1 = $q1 . " carrera ='" . $carrera[$i] . "'";
+
+            if ($i != count($carrera) - 1) {
+                $q1 = $q1 . " or ";
+            }
+        }
     }
-    if ($linea != "Ninguna") {
+    if (count($modalidad) > 0) {
         if (!$primera) {
             $q1 = $q1 . " and ";
         }
-        $q1 = $q1 . "  lineainvestigacion ='" . $linea . "'";
+        $primera = false;
+        
+        for ($i = 0; $i < count($modalidad); $i++) {
+
+            $q1 = $q1 . " modalidad ='" . $modalidad[$i] . "'";
+
+            if ($i != count($modalidad) - 1) {
+                $q1 = $q1 . " or ";
+            }
+        }
     }
-    
+    if (count($linea) > 0) {
+        if (!$primera) {
+            $q1 = $q1 . " and ";
+        }
+        $primera = false;
+        
+        for ($i = 0; $i < count($linea); $i++) {
+
+            $q1 = $q1 . "  lineainvestigacion ='" . $linea[$i] . "'";
+
+            if ($i != count($linea) - 1) {
+                $q1 = $q1 . " or ";
+            }
+        }
+    }
+
     if ($bandera) {
         $q1 = "select tfg.codigo from tfg, tfgetapas where " . $q1;
         $q1 = $q1 . " group by tfg.codigo";
