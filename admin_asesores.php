@@ -43,6 +43,10 @@
                     </div>
                 </div>
                 <div class="wrapper wrapper-content animated fadeInRight">
+					
+                    <a data-toggle="modal" class="btn btn-primary" href="#modal-form">Registrar Asesor</a>
+					<br/>
+					<br/>
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="ibox float-e-margins">
@@ -131,8 +135,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-10"></div>
-                    <a data-toggle="modal" class="btn btn-primary" href="#modal-form">Registrar Asesor</a>
+                    
 
                 </div>
 
