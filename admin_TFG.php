@@ -82,7 +82,9 @@
                                                         <th>Línea de Investigación</th>
                                                         <th>Modalidad</th>
                                                         <th>Estado</th>
+                                                        <?php if($usuarioPermisos->getCoordinadorinvestigacion() || $usuarioPermisos->getEncargadotfg()){?>
                                                         <th>Acción</th>
+                                                        <?php }?>
                                                         <th>Acción</th>
                                                     </tr>
                                                 </thead>
@@ -176,13 +178,14 @@
                                                         echo "<td>" . $data["lineainvestigacion"] . "</td>";
                                                         echo "<td>" . $data["modalidad"] . "</td>";
                                                         echo "<td>" . $data["estado"] . "</td>";
-
+                                                        
+                                                        if($usuarioPermisos->getCoordinadorinvestigacion() || $usuarioPermisos->getEncargadotfg()){
                                                         echo "<form method= 'posT' action = 'modificar_TFG.php'>";
                                                         echo "<input type='hidden' name='codigo' value= '" . $data["codigo"] . "'/> ";
                                                         echo "<td>" . "<button type='submit' data-toggle='modal' class='btn btn-primary'
                                                                  id = '" . $data["codigo"] . "' > Modificar</button></td> ";
                                                         echo "</form>";
-
+                                                        }
 
                                                         echo "<form method= 'POST' action = 'consulta_TFG.php'>";
                                                         echo "<input type='hidden' name='codigo' value= '" . $data["codigo"] . "'/> ";
@@ -209,7 +212,9 @@
                                                         <th>Línea de Investigación</th>
                                                         <th>Modalidad</th>
                                                         <th>Estado</th>
-                                                        <th>Acción</th> 
+                                                        <?php if($usuarioPermisos->getCoordinadorinvestigacion() || $usuarioPermisos->getEncargadotfg()){?>
+                                                        <th>Acción</th>
+                                                        <?php }?>
                                                         <th>Acción</th> 
                                                     </tr>
                                                 </tfoot>
