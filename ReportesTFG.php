@@ -10,6 +10,7 @@
         <link href="css/style.css" rel="stylesheet">
         <script src="js/jquery-2.1.1.js"></script>
         <link href="css/plugins/datapicker/datepicker3.css" rel="stylesheet">
+        <link href="css/plugins/iCheck/custom.css" rel="stylesheet">
         <link href="css/plugins/daterangepicker/daterangepicker-bs3.css" rel="stylesheet">
         <?php
         include 'navegacion/nav-lateral.php';
@@ -40,23 +41,19 @@
 
                                 <div class="form-group">
                                     <div class="row">
-
-                                    </div>
-
-                                    <div class="row">
                                         <div class="col-md-4">
                                             <h4>Filtrar por</h4>
                                         </div>
                                     </div>
+
                                     <div class="row">
-                                        <div class="col-md-2">
+                                        <div class="col-md-2 col-lg-offset-1">
 
                                             <label>
-                                                Estado del TFG <input type="checkbox" id="ETFG" name="ETFG" value="" onchange="estado(this);">
+                                                Estado del TFG <input type="checkbox" id="ETFG0" name="ETFG0" value="" class="i-checks">
                                             </label>
-
                                         </div>
-                                        <div class="col-md-4" id="divETFG">
+                                        <div class="col-md-4" id="divETFG0">
 
                                         </div>
                                     </div>
@@ -70,10 +67,10 @@
                                     <div class="row">
 
 
-                                        <div class="col-md-2">
+                                        <div class="col-md-2 col-lg-offset-1">
 
                                             <label>
-                                                Etapa #1 <input type="checkbox" id="ETFG1" name="ETFG1" value="" onchange="estadoEtapa(this);">
+                                                Etapa #1 <input type="checkbox" id="ETFG1" name="ETFG1" value="" class="i-checks">
                                             </label>
 
                                         </div>
@@ -83,10 +80,10 @@
                                     </div>
                                     </br>
                                     <div class="row">
-                                        <div class="col-md-2">
+                                        <div class="col-md-2 col-lg-offset-1">
 
                                             <label>
-                                                Etapa #2 <input type="checkbox" id="ETFG2" name="ETFG2" value="" onchange="estadoEtapa(this);">
+                                                Etapa #2 <input type="checkbox" id="ETFG2" name="ETFG2" value="" class="i-checks">
                                             </label>
 
                                         </div>
@@ -96,10 +93,10 @@
                                     </div>
                                     </br>
                                     <div class="row">
-                                        <div class="col-md-2">
+                                        <div class="col-md-2 col-lg-offset-1">
 
                                             <label>
-                                                Etapa #3 <input type="checkbox" id="ETFG3" name="ETFG3" value="" onchange="estadoEtapa(this);">
+                                                Etapa #3 <input type="checkbox" id="ETFG3" name="ETFG3" value="" class="i-checks">
                                             </label>
 
                                         </div>
@@ -136,8 +133,8 @@
 
                                         </div>
                                         <div class="col-md-4">
-                                            <select name="carrera" id="carrera" class="form-control">
-                                                <option value="Ninguna">Ninguna</option>
+                                            <select multiple name="carrera" id="carrera" class="form-control">
+
                                                 <?php
                                                 $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
                                                 if (!$connection) {
@@ -166,8 +163,8 @@
 
                                         </div>
                                         <div class="col-md-4">
-                                            <select name="lineaInvest" id="linea" class="form-control">
-                                                <option value="Ninguna">Ninguna</option>
+                                            <select multiple name="lineaInvest" id="linea" class="form-control">
+
                                                 <?php
                                                 $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
                                                 if (!$connection) {
@@ -194,8 +191,8 @@
 
                                         </div>
                                         <div class="col-md-4">
-                                            <select name="modalidad" id="modalidad" class="form-control">
-                                                <option value="Ninguna">Ninguna</option>
+                                            <select multiple name="modalidad" id="modalidad" class="form-control">
+
                                                 <?php
                                                 $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
                                                 if (!$connection) {
@@ -210,6 +207,19 @@
                                                 ?>
                                             </select>
                                         </div>
+                                    </div>
+                                    </br>
+                                    <div class="row">
+
+
+                                        <div class="col-md-2 col-lg-offset-1">
+
+                                            <label>
+                                                Solo estadistica: <input type="checkbox" id="input" name="" value="" class="i-checks" onchange="">
+                                            </label>
+
+                                        </div>
+                                        
                                     </div>
                                     </br>
 
@@ -244,8 +254,7 @@
         <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
         <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
         <link href="css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
-        <!-- Data picker -->
-        <script src="js/plugins/datapicker/bootstrap-datepicker.js"></script>   
+
 
         <!-- Date range use moment.js same as full calendar plugin -->
         <script src="js/plugins/fullcalendar/moment.min.js"></script>
@@ -254,159 +263,196 @@
         <script src="js/plugins/daterangepicker/daterangepicker.js"></script>
         <!-- Custom and plugin javascript -->
         <script src="js/inspinia.js"></script>
+        <script src="js/plugins/iCheck/icheck.min.js"></script>
         <script src="js/plugins/pace/pace.min.js"></script>
 
 
     </body>
     <script>
-                                                    reporte();
-                                                    var estadoTFG = [];
-                                                    var estadosE1 = [];
-                                                    var estadosE2 = [];
-                                                    var estadosE3 = [];
-                                                    function reporte() {
-                                                        $("#report").click(function (evento) {
-                                                            evento.preventDefault();
-                                                            parametros();
-                                                            var carrera = $("#carrera").val();
-                                                            var linea = $("#linea").val();
-                                                            var modalidad = $("#modalidad").val();
-                                                            
+        reporte();
+        var estadoTFG = [];
+        var estadosE1 = [];
+        var estadosE2 = [];
+        var estadosE3 = [];
+        function reporte() {
+            $("#report").click(function (evento) {
+                evento.preventDefault();
+                parametros();
+                var carrera = $("#carrera").val();
+                var linea = $("#linea").val();
+                var modalidad = $("#modalidad").val();
+                var estadistica = $('input').is(':checked');
+                
+                var car = {};
+                car = JSON.stringify(carrera);
+                var mod = {};
+                mod = JSON.stringify(modalidad);
+                var lin = {};
+                lin = JSON.stringify(linea);
+                var Etfg = {};
+                Etfg = JSON.stringify(estadoTFG);
+                var Etfg1 = {};
+                Etfg1 = JSON.stringify(estadosE1);
+                var Etfg2 = {};
+                Etfg2 = JSON.stringify(estadosE2);
+                var Etfg3 = {};
+                Etfg3 = JSON.stringify(estadosE3);
 
-                                                            var Etfg = {};
-                                                            Etfg = JSON.stringify(estadoTFG);
-                                                            var Etfg1 = {};
-                                                            Etfg1 = JSON.stringify(estadosE1);
-                                                            var Etfg2 = {};
-                                                            Etfg2 = JSON.stringify(estadosE2);
-                                                            var Etfg3 = {};
-                                                            Etfg3 = JSON.stringify(estadosE3);
-                                                            $.get("funcionalidad/reportesTFG.php", {Etfg: Etfg, Etfg1: Etfg1, Etfg2: Etfg2, Etfg3: Etfg3, carrera: carrera, linea: linea, modalidad: modalidad, fechainicio: inifecha, fechafin: finfecha}, function (data) {
-                                                                alert(data);
-                                                            }).fail(function () {
+                $.get("funcionalidad/reportesTFG.php", {Etfg: Etfg, Etfg1: Etfg1, Etfg2: Etfg2, Etfg3: Etfg3, carrera: car, linea: lin, modalidad: mod, fechainicio: inifecha, fechafin: finfecha, estadistica: estadistica}, function (data) {
+                    alert(data);
+                }).fail(function () {
 
-                                                            });
-                                                             estadoTFG = [];
-                                                             estadosE1 = [];
-                                                             estadosE2 = [];
-                                                             estadosE3 = [];
-                                                            //alert("ksjadsa");
+                });
 
-                                                        });
-                                                    }
+                estadoTFG = [];
+                estadosE1 = [];
+                estadosE2 = [];
+                estadosE3 = [];
+                //alert("ksjadsa");
+
+            });
+        }
 
 
 
-                                                    function parametros() {
-                                                        if (ischeck("ETFG")) {
-                                                            est();
-                                                        }
-                                                        for (var i = 1; i < 4; i++) {
-                                                            if (ischeck("ETFG" + i)) {
-                                                                esteta(i);
-                                                            }
+        function parametros() {
+            if (ischeck("ETFG0")) {
+                est();
+            }
+            for (var i = 1; i < 4; i++) {
+                if (ischeck("ETFG" + i)) {
+                    esteta(i);
+                }
 
-                                                        }
+            }
 
-                                                    }
+        }
 
-                                                    function esteta(n) {
-                                                        for (var i = 1; i < 5; i++) {
-                                                            if (ischeck("ETFG" + n + i)) {
+        function esteta(n) {
+            for (var i = 1; i < 5; i++) {
+                if (ischeck("ETFG" + n + i)) {
 
-                                                                var x = $("#ETFG" + n + i).prop("value");
+                    var x = $("#ETFG" + n + i).prop("value");
 
-                                                                eval("estadosE" + n + "[estadosE" + n + ".length]=\"" + x + "\";");
-                                                                alert(eval("estadosE" + n));
-                                                            }
-                                                        }
-                                                    }
+                    eval("estadosE" + n + "[estadosE" + n + ".length]=\"" + x + "\";");
+                    //alert(eval("estadosE" + n));
+                }
+            }
+        }
 
-                                                    function est() {
-                                                        for (var i = 1; i < 5; i++) {
-                                                            if (ischeck("ETFG" + i)) {
-                                                                var x = $("#ETFG" + i).prop("value");
-                                                                eval("estadoTFG[estadoTFG.length]=\"" + x + "\";");
-                                                                // alert(eval("estadoTFG" + ".ETFG" + i));
+        function est() {
+            for (var i = 1; i < 5; i++) {
+                if (ischeck("ETFG0" + i)) {
+                    var x = $("#ETFG0" + i).prop("value");
+                    eval("estadoTFG[estadoTFG.length]=\"" + x + "\";");
+                    // alert(eval("estadoTFG" + ".ETFG0" + i));
 
-                                                            }
-                                                        }
-                                                    }
-                                                    $('input[name="daterange"]').on('apply.daterangepicker', function (ev, picker) {
-                                                        picker.startDate.format('YYYY-MM-DD');
-                                                        picker.endDate.format('YYYY-MM-DD');
-                                                        inifecha = (picker.startDate.format('YYYY-MM-DD'));
-                                                        finfecha = (picker.endDate.format('YYYY-MM-DD'));
+                }
+            }
+        }
+        $('input[name="daterange"]').on('apply.daterangepicker', function (ev, picker) {
+            picker.startDate.format('YYYY-MM-DD');
+            picker.endDate.format('YYYY-MM-DD');
+            inifecha = (picker.startDate.format('YYYY-MM-DD'));
+            finfecha = (picker.endDate.format('YYYY-MM-DD'));
 
-                                                    });
-                                                    var inifecha = "";
-                                                    var finfecha = "";
-                                                    $('input[name="daterange"]').daterangepicker({
-                                                        //locale: {
-                                                        format: 'YYYY-MM-DD',
-                                                        separator: " / ",
-                                                        startDate: moment().subtract('days', 29),
-                                                        endDate: moment()
-                                                                //}
-                                                    }, function (start, end, label) {
+        });
+        var inifecha = "";
+        var finfecha = "";
+        $('input[name="daterange"]').daterangepicker({
+            //locale: {
+            format: 'YYYY-MM-DD',
+            separator: " / ",
+            startDate: moment().subtract('days', 29),
+            endDate: moment()
+                    //}
+        }, function (start, end, label) {
 
-                                                        //startDate = start;
-                                                        //endDate = end;
-                                                    });
-                                                    /*
-                                                     $(function () {
-                                                     $("form#reporte").submit(function () {
-                                                     
-                                                     
-                                                     $('*').css('cursor', 'progress');
-                                                     $.ajax({
-                                                     url: "funcionalidad/reportesTFG.php",
-                                                     type: "POST",
-                                                     data: "",
-                                                     dataType: "json",
-                                                     success: function (data) {
-                                                     for (var i in data)
-                                                     {
-                                                     var row = data[i];
-                                                     
-                                                     var id = row[0];
-                                                     var vname = row[1];
-                                                     alert(id);
-                                                     }
-                                                     
-                                                     
-                                                     $('*').css('cursor', 'default');
-                                                     }
-                                                     });
-                                                     return false;
-                                                     });
-                                                     });
-                                                     */
+            //startDate = start;
+            //endDate = end;
+        });
+        /*
+         $(function () {
+         $("form#reporte").submit(function () {
+         
+         
+         $('*').css('cursor', 'progress');
+         $.ajax({
+         url: "funcionalidad/reportesTFG.php",
+         type: "POST",
+         data: "",
+         dataType: "json",
+         success: function (data) {
+         for (var i in data)
+         {
+         var row = data[i];
+         
+         var id = row[0];
+         var vname = row[1];
+         alert(id);
+         }
+         
+         
+         $('*').css('cursor', 'default');
+         }
+         });
+         return false;
+         });
+         });
+         */
 
-                                                    function estado(checkbox) {
+        function estado(checkbox) {
 
-                                                        if (checkbox.checked) {
-                                                            $("#div" + checkbox.id).append("<input type='checkbox' id='" + checkbox.id + "1' name='" + checkbox.id + "1' value='Activo' onchange=''><label>Activo</label><br>"
-                                                                    + "<input type='checkbox' id='" + checkbox.id + "2' name='" + checkbox.id + "2' value='Inactivo' onchange=''><label>Inactivo</label><br>"
-                                                                    + "<input type='checkbox' id='" + checkbox.id + "3' name='" + checkbox.id + "3' value='Aprobada para defensa' onchange=''><label>Aprobada para defensa</label><br>"
-                                                                    + "<input type='checkbox' id='" + checkbox.id + "4' name='" + checkbox.id + "4' value='Finalizado' onchange=''><label>Finalizado</label><br>");
-                                                        } else {
-                                                            $("#div" + checkbox.id).empty();
-                                                        }
-                                                    }
-                                                    function estadoEtapa(checkbox) {
-                                                        if (checkbox.checked) {
-                                                            $("#div" + checkbox.id).append("<input type='checkbox' id='" + checkbox.id + "1' name='" + checkbox.id + "1' value='Aprobada' onchange=''><label>Aprobada</label><br>"
-                                                                    + "<input type='checkbox' id='" + checkbox.id + "2' name='" + checkbox.id + "2' value='Aprobada con Observaciones' onchange=''><label>Aprobada con Observaciones</label><br>"
-                                                                    + "<input type='checkbox' id='" + checkbox.id + "3' name='" + checkbox.id + "3' value='No Aprobada' onchange=''><label>No Aprobada</label><br>"
-                                                                    + "<input type='checkbox' id='" + checkbox.id + "4' name='" + checkbox.id + "4' value='En ejecución' onchange=''><label>En ejecución</label><br>");
-                                                        } else {
-                                                            $("#div" + checkbox.id).empty();
-                                                        }
-                                                    }
-                                                    function ischeck(checkbox) {
-                                                        return $("#" + checkbox).is(':checked');
-                                                    }
+            if (ischeck(checkbox)) {
+                $("#div" + checkbox).append("<input type='checkbox' id='" + checkbox + "1' name='" + checkbox + "1' value='Activo' class='i-checks'><label>Activo</label><br><br>"
+                        + "<input type='checkbox' id='" + checkbox + "2' name='" + checkbox + "2' value='Inactivo' class='i-checks'><label>Inactivo</label><br><br>"
+                        + "<input type='checkbox' id='" + checkbox + "3' name='" + checkbox + "3' value='Aprobada para defensa' class='i-checks'><label>Aprobada para defensa</label><br><br>"
+                        + "<input type='checkbox' id='" + checkbox + "4' name='" + checkbox + "4' value='Finalizado' class='i-checks'><label>Finalizado</label><br><br>")
+                        .iCheck({
+                            checkboxClass: 'icheckbox_square-green',
+                            radioClass: 'iradio_square-green'
+                        });
+            } else {
+                $("#div" + checkbox).empty();
+            }
+        }
+        function estadoEtapa(checkbox) {
+
+            if (ischeck(checkbox)) {
+                $("#div" + checkbox).append("<input type='checkbox' id='" + checkbox + "1' name='" + checkbox + "1' value='Aprobada' class='i-checks'><label>Aprobada</label><br><br>"
+                        + "<input type='checkbox' id='" + checkbox + "2' name='" + checkbox + "2' value='Aprobada con Observaciones' class='i-checks'><label>Aprobada con Observaciones</label><br><br>"
+                        + "<input type='checkbox' id='" + checkbox + "3' name='" + checkbox + "3' value='No Aprobada' class='i-checks'><label>No Aprobada</label><br><br>"
+                        + "<input type='checkbox' id='" + checkbox + "4' name='" + checkbox + "4' value='En ejecución'  class='i-checks'><label>En ejecución</label><br><br>")
+                        .iCheck({
+                            checkboxClass: 'icheckbox_square-green',
+                            radioClass: 'iradio_square-green'
+                        });
+            } else {
+                $("#div" + checkbox).empty();
+            }
+        }
+        function ischeck(checkbox) {
+            return $("#" + checkbox).is(':checked');
+        }
+
+        $('.i-checks').iCheck({
+            checkboxClass: 'icheckbox_square-green',
+            radioClass: 'iradio_square-green'
+        });
+
+        $('#ETFG0').on('ifChanged', function (event) {
+            estado("ETFG0");
+        });
+        $('#ETFG1').on('ifChanged', function (event) {
+            estadoEtapa("ETFG1");
+        });
+        $('#ETFG2').on('ifChanged', function (event) {
+            estadoEtapa("ETFG2");
+        });
+        $('#ETFG3').on('ifChanged', function (event) {
+            estadoEtapa("ETFG3");
+        });
+
 
 
 
