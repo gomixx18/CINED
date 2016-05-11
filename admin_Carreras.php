@@ -78,7 +78,7 @@
                                                     <th>Código</th>
                                                     <th>Nombre</th>
                                                     <th>Acción</th>
-													<th>Acción</th>
+													<th></th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -110,7 +110,7 @@
                                                     <th>Código</th>
                                                     <th>Nombre</th>
                                                     <th>Acción</th>
-													<th>Acción</th>
+													<th></th>
                                                 </tr>
                                             </tfoot>
                                         </table>
