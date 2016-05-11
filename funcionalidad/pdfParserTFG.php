@@ -60,7 +60,7 @@ $html = '<style>
 tr, td {
    
     border: 1px solid #00519E;
-    font-size: x-small;
+    font-size: xx-small;
     color: black;
     text-align: justify;
     text-justify: inter-word;
@@ -71,6 +71,13 @@ th{
    text-align: center;
    border: 1px solid #black;
    font-weight: bold;
+}
+
+h4{
+    font-size: normal;
+}
+h3{
+    font-size: small;
 }
 
 h4,h3{
@@ -104,10 +111,9 @@ if(mysqli_num_rows($query) != 0){
 while ($data2 = mysqli_fetch_assoc($query)) {
     
     $consultaProyecto = "SELECT modalidades.nombre as modalidad, tfg.titulo,concat(tfgdirectores.nombre,' ',  tfgdirectores.apellido1, ' ', tfgdirectores.apellido2) as director ,carreras.nombre as carrera, tfg.estado, lineasinvestigacion.nombre as linea
-                        FROM tfg, lineasinvestigacion, modalidades, tfgdirectores, carreras where tfg.codigo = '".$data2['tfg']."' and tfg.directortfg = tfgdirectores.id and tfg.carrera = carreras.codigo and tfg.lineainvestigacion = lineasinvestigacion.codigo and tfg.modalidad = modalidades.codigo;";
+                         FROM tfg, lineasinvestigacion, modalidades, tfgdirectores, carreras where tfg.codigo = '".$data2['tfg']."' and tfg.directortfg = tfgdirectores.id and tfg.carrera = carreras.codigo and tfg.lineainvestigacion = lineasinvestigacion.codigo and tfg.modalidad = modalidades.codigo;";
     $consultaEtapa = "SELECT tfgetapas.estado as estado
                       FROM tfgetapas where tfgetapas.tfg = '".$data2['tfg']."';";
-    
     
     $query2 = mysqli_query($connection, $consultaProyecto);
     $query3 = mysqli_query($connection, $consultaEtapa);
@@ -139,6 +145,8 @@ while ($data2 = mysqli_fetch_assoc($query)) {
     unset($asesor1);
     unset($asesor2);
 }
+}else{
+    echo "ni mierda";
 }
 
 
@@ -206,12 +214,17 @@ function obtenerAsesores($tfg){
     $query4 = mysqli_query($GLOBALS['connection'], $consultaAsesores);
     $asesor1data = mysqli_fetch_assoc($query4);
     $asesor2data = mysqli_fetch_assoc($query4);
+    if(!isset($asesor1data)){
+      $asesor1 = "No definido";
+    }else{
+        $asesor1 = $asesor1data['asesor'];
+    }
+    
     if(!isset($asesor2data)){
       $asesor2 = "No definido";
     }else{
         $asesor2 = $asesor2data['asesor'];
     }
-    $asesor1 = $asesor1data['asesor'];
     
 }
 
@@ -219,7 +232,7 @@ function obtenerModalidades(){
     global $modalidades ;
     $modalidades = array();
     
-    $consultaAsesores = "SELECT nombre from modalidades; ";
+    $consultaAsesores = "SELECT nombre from modalidades;";
     
     $query5 = mysqli_query($GLOBALS['connection'], $consultaAsesores);
     while ($data2 = mysqli_fetch_assoc($query5)) {

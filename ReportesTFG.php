@@ -229,6 +229,7 @@
                                         </div>
                                         <div class="col-lg-2">
                                             <button id="report" type="" class="btn btn-primary">Generar Reporte</button>
+                                          
                                         </div>
                                     </div>
 
@@ -299,7 +300,7 @@
                 Etfg3 = JSON.stringify(estadosE3);
 
                 $.get("funcionalidad/reportesTFG.php", {Etfg: Etfg, Etfg1: Etfg1, Etfg2: Etfg2, Etfg3: Etfg3, carrera: car, linea: lin, modalidad: mod, fechainicio: inifecha, fechafin: finfecha, estadistica: estadistica}, function (data) {
-                    //alert(data);
+                    $("#consulta").html(data);
                     window.open('funcionalidad/pdfParserTFG.php', '_blank');
                 }).fail(function () {
 
@@ -407,7 +408,7 @@
             if (ischeck(checkbox)) {
                 $("#div" + checkbox).append("<input type='checkbox' id='" + checkbox + "1' name='" + checkbox + "1' value='Activo' class='i-checks'><label>Activo</label><br><br>"
                         + "<input type='checkbox' id='" + checkbox + "2' name='" + checkbox + "2' value='Inactivo' class='i-checks'><label>Inactivo</label><br><br>"
-                        + "<input type='checkbox' id='" + checkbox + "3' name='" + checkbox + "3' value='Aprobada para defensa' class='i-checks'><label>Aprobada para defensa</label><br><br>"
+                        + "<input type='checkbox' id='" + checkbox + "3' name='" + checkbox + "3' value='Aprobado para defensa' class='i-checks'><label>Aprobado para defensa</label><br><br>"
                         + "<input type='checkbox' id='" + checkbox + "4' name='" + checkbox + "4' value='Finalizado' class='i-checks'><label>Finalizado</label><br><br>")
                         .iCheck({
                             checkboxClass: 'icheckbox_square-green',

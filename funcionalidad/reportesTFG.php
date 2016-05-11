@@ -159,10 +159,11 @@ if ($connection) {
         $q1 = $q1 . "  group by tfgetapas.tfg";
     }
 
-    //echo $q1;
+    
     @session_start();
     $_SESSION['pdfTFG'] = $q1;
-    header("Location: pdfParserTFG.php");
+    echo $q1;
+    //header("Location: pdfParserTFG.php");
     //$result = mysqli_query($connection, $q1);
 
     /* $data = array();
