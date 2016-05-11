@@ -152,14 +152,17 @@ if ($connection) {
     }
 
     if ($bandera) {
-        $q1 = "select tfg.codigo from tfg, tfgetapas where " . $q1;
+        $q1 = "select tfg.codigo as tfg from tfg, tfgetapas where " . $q1;
         $q1 = $q1 . " group by tfg.codigo";
     } else {
         $q1 = "select tfgetapas.tfg from tfg, tfgetapas where " . $q1;
         $q1 = $q1 . "  group by tfgetapas.tfg";
     }
 
-    echo $q1;
+    //echo $q1;
+    @session_start();
+    $_SESSION['pdfTFG'] = $q1;
+    header("Location: pdfParserTFG.php");
     //$result = mysqli_query($connection, $q1);
 
     /* $data = array();

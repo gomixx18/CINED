@@ -299,7 +299,8 @@
                 Etfg3 = JSON.stringify(estadosE3);
 
                 $.get("funcionalidad/reportesTFG.php", {Etfg: Etfg, Etfg1: Etfg1, Etfg2: Etfg2, Etfg3: Etfg3, carrera: car, linea: lin, modalidad: mod, fechainicio: inifecha, fechafin: finfecha, estadistica: estadistica}, function (data) {
-                    alert(data);
+                    //alert(data);
+                    window.open('funcionalidad/pdfParserTFG.php', '_blank');
                 }).fail(function () {
 
                 });

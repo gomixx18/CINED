@@ -102,8 +102,8 @@ if (!defined('K_PATH_IMAGES')) {
 
 if (!defined('PDF_HEADER_LOGO')) {
 	$tcpdf_header_logo = '';
-	if (@file_exists(K_PATH_IMAGES.'tcpdf_logo.jpg')) {
-		$tcpdf_header_logo = 'tcpdf_logo.jpg';
+	if (@file_exists(K_PATH_IMAGES.'../img/logo_uned_pdf.png')) {
+		$tcpdf_header_logo = '../img/logo_uned_pdf.png';
 	}
 	define ('PDF_HEADER_LOGO', $tcpdf_header_logo);
 }
