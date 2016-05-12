@@ -143,13 +143,14 @@ if ($connection) {
         $q1 = $q1 . " isExtension = '$extension'";
     
     if ($bandera) {
-        $q1 = "select ieproyectos.codigo from ieproyectos, ieetapas where " . $q1;
+        $q1 = "select ieproyectos.codigo as proyecto from ieproyectos, ieetapas where " . $q1;
         $q1 = $q1 . " group by ieproyectos.codigo";
     } else {
         $q1 = "select ieetapas.proyecto from ieproyectos, ieetapas where " . $q1;
         $q1 = $q1 . "  group by ieetapas.proyecto";
     }
 
+    $_SESSION['pdfIE'] = $q1;
     echo $q1;
     //$result = mysqli_query($connection, $q1);
 

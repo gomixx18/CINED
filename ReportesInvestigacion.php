@@ -229,6 +229,7 @@
                                         </div>
                                         <div class="col-lg-2">
                                             <button id="report" type="" class="btn btn-primary">Generar Reporte</button>
+                                            <div id="consulta"></div>
                                         </div>
                                     </div>
 
@@ -298,7 +299,8 @@
                 var Eie3 = {};
                 Eie3 = JSON.stringify(estadosE3);
                 $.get("funcionalidad/reportesIe.php", {Eie: Eie, Eie1: Eie1, Eie2: Eie2, Eie3: Eie3, catedra: cat, linea: lin, carrera: car, fechainicio: inifecha, fechafin: finfecha, estadistica: estadistica, extension:extension}, function (data) {
-                    alert(data);
+                   $('#consulta').html(data);
+                   window.open('funcionalidad/pdfParserInvestigacion.php', '_blank');
                 }).fail(function () {
 
                 });
