@@ -102,12 +102,12 @@ table {
 
 obtenerModalidades();
 $query = mysqli_query($connection, $consulta);
-if(mysqli_num_rows($query) == 0){
+if(mysqli_num_rows($query) != 0){
 while ($data2 = mysqli_fetch_assoc($query)) {
     
     $consultaProyecto = "SELECT ieproyectos.titulo as titulo,concat(iecoordinadoresinvestigacion.nombre,' ',  iecoordinadoresinvestigacion.apellido1, ' ', iecoordinadoresinvestigacion.apellido2) as coordinador ,carreras.nombre as carrera, ieproyectos.estado, lineasinvestigacion.nombre as linea
                         FROM ieproyectos, lineasinvestigacion, iecoordinadoresinvestigacion, carreras where ieproyectos.codigo = '".$data2['proyecto']."' and ieproyectos.coordinador = iecoordinadoresinvestigacion.id and ieproyectos.carrera = carreras.codigo and ieproyectos.lineainvestigacion = lineasinvestigacion.codigo;";
-    //echo $consultaProyecto;
+   
     $consultaEtapa = "SELECT ieetapas.estado as estado
                       FROM ieetapas where ieetapas.proyecto = '".$data2['proyecto']."';";
     
@@ -117,9 +117,9 @@ while ($data2 = mysqli_fetch_assoc($query)) {
     $etapa2 = mysqli_fetch_assoc($query3);
     $etapa3 = mysqli_fetch_assoc($query3);
     $proyecto = mysqli_fetch_assoc($query2);
-    echo $proyecto['coordinador'];
-    //obtenerEvaluadores($data2['proyecto']);
-    //agregarModalidad($proyecto['modalidad']);
+   
+    obtenerEvaluadores($data2['proyecto']);
+   // agregarModalidad($proyecto['modalidad']);
     
     $html = $html."<tbody>";
     $html = $html."<tr>";
@@ -133,14 +133,14 @@ while ($data2 = mysqli_fetch_assoc($query)) {
             "<br>Etapa #3: ".$etapa3['estado'].
             "</td>";
     $html = $html."<td>".$proyecto['coordinador']."</td>";
-    //$html = $html."<td>".$evaluador1."</td>";
-    //$html = $html."<td>".$evaluador2."</td>";
+    $html = $html."<td>".$evaluador1."</td>";
+    $html = $html."<td>".$evaluador2."</td>";
     $html = $html."<td>".$proyecto['linea']."</td>";
     $html = $html."</tr>";
     $html = $html."</tbody>";
     
-   // unset($evaluador1);
-    //unset($evaluador2);
+    unset($evaluador1);
+    unset($evaluador2);
 }
 }else{
    // echo "ni mierda";
@@ -182,17 +182,10 @@ $pdf->AddPage();
 
 $pdf->Ln(5);
 
-// column titles
-//$header = array('Country', 'Capital', 'Area (sq km)', 'Pop. (thousands)',);
-
 // data loading
-//$data = $pdf->LoadData('data/table_data_demo.txt');
-//$pdf->SetFillColor(26, 179, 148);
 $html = $html.'</table>';
 $pdf->writeHTMLCell($w=0, $h=0, $x='', $y='', $html, $border=0, $ln=1, $fill=0, $reseth=true, $align='', false);
 
-// print colored table
-//$pdf->ColoredTable($header, $data);
 
 // ---------------------------------------------------------
 
