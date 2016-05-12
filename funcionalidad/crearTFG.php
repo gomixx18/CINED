@@ -16,9 +16,9 @@ $fecha = $_POST["daterange"];
 
 $fechaArray = explode('-', $fecha);
 $fechaArrayInicio = explode('/', trim($fechaArray[0]));
-$fechaInicio = $fechaArrayInicio[2] . "-" . $fechaArrayInicio[1] . "-" . $fechaArrayInicio[0];
+$fechaInicio = $fechaArrayInicio[2] . "-" . $fechaArrayInicio[0] . "-" . $fechaArrayInicio[1];
 $fechaArrayFinal = explode('/', trim($fechaArray[1]));
-$fechaFinal = $fechaArrayFinal[2] . "-" . $fechaArrayFinal[1] . "-" . $fechaArrayFinal[0];
+$fechaFinal = $fechaArrayFinal[2] . "-" . $fechaArrayFinal[0] . "-" . $fechaArrayFinal[1];
 
 $arrayDocentes = array();
 for ($i = 1; $i < 7; $i++) {

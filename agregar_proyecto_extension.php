@@ -402,9 +402,9 @@
 
 
                                         <?php
-                                        $fecha_actual = date("d/m/Y");
-
-                                        $nuevafecha = date('d/m/Y', strtotime('+1 month'))
+                                        $fecha_actual=date("m/d/Y");
+                            
+										$nuevafecha = date('m/d/Y', strtotime('+1 month'));
                                         ?>
 
                                         <h1>Fechas de inicio y finalización</h1>
@@ -420,6 +420,7 @@
                                                     </div>
                                                 </div>
                                             </div>
+											<label>NOTA. Formato de fecha: mes/dia/año</label>
                                         </fieldset>
 
                                         <div class="spiner-example">
