@@ -58,7 +58,7 @@
                                     $arrayInvestigadoresnom = array();
                                     $arrayInvestigadorestime = array();
                                     $consulta = "select ieproyectos.titulo,
-                                      concat(iecoordinadoresinvestigacion.nombre,' ',iecoordinadoresinvestigacion.apellido1,' ',iecoordinadoresinvestigacion.apellido2)as coordinador,
+                                      concat(iecoordinadoresinvestigacion.nombre,' ',iecoordinadoresinvestigacion.apellido1,' ',iecoordinadoresinvestigacion.apellido2)as coordinador, iecoordinadoresinvestigacion.correo as correoCoordinador,
                                       lineasinvestigacion.nombre as lineainvestigacion,
                                       carreras.nombre as carrera,
                                       catedras.nombre as catedra,
@@ -86,7 +86,7 @@
 
 
                                                 <div class='form-group'>
-                                                    <label>Titulo</label>
+                                                    <label>Título</label>
                                                     <input class = 'form-control' name = 'titulo' id = 'titulo' value ='<?php echo $data["titulo"] ?>' disabled>
                                                 </div>
 
@@ -96,7 +96,7 @@
                                                 </div>
 
                                                 <div class='form-group'>
-                                                    <label>Catedra</label>
+                                                    <label>Cátedra</label>
                                                     <input class = 'form-control' name = 'modalidad' id = 'modalidad' value ='<?php echo $data["catedra"] ?>' disabled>
                                                 </div>
                                             </form>
@@ -111,7 +111,7 @@
                                                     <input class = 'form-control' name = 'director' id = 'director' value ='<?php echo $data["coordinador"] ?>' disabled>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label>Linea de Investigación</label>
+                                                    <label>Línea de Investigación</label>
                                                     <input class="form-control" placeholder="" name="linea" id="linea" value='<?php echo $data["lineainvestigacion"] ?>' disabled>
                                                 </div>
                                             </form>
@@ -1438,7 +1438,7 @@
                                                         <div class="row">
                                                             <div class='col-lg-12'>
                                                                 <div class='col-lg-4 col-lg-offset-3'>
-                                                                    <label>Tiempo academico total:</label>
+                                                                    <label>Tiempo académico total:</label>
                                                                 </div>
                                                                 <div class='col-lg-3'>
                                                                     <input id="totalAcademico" name="" type="text" value="" class="form-control" disabled> 
@@ -1471,7 +1471,7 @@
                                         <div class="col-lg-5 col-lg-offset-1">
                                             <div class="col-lg-4">
                                                 <div class="form-group">
-                                                    <label class="control-label">Estado del proyecto de extension:</label>
+                                                    <label class="control-label">Estado del proyecto de extensión:</label>
                                                 </div>
                                             </div>
 
@@ -1482,7 +1482,7 @@
                                                         echo "disabled"
                                                         ?> <?php } ?>>
                                                         <option>Activo</option>
-                                                        <option>Aprobada para defensa</option>
+                                                        <option>Aprobado para defensa</option>
                                                         <option>Inactivo</option>
                                                         <option>Finalizado</option>
                                                     </select>
