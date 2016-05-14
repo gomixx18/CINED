@@ -35,19 +35,21 @@
                             <li class="active">
                                 <strong>Consulta de TFG</strong>
                             </li>
+							<?php if($usuarioPermisos->getCoordinadorinvestigacion() || $usuarioPermisos->getEncargadotfg()){?>
                             <li>
                                 <a href="agregar_proyecto_tfg.php">Registrar Proyecto de TFG</a>
                             </li>
-
+							<?php }?>
                         </ol>
                     </div>
 
                 </div>
                 <div class="wrapper wrapper-content animated fadeInRight">
-				
+					<?php if($usuarioPermisos->getCoordinadorinvestigacion() || $usuarioPermisos->getEncargadotfg()){?>
 					<a href="agregar_proyecto_tfg.php" class="btn btn-primary" href="#modal-form">Registrar Trabajo de Graduación Final</a>
 					<br/>
 					<br/>
+					<?php }?>
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="ibox float-e-margins">

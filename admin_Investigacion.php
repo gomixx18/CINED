@@ -33,19 +33,22 @@
                             <li class="active">
                                 <strong>Consulta de Investigación</strong>
                             </li>
+							<?php if ($usuarioPermisos->getCoordinadorinvestigacion()) { ?>
                             <li>
                                 <a  href="agregar_proyecto_investigacion.php">Registrar Proyecto de Investigación</a>
                             </li>
-
+							<?php }?>
                         </ol>
                     </div>
 
                 </div>
                 <div class="wrapper wrapper-content animated fadeInRight">
-				
+					
+					<?php if ($usuarioPermisos->getCoordinadorinvestigacion()) { ?>
 					<a class="btn btn-primary" href="agregar_proyecto_investigacion.php">Registrar Proyecto de Investigación</a>
 					<br/>
 					<br/>
+					<?php }?>
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="ibox float-e-margins">
