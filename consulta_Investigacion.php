@@ -1913,7 +1913,7 @@
                                                                         function guardarTiempos() {
                                                                             $("#tiempo").click(function (evento) {
                                                                                 evento.preventDefault();
-                                                                                alert("lala");
+                                                                                
                                                                                 var cod = "<?php echo $codigo ?>";
                                                                                 var tiempos = [];
                                                                                 var investigadores = <?php echo '["' . implode('", "', $arrayInvestigadores) . '"]' ?>;
