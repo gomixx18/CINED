@@ -58,7 +58,7 @@
                                     $arrayInvestigadoresnom = array();
                                     $arrayInvestigadorestime = array();
                                     $consulta = "select ieproyectos.titulo,
-                                      concat(iecoordinadoresinvestigacion.nombre,' ',iecoordinadoresinvestigacion.apellido1,' ',iecoordinadoresinvestigacion.apellido2)as coordinador, iecoordinadoresinvestigacion.correo as correoCoordinador,
+                                      concat(iecoordinadoresinvestigacion.nombre,' ',iecoordinadoresinvestigacion.apellido1,' ',iecoordinadoresinvestigacion.apellido2)as coordinador,
                                       lineasinvestigacion.nombre as lineainvestigacion,
                                       carreras.nombre as carrera,
                                       catedras.nombre as catedra,
@@ -86,7 +86,7 @@
 
 
                                                 <div class='form-group'>
-                                                    <label>Título</label>
+                                                    <label>Titulo</label>
                                                     <input class = 'form-control' name = 'titulo' id = 'titulo' value ='<?php echo $data["titulo"] ?>' disabled>
                                                 </div>
 
@@ -96,7 +96,7 @@
                                                 </div>
 
                                                 <div class='form-group'>
-                                                    <label>Cátedra</label>
+                                                    <label>Catedra</label>
                                                     <input class = 'form-control' name = 'modalidad' id = 'modalidad' value ='<?php echo $data["catedra"] ?>' disabled>
                                                 </div>
                                             </form>
@@ -111,7 +111,7 @@
                                                     <input class = 'form-control' name = 'director' id = 'director' value ='<?php echo $data["coordinador"] ?>' disabled>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label>Línea de Investigación</label>
+                                                    <label>Linea de Investigación</label>
                                                     <input class="form-control" placeholder="" name="linea" id="linea" value='<?php echo $data["lineainvestigacion"] ?>' disabled>
                                                 </div>
                                             </form>
@@ -181,15 +181,20 @@
                                                             <!-- etapa 1 -->
                                                             <!-- archivos -->
                                                             <div class="col-lg-12">
-                                                                <div class="panel panel-default">
-                                                                    <div class="panel-body">
+                                                                <div class="ibox collapsed">
+                                                                    <div class="ibox-title panel panel-success">
+                                                                        <h5>Archivos</h5>
+                                                                        <div id="collapse1" class="ibox-tools">
+                                                                            <a id="col1" class="collapse-link">
+                                                                                <i class="fa fa-chevron-up"></i>
+                                                                            </a>
+                                                                        </div>
+                                                                        <div class="ibox-content" style="display: block;">
                                                                         <form action="funcionalidad/CargarArchivoBlobInvExt_1.php" method="post" enctype="multipart/form-data" id="directorForm">
                                                                             <div class="row">
 
                                                                                 <div class="col-lg-12 ">
-                                                                                    <label>Archivos</label>
-                                                                                    <br/><br/>
-
+                                                                                    
                                                                                 </div>
 
                                                                                 <div class="col-lg-12 ">
@@ -226,7 +231,7 @@
                                                                                                 <input class = 'form-control' name = 'tipo' id = 'tipo' value ='archivoComiex' type="hidden">
                                                                                                 <input class = 'form-control' name = 'isInvestigacion' value= '1' type="hidden">
                                                                                                 <label>Adjuntar Documento:</label>
-                                                                                                <input accept=".docx,.doc,.pdf" type="file" name="archivo" id="archivo" onchange="uploadFile()" class ="btn btn-primary btn-outline">
+                                                                                                <input accept=".docx,.doc,.pdf" type="file" name="archivo" id="archivo" onchange="uploadFile()" class ="btn btn-primary btn-outline permiso">
                                                                                                 <div hidden id="divProgress" class="progress progress-striped active">
                                                                                                     <div  id="progressBar"   aria-valuemax="100" aria-valuemin="0" aria-valuenow="45" role="progressbar" class="progress-bar progress-bar-danger ">
                                                                                                     </div>
@@ -270,7 +275,7 @@
                                                                                                 <input class = 'form-control' name = 'tipo' id = 'tipo' value ='archivoInvestigador' type="hidden">
                                                                                                 <input class = 'form-control' name = 'isInvestigacion' id = 'isInvestigacion' value= '1' type="hidden">
                                                                                                 <label>Adjuntar Documento:</label>
-                                                                                                <input accept=".docx,.doc,.pdf" type="file" name="archivo" id="archivo" onchange="uploadFile()" class ="btn btn-primary btn-outline">
+                                                                                                <input accept=".docx,.doc,.pdf" type="file" name="archivo" id="archivo" onchange="uploadFile()" class ="btn btn-primary btn-outline permiso">
                                                                                                 <div hidden id="divProgress" class="progress progress-striped active">
                                                                                                     <div  id="progressBar"   aria-valuemax="100" aria-valuemin="0" aria-valuenow="45" role="progressbar" class="progress-bar progress-bar-danger ">
                                                                                                     </div>
@@ -317,7 +322,7 @@
                                                                                                 <input class = 'form-control' name = 'tipo' id = 'tipo' value ='archivoEvaluador' type="hidden">
                                                                                                 <input class = 'form-control' name = 'isInvestigacion' value= '1' type="hidden">
                                                                                                 <label>Adjuntar Documento:</label>
-                                                                                                <input accept=".docx,.doc,.pdf" type="file" name="archivo" id="archivo" onchange="uploadFile()" class ="btn btn-primary btn-outline">
+                                                                                                <input accept=".docx,.doc,.pdf" type="file" name="archivo" id="archivo" onchange="uploadFile()" class ="btn btn-primary btn-outline permiso">
                                                                                                 <div hidden id="divProgress" class="progress progress-striped active">
                                                                                                     <div  id="progressBar"   aria-valuemax="100" aria-valuemin="0" aria-valuenow="45" role="progressbar" class="progress-bar progress-bar-danger ">
                                                                                                     </div>
@@ -364,7 +369,7 @@
                                                                                                     <input class = 'form-control' name = 'tipo' id = 'tipo' value ='archivoEvaluador' type="hidden">
                                                                                                     <input class = 'form-control' name = 'isInvestigacion' value= '1' type="hidden">
                                                                                                     <label>Adjuntar Documento:</label>
-                                                                                                    <input accept=".docx,.doc,.pdf" type="file" name="archivo" id="archivo" onchange="uploadFile()" class ="btn btn-primary btn-outline">
+                                                                                                    <input accept=".docx,.doc,.pdf" type="file" name="archivo" id="archivo" onchange="uploadFile()" class ="btn btn-primary btn-outline permiso">
                                                                                                     <div hidden id="divProgress" class="progress progress-striped active">
                                                                                                         <div  id="progressBar"   aria-valuemax="100" aria-valuemin="0" aria-valuenow="45" role="progressbar" class="progress-bar progress-bar-danger ">
                                                                                                         </div>
@@ -398,19 +403,24 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
+                                                                </div>
                                                             <!-- fin archivos -->
                                                             <?php ?>
                                                             <!-- comentarios -->
                                                             <div class="col-lg-12">
-                                                                <div class="panel panel-default">
-                                                                    <div class="panel-body">
-
+                                                                <div class="ibox collapsed">
+                                                                    <div class="ibox-title panel panel-success">
+                                                                        <h5>Comentarios</h5>
+                                                                        <div id="collapse1" class="ibox-tools">
+                                                                            <a id="col1" class="collapse-link">
+                                                                                <i class="fa fa-chevron-up"></i>
+                                                                            </a>
+                                                                        </div>
+                                                                        <div class="ibox-content" style="display: block;">
                                                                         <div class="row">
 
                                                                             <div class="col-lg-12 ">
-                                                                                <label>Comentarios</label>
-                                                                                <br/><br/>
-
+                                                                              
                                                                             </div>
 
                                                                             <div class="col-lg-6">
@@ -419,8 +429,8 @@
                                                                                         <h5>Investigadores</h5>
 
                                                                                         <?php if (getInvestigador($usuarioSesion->getId())) { ?>
-                                                                                            <button class="btn btn-primary btn-xs m-l-sm" onclick="edit1('CI11')" type="button">Edit</button>
-                                                                                            <button id="BI11" etapa="1" comentario="CI11" class="btn btn-primary  btn-xs" onclick="save1('CI11')" type="button">Save</button>
+                                                                                            <button class="btn btn-primary btn-xs m-l-sm permiso" onclick="edit1('CI11')" type="button">Edit</button>
+                                                                                            <button id="BI11" etapa="1" comentario="CI11" class="btn btn-primary  btn-xs permiso" onclick="save1('CI11')" type="button">Save</button>
                                                                                         <?php } ?>
                                                                                         <div class="ibox-tools">
                                                                                             <a class="collapse-link">
@@ -445,8 +455,8 @@
                                                                                         <h5>Miembro de Comiex</h5>
 
                                                                                         <?php if (($usuarioPermisos->getMiembrocomiex())) { ?>
-                                                                                            <button class="btn btn-primary btn-xs m-l-sm" onclick="edit4('CM11')" type="button">Edit</button>
-                                                                                            <button id="BM11" etapa="1" comentario="CM11" class="btn btn-primary  btn-xs" onclick="save4('CM11')" type="button">Save</button>
+                                                                                            <button class="btn btn-primary btn-xs m-l-sm permiso" onclick="edit4('CM11')" type="button">Edit</button>
+                                                                                            <button id="BM11" etapa="1" comentario="CM11" class="btn btn-primary  btn-xs permiso" onclick="save4('CM11')" type="button">Save</button>
                                                                                         <?php } ?>
                                                                                         <div class="ibox-tools">
                                                                                             <a class="collapse-link">
@@ -470,8 +480,8 @@
                                                                                     <div class="ibox-title">
                                                                                         <h5>Evaluador 1</h5>
                                                                                         <?php if ($usuarioPermisos->getId() == $evaluador1) { ?>
-                                                                                            <button class="btn btn-primary btn-xs m-l-sm" onclick="edit2('CE11')" type="button">Edit</button>
-                                                                                            <button id="BE11" etapa="1" comentario="CE11" class="btn btn-primary  btn-xs" onclick="save2('CE11')" type="button">Save</button>
+                                                                                            <button class="btn btn-primary btn-xs m-l-sm permiso" onclick="edit2('CE11')" type="button">Edit</button>
+                                                                                            <button id="BE11" etapa="1" comentario="CE11" class="btn btn-primary  btn-xs permiso" onclick="save2('CE11')" type="button">Save</button>
                                                                                         <?php } ?>
                                                                                         <div class="ibox-tools">
                                                                                             <a class="collapse-link">
@@ -499,8 +509,8 @@
                                                                                             <?php
                                                                                             if ($usuarioPermisos->getId() == $evaluador2) {
                                                                                                 ?>
-                                                                                                <button class="btn btn-primary btn-xs m-l-sm" onclick="edit3('CE21')" type="button">Edit</button>
-                                                                                                <button id="BE21" etapa="1" comentario="CE21" class="btn btn-primary  btn-xs" onclick="save3('CE21')" type="button">Save</button>
+                                                                                                <button class="btn btn-primary btn-xs m-l-sm permiso" onclick="edit3('CE21')" type="button">Edit</button>
+                                                                                                <button id="BE21" etapa="1" comentario="CE21" class="btn btn-primary  btn-xs permiso" onclick="save3('CE21')" type="button">Save</button>
                                                                                                 <?php
                                                                                             }
                                                                                             ?>
@@ -526,6 +536,7 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
+                                                            </div>
                                                             <!-- fin comentarios -->
 
                                                             <!-- Estado  -->
@@ -541,7 +552,7 @@
                                                                     <div class="form-group">
 
 
-                                                                        <select id="estado1" class="form-control m-b" name="account" onchange="pintandoPanels()"<?php
+                                                                        <select id="estado1" class="form-control m-b permiso" name="account" onchange="pintandoPanels()"<?php
                                                                         if (!$usuarioPermisos->getCoordinadorinvestigacion()) {
                                                                             echo "disabled"
                                                                             ?> <?php } ?>>
@@ -559,7 +570,7 @@
                                                                 <div class="col-lg-2 col-lg-offset-9">
                                                                     <div class="form-group">
                                                                         <?php if ($usuarioPermisos->getCoordinadorinvestigacion()) { ?> 
-                                                                            <input id="BE1" estado="estado1" etapa="1" type="button" class="btn btn-primary" value="Guardar Estado">
+                                                                            <input id="BE1" estado="estado1" etapa="1" type="button" class="btn btn-primary permiso" value="Guardar Estado">
                                                                         <?php } ?>
                                                                     </div>
                                                                 </div>
@@ -586,21 +597,25 @@
                                                             <a id="col2" class="collapse-link">
                                                                 <i class="fa fa-chevron-up"></i>
                                                             </a>
-                                                        </div>
-                                                    </div>
+                                                        </div>                                                   
                                                     <div class="ibox-content">
                                                         <!-- archivos Etapa 2 -->
 
                                                         <div class="col-lg-12">
-                                                            <div class="panel panel-default">
-                                                                <div class="panel-body">
+                                                            <div class="ibox collapsed">
+                                                                <div class="ibox-title panel panel-success">
+                                                                    <h5>Archivos</h5>
+                                                                    <div id="collapse1" class="ibox-tools">
+                                                                        <a id="col1" class="collapse-link">                                               
+                                                                            <i class="fa fa-chevron-up"></i>
+                                                                        </a>
+                                                                    </div>
+                                                                    <div class="ibox-content" style="display: block;">
                                                                     <form action="funcionalidad/CargarArchivoBlobInvExt_1.php" method="post" enctype="multipart/form-data" id="directorForm">
                                                                         <div class="row">
 
                                                                             <div class="col-lg-12 ">
-                                                                                <label>Archivos</label>
-                                                                                <br/><br/>
-
+                                                                                
                                                                             </div>
 
                                                                             <div class="col-lg-12 ">
@@ -635,7 +650,7 @@
                                                                                             <input class = 'form-control' name = 'tipo' id = 'tipo' value ='archivoComiex' type="hidden">
                                                                                             <input class = 'form-control' name = 'isInvestigacion' value= '1' type="hidden">
                                                                                             <label>Adjuntar Documento:</label>
-                                                                                            <input accept=".docx,.doc,.pdf" type="file" name="archivo" id="archivo2" onchange="uploadFile2()" class ="btn btn-primary btn-outline">
+                                                                                            <input accept=".docx,.doc,.pdf" type="file" name="archivo" id="archivo2" onchange="uploadFile2()" class ="btn btn-primary btn-outline permiso">
                                                                                             <div hidden id="divProgress2" class="progress progress-striped active">
                                                                                                 <div  id="progressBar2"   aria-valuemax="100" aria-valuemin="0" aria-valuenow="45" role="progressbar" class="progress-bar progress-bar-danger ">
                                                                                                 </div>
@@ -677,7 +692,7 @@
                                                                                             <input class = 'form-control' name = 'tipo' id = 'tipo' value ='archivoInvestigador' type="hidden">
                                                                                             <input class = 'form-control' name = 'isInvestigacion' id = 'isInvestigacion' value= '2' type="hidden">
                                                                                             <label>Adjuntar Documento:</label>
-                                                                                            <input accept=".docx,.doc,.pdf" type="file" name="archivo" id="archivo2" onchange="uploadFile2()" class ="btn btn-primary btn-outline">
+                                                                                            <input accept=".docx,.doc,.pdf" type="file" name="archivo" id="archivo2" onchange="uploadFile2()" class ="btn btn-primary btn-outline permiso">
                                                                                             <div hidden id="divProgress2" class="progress progress-striped active">
                                                                                                 <div  id="progressBar2"   aria-valuemax="100" aria-valuemin="0" aria-valuenow="45" role="progressbar" class="progress-bar progress-bar-danger ">
                                                                                                 </div>
@@ -722,7 +737,7 @@
                                                                                             <input class = 'form-control' name = 'tipo' id = 'tipo' value ='archivoEvaluador' type="hidden">
                                                                                             <input class = 'form-control' name = 'isInvestigacion' value= '1' type="hidden">
                                                                                             <label>Adjuntar Documento:</label>
-                                                                                            <input accept=".docx,.doc,.pdf" type="file" name="archivo" id="archivo2" onchange="uploadFile()" class ="btn btn-primary btn-outline">
+                                                                                            <input accept=".docx,.doc,.pdf" type="file" name="archivo" id="archivo2" onchange="uploadFile()" class ="btn btn-primary btn-outline permiso">
                                                                                             <div hidden id="divProgress2" class="progress progress-striped active">
                                                                                                 <div  id="progressBar2"   aria-valuemax="100" aria-valuemin="0" aria-valuenow="45" role="progressbar" class="progress-bar progress-bar-danger ">
                                                                                                 </div>
@@ -767,7 +782,7 @@
                                                                                                 <input class = 'form-control' name = 'tipo' id = 'tipo' value ='archivoEvaluador' type="hidden">
                                                                                                 <input class = 'form-control' name = 'isInvestigacion' value= '1' type="hidden">
                                                                                                 <label>Adjuntar Documento:</label>
-                                                                                                <input accept=".docx,.doc,.pdf" type="file" name="archivo" id="archivo" onchange="uploadFile()" class ="btn btn-primary btn-outline">
+                                                                                                <input accept=".docx,.doc,.pdf" type="file" name="archivo" id="archivo" onchange="uploadFile()" class ="btn btn-primary btn-outline permiso">
                                                                                                 <div hidden id="divProgress" class="progress progress-striped active">
                                                                                                     <div  id="progressBar"   aria-valuemax="100" aria-valuemin="0" aria-valuenow="45" role="progressbar" class="progress-bar progress-bar-danger ">
                                                                                                     </div>
@@ -801,19 +816,24 @@
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                            </div>
                                                         <!-- fin archivos -->
 
                                                         <!-- comentarios -->
                                                         <div class="col-lg-12">
-                                                            <div class="panel panel-default">
-                                                                <div class="panel-body">
-
+                                                            <div class="ibox collapsed">
+                                                                <div class="ibox-title panel panel-success">
+                                                                    <h5>Comentarios</h5>
+                                                                    <div id="collapse1" class="ibox-tools">
+                                                                        <a id="col1" class="collapse-link">                                               
+                                                                            <i class="fa fa-chevron-up"></i>
+                                                                        </a>
+                                                                    </div>
+                                                                    <div class="ibox-content" style="display: block;">
                                                                     <div class="row">
 
                                                                         <div class="col-lg-12 ">
-                                                                            <label>Comentarios</label>
-                                                                            <br/><br/>
-
+                                                                            
                                                                         </div>
 
                                                                         <div class="col-lg-6">
@@ -821,8 +841,8 @@
                                                                                 <div class="ibox-title">
                                                                                     <h5>Investigador</h5>
                                                                                     <?php if (getInvestigador($usuarioSesion->getId())) { ?>
-                                                                                        <button  class="btn btn-primary btn-xs m-l-sm" onclick="edit1('CI12')" type="button">Edit</button>
-                                                                                        <button id="BI12" etapa="2" comentario="CI12" class="btn btn-primary  btn-xs" onclick="save1('CI12')" type="button">Save</button>
+                                                                                        <button  class="btn btn-primary btn-xs m-l-sm permiso" onclick="edit1('CI12')" type="button">Edit</button>
+                                                                                        <button id="BI12" etapa="2" comentario="CI12" class="btn btn-primary  btn-xs permiso" onclick="save1('CI12')" type="button">Save</button>
                                                                                     <?php } ?>
                                                                                     <div class="ibox-tools">
                                                                                         <a class="collapse-link">
@@ -847,8 +867,8 @@
                                                                                 <div class="ibox-title">
                                                                                     <h5>Miembro Comiex</h5>
                                                                                     <?php if (($usuarioPermisos->getMiembrocomiex())) { ?>
-                                                                                        <button  class="btn btn-primary btn-xs m-l-sm" onclick="edit4('CM12')" type="button">Edit</button>
-                                                                                        <button id="BM12" etapa="2" comentario="CM12" class="btn btn-primary  btn-xs" onclick="save4('CM12')" type="button">Save</button>
+                                                                                        <button  class="btn btn-primary btn-xs m-l-sm permiso" onclick="edit4('CM12')" type="button">Edit</button>
+                                                                                        <button id="BM12" etapa="2" comentario="CM12" class="btn btn-primary  btn-xs permiso" onclick="save4('CM12')" type="button">Save</button>
                                                                                     <?php } ?>
                                                                                     <div class="ibox-tools">
                                                                                         <a class="collapse-link">
@@ -873,8 +893,8 @@
                                                                                 <div class="ibox-title">
                                                                                     <h5>Evaluador 1</h5>
                                                                                     <?php if ($usuarioPermisos->getId() == $evaluador1) { ?>
-                                                                                        <button  class="btn btn-primary btn-xs m-l-sm" onclick="edit2('CE12')" type="button">Edit</button>
-                                                                                        <button id="BE12" etapa="2" comentario="CE12" class="btn btn-primary  btn-xs" onclick="save2('CE12')" type="button">Save</button>
+                                                                                        <button  class="btn btn-primary btn-xs m-l-sm permiso" onclick="edit2('CE12')" type="button">Edit</button>
+                                                                                        <button id="BE12" etapa="2" comentario="CE12" class="btn btn-primary  btn-xs permiso" onclick="save2('CE12')" type="button">Save</button>
                                                                                     <?php } ?>
                                                                                     <div class="ibox-tools">
                                                                                         <a class="collapse-link">
@@ -902,8 +922,8 @@
                                                                                         <?php
                                                                                         if ($usuarioPermisos->getId() == $evaluador2) {
                                                                                             ?>
-                                                                                            <button  class="btn btn-primary btn-xs m-l-sm" onclick="edit3('CE22')" type="button">Edit</button>
-                                                                                            <button id="BE22" etapa="2" comentario="CE22" class="btn btn-primary  btn-xs" onclick="save3('CE22')" type="button">Save</button>
+                                                                                            <button  class="btn btn-primary btn-xs m-l-sm permiso" onclick="edit3('CE22')" type="button">Edit</button>
+                                                                                            <button id="BE22" etapa="2" comentario="CE22" class="btn btn-primary  btn-xs permiso" onclick="save3('CE22')" type="button">Save</button>
                                                                                             <?php
                                                                                         }
                                                                                         ?>
@@ -930,6 +950,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                            </div>
                                                         <!-- fin comentarios -->
                                                         <!-- Estado  -->
                                                         <div class="row">
@@ -944,7 +965,7 @@
                                                                 <div class="form-group">
 
 
-                                                                    <select id="estado2" class="form-control m-b" name="account" onchange="pintandoPanels()"<?php
+                                                                    <select id="estado2" class="form-control m-b permiso" name="account" onchange="pintandoPanels()"<?php
                                                                     if (!$usuarioPermisos->getCoordinadorinvestigacion()) {
                                                                         echo "disabled"
                                                                         ?> <?php } ?>>
@@ -963,7 +984,7 @@
                                                                 <div class="form-group">
 
                                                                     <?php if ($usuarioPermisos->getCoordinadorinvestigacion()) { ?> 
-                                                                        <input id="BE2" estado="estado2" etapa="2" type="button" class="btn btn-primary" value="Guardar Estado">
+                                                                        <input id="BE2" estado="estado2" etapa="2" type="button" class="btn btn-primary permiso" value="Guardar Estado">
                                                                     <?php } ?>
                                                                 </div>
                                                             </div>
@@ -974,7 +995,7 @@
                                                 </div>
                                             </div>
                                         </div>
-
+                                            </div>
                                     </div>
 
                                     <!-- fin etapa 2 -->
@@ -991,19 +1012,25 @@
                                                                 <i class="fa fa-chevron-up"></i>
                                                             </a>
                                                         </div>
-                                                    </div>
+                                                   
                                                     <div class="ibox-content">
 
                                                         <!-- archivos -->
                                                         <div class="col-lg-12">
-                                                            <div class="panel panel-default">
-                                                                <div class="panel-body">
+                                                            <div class="ibox collapsed">
+                                                                <div class="ibox-title panel panel-success">
+                                                                    <h5>Archivos</h5>
+                                                                    <div id="collapse1" class="ibox-tools">
+                                                                        <a id="col1" class="collapse-link">                                               
+                                                                            <i class="fa fa-chevron-up"></i>
+                                                                        </a> 
+                                                                    </div>
+                                                                    <div class="ibox-content" style="display: block;">
                                                                     <form action="funcionalidad/CargarArchivoBlobInvExt_1.php" method="post" enctype="multipart/form-data" id="directorForm">
                                                                         <div class="row">
 
                                                                             <div class="col-lg-12 ">
-                                                                                <label>Archivos</label>
-                                                                                <br/><br/>
+                                                                                
 
                                                                             </div>
 
@@ -1041,7 +1068,7 @@
                                                                                             <input class = 'form-control' name = 'tipo' id = 'tipo' value ='archivoComiex' type="hidden">
                                                                                             <input class = 'form-control' name = 'isInvestigacion' value= '1' type="hidden">
                                                                                             <label>Adjuntar Documento:</label>
-                                                                                            <input accept=".docx,.doc,.pdf" type="file" name="archivo" id="archivo3" onchange="uploadFile3()" class ="btn btn-primary btn-outline">
+                                                                                            <input accept=".docx,.doc,.pdf" type="file" name="archivo" id="archivo3" onchange="uploadFile3()" class ="btn btn-primary btn-outline permiso">
                                                                                             <div hidden id="divProgress3" class="progress progress-striped active">
                                                                                                 <div  id="progressBar3"   aria-valuemax="100" aria-valuemin="0" aria-valuenow="45" role="progressbar" class="progress-bar progress-bar-danger ">
                                                                                                 </div>
@@ -1085,7 +1112,7 @@
                                                                                             <input class = 'form-control' name = 'tipo' id = 'tipo' value ='archivoInvestigador' type="hidden">
                                                                                             <input class = 'form-control' name = 'isInvestigacion' id = 'isInvestigacion' value= '2' type="hidden">
                                                                                             <label>Adjuntar Documento:</label>
-                                                                                            <input accept=".docx,.doc,.pdf" type="file" name="archivo" id="archivo3" onchange="uploadFile3()" class ="btn btn-primary btn-outline">
+                                                                                            <input accept=".docx,.doc,.pdf" type="file" name="archivo" id="archivo3" onchange="uploadFile3()" class ="btn btn-primary btn-outline permiso">
                                                                                             <div hidden id="divProgress3" class="progress progress-striped active">
                                                                                                 <div  id="progressBar3"   aria-valuemax="100" aria-valuemin="0" aria-valuenow="45" role="progressbar" class="progress-bar progress-bar-danger ">
                                                                                                 </div>
@@ -1132,7 +1159,7 @@
                                                                                             <input class = 'form-control' name = 'tipo' id = 'tipo' value ='archivoEvaluador' type="hidden">
                                                                                             <input class = 'form-control' name = 'isInvestigacion' value= '1' type="hidden">
                                                                                             <label>Adjuntar Documento:</label>
-                                                                                            <input accept=".docx,.doc,.pdf" type="file" name="archivo" id="archivo3" onchange="uploadFile3()" class ="btn btn-primary btn-outline">
+                                                                                            <input accept=".docx,.doc,.pdf" type="file" name="archivo" id="archivo3" onchange="uploadFile3()" class ="btn btn-primary btn-outline permiso">
                                                                                             <div hidden id="divProgress3" class="progress progress-striped active">
                                                                                                 <div  id="progressBar3"   aria-valuemax="100" aria-valuemin="0" aria-valuenow="45" role="progressbar" class="progress-bar progress-bar-danger ">
                                                                                                 </div>
@@ -1179,7 +1206,7 @@
                                                                                                 <input class = 'form-control' name = 'tipo' id = 'tipo' value ='archivoEvaluador' type="hidden">
                                                                                                 <input class = 'form-control' name = 'isInvestigacion' value= '1' type="hidden">
                                                                                                 <label>Adjuntar Documento:</label>
-                                                                                                <input accept=".docx,.doc,.pdf" type="file" name="archivo" id="archivo3" onchange="uploadFile3()" class ="btn btn-primary btn-outline">
+                                                                                                <input accept=".docx,.doc,.pdf" type="file" name="archivo" id="archivo3" onchange="uploadFile3()" class ="btn btn-primary btn-outline permiso">
                                                                                                 <div hidden id="divProgress3" class="progress progress-striped active">
                                                                                                     <div  id="progressBar3"   aria-valuemax="100" aria-valuemin="0" aria-valuenow="45" role="progressbar" class="progress-bar progress-bar-danger ">
                                                                                                     </div>
@@ -1213,17 +1240,23 @@
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                            </div>
                                                         <!-- fin archivos -->
                                                         <!-- comentarios -->
                                                         <div class="col-lg-12">
-                                                            <div class="panel panel-default">
-                                                                <div class="panel-body">
-
+                                                            <div class="ibox collapsed">
+                                                                <div class="ibox-title panel panel-success">
+                                                                    <h5>Comentrios</h5>
+                                                                    <div id="collapse1" class="ibox-tools">
+                                                                        <a id="col1" class="collapse-link">                                               
+                                                                            <i class="fa fa-chevron-up"></i>
+                                                                        </a> 
+                                                                    </div>
+                                                                    <div class="ibox-content" style="display: block;">
                                                                     <div class="row">
 
                                                                         <div class="col-lg-12">
-                                                                            <label>Comentarios</label>
-                                                                            <br/><br/>
+                                                                          
 
                                                                         </div>
 
@@ -1232,8 +1265,8 @@
                                                                                 <div class="ibox-title">
                                                                                     <h5>Investigador</h5>
                                                                                     <?php if (getInvestigador($usuarioSesion->getId())) { ?>
-                                                                                        <button  class="btn btn-primary btn-xs m-l-sm" onclick="edit1('CI13')" type="button">Edit</button>
-                                                                                        <button id="BI13" etapa="3" comentario="CI13" class="btn btn-primary  btn-xs" onclick="save1('CI13')" type="button">Save</button>
+                                                                                        <button  class="btn btn-primary btn-xs m-l-sm permiso" onclick="edit1('CI13')" type="button">Edit</button>
+                                                                                        <button id="BI13" etapa="3" comentario="CI13" class="btn btn-primary  btn-xs permiso" onclick="save1('CI13')" type="button">Save</button>
                                                                                     <?php } ?>
                                                                                     <div class="ibox-tools">
                                                                                         <a class="collapse-link">
@@ -1259,8 +1292,8 @@
                                                                                 <div class="ibox-title">
                                                                                     <h5>Miembro Comiex</h5>
                                                                                     <?php if ($usuarioPermisos->getMiembrocomiex()) { ?>
-                                                                                        <button  class="btn btn-primary btn-xs m-l-sm" onclick="edit4('CM13')" type="button">Edit</button>
-                                                                                        <button id="BM13" etapa="3" comentario="CM13" class="btn btn-primary  btn-xs" onclick="save4('CM13')" type="button">Save</button>
+                                                                                        <button  class="btn btn-primary btn-xs m-l-sm permiso" onclick="edit4('CM13')" type="button">Edit</button>
+                                                                                        <button id="BM13" etapa="3" comentario="CM13" class="btn btn-primary  btn-xs permiso" onclick="save4('CM13')" type="button">Save</button>
                                                                                     <?php } ?>
                                                                                     <div class="ibox-tools">
                                                                                         <a class="collapse-link">
@@ -1286,8 +1319,8 @@
                                                                                 <div class="ibox-title">
                                                                                     <h5>Evaluador 1</h5>
                                                                                     <?php if ($usuarioPermisos->getId() == $evaluador1) { ?>
-                                                                                        <button  class="btn btn-primary btn-xs m-l-sm" onclick="edit2('CE13')" type="button">Edit</button>
-                                                                                        <button id="BE13" etapa="3" comentario="CE13" class="btn btn-primary  btn-xs" onclick="save2('CE13')" type="button">Save</button>
+                                                                                        <button  class="btn btn-primary btn-xs m-l-sm permiso" onclick="edit2('CE13')" type="button">Edit</button>
+                                                                                        <button id="BE13" etapa="3" comentario="CE13" class="btn btn-primary  btn-xs permiso" onclick="save2('CE13')" type="button">Save</button>
                                                                                     <?php } ?>
                                                                                     <div class="ibox-tools">
                                                                                         <a class="collapse-link">
@@ -1316,8 +1349,8 @@
                                                                                         <?php
                                                                                         if ($usuarioPermisos->getId() == $evaluador2) {
                                                                                             ?>
-                                                                                            <button  class="btn btn-primary btn-xs m-l-sm" onclick="edit3('CE23')" type="button">Edit</button>
-                                                                                            <button id="BE23" etapa="3" comentario="CE23" class="btn btn-primary  btn-xs" onclick="save3('CE23')" type="button">Save</button>
+                                                                                            <button  class="btn btn-primary btn-xs m-l-sm permiso" onclick="edit3('CE23')" type="button">Edit</button>
+                                                                                            <button id="BE23" etapa="3" comentario="CE23" class="btn btn-primary  btn-xs permiso" onclick="save3('CE23')" type="button">Save</button>
                                                                                             <?php
                                                                                         }
                                                                                         ?>
@@ -1344,6 +1377,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                            </div>
                                                         <!-- fin comentarios -->
                                                         <!-- Estado  -->
                                                         <div class="row">
@@ -1356,7 +1390,7 @@
                                                                 <div class="form-group">
 
 
-                                                                    <select id="estado3" class="form-control m-b" name="account" onchange="pintandoPanels()" <?php
+                                                                    <select id="estado3" class="form-control m-b permiso" name="account" onchange="pintandoPanels()" <?php
                                                                     if (!$usuarioPermisos->getCoordinadorinvestigacion()) {
                                                                         echo "disabled"
                                                                         ?> <?php } ?>>
@@ -1375,7 +1409,7 @@
                                                             <div class="col-lg-2 col-lg-offset-9">
                                                                 <div class="form-group">
                                                                     <?php if ($usuarioPermisos->getCoordinadorinvestigacion()) { ?> 
-                                                                        <input id="BE3" estado="estado3" etapa="3" type="button" class="btn btn-primary" value="Guardar Estado">
+                                                                        <input id="BE3" estado="estado3" etapa="3" type="button" class="btn btn-primary permiso" value="Guardar Estado">
                                                                     <?php } ?>
                                                                 </div>
                                                             </div>
@@ -1385,7 +1419,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-
+                                            </div>     
                                         </div>
                                     </div>
                                     <!-- fin etapa 3 -->
@@ -1421,10 +1455,16 @@
 
                                                             echo "<div class='col-lg-4'>";
                                                             echo "<label class='control-label'>Tiempo academico:</label>";
-                                                            echo "<select id='$arrayInvestigadores[$i]' class='form-control' name='account' onchange='sumar()'>";
+                                                            echo "<select id='$arrayInvestigadores[$i]' class='form-control' name='account' onchange='sumar()'" ;
+                                                            if (!$usuarioPermisos->getCoordinadorinvestigacion()) {
+                                                                echo "disabled";
+                                                            }
+                                                            echo ">";
+                                                            echo "<option value='0.0625'>1/16</option>";
                                                             echo "<option value='0.125'>1/8</option>";
                                                             echo "<option value='0.25'>1/4</option>";
                                                             echo "<option value='0.5'>1/2</option>";
+                                                            echo "<option value='0.75'>3/4</option>";
                                                             echo "<option value='1'>1</option>";
                                                             echo "<option value='0'>0</option>";
                                                             echo "</select>";
@@ -1438,7 +1478,7 @@
                                                         <div class="row">
                                                             <div class='col-lg-12'>
                                                                 <div class='col-lg-4 col-lg-offset-3'>
-                                                                    <label>Tiempo académico total:</label>
+                                                                    <label>Tiempo academico total:</label>
                                                                 </div>
                                                                 <div class='col-lg-3'>
                                                                     <input id="totalAcademico" name="" type="text" value="" class="form-control" disabled> 
@@ -1450,7 +1490,9 @@
                                                         <div class="row">
                                                             <div class='col-lg-12'>
                                                                 <div class='col-lg-2 col-lg-offset-7'>
+                                                                    <?php if ($usuarioPermisos->getCoordinadorinvestigacion()) { ?>
                                                                     <input id="tiempo" type="button" class="btn btn-primary" value="Guardar Cambios">
+                                                                    <?php } ?>
                                                                 </div>
 
                                                             </div>
@@ -1471,7 +1513,7 @@
                                         <div class="col-lg-5 col-lg-offset-1">
                                             <div class="col-lg-4">
                                                 <div class="form-group">
-                                                    <label class="control-label">Estado del proyecto de extensión:</label>
+                                                    <label class="control-label">Estado del proyecto de extension:</label>
                                                 </div>
                                             </div>
 
@@ -1482,7 +1524,7 @@
                                                         echo "disabled"
                                                         ?> <?php } ?>>
                                                         <option>Activo</option>
-                                                        <option>Aprobado para defensa</option>
+                                                        <option>Aprobada para defensa</option>
                                                         <option>Inactivo</option>
                                                         <option>Finalizado</option>
                                                     </select>
@@ -1550,6 +1592,7 @@
             <script src="js/plugins/metisMenu/jquery.metisMenu.js" type="text/javascript"></script>
             <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
             <!-- Custom and plugin javascript -->
+            <script src="js/fraction.js" type="text/javascript"></script>
             <script src="js/inspinia.js"></script>
             <script src="js/plugins/pace/pace.min.js"></script>
             <script src="js/plugins/datapicker/bootstrap-datepicker.js"></script>
@@ -1742,6 +1785,9 @@
                                                                             inac(1);
                                                                             inac(2);
                                                                             inac(3);
+                                                                            permiso = "<?php echo $usuarioPermisos->getCoordinadorinvestigacion() ?>";
+                                                                            etapa(1);
+                                                                            etapa(2);
                                                                         });
                                                                         //sets de informacion a la base de datos
                                                                         function  guardarComentarioEvaluador(btn) { // btn boton del save para eVALUADORES
@@ -1798,6 +1844,8 @@
                                                                         function guardarEstadoIE(btn) { // btn boton de guardar la etapa 
                                                                             $("#" + btn).click(function (evento) {
                                                                                 evento.preventDefault();
+                                                                                etapa(1);
+                                                                                etapa(2);
                                                                                 var type = 5;
                                                                                 var cod = "<?php echo $codigo ?>";
                                                                                 var titulo = "<?php echo $data['titulo'] ?>";
@@ -1864,7 +1912,7 @@
                                                                          function guardarTiempos() {
                                                                             $("#tiempo").click(function (evento) {
                                                                                 evento.preventDefault();
-                                                                                alert("lala");
+                                                                                
                                                                                 var cod = "<?php echo $codigo ?>";
                                                                                 var tiempos = [];
                                                                                 var investigadores = <?php echo '["' . implode('", "', $arrayInvestigadores) . '"]' ?>;
@@ -1904,7 +1952,8 @@
                                                                                 total += parseFloat($("#" + investigadores[i]).val());
 
                                                                             }
-                                                                            $("#totalAcademico").val(total);
+                                                                             var f = new Fraction(total);
+                                                                            $("#totalAcademico").val(f.numerator + '/' + f.denominator);
                                                                         }
                                                                         function modal(titulo,msj) {
                                                                             $('#mod-info').modal('show');
@@ -1955,24 +2004,26 @@
                                                                         }
 
                                                                         //metodo para habilitar/deshabilitar la siguiente etapa 
-                                                                        function etapa(opcion, etapasig) {
+                                                                        var permiso;
+                                                                        function etapa(etapa) {
 
-                                                                            etapasig++;
-                                                                            if (opcion === "Aprobada" || opcion === "Aprobada con Observaciones") {
-                                                                                alert("col" + etapasig);
+                                                                            var estado = $("#estado" + etapa).val();
+                                                                            var etapasig = etapa + 1;
 
-                                                                                //$("#col" + etapasig).html("<i class='fa fa-chevron-up'> </i>");
-
-
-                                                                                /* $('#col'+etapasig).on('show hide', function () {
-                                                                                 $(this).css('height', 'auto');
-                                                                                 });
-                                                                                 $('#col'+etapasig).collapse({parent: true, toggle: true});*/
+                                                                            if (estado === "Aprobada" || estado === "Aprobada con Observaciones") {
+                                                                                if (permiso === "1") {
+                                                                                    $("#estado" + etapasig).prop('disabled', false);
+                                                                                    $("#BE" + etapasig).prop('disabled', false);
+                                                                                }
+                                                                                $("#panelEstado" + etapasig + " .permiso").prop('disabled', false);
 
                                                                             } else {
-                                                                                $("#col" + etapasig).remove();
+                                                                                if (permiso === "1") {
+                                                                                    $("#estado" + etapasig).prop('disabled', true);
+                                                                                    $("#BE" + etapasig).prop('disabled', true);
+                                                                                }
+                                                                                $("#panelEstado" + etapasig + " .permiso").prop('disabled', true);
                                                                             }
-
                                                                         }
 
 
