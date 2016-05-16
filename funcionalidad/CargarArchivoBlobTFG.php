@@ -53,7 +53,15 @@ if (!$connection) {
     exit();
 }
 
-
+ if ($tipo == "archivoDirector") {      
+        existeDirector($nombre_archivo, $codigo, $etapa, $usuario);
+    }
+    if($tipo == 'archivoAsesor'){
+        existeAsesores($nombre_archivo, $codigo, $etapa, $usuario);
+    }
+    if($tipo == 'archivoMiembroComision'){
+        existeComision($nombre_archivo, $codigo, $etapa, $usuario);
+    }
 $archivo_bases = "https://almacenamientocined.blob.core.windows.net/tfg/".$ubicacionArchivo.$nombre_archivo;
 $content = fopen($_FILES['archivo']["tmp_name"], "r");
 if(!$content){
@@ -66,9 +74,11 @@ $blob_name = $ubicacionArchivo.$nombre_archivo;
 try {
     //Upload blob
     $blobRestProxy->createBlockBlob("tfg",$blob_name, $content);
-    $dt = new DateTime();
-    $fecha = $dt->format('Y-m-d H:i:s');
+    $fecha = date('Y-m-d H:i:s');
+    echo $fecha;
     if ($tipo == "archivoDirector") {
+        
+        existeDirector($nombre_archivo, $codigo, $etapa, $usuario);
         $consulta = "INSERT INTO tfgarchivosdirectores (director, etapa, tfg, ruta, fecha, nom_archivo) VALUES ( '" . $usuario . "' , " . $etapa .
                 " , '" . $codigo . "','" . $archivo_bases . "' ,'" . $fecha ."','".$nombre_archivo."');";
     }
@@ -80,7 +90,7 @@ try {
        $consulta  = "INSERT INTO tfgarchivoscomision (miembrocomision, etapa, tfg, ruta, fecha, nom_archivo) VALUES ( '".$usuario."' , ".$etapa.
                  " , '".$codigo."','".$archivo_bases."' ,'".$fecha."','".$nombre_archivo."');";
     }
-    echo $consulta;
+   // echo $consulta;
     $resultado = mysqli_query($connection, $consulta);
     
     if($resultado){
@@ -100,6 +110,7 @@ try {
         echo '</script>';
         echo '<form id="form" name="form" method="POST" action="../consulta_TFG.php" >';
         echo '<input type="text" value="' . $codigo . '" name="codigo" />';
+        echo '<input type="text" value="1" name="exito"';
         echo '</form>';
 
 
@@ -107,14 +118,12 @@ try {
 
         echo '</html>';
 
-
-        // header("Location: ../consulta_TFG.php?codigo=".$codigo);
         exit();
     }else{
    
     $_SESSION["error"] = "¡Error al Cargar el archivo! Error Insert BD";
-    header("Location: ../navegacion/500.php");
-    exit();
+   // header("Location: ../navegacion/500.php");
+   // exit();
     }
    
 }
@@ -125,4 +134,86 @@ catch(ServiceException $e){
     exit();
 
 }
+
+
+
+function existeDirector($nombreArchivo,$codigo, $etapa, $usuario){
+    
+    global $connection;
+    global $nombre_archivo;
+    $iteracion = '(1)';
+    $consulta = "select nom_archivo from tfgarchivosdirectores where nom_archivo = '".$nombreArchivo."' and director = '".$usuario."' "
+            . "and etapa=".$etapa." and tfg='".$codigo."';";
+    
+     $resultado = mysqli_query($connection, $consulta);
+     if(mysqli_num_rows($resultado) != 0){ 
+           existeDirector(annadirnum($nombreArchivo, $iteracion),$codigo, $etapa, $usuario);
+     }
+     else{
+         
+         $nombre_archivo = $nombreArchivo.'';
+     }
+     
+     return $nombre_archivo;
+}
+
+function annadirnum($string,$iteracion){
+    
+    $stringFinal='';
+    
+    $array = explode(".", $string);
+    $array[count($array)-2] = $array[count($array)-2].$iteracion;
+    foreach ($array as $valor) {
+        if($array[count($array)-1] != $valor)
+        $stringFinal = $stringFinal.$valor.".";
+        else{
+            $stringFinal = $stringFinal.$valor;
+        }
+    }
+    echo $stringFinal." ";
+    return $stringFinal;
+}
+
+function existeAsesores($nombreArchivo,$codigo, $etapa, $usuario){
+    
+    global $connection;
+    global $nombre_archivo;
+    $iteracion = '(1)';
+    $consulta = "select nom_archivo from tfgarchivosasesores where nom_archivo = '".$nombreArchivo."' and asesor = '".$usuario."' "
+            . "and etapa=".$etapa." and tfg='".$codigo."';";
+    
+     $resultado = mysqli_query($connection, $consulta);
+     if(mysqli_num_rows($resultado) != 0){ 
+           existeAsesores(annadirnum($nombreArchivo, $iteracion),$codigo, $etapa, $usuario);
+     }
+     else{
+         
+         $nombre_archivo = $nombreArchivo.'';
+     }
+     
+     return $nombre_archivo;
+}
+
+function existeComision($nombreArchivo,$codigo, $etapa, $usuario){
+    
+    global $connection;
+    global $nombre_archivo;
+    $iteracion = '(1)';
+    $consulta = "select nom_archivo from tfgarchivoscomision where nom_archivo = '".$nombreArchivo."' and miembrocomision = '".$usuario."' "
+            . "and etapa=".$etapa." and tfg='".$codigo."';";
+    
+     $resultado = mysqli_query($connection, $consulta);
+     if(mysqli_num_rows($resultado) != 0){ 
+           existeComision(annadirnum($nombreArchivo, $iteracion),$codigo, $etapa, $usuario);
+     }
+     else{
+         
+         $nombre_archivo = $nombreArchivo.'';
+     }
+     
+     return $nombre_archivo;
+}
+
+
+
 ?>

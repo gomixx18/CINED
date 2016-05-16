@@ -190,7 +190,7 @@
                                                                             </a>
                                                                         </div>
                                                                         <div class="ibox-content" style="display: block;">
-                                                                        <form action="funcionalidad/CargarArchivoBlobInvExt_1.php" method="post" enctype="multipart/form-data" id="directorForm">
+                                                                        <form action="funcionalidad/CargarArchivoBlobExt.php" method="post" enctype="multipart/form-data" id="directorForm">
                                                                             <div class="row">
 
                                                                                 <div class="col-lg-12 ">
@@ -611,7 +611,7 @@
                                                                         </a>
                                                                     </div>
                                                                     <div class="ibox-content" style="display: block;">
-                                                                    <form action="funcionalidad/CargarArchivoBlobInvExt_1.php" method="post" enctype="multipart/form-data" id="directorForm">
+                                                                    <form action="funcionalidad/CargarArchivoBlobExt.php" method="post" enctype="multipart/form-data" id="directorForm">
                                                                         <div class="row">
 
                                                                             <div class="col-lg-12 ">
@@ -1026,7 +1026,7 @@
                                                                         </a> 
                                                                     </div>
                                                                     <div class="ibox-content" style="display: block;">
-                                                                    <form action="funcionalidad/CargarArchivoBlobInvExt_1.php" method="post" enctype="multipart/form-data" id="directorForm">
+                                                                    <form action="funcionalidad/CargarArchivoBlobExt.php" method="post" enctype="multipart/form-data" id="directorForm">
                                                                         <div class="row">
 
                                                                             <div class="col-lg-12 ">

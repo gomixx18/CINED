@@ -146,7 +146,8 @@ while ($data2 = mysqli_fetch_assoc($query)) {
     unset($asesor2);
 }
 }else{
-    echo "ni mierda";
+    
+    $html = $html.'<tr> <td align="center" colspan="9" bgcolor="#ed5565"><b>NO existen Registros</b></td> </tr>';;
 }
 
 

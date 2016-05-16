@@ -48,6 +48,15 @@ if (!$connection) {
 }
 
 
+ if ($tipo == "archivoInvestigador") {      
+        existeInvestigador($nombre_archivo, $codigo, $etapa, $usuario);
+    }
+    if($tipo == 'archivoEvaluador'){
+        existeEvaluador($nombre_archivo, $codigo, $etapa, $usuario);
+    }
+    if($tipo == 'archivoComiex'){
+        existeComision($nombre_archivo, $codigo, $etapa, $usuario);
+    }
 $archivo_bases = "https://almacenamientocined.blob.core.windows.net/investigacionyextension/".$ubicacionArchivo.$nombre_archivo;
 $content = fopen($_FILES['archivo']["tmp_name"], "r");
 if(!$content){
@@ -119,5 +128,83 @@ catch(ServiceException $e){
     header("Location: ../navegacion/500.php");
     exit();
 
+}
+
+function existeInvestigador($nombreArchivo,$codigo, $etapa, $usuario){
+    
+    global $connection;
+    global $nombre_archivo;
+    $iteracion = '(1)';
+    $consulta = "select nom_archivo from iearchivosinvestigadores where nom_archivo = '".$nombreArchivo."' and investigador = '".$usuario."' "
+            . "and etapa=".$etapa." and proyecto='".$codigo."';";
+    
+     $resultado = mysqli_query($connection, $consulta);
+     if(mysqli_num_rows($resultado) != 0){ 
+           existeInvestigador(annadirnum($nombreArchivo, $iteracion),$codigo, $etapa, $usuario);
+     }
+     else{
+         
+         $nombre_archivo = $nombreArchivo.'';
+     }
+     
+     return $nombre_archivo;
+}
+
+
+function annadirnum($string,$iteracion){
+    
+    $stringFinal='';
+    
+    $array = explode(".", $string);
+    $array[count($array)-2] = $array[count($array)-2].$iteracion;
+    foreach ($array as $valor) {
+        if($array[count($array)-1] != $valor)
+        $stringFinal = $stringFinal.$valor.".";
+        else{
+            $stringFinal = $stringFinal.$valor;
+        }
+    }
+    echo $stringFinal." ";
+    return $stringFinal;
+}
+
+function existeEvaluador($nombreArchivo,$codigo, $etapa, $usuario){
+    
+    global $connection;
+    global $nombre_archivo;
+    $iteracion = '(1)';
+    $consulta = "select nom_archivo from iearchivosevaluadores where nom_archivo = '".$nombreArchivo."' and evaluador = '".$usuario."' "
+            . "and etapa=".$etapa." and proyecto='".$codigo."';";
+    
+     $resultado = mysqli_query($connection, $consulta);
+     if(mysqli_num_rows($resultado) != 0){ 
+           existeEvaluador(annadirnum($nombreArchivo, $iteracion),$codigo, $etapa, $usuario);
+     }
+     else{
+         
+         $nombre_archivo = $nombreArchivo.'';
+     }
+     
+     return $nombre_archivo;
+}
+
+function existeComision($nombreArchivo,$codigo, $etapa, $usuario){
+    
+    global $connection;
+    global $nombre_archivo;
+    $iteracion = '(1)';
+    $consulta = "select nom_archivo from iearchivoscomiex where nom_archivo = '".$nombreArchivo."' and miembrocomiex = '".$usuario."' "
+            . "and etapa=".$etapa." and proyecto='".$codigo."';";
+    
+     $resultado = mysqli_query($connection, $consulta);
+     if(mysqli_num_rows($resultado) != 0){ 
+           existeComision(annadirnum($nombreArchivo, $iteracion),$codigo, $etapa, $usuario);
+     }
+     else{
+         
+         $nombre_archivo = $nombreArchivo.'';
+     }
+     
+     return $nombre_archivo;
 }
 ?>
