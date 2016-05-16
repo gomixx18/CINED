@@ -108,19 +108,19 @@ if ($connection) {
     
     array_push($infoExt, $fechaInicio);
     $correos = array();
-    $sqlCI = "SELECT correo FROM iecoordinadoresinvestigacion where id = " . $coordinador;
+    $sqlCI = "SELECT correo FROM iecoordinadoresinvestigacion where id = '" . $coordinador . "'";
     $resultadoCI = mysqli_query($connection, $sqlCI);
     $rowCI = $resultadoCI->fetch_assoc();
     array_push($correos, $rowCI["correo"]);
     
-    $sqlE1 = "SELECT correo FROM ieevaluadores where id = " . $evaluador1;
+    $sqlE1 = "SELECT correo FROM ieevaluadores where id = '" . $evaluador1 . "'";
     $resultadoE1 = mysqli_query($connection, $sqlE1);
     $row2 = $resultadoE1->fetch_assoc();
     array_push($correos, $row2["correo"]);
     
     if ($evaluador2 != 'ninguno') {
-        $sqlE2 = "SELECT correo FROM ieevaluadores where id = " . $evaluador2;
-        $resultadoE2 = mysqli_query($connection, $sqlA2);
+        $sqlE2 = "SELECT correo FROM ieevaluadores where id = '" . $evaluador2 . "'";
+        $resultadoE2 = mysqli_query($connection, $sqlE2);
         $row3 = $resultadoE2->fetch_assoc();
         array_push($correos, $row3["correo"]);
     }
