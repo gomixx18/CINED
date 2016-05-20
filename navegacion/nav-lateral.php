@@ -31,10 +31,10 @@ $usuarioPermisos = $_SESSION['permisos'];
                                             </strong>
                                         </span> <span class="text-muted text-xs block">Usuario <b class="caret"></b></span> </span> </a>
                                 <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                                    <li><a href="profile.html">Perfil</a></li>
+                                    <li><a href="">Perfil</a></li>
                                     
                                     <li class="divider"></li>
-                                    <li><a href="login.html">Cerrar Sesión</a></li>
+                                    <li><a href="login.php">Cerrar Sesión</a></li>
                                 </ul>
                             </div>
                             <div class="logo-element">
