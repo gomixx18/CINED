@@ -528,7 +528,7 @@ mysqli_close($connection);
 
         <!-- Data picker -->
         <script src="js/plugins/datapicker/bootstrap-datepicker.js"></script>
-        
+
         <!-- NouSlider -->
         <script src="js/plugins/nouslider/jquery.nouislider.min.js"></script>
 
@@ -675,7 +675,6 @@ mysqli_close($connection);
         </script>
 
         <script>
-            
             $(document).ready(function () {
 
                 $('#data_1 .input-group.date').datepicker({
@@ -683,8 +682,7 @@ mysqli_close($connection);
                     keyboardNavigation: false,
                     forceParse: false,
                     calendarWeeks: true,
-                    autoclose: true,
-                    language: 'es'
+                    autoclose: true
                 });
 
                 $('#data_2 .input-group.date').datepicker({
@@ -734,58 +732,51 @@ mysqli_close($connection);
 
 
 
-                $('input[name="daterange"]').daterangepicker({
-                    format: 'DD/MM/YYYY',
-                    startDate: moment(),
-                    endDate: moment().add(30,'days')
-                   
-                });
-                
-          
 
-//                $('#reportrange span').html(moment().subtract(29, 'days').format('DD MM, YYYY') + ' - ' + moment().format('DD MM, YYYY'));
-//
-//                $('#reportrange').daterangepicker({
-//                    language: 'es',
-//                    format: 'DD/MM/YYYY',
-//                    startDate: moment().subtract(29, 'days'),
-//                    endDate: moment(),
-//                    minDate: '01/01/2012',
-//                    maxDate: '12/31/2015',
-//                    dateLimit: {days: 60},
-//                    showDropdowns: true,
-//                    showWeekNumbers: true,
-//                    timePicker: false,
-//                    timePickerIncrement: 1,
-//                    timePicker12Hour: true,
-//                    ranges: {
-//                        'Today': [moment(), moment()],
-//                        'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-//                        'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-//                        'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-//                        'This Month': [moment().startOf('month'), moment().endOf('month')],
-//                        'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-//                    },
-//                    opens: 'right',
-//                    drops: 'down',
-//                    buttonClasses: ['btn', 'btn-sm'],
-//                    applyClass: 'btn-primary',
-//                    cancelClass: 'btn-default',
-//                    separator: ' to ',
-//                    locale: {
-//                        applyLabel: 'Submit',
-//                        cancelLabel: 'Cancel',
-//                        fromLabel: 'From',
-//                        toLabel: 'To',
-//                        customRangeLabel: 'Custom',
-//                        daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
-//                        monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-//                        firstDay: 1
-//                    }
-//                }, function (start, end, label) {
-//                    console.log(start.toISOString(), end.toISOString(), label);
-//                    $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
-//                });
+                $('input[name="daterange"]').daterangepicker();
+
+                $('#reportrange span').html(moment().subtract(29, 'days').format('MMMM D, YYYY') + ' - ' + moment().format('MMMM D, YYYY'));
+
+                $('#reportrange').daterangepicker({
+                    format: 'MM/DD/YYYY',
+                    startDate: moment().subtract(29, 'days'),
+                    endDate: moment(),
+                    minDate: '01/01/2012',
+                    maxDate: '12/31/2015',
+                    dateLimit: {days: 60},
+                    showDropdowns: true,
+                    showWeekNumbers: true,
+                    timePicker: false,
+                    timePickerIncrement: 1,
+                    timePicker12Hour: true,
+                    ranges: {
+                        'Today': [moment(), moment()],
+                        'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                        'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                        'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                        'This Month': [moment().startOf('month'), moment().endOf('month')],
+                        'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                    },
+                    opens: 'right',
+                    drops: 'down',
+                    buttonClasses: ['btn', 'btn-sm'],
+                    applyClass: 'btn-primary',
+                    cancelClass: 'btn-default',
+                    separator: ' to ',
+                    locale: {
+                        applyLabel: 'Submit',
+                        cancelLabel: 'Cancel',
+                        fromLabel: 'From',
+                        toLabel: 'To',
+                        customRangeLabel: 'Custom',
+                        daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
+                        monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+                        firstDay: 1
+                    }
+                }, function (start, end, label) {
+                    console.log(start.toISOString(), end.toISOString(), label);
+                    $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+                });
 
                 $(".select2_demo_1").select2();
                 $(".select2_demo_2").select2();
