@@ -103,7 +103,7 @@
                                 <div id="tab-2" class="tab-pane">
                                     <div class="panel-body">
                                         <h4>Modificar Docentes</h4>
-                                        <form method="POST" action="funcionalidad/modificarInvestigadoresIE.php" onsubmit="return validarGuardar('estudiante')">
+                                        <form method="POST" action="funcionalidad/modificarInvestigadoresExtension.php" onsubmit="return validarGuardar('estudiante')">
                                             <input name="codigo" type="hidden"  value="<?php echo $codigo  ?>" />
                                         <div class="col-lg-4">    
                                         <div id="estudiantes">
@@ -226,7 +226,7 @@
                                     <div id = "tab-3" class = "tab-pane">
                                     <div class="panel-body">
                                         <h4>Modificar Evaluadores</h4>
-                                        <form method="POST" action="funcionalidad/modificarEvaluadoresIE.php" onsubmit="return validarGuardar('asesor')">
+                                        <form method="POST" action="funcionalidad/modificarEvaluadoresExtension.php" onsubmit="return validarGuardar('asesor')">
                                             <input name="codigo" type="hidden"  value="<?php echo $codigo  ?>" />
                                         <div class="col-lg-4">    
                                         <div id="estudiantes3">
