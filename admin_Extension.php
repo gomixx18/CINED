@@ -185,7 +185,7 @@
                                                             echo "<td>" . $data["estado"] . "</td>";
                                                             
                                                             if ($usuarioPermisos->getCoordinadorinvestigacion()) {
-							    echo "<form method= 'posT' action = 'modificar_Investigacion.php'>";
+							    echo "<form method= 'posT' action = 'modificar_Extension.php'>";
                                                             echo "<input type='hidden' name='codigo' value= '" . $data["codigo"] . "'/> ";
                                                             echo "<td>" . "<button type='submit' data-toggle='modal' class='btn btn-primary'
                                                                  id = '" . $data["codigo"] . "' > Modificar</button></td> ";
