@@ -29,7 +29,7 @@ $usuarioPermisos = $_SESSION['permisos'];
                                                 echo $usuarioSesion->getNombre() . " " . $usuarioSesion->getApellido1();
                                             ?>
                                             </strong>
-                                        </span> <span class="text-muted text-xs block">Art Director <b class="caret"></b></span> </span> </a>
+                                        </span> <span class="text-muted text-xs block">Usuario <b class="caret"></b></span> </span> </a>
                                 <ul class="dropdown-menu animated fadeInRight m-t-xs">
                                     <li><a href="profile.html">Perfil</a></li>
                                     
