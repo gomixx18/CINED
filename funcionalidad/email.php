@@ -29,8 +29,8 @@ function newUserMail($id, $clave, $nombre, $tipo, $email) {
 
     $subject = "CINED - Credenciales de usuario";
     $body = "<h3>" . $nombre . ":</h3><br />";
-    $body .= "Usted ha sido registrado como " . $tipo . " en el sistema del Centro de Investigación de la Escuela de Educación - CINED. </br> Su clave temporal es la siguiente: " . $clave
-            . " </br> Por favor haga click en el enlace para cambiar su clave: <a href='" . $link . "'>Ingrese aquí</a>";
+    $body .= "Usted ha sido registrado como " . $tipo . " en el sistema del Centro de Investigación de la Escuela de Educación - CINED. </br> Su clave temporal es la siguiente:<b> " . $clave ."</b>"
+            . " Por favor haga click en el enlace para cambiar su clave: <a href='" . $link . "'>Ingrese aquí</a>";
     return sendMail($email, $subject, $body, 50);
 }
 

@@ -16,8 +16,8 @@ if ($connection) {
     $passwordQuery->bind_result($password);
     $passwordQuery->fetch();
     
-    $str = str_replace(' ', '', $oldPass);
-    $aux = strcasecmp((string) $str, (string) $password);
+    
+    $aux = strcasecmp((string) $oldPass, (string) $password);
     $passwordQuery->close();
     if ($aux == 0) {
         $sentencia = $connection->prepare('UPDATE usuarios SET password = ? WHERE id = ? AND password = ?');
