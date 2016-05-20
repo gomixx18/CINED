@@ -83,7 +83,7 @@ if ($connection) {
     $sqlEtapas3 = "INSERT INTO tfgetapas (numero, estado, tfg) VALUES (3, 'Inactiva', '" . $codigo . "')";
     $resultadoEtapas3 = mysqli_query($connection, $sqlEtapas3);
     //enviar correo a usuarios asociados
-   /* $infoTFG = array();
+    $infoTFG = array();
     array_push($infoTFG, $titulo);
     
 
@@ -136,7 +136,7 @@ if ($connection) {
         array_push($correos, $row4["correo"]);
     }
 
-    emailRegistroProyecto($infoTFG, $correos , 1);*/
+    emailRegistroProyecto($infoTFG, $correos , 1);
 
     mysqli_close($connection);
 }
