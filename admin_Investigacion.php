@@ -144,25 +144,28 @@
 
                                                         if ($usuarioPermisos->getInvestigador()) {
                                                             if ($bandera > 1) {
-                                                                $SQLsentencia = $SQLsentencia . "(ieinvestigan.investigador = ieinvestigadores.id and ieinvestigan.proyecto = ieproyectos.codigo and ieinvestigadores.id = " . $usuarioSesion->getID() . ") or ";
+                                                                $SQLsentencia = $SQLsentencia . "(ieinvestigan.investigador = ieinvestigadores.id and ieinvestigan.proyecto = ieproyectos.codigo and ieinvestigadores.id = '" . $usuarioSesion->getID() . "') or ";
                                                             } else {
-                                                                $SQLsentencia = $SQLsentencia . "ieinvestigan.investigador = ieinvestigadores.id and ieinvestigan.proyecto = ieproyectos.codigo and ieinvestigadores.id = " . $usuarioSesion->getID();
+                                                                $SQLsentencia = $SQLsentencia . "ieinvestigan.investigador = ieinvestigadores.id and ieinvestigan.proyecto = ieproyectos.codigo and ieinvestigadores.id = '" . $usuarioSesion->getID() . "'";
                                                             }
                                                         }
                                                         if ($usuarioPermisos->getEvaluador()) {
                                                             if ($bandera > 1) {
-                                                                $SQLsentencia = $SQLsentencia . "(ieevaluan.evaluador = ieevaluadores.id and ieevaluan.proyecto = ieproyectos.codigo and ieevaluadores.id = " . $usuarioSesion->getID() . ") or ";
+                                                                $SQLsentencia = $SQLsentencia . "(ieevaluan.evaluador = ieevaluadores.id and ieevaluan.proyecto = ieproyectos.codigo and ieevaluadores.id = '" . $usuarioSesion->getID() . "') or ";
                                                             } else {
-                                                                $SQLsentencia = $SQLsentencia . "ieevaluan.evaluador = ieevaluadores.id and ieevaluan.proyecto = ieproyectos.codigo and ieevaluadores.id = " . $usuarioSesion->getID();
+                                                                $SQLsentencia = $SQLsentencia . "ieevaluan.evaluador = ieevaluadores.id and ieevaluan.proyecto = ieproyectos.codigo and ieevaluadores.id = '" . $usuarioSesion->getID() . "'";
                                                             }
                                                         }
                                                         if ($usuarioPermisos->getMiembrocomiex()) {
                                                             if ($bandera > 1) {
-                                                                $SQLsentencia = $SQLsentencia . "(ierevisan.miembrocomiex = iemiembroscomiex.id and ierevisan.proyecto = ieproyectos.codigo and iemiembroscomiex.id = " . $usuarioSesion->getID() . ")";
+                                                                $SQLsentencia = $SQLsentencia . "(ierevisan.miembrocomiex = iemiembroscomiex.id and ierevisan.proyecto = ieproyectos.codigo and iemiembroscomiex.id = '" . $usuarioSesion->getID() . "')";
                                                             } else {
-                                                                $SQLsentencia = $SQLsentencia . "ierevisan.miembrocomiex = iemiembroscomiex.id and ierevisan.proyecto = ieproyectos.codigo and iemiembroscomiex.id = " . $usuarioSesion->getID();
+                                                                $SQLsentencia = $SQLsentencia . "ierevisan.miembrocomiex = iemiembroscomiex.id and ierevisan.proyecto = ieproyectos.codigo and iemiembroscomiex.id = '" . $usuarioSesion->getID() . "'";
                                                             }
                                                         }
+                                                        if (substr($SQLsentencia, -1) == ' '){
+                                                                $SQLsentencia = substr($SQLsentencia, 0, -4);
+                                                            }
                                                         if ($bandera > 1) {
                                                             $SQLsentencia = $SQLsentencia . "group by ieproyectos.codigo";
                                                         }

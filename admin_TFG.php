@@ -127,7 +127,7 @@
                                                                                     carreras.nombre as carrera, tfg.estado, modalidades.nombre as modalidad
                                                                                     FROM tfg, lineasinvestigacion, carreras, modalidades, tfgrealizan, tfgestudiantes
                                                                                     where tfg.lineainvestigacion = lineasinvestigacion.codigo and
-                                                                                    tfg.carrera = carreras.codigo and tfg.modalidad = modalidades.codigo and tfg.codigo = tfgrealizan.tfg and tfgestudiantes.id = tfgrealizan.estudiante and tfgestudiantes.id =" . $usuarioSesion->getID();
+                                                                                    tfg.carrera = carreras.codigo and tfg.modalidad = modalidades.codigo and tfg.codigo = tfgrealizan.tfg and tfgestudiantes.id = tfgrealizan.estudiante and tfgestudiantes.id ='" . $usuarioSesion->getID() . "'";
                                                         } else {
                                                             $SQLsentencia = "SELECT tfg.codigo, tfg.titulo, lineasinvestigacion.nombre as lineainvestigacion, 
                                                                                     carreras.nombre as carrera, tfg.estado, modalidades.nombre as modalidad
@@ -150,31 +150,37 @@
 
                                                             if ($usuarioPermisos->getDirectortfg()) {
                                                                 if ($bandera > 1) {
-                                                                    $SQLsentencia = $SQLsentencia . "(tfgdirectores.id = tfg.directortfg and tfgdirectores.id = " . $usuarioSesion->getID() . ") or ";
+                                                                    $SQLsentencia = $SQLsentencia . "(tfgdirectores.id = tfg.directortfg and tfgdirectores.id = '" . $usuarioSesion->getID() . "') or ";
                                                                 } else {
-                                                                    $SQLsentencia = $SQLsentencia . "tfgdirectores.id = tfg.directortfg and tfgdirectores.id = " . $usuarioSesion->getID();
+                                                                    $SQLsentencia = $SQLsentencia . "tfgdirectores.id = tfg.directortfg and tfgdirectores.id = '" . $usuarioSesion->getID(). "'";
                                                                 }
                                                             }
                                                             if ($usuarioPermisos->getAsesortfg()) {
                                                                 if ($bandera > 1) {
-                                                                    $SQLsentencia = $SQLsentencia . "(tfgasesoran.asesor = tfgasesores.id and tfgasesoran.tfg = tfg.codigo and tfgasesores.id = " . $usuarioSesion->getID() . ") or ";
+                                                                    $SQLsentencia = $SQLsentencia . "(tfgasesoran.asesor = tfgasesores.id and tfgasesoran.tfg = tfg.codigo and tfgasesores.id = '" . $usuarioSesion->getID() . "') or ";
                                                                 } else {
-                                                                    $SQLsentencia = $SQLsentencia . "tfgasesoran.asesor = tfgasesores.id and tfgasesoran.tfg = tfg.codigo and tfgasesores.id = " . $usuarioSesion->getID();
+                                                                    $SQLsentencia = $SQLsentencia . "tfgasesoran.asesor = tfgasesores.id and tfgasesoran.tfg = tfg.codigo and tfgasesores.id = '" . $usuarioSesion->getID() . "'";
                                                                 }
                                                             }
                                                             if ($usuarioPermisos->getMiembrocomisiontfg()) {
                                                                 if ($bandera > 1) {
-                                                                    $SQLsentencia = $SQLsentencia . "(tfgevaluan.miembrocomisiontfg = tfgmiembroscomision.id and tfgevaluan.tfg = tfg.codigo and tfgmiembroscomision.id = " . $usuarioSesion->getID() . ")";
+                                                                    $SQLsentencia = $SQLsentencia . "(tfgevaluan.miembrocomisiontfg = tfgmiembroscomision.id and tfgevaluan.tfg = tfg.codigo and tfgmiembroscomision.id = '" . $usuarioSesion->getID() . "')";
                                                                 } else {
-                                                                    $SQLsentencia = $SQLsentencia . "tfgevaluan.miembrocomisiontfg = tfgmiembroscomision.id and tfgevaluan.tfg = tfg.codigo and tfgmiembroscomision.id = " . $usuarioSesion->getID();
+                                                                    $SQLsentencia = $SQLsentencia . "tfgevaluan.miembrocomisiontfg = tfgmiembroscomision.id and tfgevaluan.tfg = tfg.codigo and tfgmiembroscomision.id = '" . $usuarioSesion->getID() . "'";
                                                                 }
                                                             }
+                                                      
+                                                            if (substr($SQLsentencia, -1) == ' '){
+                                                                $SQLsentencia = substr($SQLsentencia, 0, -4);
+                                                            }
                                                             if ($bandera > 1) {
-                                                                $SQLsentencia = $SQLsentencia . "group by tfg.codigo";
+                                                                $SQLsentencia = $SQLsentencia . " group by tfg.codigo";
                                                             }
                                                         }
                                                     }
-
+                                                    
+                                                    
+                                             
                                                     $query = mysqli_query($connection, $SQLsentencia);
                                                     while ($data = mysqli_fetch_assoc($query)) {
                                                         echo "<tr>";

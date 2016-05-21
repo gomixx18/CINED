@@ -42,7 +42,7 @@ $docente = $_POST["docente"];
                                                                                     where ieproyectos.lineainvestigacion = lineasinvestigacion.codigo and
                                                                                     ieproyectos.carrera = carreras.codigo and ieproyectos.catedra = catedras.codigo and
                                                                                     ieproyectos.codigo = ieinvestigan.proyecto and ieinvestigadores.id = ieinvestigan.investigador
-                                                                                    and ieproyectos.isExtension = 0 and ieinvestigadores.id = ". $docente);
+                                                                                    and ieproyectos.isExtension = 0 and ieinvestigadores.id = '". $docente . "'");
 
                                                 if($query){
                                                 while ($data = mysqli_fetch_assoc($query)) {
