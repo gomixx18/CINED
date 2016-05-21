@@ -44,7 +44,7 @@ $docente = $_POST["estudiante"];
                                                                                     where tfg.estado = 'Activo' and tfg.codigo = tfgrealizan.tfg and tfgestudiantes.id = tfgrealizan.estudiante and 
                                                                                     tfg.lineainvestigacion = lineasinvestigacion.codigo and
                                                                                     tfg.carrera = carreras.codigo and tfg.modalidad = modalidades.codigo and
-                                                                                    tfgrealizan.estudiante = ". $docente);
+                                                                                    tfgrealizan.estudiante = '". $docente ."'");
 
                                                 if($query){
                                                 while ($data = mysqli_fetch_assoc($query)) {
