@@ -51,7 +51,7 @@
                                         <div class="col-md-2 col-lg-offset-1">
 
                                             <label>
-                                                Estado del Investigacion <input type="checkbox"  id="IE0" name="IE0" value="" class="i-checks">
+                                                Estado del Proyecto de Extensión <input type="checkbox"  id="IE0" name="IE0" value="" class="i-checks">
                                             </label>
 
                                         </div>
@@ -62,7 +62,7 @@
                                     </br>
                                     <div class="row">
                                         <div class="col-md-4">
-                                            <h4>Filtrado por etapas</h4>
+                                            <h4>Filtrar por etapa(s)</h4>
                                         </div>
                                         </br>
                                     </div>
@@ -110,9 +110,9 @@
                                     <div class="row">
                                         <div class="col-md-2">
 
-                                            <label>
-                                                Fechas de inicio y final
-                                            </label>
+                                            <h4>
+                                                Fechas de inicio y finalización
+                                            </h4>
                                             <?php
                                             $fecha_actual = date("Y-m-d");
                                             $nuevafecha = date('Y-m-d', strtotime('+1 month'))
@@ -129,9 +129,9 @@
                                     <div class="row">
                                         <div class="col-md-2">
 
-                                            <label>
+                                            <h4>
                                                 Carrera
-                                            </label>
+                                            </h4>
 
                                         </div>
                                         <div class="col-md-4">
@@ -156,13 +156,9 @@
                                     </br>
                                     <div class="row">
                                         <div class="col-md-2">
-
-
-                                            <label >
+                                            <h4>
                                                 Línea de Investigación
-                                            </label>
-
-
+                                            </h4>
                                         </div>
                                         <div class="col-md-4">
                                             <select multiple name="lineaInvest" id="linea" class="form-control">
@@ -186,9 +182,9 @@
                                     <div class="row">
                                         <div class="col-md-2">
 
-                                            <label>
-                                                Catedra
-                                            </label>
+                                            <h4>
+                                                Cátedra
+                                            </h4>
 
 
                                         </div>
@@ -213,21 +209,21 @@
                                     </br>
 
                                     <div class="row">
-                                        <div class="col-md-2 col-lg-offset-1">
+                                        <div class="col-md-2">
 
-                                            <label>
-                                                Solo estadistica: <input type="checkbox" id="input" name="" value="" class="i-checks" onchange="">
-                                            </label>
+                                            <h4>
+                                                Solo estadística: 
+                                            </h4>
 
+                                        </div>
+                                        <div class="col-md-6">
+                                            <input type="checkbox" id="input" name="" value="" class="i-checks" onchange="">
                                         </div>
 
                                     </div>
                                     </br>
                                     <div class="row">
-                                        <div class="col-lg-3">
-
-                                        </div>
-                                        <div class="col-lg-2">
+                                        <div class="col-lg-2  col-lg-offset-2">
                                             <button id="report" type="" class="btn btn-primary">Generar Reporte</button>
                                         </div>
                                     </div>
