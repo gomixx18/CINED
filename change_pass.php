@@ -99,7 +99,9 @@ include 'elements.php';
                                 </form>
                             </div>
                         </div>
+                         
                     </div>
+                   <a href="http://cined.cloudapp.net/" style="float: right;">Regresar a Página Principal</a>
                 </div>
             </div>
 
