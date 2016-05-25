@@ -183,7 +183,10 @@
                                                     echo " <div class='file-name' style= 'word-wrap: break-word' >". $array['nom_archivo'] ."<br>";
                                                  
                                                     echo "<small>Subido: " .$array['fecha']. "</small><br>";
+                                                    $usuarioPermisos = $_SESSION['permisos'];
+                                                    if($usuarioPermisos->getCoordinadorinvestigacion()){
                                                     echo "<small>Subido Por: " .$array['nombre']." ".$array['apellido1'] . "</small>";
+                                                    }
                                                     echo "</div>";
                                                     echo "</a>";
                                                     echo "</div>";
