@@ -60,7 +60,7 @@ if ($connection) {
 
     
     //ligar miembros
-    $sqlMiembros = "SELECT * FROM iemiembroscomiex WHERE estado = true";
+    $sqlMiembros = "SELECT * FROM iemiembroscomiex WHERE estado = 1";
     $resultadoMiembros = mysqli_query($connection, $sqlMiembros); // aca estan los miebros de la comision activos
     
      while ($data = mysqli_fetch_assoc($resultadoMiembros)){
