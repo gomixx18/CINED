@@ -240,4 +240,36 @@ function emailRegistroProyecto($info, $correos, $type) {
     return $mail->send();
 }
 
+
+function alarmaTFG($info, $correos) {
+    $mail = new PHPMailer();
+    $mail->IsSMTP();
+    $mail->SMTPAuth = true;
+    $mail->SMTPSecure = 'ssl';
+    $mail->Host = "smtp.gmail.com";
+    $mail->Port = 465;
+    $mail->IsHTML(true);
+    $mail->CharSet = "UTF-8";
+    $mail->Username = "cined.web@gmail.com";
+    $mail->Password = "cined1234";
+    $mail->SetFrom("cined.web@gmail.com");
+    $mail->WordWrap = 100;
+
+    $mail->Subject = "CINED - Aviso de entrega de TFG ";
+    $body .= "<h3>Recordatorio de entrega de TFG " . $info[0] . "</h3><br /><br />"
+            . "La etapa #" . $info[1] . " debe ser entregada para la siguiente fecha: " .$data[2] . "<br />";
+    
+    $body .= "<form action='http://cined.cloudapp.net/login.php'>
+              <input type='submit' value='Ir al sitio'>
+              </form>";
+
+    $mail->Body = $body;
+    for ($index = 0; $index < count($correos); $index++) {
+        $mail->AddAddress($correos[$index]);
+    }
+    return $mail->send();
+}
+
+
+
 ?>

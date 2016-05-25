@@ -1,4 +1,7 @@
 <?php
+include("email.php");
+
+
 
 /*
   select A.tfg, A.numero, (select fechaAprobacion from tfgetapas  where numero = A.numero and tfg = A.tfg) as fecha
@@ -21,11 +24,10 @@ if ($connection) {
                         select tfg, MAX(numero) as numero, fechaAprobacion from tfgetapas
                         where estado = 'Aprobada' || estado = 'Aprobada con Observaciones'
                         group by tfg) A, tfg 
-                        where tfg.codigo= A.tfg; 
-                    ";
+                        where tfg.codigo= A.tfg;";
     $resultado = mysqli_query($connection, $sentenciaSQL);
     
-    
+
     while ($data = mysqli_fetch_assoc($resultado)) {
         
         //echo "fecha final ". $data["fechaFinal"] . "<br/>";
@@ -77,6 +79,12 @@ if ($connection) {
                 
                 echo $correo . "<br/>";
             }
+            //$info = array();
+            //array_push($info, $data['tfg'], $data['numero'], $nuevafecha);
+            
+            //enviar alarma a los correos
+            //alarmaTFG($info, $correos);
+            echo 'hola';
             
             
         }
@@ -86,8 +94,8 @@ if ($connection) {
     
     
   
-    $sentenciaSQLPrueba = "INSERT INTO tfgestudiantes (id, nombre, apellido1, apellido2, password, correo, estado) VALUES ('32', 'oscar','vega','zapata','123','f@f',1)";
-    $resultadoPrueba = mysqli_query($connection, $sentenciaSQLPrueba); 
+    //$sentenciaSQLPrueba = "INSERT INTO tfgestudiantes (id, nombre, apellido1, apellido2, password, correo, estado) VALUES ('32', 'oscar','vega','zapata','123','f@f',1)";
+    //$resultadoPrueba = mysqli_query($connection, $sentenciaSQLPrueba); 
     
     mysqli_close($connection);
 }
