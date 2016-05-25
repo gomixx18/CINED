@@ -130,7 +130,7 @@ $usuarioPermisos = $_SESSION['permisos'];
                                     <a href="javascript:;" data-toggle="collapse" data-target="#ext_admin"> Administración de Usuarios<i class="fa fa-fw fa-caret-down"></i></a>                                  
                                     <ul id="ext_admin" class="nav nav-third-level collapse">
                                         <li>
-                                            <a href="admin_investigador.php">Investigador</a>
+                                            <a href="admin_investigador.php">Docentes</a>
                                         </li>
                                         <li>
                                             <a href="admin_coordinadorInv.php">Coordinador de Investigación</a>
