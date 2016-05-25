@@ -16,7 +16,7 @@
         <link href="css/style.css" rel="stylesheet">
         <?php
        
-        include 'navegacion/nav-lateral.php';
+        require 'navegacion/nav-lateral.php';
         ?>
     </head>
 

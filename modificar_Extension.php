@@ -28,7 +28,7 @@
             $tabselect = $_POST["tabSelect"];
         }
         
-        include 'navegacion/nav-lateral.php';
+        require 'navegacion/nav-lateral.php';
         ?>
     </head>
     <body class="">

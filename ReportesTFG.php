@@ -13,7 +13,7 @@
         <link href="css/plugins/iCheck/custom.css" rel="stylesheet">
         <link href="css/plugins/daterangepicker/daterangepicker-bs3.css" rel="stylesheet">
         <?php
-        include 'navegacion/nav-lateral.php';
+        require 'navegacion/nav-lateral.php';
         ?>
     </head>
 

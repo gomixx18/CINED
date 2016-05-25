@@ -21,7 +21,7 @@
         if (!isset($_POST['codigo'])) {
             header("Location: admin_Investigacion.php");
         }
-        include 'navegacion/nav-lateral.php';
+        require 'navegacion/nav-lateral.php';
         ?>
     </head>
     <body class="">

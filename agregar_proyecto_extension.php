@@ -62,7 +62,7 @@
         <link href="css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
 
         <?php
-        include 'navegacion/nav-lateral.php';
+        require 'navegacion/nav-lateral.php';
         ?>
 
     </head>
