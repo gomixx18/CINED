@@ -207,7 +207,7 @@
                                                                     </table>
                                                                 </div>
                                                             </div>
-                                                            <button name="btnSelectEstu"  class="btn btn-primary btn-rounded" onclick='selectEstudiantes2("estudiante")' type="button" placeholder='agregar'>Asignar Investigador</button>
+                                                            <button name="btnSelectEstu"  class="btn btn-primary btn-rounded" onclick='selectEstudiantes2("Docente")' type="button" placeholder='agregar'>Asignar Investigador</button>
                                                             <button class="btn btn-primary btn-rounded" type="submit" name="modificarInvestigadoresIE">Guardar Cambios</button>
                                                         </div>
 
@@ -332,7 +332,7 @@
                                                                     </table>
                                                                 </div>
                                                             </div>
-                                                            <button name="btnSelectEstu"  class="btn btn-primary btn-rounded" onclick='selectEstudiantes2("asesor")' type="button" placeholder='agregar'>Asignar Evaluador</button>
+                                                            <button name="btnSelectEstu"  class="btn btn-primary btn-rounded" onclick='selectEstudiantes2("Evaluador")' type="button" placeholder='agregar'>Asignar Evaluador</button>
                                                             <button class="btn btn-primary btn-rounded" type="submit" name="modificarEvaluadoresIE">Guardar Cambios</button>
                                                         </div>
 

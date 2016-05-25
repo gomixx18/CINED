@@ -207,7 +207,7 @@
                                                                     </table>
                                                                 </div>
                                                             </div>
-                                                            <button name="btnSelectEstu"  class="btn btn-primary btn-rounded" onclick='selectEstudiantes2("estudiante")' type="button" placeholder='agregar'>Asignar Estudiante</button>
+                                                            <button name="btnSelectEstu"  class="btn btn-primary btn-rounded" onclick='selectEstudiantes2("Estudiante")' type="button" placeholder='agregar'>Asignar Estudiante</button>
                                                             <button class="btn btn-primary btn-rounded" type="submit" name="modificarEstudiantesTFG.php">Guardar Cambios</button>
                                                         </div>
 
@@ -358,7 +358,7 @@
                                             while ($data2 = mysqli_fetch_assoc($query2)) {
                                                 echo "<div id='divEstud" . $contador . "'>";
 
-                                                echo "<label>Estudiante:</label>";
+                                                echo "<label>Asesor:</label>";
                                                 echo "<div class='row'>";
                                                 echo "<div class='col-lg-12'>";
                                                 echo "<input id='' name='' type='text' value='" . $data2['nombre'] . "' class='form-control' disabled>";
@@ -456,7 +456,7 @@
                                                                     </table>
                                                                 </div>
                                                             </div>
-                                                            <button name="btnSelectEstu"  class="btn btn-primary btn-rounded" onclick='selectEstudiantes2("asesor")' type="button" placeholder='agregar'>Asignar Asesor</button>
+                                                            <button name="btnSelectEstu"  class="btn btn-primary btn-rounded" onclick='selectEstudiantes2("Asesor")' type="button" placeholder='agregar'>Asignar Asesor</button>
                                                             <button class="btn btn-primary btn-rounded" type="submit" name="modificarAsesoresTFG">Guardar Cambios</button>
                                                         </div>
 

@@ -38,7 +38,7 @@ function eliminarInvest(event) {
 
 
 
-function selectEstudiantes() {
+function selectEstudiantes(tipo) {
 
 
     var aux = $('input:radio[name=radEstudiante]:checked').val();
@@ -52,14 +52,14 @@ function selectEstudiantes() {
             $("#primerEstudiante").append(s);
             $("#idEstudiante1").val(aux);
         } else {
-            agregarEstudiantes2(aux);
+            agregarEstudiantes2(aux, tipo);
         }
     }
 
 
 }
 
-function agregarEstudiantes2(id) {
+function agregarEstudiantes2(id, tipo) {
 
 
     var aux = $("#estudiantes").find("div").length;
@@ -68,10 +68,12 @@ function agregarEstudiantes2(id) {
     var auxApellido2 = $('input:radio[name=radEstudiante]:checked').attr("ap2aux");
 
 
+ 
+
     if (aux < 6) {
         numero = asignarID();
 
-        var s = '<div id="divEstud' + numero + '" class="form-group"> <label for="btnAgregar">Cédula Estudiante:</label> <p>' + auxNombre + ' ' + auxApellido1 + ' ' + auxApellido2 + '</p> <input id="idEstudiante' + numero + '" value="' + id + '" name="nameEstudiante' + numero + '" type="text" class="form-control input-sm m-b-xs required" placeholder="Cédula Estudiante"><button id="divEstud' + numero + '" name="btnEstudiante' + numero + '" class="btn btn-danger btn-rounded" onclick="eliminarEstudiantes(this)" type="button" >Eliminar Estudiante</button></div>';
+        var s = '<div id="divEstud' + numero + '" class="form-group"> <label for="btnAgregar">Cédula ' + tipo + ':</label> <p>' + auxNombre + ' ' + auxApellido1 + ' ' + auxApellido2 + '</p> <input id="idEstudiante' + numero + '" value="' + id + '" name="nameEstudiante' + numero + '" type="text" class="form-control input-sm m-b-xs required" placeholder="Cédula Estudiante"><button id="divEstud' + numero + '" name="btnEstudiante' + numero + '" class="btn btn-danger btn-rounded" onclick="eliminarEstudiantes(this)" type="button" >Eliminar ' + tipo + '</button></div>';
         $("#estudiantes").append(s);
         contador++;
 
@@ -149,26 +151,28 @@ function agregarEstudiantes3(id, tipo) {
     var auxApellido1 = $('input:radio[name=radEstudiante]:checked').attr("ap1aux");
     var auxApellido2 = $('input:radio[name=radEstudiante]:checked').attr("ap2aux");
     
-    if(tipo === "estudiante"){
+    if(tipo === "Estudiante" || tipo === "Investigador" || tipo === "Docente"){
         count = 54;
         aux = $("#estudiantes").find("div").length;
 
     }
-    if(tipo === "asesor"){
+    if(tipo === "Asesor" || tipo === "Evaluador"){
         count = 18;
         aux = $("#estudiantes3").find("div").length;
 
     }
+    
+   
 
     if (aux < count) {
         numero = asignarID();
 
-        if(tipo === "estudiante"){
-            s = "<div id='divEstud" + numero + "'> <label>Estudiante:</label><div class='row'><div class='col-lg-12'><input id='' name='' type='text' value='" + auxNombre + " " + auxApellido1 + " " + auxApellido2 + " " + "' class='form-control' disabled></div></div><label>Cedula:</label><div class='row'><div class = 'col-lg-5'><input id = 'idEstudiante" + numero + "' type = 'text' value = " + id + " class = 'form-control' disabled ><input name = 'nameEstudiante" + numero + "' type = 'hidden' value = " + id + " class = 'form-control'></div><div class = 'col-lg-3'>Activo<input type='radio' value='1' class='i-checks' name='activo" + id + "' checked='checked'></div><div class = 'col-lg-3'>Inactivo<input type='radio' value='0' class='ni-checks' name='activo" + id + "' ></div></div></br></div>";
+        if(tipo === "Estudiante" || tipo === "Investigador" || tipo === "Docente"){
+            s = "<div id='divEstud" + numero + "'> <label>"+tipo+":</label><div class='row'><div class='col-lg-12'><input id='' name='' type='text' value='" + auxNombre + " " + auxApellido1 + " " + auxApellido2 + " " + "' class='form-control' disabled></div></div><label>Cedula:</label><div class='row'><div class = 'col-lg-5'><input id = 'idEstudiante" + numero + "' type = 'text' value = " + id + " class = 'form-control' disabled ><input name = 'nameEstudiante" + numero + "' type = 'hidden' value = " + id + " class = 'form-control'></div><div class = 'col-lg-3'>Activo<input type='radio' value='1' class='i-checks' name='activo" + id + "' checked='checked'></div><div class = 'col-lg-3'>Inactivo<input type='radio' value='0' class='ni-checks' name='activo" + id + "' ></div></div></br></div>";
             $("#estudiantes").append(s);
         }
-        if(tipo === "asesor"){
-            s = "<div id='divEstud" + numero + "'> <label>Estudiante:</label><div class='row'><div class='col-lg-12'><input id='' name='' type='text' value='" + auxNombre + " " + auxApellido1 + " " + auxApellido2 + " " + "' class='form-control' disabled></div></div><label>Cedula:</label><div class='row'><div class = 'col-lg-5'><input id = 'idEstudiante" + numero + "' type = 'text' value = " + id + " class = 'form-control' disabled ><input name = 'nameAsesor" + numero + "' type = 'hidden' value = " + id + " class = 'form-control'></div><div class = 'col-lg-3'>Activo<input type='radio' value='1' class='i-checks' name='activoAsesor" + id + "' checked='checked'></div><div class = 'col-lg-3'>Inactivo<input type='radio' value='0' class='ni-checks' name='activoAsesor" + id + "' ></div></div></br></div>";
+        if(tipo === "Asesor" || tipo === "Evaluador" ){
+            s = "<div id='divEstud" + numero + "'> <label>"+tipo+":</label><div class='row'><div class='col-lg-12'><input id='' name='' type='text' value='" + auxNombre + " " + auxApellido1 + " " + auxApellido2 + " " + "' class='form-control' disabled></div></div><label>Cedula:</label><div class='row'><div class = 'col-lg-5'><input id = 'idEstudiante" + numero + "' type = 'text' value = " + id + " class = 'form-control' disabled ><input name = 'nameAsesor" + numero + "' type = 'hidden' value = " + id + " class = 'form-control'></div><div class = 'col-lg-3'>Activo<input type='radio' value='1' class='i-checks' name='activoAsesor" + id + "' checked='checked'></div><div class = 'col-lg-3'>Inactivo<input type='radio' value='0' class='ni-checks' name='activoAsesor" + id + "' ></div></div></br></div>";
             $("#estudiantes3").append(s);
         }
         contador++;

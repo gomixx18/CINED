@@ -181,7 +181,7 @@
                                                         <label for='btnAgregar'>Cédula Docente:</label>
                                                         <p id="primerEstudiante"></p>
                                                         <input id="idEstudiante1" name="nameEstudiante1" type="text" class="form-control input-sm m-b-xs required" placeholder='Cédula Docente'>
-                                                        <button name="btnEstudiante1"  class="btn btn-primary btn-rounded" onclick='agregarEstudiantes(this)' type="button" placeholder='agregar'>Agregar Nuevo Docente</button>
+                                                       
                                                     </div>
                                                 </div>
 
@@ -244,7 +244,7 @@
                                                                             </table>
                                                                         </div>
                                                                     </div>
-                                                                    <button name="btnSelectEstu"  class="btn btn-primary btn-rounded" onclick='selectEstudiantes()' type="button" placeholder='agregar'>Asignar Docente</button>
+                                                                    <button name="btnSelectEstu"  class="btn btn-primary btn-rounded" onclick='selectEstudiantes("Docente")' type="button" placeholder='agregar'>Asignar Docente</button>
                                                                     <a data-toggle="modal" class="btn btn-primary btn-rounded" href="#modal-form">Registrar Docente</a>
                                                                 </div>
 
