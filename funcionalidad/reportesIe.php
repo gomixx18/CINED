@@ -151,6 +151,7 @@ if ($connection) {
     }
 
     $_SESSION['pdfIE'] = $q1;
+    $_SESSION['estadistica'] = $estadistica;
     echo $q1;
     //$result = mysqli_query($connection, $q1);
 

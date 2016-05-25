@@ -162,7 +162,8 @@ if ($connection) {
     
     @session_start();
     $_SESSION['pdfTFG'] = $q1;
-    echo $q1;
+    $_SESSION['estadistica'] = $estadistica;
+    echo $estadistica;
 
     //header("Location: pdfParserTFG.php");
     //$result = mysqli_query($connection, $q1);

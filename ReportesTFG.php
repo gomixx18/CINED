@@ -216,7 +216,7 @@
                                             </h4>
                                         </div>
                                         <div class="col-md-6">
-                                            <input type="checkbox" id="input" name="" value="" class="i-checks" onchange="">
+                                            <input type="checkbox" id="estadistica" name="" value="" class="i-checks" onchange="">
                                         </div>
                                     </div>
                                     </br>
@@ -281,7 +281,7 @@
                 var carrera = $("#carrera").val();
                 var linea = $("#linea").val();
                 var modalidad = $("#modalidad").val();
-                var estadistica = $('input').is(':checked');
+                var estadistica = $('#estadistica').is(':checked');
                 
                 var car = {};
                 car = JSON.stringify(carrera);

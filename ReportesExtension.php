@@ -217,7 +217,7 @@
 
                                         </div>
                                         <div class="col-md-6">
-                                            <input type="checkbox" id="input" name="" value="" class="i-checks" onchange="">
+                                            <input type="checkbox" id="estadistica" name="" value="" class="i-checks" onchange="">
                                         </div>
 
                                     </div>
@@ -276,7 +276,7 @@
                 var carrera = $("#carrera").val();
                 var linea = $("#linea").val();
                 var catedra = $("#catedra").val();
-                var estadistica = $('input').is(':checked');   
+                var estadistica = $('#estadistica').is(':checked');   
                 var extension = "1";
                 
                 var car = {};
@@ -294,7 +294,8 @@
                 var Eie3 = {};
                 Eie3 = JSON.stringify(estadosE3);
                 $.get("funcionalidad/reportesIe.php", {Eie: Eie, Eie1: Eie1, Eie2: Eie2, Eie3: Eie3, catedra: cat, linea: lin, carrera: car, fechainicio: inifecha, fechafin: finfecha, estadistica: estadistica, extension:extension}, function (data) {
-                    alert(data);
+                    $('#consulta').html(data);
+                    window.open('funcionalidad/pdfParserInvestigacion.php', '_blank');
                 }).fail(function () {
 
                 });

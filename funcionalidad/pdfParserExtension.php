@@ -8,19 +8,20 @@ include '../clases/UsuarioComplejo.php';
 include '../clases/UsuarioPermisos.php';
 include '../clases/UsuarioInvestigadorSimple.php';
 include '../clases/UsuarioInvestigadorComplejo.php';
-date_default_timezone_set('America/Costa_Rica');
 @session_start();
+date_default_timezone_set('America/Costa_Rica');
 
 $usuarioSesion = $_SESSION["user"];
 $usuarioPermisos = $_SESSION['permisos'];
-$consulta = $_SESSION['pdfTFG'];
+$consulta = $_SESSION['pdfIE'];
 $estadistica = $_SESSION['estadistica'];
+echo $estadistica;
 unset($_SESSION['estadistica']);
 
 $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
 
 if(!isset($consulta)){
-    header("Location: ../reportesTFG.php");
+    header("Location: ../ReportesExtension.php.php");
     exit();
 }
 
@@ -39,6 +40,7 @@ if (!$connection) {
 // extend TCPF with custom functions
 class MYPDF extends TCPDF {
 
+
 }
 
 
@@ -49,8 +51,8 @@ $pdf = new MYPDF('L', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
 $nombre = 'Creado por: '.$usuarioSesion->getNombre() . " " . $usuarioSesion->getApellido1() . " " . $usuarioSesion->getApellido2(); 
 $pdf->SetCreator(PDF_CREATOR);
 $pdf->SetAuthor($nombre);
-$pdf->SetTitle("Reporte TFG");
-$pdf->SetSubject('Reportes de TFG');
+$pdf->SetTitle("Reporte Investigación");
+$pdf->SetSubject('Reportes de Investigación');
 $fecha = date('d-m-Y g:i:s a');
 
 
@@ -68,15 +70,14 @@ tr, td {
 
 th{
    text-align: center;
-   border: 1px solid #black;
    font-weight: bold;
 }
 
+h4{
+    font-size: normal;
+}
 h3{
     font-size: small;
-}
-h4{
-    font-size: xx-small;
 }
 
 h4,h3{
@@ -90,42 +91,40 @@ table {
     border-collapse: collapse;
     width: 100%;   
 }
+</style> 
 
-.block{
-    height: 50px;
-}
-</style>
-
-<p>fecha de creación: '.$fecha.'</p> <table align="center">';
-
-
-if($estadistica == 'false'){
+<p>fecha de creación: '.$fecha.'</p>
+        
+<table align="center">';
+if(!$estadistica){
 $html = $html.'<thead>
 <tr bgcolor="#00519E" color="white">
-  <th>Código del TFG</th>
-  <th>Nombre del TFG</th>   
+  <th>Código del Proyecto</th>
+  <th>Título del Proyecto</th>   
   <th>Carrera</th>
   <th>Estado General</th>
   <th>Estado de Etapas</th>
-  <th>Director</th>
-  <th>Asesor 1</th>
-  <th>Asesor 2</th>
+  <th>Coordinador</th>
+  <th>Evaluador 1</th>
+  <th>Evaluador 2</th>
   <th>Línea de Investigación</th>
 </tr>
 </thead> ';
 }
-obtenerModalidades();
+
 obtenerLineasInvestigacion();
 obtenerCarreras();
+obtenerCatedras();
 CrearEstados();
 $query = mysqli_query($connection, $consulta);
 if(mysqli_num_rows($query) != 0){
 while ($data2 = mysqli_fetch_assoc($query)) {
     
-    $consultaProyecto = "SELECT modalidades.nombre as modalidad, tfg.titulo,concat(tfgdirectores.nombre,' ',  tfgdirectores.apellido1, ' ', tfgdirectores.apellido2) as director ,carreras.nombre as carrera, tfg.estado, lineasinvestigacion.nombre as linea
-                         FROM tfg, lineasinvestigacion, modalidades, tfgdirectores, carreras where tfg.codigo = '".$data2['tfg']."' and tfg.directortfg = tfgdirectores.id and tfg.carrera = carreras.codigo and tfg.lineainvestigacion = lineasinvestigacion.codigo and tfg.modalidad = modalidades.codigo;";
-    $consultaEtapa = "SELECT tfgetapas.estado as estado
-                      FROM tfgetapas where tfgetapas.tfg = '".$data2['tfg']."';";
+    $consultaProyecto = "SELECT ieproyectos.titulo as titulo, ieproyectos.catedra as catedra, concat(iecoordinadoresinvestigacion.nombre,' ',  iecoordinadoresinvestigacion.apellido1, ' ', iecoordinadoresinvestigacion.apellido2) as coordinador ,carreras.nombre as carrera, ieproyectos.estado, lineasinvestigacion.nombre as linea
+                        FROM ieproyectos, lineasinvestigacion, iecoordinadoresinvestigacion, carreras where ieproyectos.codigo = '".$data2['proyecto']."' and ieproyectos.coordinador = iecoordinadoresinvestigacion.id and ieproyectos.carrera = carreras.codigo and ieproyectos.lineainvestigacion = lineasinvestigacion.codigo;";
+   
+    $consultaEtapa = "SELECT ieetapas.estado as estado
+                      FROM ieetapas where ieetapas.proyecto = '".$data2['proyecto']."';";
     
     $query2 = mysqli_query($connection, $consultaProyecto);
     $query3 = mysqli_query($connection, $consultaEtapa);
@@ -133,16 +132,17 @@ while ($data2 = mysqli_fetch_assoc($query)) {
     $etapa2 = mysqli_fetch_assoc($query3);
     $etapa3 = mysqli_fetch_assoc($query3);
     $proyecto = mysqli_fetch_assoc($query2);
-    obtenerAsesores($data2['tfg']);
-    agregarModalidad($proyecto['modalidad']);
-    agregarLineas($proyecto['linea']);
-    agregarCarrera($proyecto['carrera']);
+   
+    obtenerEvaluadores($data2['proyecto']);
     agregarEstadoGeneral($proyecto['estado']);
+    agregarCarrera($proyecto['carrera']);
+    agregarCatedra($proyecto['catedra']);
+    agregarLineas($proyecto['linea']);
     
-    if($estadistica == 'false'){
+    if(!$estadistica){
     $html = $html."<tbody>";
     $html = $html."<tr>";
-    $html = $html."<td>".$data2['tfg']."</td>";
+    $html = $html."<td>".$data2['proyecto']."</td>";
     $html = $html."<td>".$proyecto['titulo']."</td>";
     $html = $html."<td>".$proyecto['carrera']."</td>";
     $html = $html."<td>".$proyecto['estado']."</td>";
@@ -151,23 +151,24 @@ while ($data2 = mysqli_fetch_assoc($query)) {
             "<br>Etapa #2: ".$etapa2['estado'].
             "<br>Etapa #3: ".$etapa3['estado'].
             "</td>";
-    $html = $html."<td>".$proyecto['director']."</td>";
-    $html = $html."<td>".$asesor1."</td>";
-    $html = $html."<td>".$asesor2."</td>";
+    $html = $html."<td>".$proyecto['coordinador']."</td>";
+    $html = $html."<td>".$evaluador1."</td>";
+    $html = $html."<td>".$evaluador2."</td>";
     $html = $html."<td>".$proyecto['linea']."</td>";
+    $html = $html."<td>".$proyecto['catedra']."</td>";
     $html = $html."</tr>";
     $html = $html."</tbody>";
     }
-    unset($asesor1);
-    unset($asesor2);
+    unset($evaluador1);
+    unset($evaluador2);
 }
 }else{
-    $html = $html.'<tr> <td align="center" colspan="9" bgcolor="#ed5565"><p>NO existen Registros</p></td> </tr>';
+   $html = $html.'<tr> <td align="center" colspan="9" bgcolor="#ed5565"><p>NO existen Registros</p></td> </tr>';
 }
 
 
 // set default header data
-$pdf->SetHeaderData(PDF_HEADER_LOGO, 15, PDF_HEADER_TITLE,  $nombre);
+$pdf->SetHeaderData(PDF_HEADER_LOGO, 15, 'Reportes de Extensión',  $nombre);
 
 // set header and footer fonts
 $pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
@@ -201,62 +202,40 @@ $pdf->AddPage();
 
 $pdf->Ln(5);
 
-// column titles
-//$header = array('Country', 'Capital', 'Area (sq km)', 'Pop. (thousands)',);
-
 // data loading
-//$data = $pdf->LoadData('data/table_data_demo.txt');
-//$pdf->SetFillColor(26, 179, 148);
-$html = $html.'</table> <div>'.  innerModalidades(). innerLineas().  innerCarreras().  innerEstados().'</div>';
-//echo $html;
+$html = $html.'</table> <div>'.  innerLineas().  innerCarreras().  innerCatedras().  innerEstados()."</div>";
 $pdf->writeHTMLCell($w=0, $h=0, $x='', $y='', $html, $border=0, $ln=1, $fill=0, $reseth=true, $align='', false);
 
-// print colored table
-//$pdf->ColoredTable($header, $data);
 
 // ---------------------------------------------------------
 
 // close and output PDF document
-$pdf->Output('Reporte TFG', 'I');
-
+$pdf->Output('Reporte Extensión', 'I');
 
 exit();
 
-function obtenerAsesores($tfg){
+function obtenerEvaluadores($proyecto){
     
-    global $asesor1 ;
-    global $asesor2 ;
-    $consultaAsesores = "SELECT concat(tfgasesores.nombre,' ',  tfgasesores.apellido1, ' ', tfgasesores.apellido2) as asesor 
-                         FROM tfgasesores, tfgasesoran where tfgasesoran.estado = 1 and tfgasesoran.tfg = '".$tfg."' and tfgasesoran.asesor = tfgasesores.id; ";
+    global $evaluador1 ;
+    global $evaluador2 ;
+    $consultaAsesores = "SELECT concat(ieevaluadores.nombre,' ',  ieevaluadores.apellido1, ' ', ieevaluadores.apellido2) as evaluador 
+                         FROM ieevaluadores, ieevaluan where ieevaluan.estado = 1 and ieevaluan.proyecto = '".$proyecto."' and ieevaluan.evaluador = ieevaluadores.id; ";
     
     $query4 = mysqli_query($GLOBALS['connection'], $consultaAsesores);
-    $asesor1data = mysqli_fetch_assoc($query4);
-    $asesor2data = mysqli_fetch_assoc($query4);
-    if(!isset($asesor1data)){
-      $asesor1 = "No definido";
+    $evaluador1data = mysqli_fetch_assoc($query4);
+    $evaluador2data = mysqli_fetch_assoc($query4);
+    if(!isset($evaluador1data)){
+      $evaluador1 = "No definido";
     }else{
-        $asesor1 = $asesor1data['asesor'];
+        $evaluador1 = $evaluador1data['evaluador'];
     }
     
-    if(!isset($asesor2data)){
-      $asesor2 = "No definido";
+    if(!isset($evaluador2data)){
+      $evaluador2 = "No definido";
     }else{
-        $asesor2 = $asesor2data['asesor'];
+        $evaluador2 = $evaluador2data['evaluador'];
     }
     
-}
-
-function obtenerModalidades(){
-    global $modalidades ;
-    $modalidades = array();
-    
-    $consultaModalidades = "SELECT nombre from modalidades;";
-    
-    $query5 = mysqli_query($GLOBALS['connection'], $consultaModalidades);
-    while ($data2 = mysqli_fetch_assoc($query5)) {
-        array_push($modalidades, array($data2['nombre'],0));
-    }
-    array_push($modalidades,array ("Total",0));
 }
 
 function CrearEstados(){
@@ -296,19 +275,29 @@ function obtenerCarreras(){
     array_push($carreras,array ("Total",0));
 }
 
-
-function agregarModalidad($tfgModalidad){
-    $modalidades = $GLOBALS['modalidades'];
-    for ($i = 0; $i<count($modalidades);$i++) {
-         if($modalidades[$i][0] == $tfgModalidad){
-         $modalidades[$i][1]++;
-         $modalidades[count($modalidades)-1][1]++;
-         }
-    }
-    $GLOBALS['modalidades'] = $modalidades;
+function obtenerCatedras(){
+    global $catedras ;
+    $catedras = array();
     
+    $consultaCatedra = "SELECT nombre from catedras;";
+    
+    $query5 = mysqli_query($GLOBALS['connection'], $consultaCatedra);
+    while ($data2 = mysqli_fetch_assoc($query5)) {
+        array_push($catedras, array($data2['nombre'],0));
+    }
+    array_push($catedras,array ("Total",0));
 }
 
+function agregarCarrera($invCarrera){
+    $carreras = $GLOBALS['carreras'];
+    for ($i = 0; $i<count($carreras);$i++) {
+         if($carreras[$i][0] == $invCarrera){
+         $carreras[$i][1]++;
+         $carreras[count($carreras)-1][1]++;
+         }
+    }
+    $GLOBALS['carreras'] = $carreras;
+}
 function agregarLineas($tfgLinea){
     $lineas = $GLOBALS['lineas'];
     for ($i = 0; $i<count($lineas);$i++) {
@@ -321,21 +310,10 @@ function agregarLineas($tfgLinea){
     
 }
 
-function agregarCarrera($tfgCarrera){
-    $carreras = $GLOBALS['carreras'];
-    for ($i = 0; $i<count($carreras);$i++) {
-         if($carreras[$i][0] == $tfgCarrera){
-         $carreras[$i][1]++;
-         $carreras[count($carreras)-1][1]++;
-         }
-    }
-    $GLOBALS['carreras'] = $carreras;
-}
-
-function agregarEstadoGeneral($tfgEstado){
+function agregarEstadoGeneral($invEstado){
     $estados = $GLOBALS['estados'];
     for ($i = 0; $i<count($estados);$i++) {
-         if($estados[$i][0] == $tfgEstado){
+         if($estados[$i][0] == $invEstado){
          $estados[$i][1]++;
          $estados[count($estados)-1][1]++;
          }
@@ -344,13 +322,15 @@ function agregarEstadoGeneral($tfgEstado){
     
 }
 
-function innerModalidades(){
-    
-    $html = '<div class="block"> <h3>Modalidades</h3><p> <ol>';
-    foreach ($GLOBALS['modalidades'] as $modalidad) {
-        $html = $html."<li>".$modalidad[0].": ".$modalidad[1]."</li>";
+function agregarCatedra($invCatedra){
+    $catedras = $GLOBALS['catedras'];
+    for ($i = 0; $i<count($catedras);$i++) {
+         if($catedras[$i][0] == $invCatedra){
+         $catedras[$i][1]++;
+         $catedras[count($catedras)-1][1]++;
+         }
     }
-    return $html."</p></ol>";
+    $GLOBALS['catedras'] = $catedras;
 }
 
 
@@ -377,3 +357,13 @@ function innerEstados(){
     }
     return $html."</p></ol></div>";
 }
+
+function innerCatedras(){
+    $html = '<h3>Catedras</h3><p> <ol>';
+    foreach ($GLOBALS['catedras'] as $catedra) {
+        $html = $html."<li>".$catedra[0].": ".$catedra[1]."</li>";
+    }
+    return $html."</p></ol>";
+}
+
+
