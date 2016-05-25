@@ -224,8 +224,12 @@
                                     <div class="row">
                                         <div class="col-lg-2  col-lg-offset-2">
                                             <button id="report" type="" class="btn btn-primary">Generar Reporte</button>
+                                          <div id="consulta">
+                                           
                                           
                                         </div>
+                                        </div>
+                                        
                                     </div>
 
                                 </div>
@@ -295,7 +299,7 @@
                 Etfg3 = JSON.stringify(estadosE3);
 
                 $.get("funcionalidad/reportesTFG.php", {Etfg: Etfg, Etfg1: Etfg1, Etfg2: Etfg2, Etfg3: Etfg3, carrera: car, linea: lin, modalidad: mod, fechainicio: inifecha, fechafin: finfecha, estadistica: estadistica}, function (data) {
-                   // $("#consulta").html(data);
+                    $("#consulta").html(data);
                     window.open('funcionalidad/pdfParserTFG.php', '_blank');
                 }).fail(function () {
 
