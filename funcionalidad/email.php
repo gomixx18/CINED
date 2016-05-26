@@ -275,16 +275,15 @@ function alarmaTFG($info, $correos) {
     $body .= "<form action='http://cined.cloudapp.net/login.php'>
               <input type='submit' value='Ir al sitio'>
               </form>";
-    
-    echo $body;
+   
 
     $mail->Body = $body;
-    echo "CORREO: " .$correos[0];
+  
     for ($index = 0; $index < count($correos); $index++) {
         $mail->AddAddress($correos[$index]);
        
     }
-    echo "resultado: " . $mail->send() . "<br />";
+    return $mail->send();
 }
 
 

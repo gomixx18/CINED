@@ -35,7 +35,6 @@ if ($connection) {
         $nuevafecha = date ( 'Y/m/d' , $nuevafecha );
         //echo "fecha final - 7 dias ". $nuevafecha . "<br/>";
         $fecha_actual=date("Y/m/d");
-        echo $nuevafecha ." - ". $fecha_actual . "<br />";
         if($fecha_actual === $nuevafecha){ // una semana antes de la entrega
             //conseguir todos los correos
             echo "este tfg tiene q mandar correos: ". $data['tfg'] . "<br/>";
@@ -81,7 +80,7 @@ if ($connection) {
             
             //enviar alarma a los correos
             alarmaTFG($info, $arrayCorreos);
-            echo 'hola';
+          
             
             
         }
