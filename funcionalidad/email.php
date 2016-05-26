@@ -242,6 +242,7 @@ function emailRegistroProyecto($info, $correos, $type) {
 
 
 function alarmaTFG($info, $correos) {
+  
     $mail = new PHPMailer();
     $mail->IsSMTP();
     $mail->SMTPAuth = true;
@@ -255,19 +256,35 @@ function alarmaTFG($info, $correos) {
     $mail->SetFrom("cined.web@gmail.com");
     $mail->WordWrap = 100;
 
-    $mail->Subject = "CINED - Aviso de entrega de TFG ";
-    $body .= "<h3>Recordatorio de entrega de TFG " . $info[0] . "</h3><br /><br />"
-            . "La etapa #" . $info[1] . " debe ser entregada para la siguiente fecha: " .$data[2] . "<br />";
+    $mail->Subject = "CINED - Aviso de revisión de TFG ";
+    $body = "<head>"
+            . "<style>"
+            . " input {
+        background-color: #00519e;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        border-radius: 4px;
+        
+    }
+    </style></head>";
+    $body .= "<h3>Recordatorio de entrega de TFG </h3><br />"
+            . "Se le informa que la etapa #" . $info[1] . " del TFG: " . $info[0] . " debe ser revisada para la siguiente fecha: <b>" .$info[2] . "</b><br />";
     
     $body .= "<form action='http://cined.cloudapp.net/login.php'>
               <input type='submit' value='Ir al sitio'>
               </form>";
+    
+    echo $body;
 
     $mail->Body = $body;
+    echo "CORREO: " .$correos[0];
     for ($index = 0; $index < count($correos); $index++) {
         $mail->AddAddress($correos[$index]);
+       
     }
-    return $mail->send();
+    echo "resultado: " . $mail->send() . "<br />";
 }
 
 

@@ -1,5 +1,5 @@
 <?php
-include("email.php");
+require ("email.php");
 
 
 
@@ -35,6 +35,7 @@ if ($connection) {
         $nuevafecha = date ( 'Y/m/d' , $nuevafecha );
         //echo "fecha final - 7 dias ". $nuevafecha . "<br/>";
         $fecha_actual=date("Y/m/d");
+        echo $nuevafecha ." - ". $fecha_actual . "<br />";
         if($fecha_actual === $nuevafecha){ // una semana antes de la entrega
             //conseguir todos los correos
             echo "este tfg tiene q mandar correos: ". $data['tfg'] . "<br/>";
@@ -70,20 +71,16 @@ if ($connection) {
             while ($data5 = mysqli_fetch_assoc($resultadoAsesores)) {
                 array_push($arrayCorreos, $data5["correo"]);
             }
-            
-            
-            //falta mandar correos todos estan en la variable $arrayCorreos
-            
+           
             foreach ($arrayCorreos as $correo) {
-                
-                
                 echo $correo . "<br/>";
             }
-            //$info = array();
-            //array_push($info, $data['tfg'], $data['numero'], $nuevafecha);
+            $info = array();
+            array_push($info, $data['tfg'], $data['numero'], $nuevafecha);
+           
             
             //enviar alarma a los correos
-            //alarmaTFG($info, $correos);
+            alarmaTFG($info, $arrayCorreos);
             echo 'hola';
             
             
