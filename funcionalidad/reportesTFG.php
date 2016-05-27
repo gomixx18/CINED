@@ -157,18 +157,18 @@ if ($connection) {
     //-----------------------armado------------------------
     
     if(!$primera){
-        $q1 = "select  D.codigo from tfg, (select tfg,estado,numero from tfgetapas) A, (select tfg,estado,numero from tfgetapas) B,(select tfg,estado,numero from tfgetapas) C,
+        $q1 = "select  D.codigo as tfg from tfg, (select tfg,estado,numero from tfgetapas) A, (select tfg,estado,numero from tfgetapas) B,(select tfg,estado,numero from tfgetapas) C,
         (select * from tfg ) D where " . $q1 . " and tfg.codigo = C.tfg and A.tfg = B.tfg and B.tfg = C.tfg and D.codigo = tfg.codigo group by D.codigo;";
     }else{
-        $q1 = "select  D.codigo from tfg, (select tfg,estado,numero from tfgetapas) A, (select tfg,estado,numero from tfgetapas) B,(select tfg,estado,numero from tfgetapas) C,
+        $q1 = "select  D.codigo as tfg from tfg, (select tfg,estado,numero from tfgetapas) A, (select tfg,estado,numero from tfgetapas) B,(select tfg,estado,numero from tfgetapas) C,
         (select * from tfg ) D where " . $q1 . " tfg.codigo = C.tfg and A.tfg = B.tfg and B.tfg = C.tfg and D.codigo = tfg.codigo group by D.codigo;";
     }
 
-    //echo $q1;
+   // echo $q1;
     @session_start();
     $_SESSION['pdfTFG'] = $q1;
     $_SESSION['estadistica'] = $estadistica;
-    echo $estadistica;
+   // echo $estadistica;
     /* header("Location: pdfParserTFG.php");
     $result = mysqli_query($connection, $q1);
 
