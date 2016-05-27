@@ -20,138 +20,156 @@ if ($connection) {
     $bandera = true;
     $primera = true;
 
-
+    
     $q1 = "";
+    //-----------------------estado del ie------------------------
     if (count($Eie) > 0) {
         $primera = false;
+        $q1 = $q1 . "( ";
         for ($i = 0; $i < count($Eie); $i++) {
-            $q1 = $q1 . " ieproyectos.estado = '$Eie[$i]' ";
+            $q1 = $q1 . " D.estado = '$Eie[$i]' ";
             if ($i != count($Eie) - 1) {
                 $q1 = $q1 . " or ";
             }
         }
+        $q1 = $q1 . ") ";
     }
+    //-----------------------estado etapa 1------------------------
     if (count($Eie1) > 0) {
         if (!$primera) {
             $q1 = $q1 . " and ";
         }
         $primera = false;
         $bandera = false;
-
+        $q1 = $q1 . "(( ";
         for ($i = 0; $i < count($Eie1); $i++) {
-            $q1 = $q1 . " ieetapas.estado = '$Eie1[$i]' ";
+            $q1 = $q1 . " A.estado = '$Eie1[$i]' ";
             if ($i != count($Eie1) - 1) {
                 $q1 = $q1 . " or ";
             }
             if ($i == count($Eie1) - 1) {
-                $q1 = $q1 . " and ieetapas.numero = 1";
+                $q1 = $q1 . ") and A.numero = 1";
             }
         }
+        $q1 = $q1 . ") ";
     }
+    //-----------------------estado etapa 2------------------------
     if (count($Eie2) > 0) {
         if (!$primera) {
             $q1 = $q1 . " and ";
         }
         $primera = false;
         $bandera = false;
-
+        $q1 = $q1 . "(( ";
         for ($i = 0; $i < count($Eie2); $i++) {
-            $q1 = $q1 . " ieetapas.estado = '$Eie2[$i]' ";
+            $q1 = $q1 . " B.estado = '$Eie2[$i]' ";
             if ($i != count($Eie2) - 1) {
                 $q1 = $q1 . " or ";
             }
             if ($i == count($Eie2) - 1) {
-                $q1 = $q1 . " and ieetapas.numero = 2";
+                $q1 = $q1 . ") and B.numero = 2";
             }
         }
+        $q1 = $q1 . ") ";
     }
+    //-----------------------estado etapa 3------------------------
     if (count($Eie3) > 0) {
         if (!$primera) {
             $q1 = $q1 . " and ";
         }
         $primera = false;
         $bandera = false;
-
+        $q1 = $q1 . "(( ";
 
         for ($i = 0; $i < count($Eie3); $i++) {
-            $q1 = $q1 . " ieetapas.estado = '$Eie3[$i]' ";
+            $q1 = $q1 . " C.estado = '$Eie3[$i]' ";
             if ($i != count($Eie3) - 1) {
                 $q1 = $q1 . " or ";
             }
             if ($i == count($Eie3) - 1) {
-                $q1 = $q1 . " and ieetapas.numero = 3";
+                $q1 = $q1 . ") and C.numero = 3";
             }
         }
+        $q1 = $q1 . ") ";
     }
+    //----------------------fecha-----------------------
     if ($fechainicio != "") {
         if (!$primera) {
             $q1 = $q1 . " and ";
         }
         $primera = false;
         
-        $q1 = $q1 . " ieproyectos.fechaInicio between '$fechainicio' and '$fechafin' ";
+        $q1 = $q1 . "(D.fechaInicio between '$fechainicio' and '$fechafin')";
     }
-
+    //-----------------------carrera------------------------
     if (count($carrera) > 0) {
         if (!$primera) {
             $q1 = $q1 . " and ";
         }
         $primera = false;
-        
+        $q1 = $q1 . "( ";
         for ($i = 0; $i < count($carrera); $i++) {
 
-            $q1 = $q1 . " carrera ='" . $carrera[$i] . "'";
+            $q1 = $q1 . " D.carrera ='" . $carrera[$i] . "'";
 
             if ($i != count($carrera) - 1) {
                 $q1 = $q1 . " or ";
             }
         }
+        $q1 = $q1 . ") ";
     }
+    //-----------------------catedra------------------------
     if (count($catedra) > 0) {
         if (!$primera) {
             $q1 = $q1 . " and ";
         }
         $primera = false;
-        
+        $q1 = $q1 . "( ";
         for ($i = 0; $i < count($catedra); $i++) {
 
-            $q1 = $q1 . " catedra ='" . $catedra[$i] . "'";
+            $q1 = $q1 . " D.catedra ='" . $catedra[$i] . "'";
 
             if ($i != count($catedra) - 1) {
                 $q1 = $q1 . " or ";
             }
         }
+        $q1 = $q1 . ") ";
     }
+    //-----------------------linea------------------------
     if (count($linea) > 0) {
         if (!$primera) {
             $q1 = $q1 . " and ";
         }
         $primera = false;
-        
+        $q1 = $q1 . "( ";
         for ($i = 0; $i < count($linea); $i++) {
 
-            $q1 = $q1 . "  lineainvestigacion ='" . $linea[$i] . "'";
+            $q1 = $q1 . " D.lineainvestigacion ='" . $linea[$i] . "'";
 
             if ($i != count($linea) - 1) {
                 $q1 = $q1 . " or ";
             }
         }
+        $q1 = $q1 . ") ";
     }
+    //-----------------------IoE------------------------
     if (!$primera) {
             $q1 = $q1 . " and ";
+             $primera = false;
         }
-        $q1 = $q1 . " isExtension = '$extension'";
+        $q1 = $q1 . " D.isExtension = '$extension'";
     
-    if ($bandera) {
-        $q1 = "select ieproyectos.codigo as proyecto from ieproyectos, ieetapas where " . $q1;
-        $q1 = $q1 . " group by ieproyectos.codigo";
+    if (!$primera) {
+        $q1 = "select D.codigo from ieproyectos, (select proyecto,estado,numero from ieetapas) A,(select proyecto,estado,numero from ieetapas) B,(select proyecto,estado,numero from ieetapas) C,
+            (select * from ieproyectos ) D where " . $q1 . "and ieproyectos.codigo = C.proyecto and A.proyecto = B.proyecto and B.proyecto = C.proyecto and D.codigo = ieproyectos.codigo group by D.codigo;";
+       
     } else {
-        $q1 = "select ieetapas.proyecto from ieproyectos, ieetapas where " . $q1;
-        $q1 = $q1 . "  group by ieetapas.proyecto";
+       $q1 = "select D.codigo from ieproyectos, (select proyecto,estado,numero from ieetapas) A,(select proyecto,estado,numero from ieetapas) B,(select proyecto,estado,numero from ieetapas) C,
+            (select * from ieproyectos ) D where" . $q1 . " and ieproyectos.codigo = C.proyecto and A.proyecto = B.proyecto and B.proyecto = C.proyecto and D.codigo = ieproyectos.codigo group by D.codigo;";
+        
     }
 
     $_SESSION['pdfIE'] = $q1;
-    $_SESSION['estadistica'] = $estadistica;
     echo $q1;
     //$result = mysqli_query($connection, $q1);
 
