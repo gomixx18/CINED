@@ -329,7 +329,7 @@
                                                                 </div>
                                                             </div>
                                                             
-                                                            <button class="btn btn-primary btn-rounded" type="submit" name="modificarDirectoresTFG">Cambiar Director</button>
+                                                            <button class="btn btn-primary btn-rounded" type="submit" name="modificarDirectoresTFG">Guardar Cambios</button>
                                                         </div>
 
                                                     </div>
