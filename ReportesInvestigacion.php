@@ -314,7 +314,7 @@
 
 
         function parametros() {
-            if (ischeck("IE")) {
+            if (ischeck("IE0")) {
                 est();
             }
             for (var i = 1; i < 4; i++) {
@@ -340,8 +340,8 @@
 
         function est() {
             for (var i = 1; i < 5; i++) {
-                if (ischeck("IE" + i)) {
-                    var x = $("#IE" + i).prop("value");
+                if (ischeck("IE0" + i)) {
+                    var x = $("#IE0" + i).prop("value");
                     eval("estadoIE[estadoIE.length]=\"" + x + "\";");
                     // alert(eval("estadoTFG" + ".ETFG" + i));
 

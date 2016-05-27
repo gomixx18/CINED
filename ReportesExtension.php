@@ -311,7 +311,7 @@
 
 
         function parametros() {
-            if (ischeck("IE")) {
+            if (ischeck("IE0")) {
                 est();
             }
             for (var i = 1; i < 4; i++) {
@@ -325,9 +325,9 @@
 
         function esteta(n) {
             for (var i = 1; i < 5; i++) {
-                if (ischeck("IE" + n + i)) {
+                if (ischeck("IE0" + n + i)) {
 
-                    var x = $("#IE" + n + i).prop("value");
+                    var x = $("#IE0" + n + i).prop("value");
 
                     eval("estadosE" + n + "[estadosE" + n + ".length]=\"" + x + "\";");
                     //alert(eval("estadosE" + n));
