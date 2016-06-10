@@ -14,30 +14,6 @@ function iniVector() {
 }
 
 
-
-
-function agregarInvest() {
-
-    var aux = $("#investigadores").find("div").length;
-    if (aux < 6) {
-        $("#investidadores").append("<div id=\"divInvest" + contador + "\" class=\"form-group\"><label  for=\"inputInvest" + contador + "\">Cédula Investigador:</label name=\"inputInvest" + contador + "\"><input id=\"idInvestigador" + contador + "\" class=\"form-control input-sm m-b-xs required\" placeholder=\"cédula investigador\" name=\"idInvestigador" + contador + " id=\"idEstudiante" + contador + "\"> \n\
-         <button id=\"divInvest" + contador + "\" type=\"button\" class=\"btn btn-danger btn-rounded \" onclick=\"eliminarInvest(this)\">Eliminar Investigador</button></div>");
-        contador++;
-    }
-}
-
-function eliminarInvest(event) {
-
-    alert(contador)
-    $("div").remove("#divInvest" + contador);
-    if (contador > 1) {
-        contador--;
-    }
-
-}
-
-
-
 function selectEstudiantes(tipo) {
 
 
@@ -212,11 +188,6 @@ function validarGuardar(tipo ){
     
     }
    
-   /* if(Array.from(new Set(array)).length !== array.length){
-        $("#errorEstudiante").append("<font color='red'><b>Hay estudiantes repetidos.</b></font>");
-        return false;
-        
-    }*/
    
     for (x = 0; x < array.length; x++) {
         var aux = $('input:radio[name='+activo+array[x]+']:checked').val();
@@ -226,11 +197,11 @@ function validarGuardar(tipo ){
     }
     if(tipo === "estudiante"){
         $("#errorEstudiante").empty();
-        $("#errorEstudiante").append("<font color='red'><b>No puede eliminar todos los estudiantes.</b></font>");
+        $("#errorEstudiante").append("<font color='red'><b>No puede eliminar todos los usuarios.</b></font>");
     }
     if(tipo === "asesor"){
         $("#errorAsesor").empty();
-        $("#errorAsesor").append("<font color='red'><b>No puede eliminar todos los estudiantes.</b></font>");
+        $("#errorAsesor").append("<font color='red'><b>No puede eliminar todos los usuarios.</b></font>");
     }
     return false;
 }
