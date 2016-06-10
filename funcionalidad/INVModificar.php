@@ -11,10 +11,10 @@ if (isset($_POST["INVModificarInvestigador"])) {
     $ap1 = $_POST["apellido1"];
     $ap2 = $_POST["apellido2"];
     $correo = $_POST["correo"];
-    $pass = "123";
     $catedra = $_POST["catedra"];
     $carrera = $_POST["carrera"];
-
+    $estado = $_POST["estado"];
+    
     $unidadAcademica = "";
     if($catedra != "Ninguna"){   
         $unidadAcademica .= $catedra . ",";
@@ -37,7 +37,7 @@ if (isset($_POST["INVModificarInvestigador"])) {
 
     if ($connection) {
 
-        $sentenciaSQL = "UPDATE ieinvestigadores SET nombre = '" . $nombre . "', apellido1 ='" . $ap1 . "', apellido2 ='" . $ap2 . "', correo ='" . $correo ."', isEstudiante =" . $isEstudiante.", unidadAcademica = '".$unidadAcademica. "' WHERE id ='" . $id . "'";
+        $sentenciaSQL = "UPDATE ieinvestigadores SET nombre = '" . $nombre . "', apellido1 ='" . $ap1 . "', apellido2 ='" . $ap2 . "', correo ='" . $correo ."', isEstudiante =" . $isEstudiante.", unidadAcademica = '".$unidadAcademica. "',estado = $estado WHERE id ='" . $id . "'";
         $resultado = mysqli_query($connection, $sentenciaSQL);
         mysqli_close($connection);
     }

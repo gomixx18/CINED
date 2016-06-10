@@ -25,7 +25,7 @@ function sendMail($email, $subject, $body, $wordWrap) {
 }
 
 function newUserMail($id, $clave, $nombre, $tipo, $email) {
-    $link = "http://cined.cloudapp.net/change_pass.php?usuario=" . $id;
+    $link = "http://cined.cloudapp.net/cambiar_contrasena.php?usuario=" . $id;
 
     $subject = "CINED - Credenciales de usuario";
     $body = "<h3>" . $nombre . ":</h3><br />";
@@ -50,9 +50,9 @@ function sendPassReset($id, $email, $nombre, $connection) {
         $stmt->close();
 
         $subject = 'Reestablecer contraseña - CINED.';
-        $link = "<a href=\"http://cined.cloudapp.net/reset_password.php?e=" . $token . "&u=" . urlencode(base64_encode($id))
+        $link = "<a href=\"http://cined.cloudapp.net/reestablecer_contrasena.php?e=" . $token . "&u=" . urlencode(base64_encode($id))
                 . "\">"
-                . "http://cined.cloudapp.net/reset_password.php?e=" . $token . "&u=" . urlencode(base64_encode($id)) . "</a>";
+                . "http://cined.cloudapp.net/reestablecer_contrasena.php?e=" . $token . "&u=" . urlencode(base64_encode($id)) . "</a>";
 
         $body = '<head>
         <style type = "text/css">  

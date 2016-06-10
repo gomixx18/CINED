@@ -160,17 +160,17 @@ if ($connection) {
         $q1 = $q1 . " D.isExtension = '$extension'";
     
     if (!$primera) {
-        $q1 = "select D.codigo from ieproyectos, (select proyecto,estado,numero from ieetapas) A,(select proyecto,estado,numero from ieetapas) B,(select proyecto,estado,numero from ieetapas) C,
+        $q1 = "select D.codigo as proyecto from ieproyectos, (select proyecto,estado,numero from ieetapas) A,(select proyecto,estado,numero from ieetapas) B,(select proyecto,estado,numero from ieetapas) C,
             (select * from ieproyectos ) D where " . $q1 . "and ieproyectos.codigo = C.proyecto and A.proyecto = B.proyecto and B.proyecto = C.proyecto and D.codigo = ieproyectos.codigo group by D.codigo;";
        
     } else {
-       $q1 = "select D.codigo from ieproyectos, (select proyecto,estado,numero from ieetapas) A,(select proyecto,estado,numero from ieetapas) B,(select proyecto,estado,numero from ieetapas) C,
+       $q1 = "select D.codigo as proyecto from ieproyectos, (select proyecto,estado,numero from ieetapas) A,(select proyecto,estado,numero from ieetapas) B,(select proyecto,estado,numero from ieetapas) C,
             (select * from ieproyectos ) D where" . $q1 . " and ieproyectos.codigo = C.proyecto and A.proyecto = B.proyecto and B.proyecto = C.proyecto and D.codigo = ieproyectos.codigo group by D.codigo;";
         
     }
 
     $_SESSION['pdfIE'] = $q1;
-    echo $q1;
+    //echo $q1;
     //$result = mysqli_query($connection, $q1);
 
     /* $data = array();

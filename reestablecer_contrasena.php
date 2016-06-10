@@ -45,7 +45,7 @@ include 'elements.php';
                 err = err.hide();
                 $('*').css('cursor', 'progress');
                 $.ajax({
-                    url: "funcionalidad/resetPassword.php",
+                    url: "funcionalidad/reestablecerContrasena.php",
                     type: "POST",
                     data: {
                         newp: newp,

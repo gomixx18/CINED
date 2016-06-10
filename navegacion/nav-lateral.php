@@ -20,7 +20,7 @@ $usuarioPermisos = $_SESSION['permisos'];
                     <ul class="nav metismenu" id="side-menu">
                         <li class="nav-header">
                             <div class="dropdown profile-element"> <span>
-                                    <img alt="image" class="center-block" src="img/uned_logo.png" style="height: 75px; width: 75px">
+                                    <A HREF="../login.php"><img alt="image" class="center-block" src="img/uned_logo.png" style="height: 75px; width: 75px"></A>
                                 </span>
                                 <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                                     <span class="clear"> 
