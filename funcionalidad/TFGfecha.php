@@ -9,7 +9,7 @@ if (isset($_REQUEST["fechaetapa"])) {
     $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
 
     if ($connection) {
-        $consulta = "UPDATE uned_db.tfgetapas SET fechaAprobacion='$fecha' WHERE numero='$etapa' and tfg ='$tfg'";
+        $consulta = "UPDATE uned_db.tfgetapas SET fechaEntrega='$fecha' WHERE numero='$etapa' and tfg ='$tfg'";
         $query = mysqli_query($connection, $consulta);
         mysqli_close($connection);
     }

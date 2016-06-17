@@ -1708,7 +1708,7 @@
             }
 
             function etapas($cod, $conn) {
-                $consulta = "select numero,estado,fechaAprobacion from ieetapas where proyecto ='$cod'";
+                $consulta = "select numero,estado,fechaEntrega from ieetapas where proyecto ='$cod'";
                 $query = mysqli_query($conn, $consulta);
                 while ($data = mysqli_fetch_assoc($query)) {
                     $etapas = "etapa" . $data["numero"];
@@ -1716,7 +1716,7 @@
                     global $$etapas;
                     global $$fechas;
                     $$etapas = $data['estado'];
-                    $$fechas = $data['fechaAprobacion'];
+                    $$fechas = $data['fechaEntrega'];
                 }
             }
 

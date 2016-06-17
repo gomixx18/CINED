@@ -10,11 +10,11 @@ if (isset($_REQUEST["fechaetapa"])) {
     $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
 
     if ($connection) {
-        $consulta = "UPDATE uned_db.ieetapas SET fechaAprobacion='$fecha' WHERE numero='$etapa' and proyecto ='$ie'";
+        $consulta = "UPDATE uned_db.ieetapas SET fechaEntrega='$fecha' WHERE numero='$etapa' and proyecto ='$ie'";
         $query = mysqli_query($connection, $consulta);
         mysqli_close($connection);
     }
-    echo "lala";
+    
 } else {
     $ie = $_REQUEST["ie"];
     $fecha = $_REQUEST["fecha"];

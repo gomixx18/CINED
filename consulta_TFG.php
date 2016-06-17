@@ -1567,7 +1567,7 @@ and open the template in the editor.
             }
 
             function etapas($cod, $conn) {
-                $consulta = "select numero,estado,fechaAprobacion from tfgetapas where tfg ='$cod'";
+                $consulta = "select numero,estado,fechaEntrega from tfgetapas where tfg ='$cod'";
                 $query = mysqli_query($conn, $consulta);
                 while ($data = mysqli_fetch_assoc($query)) {
                     $etapas = "etapa" . $data["numero"];
@@ -1575,7 +1575,7 @@ and open the template in the editor.
                     global $$etapas;
                     global $$fechas;
                     $$etapas = $data['estado'];
-                    $$fechas = $data['fechaAprobacion'];
+                    $$fechas = $data['fechaEntrega'];
                 }
             }
 
