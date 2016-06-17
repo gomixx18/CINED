@@ -1699,7 +1699,7 @@ and open the template in the editor.
                                                                                     asesoresC = JSON.stringify(asesores);
 
                                                                                     $.get("funcionalidad/TFGestadoFin.php", {estado: estad, tfg: cod, titulo: titulo, etapa: etapa, director: dir, estCorreos: estC, asesores: asesoresC}, function (data) {
-                                                                                        modal(" Se guardó el estado final con exito", data);
+                                                                                        modal(" Se guardó el estado final con éxito", data);
                                                                                     }).fail(function (data) {
                                                                                         modal("Ocurrió algún problema", data);
                                                                                     });
