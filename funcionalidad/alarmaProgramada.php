@@ -1,40 +1,41 @@
 <?php
-require ("email.php");
+require('email.php');
 
-
-
-/*
-  select A.tfg, A.numero, (select fechaAprobacion from tfgetapas  where numero = A.numero and tfg = A.tfg) as fecha
-  from (
-  select tfg, MAX(numero) as numero, fechaAprobacion from tfgetapas
-  where estado = 'Aprobada' || estado = 'Aprobada con Observaciones'
-  group by tfg) A
-
- */
 
 session_start();
 
 $arrayCorreos = array();
+$arrayCorreosIE = array();
 
 $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
 
 if ($connection) {
-    $sentenciaSQL = "select tfg.fechaFinal, A.tfg, A.numero, (select fechaAprobacion from tfgetapas  where numero = A.numero and tfg = A.tfg) as fecha
+    
+    //para TFG
+    $sentenciaSQL = "select tfg.fechaFinal, A.tfg, A.numero, (select fechaEntrega from tfgetapas  where numero = A.numero and tfg = A.tfg) as fecha
                         from (
-                        select tfg, MAX(numero) as numero, fechaAprobacion from tfgetapas
+                        select tfg, MAX(numero) as numero, fechaEntrega from tfgetapas
                         where estado = 'Aprobada' || estado = 'Aprobada con Observaciones'
                         group by tfg) A, tfg 
-                        where tfg.codigo= A.tfg;";
+                        where tfg.codigo= A.tfg and tfg.estado = 'Activo'; 
+                    ";
     $resultado = mysqli_query($connection, $sentenciaSQL);
     
-
+    
     while ($data = mysqli_fetch_assoc($resultado)) {
         
+        $sentenciaFechaSQL = "select fechaEntrega from tfgetapas where numero = " . ($data["numero"] + 1) . " and tfg = '" . $data["tfg"] . "'";
+        $resultadoFecha = mysqli_query($connection, $sentenciaFechaSQL);
+        $dataFecha = mysqli_fetch_assoc($resultadoFecha);
         //echo "fecha final ". $data["fechaFinal"] . "<br/>";
-        $nuevafecha = strtotime ( '-7 day' , strtotime ( $data["fechaFinal"]) ) ;
+        if(($data["numero"] + 1)<4){
+        $nuevafecha = strtotime ( '-7 day' , strtotime ( $dataFecha["fechaEntrega"]) ) ;
+        
         $nuevafecha = date ( 'Y/m/d' , $nuevafecha );
-        //echo "fecha final - 7 dias ". $nuevafecha . "<br/>";
+        echo "fecha final - 7 dias ". $nuevafecha . "<br/>";
         $fecha_actual=date("Y/m/d");
+        //echo $fecha_actual . "-- <br>";
+        //echo $nuevafecha . "<br>";
         if($fecha_actual === $nuevafecha){ // una semana antes de la entrega
             //conseguir todos los correos
             echo "este tfg tiene q mandar correos: ". $data['tfg'] . "<br/>";
@@ -70,28 +71,115 @@ if ($connection) {
             while ($data5 = mysqli_fetch_assoc($resultadoAsesores)) {
                 array_push($arrayCorreos, $data5["correo"]);
             }
+            
+            // miembros
+            $sentenciaMiembros = "select tfgmiembroscomision.correo from tfg, tfgmiembroscomision, tfgevaluan
+                                where tfg.codigo = tfgevaluan.tfg and tfgmiembroscomision.id = tfgevaluan.miembrocomisiontfg and
+                                tfgevaluan.estado= 1 and tfg.codigo = '". $data['tfg'] ."'";
+            $resultadoMiembros= mysqli_query($connection, $sentenciaMiembros);
+            while ($data6 = mysqli_fetch_assoc($resultadoMiembros)) {
+                array_push($arrayCorreos, $data6["correo"]);
+            }
            
             foreach ($arrayCorreos as $correo) {
                 echo $correo . "<br/>";
             }
+            //enviar alarmas TFG
             $info = array();
-            array_push($info, $data['tfg'], $data['numero'], $nuevafecha);
-           
-            
-            //enviar alarma a los correos
+            array_push($info, $data['tfg'], $data["numero"] + 1, $nuevafecha);
             alarmaTFG($info, $arrayCorreos);
+            
+        }
+        
+    }
+ 
+        
+    }
+
+    
+    //termina TFG
+    
+    $sentenciaSQLIE = "select ieproyectos.fechaFinal, A.proyecto,
+                        A.numero, (select fechaEntrega from ieetapas  where numero = A.numero and proyecto = A.proyecto) as fecha
+                        from (
+                        select proyecto, MAX(numero) as numero, fechaEntrega from ieetapas
+                        where estado = 'Aprobada' || estado = 'Aprobada con Observaciones'
+                        group by proyecto) A, ieproyectos 
+                        where ieproyectos.codigo= A.proyecto and ieproyectos.estado = 'Activo'; 
+                       ";
+    $resultadoIE = mysqli_query($connection, $sentenciaSQLIE);
+    
+    
+    while ($dataIE = mysqli_fetch_assoc($resultadoIE)) {
+        
+        $sentenciaFechaSQL = "select fechaEntrega from ieetapas where numero = " . ($dataIE["numero"] + 1) . " and proyecto = '" . $dataIE["proyecto"] . "'";
+        $resultadoFecha = mysqli_query($connection, $sentenciaFechaSQL);
+        $dataFecha = mysqli_fetch_assoc($resultadoFecha);
+        
+        if(($data["numero"] + 1)<4){
+        //echo "fecha final ". $data["fechaFinal"] . "<br/>";
+        $nuevafechaIE = strtotime ( '-7 day' , strtotime ( $dataFecha["fechaEntrega"]) ) ;
+        $nuevafechaIE = date ( 'Y/m/d' , $nuevafechaIE );
+        //echo "fecha final - 7 dias ". $nuevafecha . "<br/>";
+        $fecha_actualIE=date("Y/m/d");
+        if($fecha_actualIE === $nuevafechaIE){ // una semana antes de la entrega
+            //conseguir todos los correos
+            echo "este proyecto tiene q mandar correos: ". $dataIE['proyecto'] . "<br/>";
+            
+            //investigadores
+            $sentenciaInvestigadoresIE = "select ieinvestigadores.correo from ieproyectos, ieinvestigadores, ieinvestigan
+                                    where ieproyectos.codigo = ieinvestigan.proyecto and ieinvestigadores.id = ieinvestigan.investigador and
+                                    ieinvestigan.estado= 1 and ieproyectos.codigo = '". $dataIE['proyecto'] ."'";
+            $resultadoInvestigadoresIE = mysqli_query($connection, $sentenciaInvestigadoresIE);
+            while ($data2IE = mysqli_fetch_assoc($resultadoInvestigadoresIE)) {
+                array_push($arrayCorreosIE, $data2IE["correo"]);
+            }
+            
+            //coordinador
+            $sentenciaCoordiandorIE = "select iecoordinadoresinvestigacion.correo from ieproyectos, iecoordinadoresinvestigacion 
+                                    where ieproyectos.coordinador = iecoordinadoresinvestigacion.id and ieproyectos.codigo = '". $dataIE['proyecto'] ."'";
+            $resultadoCoordiandorIE = mysqli_query($connection, $sentenciaCoordiandorIE);
+            $data3IE = mysqli_fetch_assoc($resultadoCoordiandorIE);
+            array_push($arrayCorreosIE, $data3IE["correo"]);
+            
           
+            
+            //evaluadores
+            $sentenciaAsesoresIE = "select ieevaluadores.correo from ieproyectos, ieevaluadores, ieevaluan
+                                where ieproyectos.codigo = ieevaluan.proyecto and ieevaluadores.id = ieevaluan.evaluador and
+                                ieevaluan.estado= 1 and ieproyectos.codigo = '". $dataIE['proyecto'] ."'";
+            $resultadoAsesoresIE = mysqli_query($connection, $sentenciaAsesoresIE);
+            while ($data5IE = mysqli_fetch_assoc($resultadoAsesoresIE)) {
+                array_push($arrayCorreosIE, $data5IE["correo"]);
+            }
+            
+            
+            //comiex
+            $sentenciaComiexIE = "select iemiembroscomiex.correo from ieproyectos, iemiembroscomiex, ierevisan
+                                where ieproyectos.codigo = ierevisan.proyecto and iemiembroscomiex.id = ierevisan.miembrocomiex and
+                                ierevisan.estado= 1 and ieproyectos.codigo = '". $dataIE['proyecto'] ."'";
+            $resultadoComiexIE = mysqli_query($connection, $sentenciaComiexIE);
+            while ($data6IE = mysqli_fetch_assoc($resultadoComiexIE)) {
+                array_push($arrayCorreosIE, $data6IE["correo"]);
+            }
+            
+            
+            //falta mandar correos todos estan en la variable $arrayCorreosIE y en $data['numero']+1 esat el numero de la etapa
+            
+          foreach ($arrayCorreosIE as $correo) {
+                echo $correo . "<br/>";
+            }
+            $infoIE = array();
+            array_push($infoIE, $dataIE['proyecto'], $dataIE["numero"] + 1, $nuevafechaIE);
+            alarmaIE($infoIE, $arrayCorreosIE);
             
             
         }
-          //echo "fecha de hoy: ". $fecha_actual . " y la fecha de entrega menos 7 dias: ". $nuevafecha . "<br/>";  
+    }
         
     }
-    
-    
   
-    //$sentenciaSQLPrueba = "INSERT INTO tfgestudiantes (id, nombre, apellido1, apellido2, password, correo, estado) VALUES ('32', 'oscar','vega','zapata','123','f@f',1)";
-    //$resultadoPrueba = mysqli_query($connection, $sentenciaSQLPrueba); 
+
     
     mysqli_close($connection);
 }

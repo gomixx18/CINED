@@ -287,5 +287,51 @@ function alarmaTFG($info, $correos) {
 }
 
 
+function alarmaIE($info, $correos) {
+  
+    $mail = new PHPMailer();
+    $mail->IsSMTP();
+    $mail->SMTPAuth = true;
+    $mail->SMTPSecure = 'ssl';
+    $mail->Host = "smtp.gmail.com";
+    $mail->Port = 465;
+    $mail->IsHTML(true);
+    $mail->CharSet = "UTF-8";
+    $mail->Username = "cined.web@gmail.com";
+    $mail->Password = "cined1234";
+    $mail->SetFrom("cined.web@gmail.com");
+    $mail->WordWrap = 100;
+
+    $mail->Subject = "CINED - Aviso de revisión de Proyecto";
+    $body = "<head>"
+            . "<style>"
+            . " input {
+        background-color: #00519e;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        border-radius: 4px;
+        
+    }
+    </style></head>";
+    $body .= "<h3>Recordatorio de entrega de proyecto </h3><br />"
+            . "Se le informa que la etapa #" . $info[1] . " del proyecto: " . $info[0] . " debe ser revisada para la siguiente fecha: <b>" .$info[2] . "</b><br />";
+    
+    $body .= "<form action='http://cined.cloudapp.net/login.php'>
+              <input type='submit' value='Ir al sitio'>
+              </form>";
+   
+
+    $mail->Body = $body;
+  
+    for ($index = 0; $index < count($correos); $index++) {
+        $mail->AddAddress($correos[$index]);
+       
+    }
+    return $mail->send();
+}
+
+
 
 ?>
