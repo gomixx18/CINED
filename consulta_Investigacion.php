@@ -540,12 +540,13 @@
 
                                                             <!-- Estado  -->
                                                             <div class="row">
-                                                                <div class="col-lg-2 col-lg-offset-7">
+                                                                <div class="col-lg-5 col-lg-offset-1">
+                                                                <div class="col-lg-4">
                                                                     <div class="form-group">
                                                                         <label class="control-label">Estado de Etapa:</label>
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-lg-2">
+                                                                <div class="col-lg-5">
                                                                     <div class="form-group">
 
 
@@ -562,14 +563,42 @@
 
                                                                     </div>
                                                                 </div>
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="col-lg-2 col-lg-offset-9">
+                                                           
+                                                                <div class="col-lg-4">
                                                                     <div class="form-group">
                                                                         <?php if ($usuarioPermisos->getCoordinadorinvestigacion()) { ?> 
                                                                             <input id="BE1" estado="estado1" etapa="1" type="button" class="btn btn-primary permiso" value="Guardar Estado">
                                                                         <?php } ?>
                                                                     </div>
+                                                                </div>
+                                                                    </div>
+                                                                <div class="col-lg-5 col-lg-offset-1">
+                                                                    
+                                                                        <div class="col-lg-3">
+                                                                            <div class="form-group">
+                                                                                <label class="control-label">Fecha de finalizacion:</label>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="col-lg-6">
+                                                                            <div class="form-group" id="">
+                                                                                <div class="input-group date">
+                                                                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input <?php
+                                                                                    if (!$usuarioPermisos->getEncargadotfg()) {
+                                                                                        echo "disabled"
+                                                                                        ?> <?php } ?>
+                                                                                        type="text" id="FIE1" class="form-control" value="<?php echo substr($fecha1, 0, 11) ?>">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <?php if ($usuarioPermisos->getEncargadotfg()) { ?>
+                                                                            <div class="col-lg-4 col-lg-offset-1">
+                                                                                <div class="form-group">
+                                                                                    <input id="BFIE1" estado="FIE1" etapa="1" type="button" class="btn btn-primary" value="Guardar Fecha">
+                                                                                </div>
+                                                                            </div>
+                                                                        <?php } ?>
+                                                                    
                                                                 </div>
                                                             </div>
                                                             <!-- fin estado -->
@@ -955,13 +984,13 @@
                                                             <!-- Estado  -->
                                                             <div class="row">
 
-
-                                                                <div class="col-lg-2 col-lg-offset-7">
+                                                                <div class="col-lg-5 col-lg-offset-1">
+                                                                <div class="col-lg-4">
                                                                     <div class="form-group">
                                                                         <label class="control-label">Estado de Etapa:</label>
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-lg-2">
+                                                                <div class="col-lg-5">
                                                                     <div class="form-group">
 
 
@@ -978,15 +1007,43 @@
 
                                                                     </div>
                                                                 </div>
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="col-lg-2 col-lg-offset-9">
+                                                            
+                                                                <div class="col-lg-4">
                                                                     <div class="form-group">
 
                                                                         <?php if ($usuarioPermisos->getCoordinadorinvestigacion()) { ?> 
                                                                             <input id="BE2" estado="estado2" etapa="2" type="button" class="btn btn-primary permiso" value="Guardar Estado">
                                                                         <?php } ?>
                                                                     </div>
+                                                                </div>
+                                                                    </div>
+                                                                 <div class="col-lg-5 col-lg-offset-1">
+                                                                    
+                                                                        <div class="col-lg-3">
+                                                                            <div class="form-group">
+                                                                                <label class="control-label">Fecha de finalizacion:</label>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="col-lg-6">
+                                                                            <div class="form-group" id="">
+                                                                                <div class="input-group date">
+                                                                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input <?php
+                                                                                    if (!$usuarioPermisos->getEncargadotfg()) {
+                                                                                        echo "disabled"
+                                                                                        ?> <?php } ?>
+                                                                                        type="text" id="FIE2" class="form-control" value="<?php echo substr($fecha2, 0, 11) ?>">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <?php if ($usuarioPermisos->getEncargadotfg()) { ?>
+                                                                            <div class="col-lg-4 col-lg-offset-1">
+                                                                                <div class="form-group">
+                                                                                    <input id="BFIE2" estado="FIE2" etapa="2" type="button" class="btn btn-primary" value="Guardar Fecha">
+                                                                                </div>
+                                                                            </div>
+                                                                        <?php } ?>
+                                                                    
                                                                 </div>
                                                             </div>
                                                             <!-- fin estado -->
@@ -1381,12 +1438,13 @@
                                                             <!-- fin comentarios -->
                                                             <!-- Estado  -->
                                                             <div class="row">
-                                                                <div class="col-lg-2 col-lg-offset-7">
+                                                                <div class="col-lg-5 col-lg-offset-1">
+                                                                <div class="col-lg-4">
                                                                     <div class="form-group">
                                                                         <label class="control-label">Estado de Etapa:</label>
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-lg-2">
+                                                                <div class="col-lg-5">
                                                                     <div class="form-group">
 
 
@@ -1404,14 +1462,42 @@
 
                                                                     </div>
                                                                 </div>
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="col-lg-2 col-lg-offset-9">
+                                                            
+                                                                <div class="col-lg-4">
                                                                     <div class="form-group">
                                                                         <?php if ($usuarioPermisos->getCoordinadorinvestigacion()) { ?> 
                                                                             <input id="BE3" estado="estado3" etapa="3" type="button" class="btn btn-primary permiso" value="Guardar Estado">
                                                                         <?php } ?>
                                                                     </div>
+                                                                </div>
+                                                                    </div>
+                                                                <div class="col-lg-5 col-lg-offset-1">
+                                                                    
+                                                                        <div class="col-lg-3">
+                                                                            <div class="form-group">
+                                                                                <label class="control-label">Fecha de finalizacion:</label>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="col-lg-6">
+                                                                            <div class="form-group" id="">
+                                                                                <div class="input-group date">
+                                                                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input <?php
+                                                                                    if (!$usuarioPermisos->getEncargadotfg()) {
+                                                                                        echo "disabled"
+                                                                                        ?> <?php } ?>
+                                                                                        type="text" id="FIE2" class="form-control" value="<?php echo substr($fecha3, 0, 11) ?>">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <?php if ($usuarioPermisos->getEncargadotfg()) { ?>
+                                                                            <div class="col-lg-4 col-lg-offset-1">
+                                                                                <div class="form-group">
+                                                                                    <input id="BFIE3" estado="FIE3" etapa="3" type="button" class="btn btn-primary" value="Guardar Fecha">
+                                                                                </div>
+                                                                            </div>
+                                                                        <?php } ?>
+                                                                    
                                                                 </div>
                                                             </div>
                                                             <!-- fin estado -->
@@ -1518,7 +1604,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-lg-4">
+                                            <div class="col-lg-5">
                                                 <div class="form-group">
                                                     <select id="estadoie" class="form-control m-b" name="estadoie" <?php
                                                     if (!$usuarioPermisos->getCoordinadorinvestigacion()) {
@@ -1532,7 +1618,7 @@
 
                                                 </div>
                                             </div>
-                                            <div class="col-lg-3 col-lg-offset-2">
+                                            <div class="col-lg-4">
                                                 <div class="form-group">
                                                     <?php if ($usuarioPermisos->getCoordinadorinvestigacion()) { ?>
                                                         <input id="BIE" estado="estadoie" type="button" class="btn btn-primary" value="Guardar Estado">
@@ -1625,12 +1711,15 @@
             }
 
             function etapas($cod, $conn) {
-                $consulta = "select numero,estado from ieetapas where proyecto ='$cod'";
+                $consulta = "select numero,estado,fechaAprobacion from ieetapas where proyecto ='$cod'";
                 $query = mysqli_query($conn, $consulta);
                 while ($data = mysqli_fetch_assoc($query)) {
                     $etapas = "etapa" . $data["numero"];
+                    $fechas = "fecha" . $data["numero"];
                     global $$etapas;
+                    global $$fechas;
                     $$etapas = $data['estado'];
+                    $$fechas = $data['fechaAprobacion'];
                 }
             }
 
@@ -1723,6 +1812,30 @@
                                                                             calendarWeeks: true,
                                                                             autoclose: true
                                                                         });
+                                                                        $('#FIE1').datepicker({
+                                                                            format: 'yyyy-mm-dd',
+                                                                            todayBtn: "linked",
+                                                                            keyboardNavigation: false,
+                                                                            forceParse: false,
+                                                                            calendarWeeks: true,
+                                                                            autoclose: true
+                                                                        });
+                                                                        $('#FIE2').datepicker({
+                                                                            format: 'yyyy-mm-dd',
+                                                                            todayBtn: "linked",
+                                                                            keyboardNavigation: false,
+                                                                            forceParse: false,
+                                                                            calendarWeeks: true,
+                                                                            autoclose: true
+                                                                        });
+                                                                        $('#FIE3').datepicker({
+                                                                            format: 'yyyy-mm-dd',
+                                                                            todayBtn: "linked",
+                                                                            keyboardNavigation: false,
+                                                                            forceParse: false,
+                                                                            calendarWeeks: true,
+                                                                            autoclose: true
+                                                                        });
                                                                         var edit1 = function (comen) {
                                                                             $('#' + comen + '.click1edit').summernote({focus: true});
                                                                         };
@@ -1770,7 +1883,9 @@
                                                                             guardarComentarioInvestigador("BI11");
                                                                             guardarComentarioInvestigador("BI12");
                                                                             guardarComentarioInvestigador("BI13");
-
+                                                                            guardarFechaEstado("BFIE1");
+                                                                            guardarFechaEstado("BFIE2");
+                                                                            guardarFechaEstado("BFIE3");
                                                                             guardarEstadoIE("BE1");
                                                                             guardarEstadoIE("BE2");
                                                                             guardarEstadoIE("BE3");
@@ -1909,6 +2024,20 @@
                                                                                 });
                                                                             });
                                                                         }
+                                                                        function guardarFechaEstado(btn) {
+                                                                                $("#"+btn).click(function (evento) {
+                                                                                    evento.preventDefault();
+                                                                                    var cod = "<?php echo $codigo ?>";
+                                                                                    var fech = $("#"+btn).attr("estado");
+                                                                                    var fecha = $("#"+fech).val();
+                                                                                    var eta = $("#" + btn).attr("etapa");
+                                                                                    $.get("funcionalidad/IEfecha.php", {fecha: fecha, ie: cod,etapa:eta,fechaetapa:1}, function (data) {
+                                                                                        modal(" Se guardó la fecha con exito", data);
+                                                                                    }).fail(function (data) {
+                                                                                        modal("Ocurrió algún problema", data);
+                                                                                    });
+                                                                                });
+                                                                            }
 
                                                                         function guardarTiempos() {
                                                                             $("#tiempo").click(function (evento) {

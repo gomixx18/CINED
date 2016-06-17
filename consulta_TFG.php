@@ -525,38 +525,64 @@ and open the template in the editor.
 
                                                             <!-- Estado  -->
                                                             <div class="row">
+                                                                <div class="col-lg-5 col-lg-offset-1">
+                                                                    <div class="col-lg-4">
+                                                                        <div class="form-group">
+                                                                            <label class="control-label">Estado de Etapa:</label>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-lg-5">
+                                                                        <div class="form-group">
+                                                                            <select id="estado1" class="form-control m-b" name="account" onchange="pintandoPanels()" <?php
+                                                                                if (!$usuarioPermisos->getEncargadotfg()) {
+                                                                                    echo "disabled"
+                                                                                    ?> <?php } ?>>
+                                                                                <option value="Aprobada">Aprobada</option>
+                                                                                <option value="Aprobada con Observaciones">Aprobada con Observaciones</option>
+                                                                                <option value="No Aprobada">No Aprobada</option>    
+                                                                                <option value="En ejecución">En ejecución</option>  
+                                                                                <option value="Inactiva">Inactiva</option>
+                                                                            </select> 
 
+                                                                        </div>
+                                                                    </div>  
 
-                                                                <div class="col-lg-2 col-lg-offset-7">
-                                                                    <div class="form-group">
-                                                                        <label class="control-label">Estado de Etapa:</label>
+                                                                    <div class="col-lg-4">
+                                                                        <div class="form-group">
+                                                                            <?php if ($usuarioPermisos->getEncargadotfg()) { ?> 
+                                                                                <input id="BE1" estado="estado1" etapa="1" type="button" class="btn btn-primary" value="Guardar Estado">
+                                                                            <?php } ?>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-lg-2">
-                                                                    <div class="form-group">
+                                                                <div class="col-lg-5 col-lg-offset-1">
 
 
-                                                                        <select id="estado1" class="form-control m-b" name="account" onchange="pintandoPanels()" <?php
-                                                                        if (!$usuarioPermisos->getEncargadotfg()) {
-                                                                            echo "disabled"
-                                                                            ?> <?php } ?>>
-                                                                            <option value="Aprobada">Aprobada</option>
-                                                                            <option value="Aprobada con Observaciones">Aprobada con Observaciones</option>
-                                                                            <option value="No Aprobada">No Aprobada</option>    
-                                                                            <option value="En ejecución">En ejecución</option>  
-                                                                            <option value="Inactiva">Inactiva</option>
-                                                                        </select> 
-
+                                                                    <div class="col-lg-3">
+                                                                        <div class="form-group">
+                                                                            <label class="control-label">Fecha de finalizacion:</label>
+                                                                        </div>
                                                                     </div>
-                                                                </div>  
-                                                            </div>
-                                                            <div class="row"> 
-                                                                <div class="col-lg-2 col-lg-offset-9">
-                                                                    <div class="form-group">
-                                                                        <?php if ($usuarioPermisos->getEncargadotfg()) { ?> 
-                                                                            <input id="BE1" estado="estado1" etapa="1" type="button" class="btn btn-primary" value="Guardar Estado">
-                                                                        <?php } ?>
+
+                                                                    <div class="col-lg-6">
+                                                                        <div class="form-group" id="">
+                                                                            <div class="input-group date">
+                                                                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input <?php
+                                                                            if (!$usuarioPermisos->getEncargadotfg()) {
+                                                                                echo "disabled"
+                                                                                ?> <?php } ?>
+                                                                                    type="text" id="FTFG1" class="form-control" value="<?php echo substr($fecha1, 0, 11) ?>">
+                                                                            </div>
+                                                                        </div>
                                                                     </div>
+                                                                    <?php if ($usuarioPermisos->getEncargadotfg()) { ?>
+                                                                        <div class="col-lg-4 col-lg-offset-1">
+                                                                            <div class="form-group">
+                                                                                <input id="BFTFG1" estado="FTFG1" etapa="1" type="button"  class="btn btn-primary" value="Guardar Fecha">
+                                                                            </div>
+                                                                        </div>
+                                                                    <?php } ?>
+
                                                                 </div>
                                                             </div>
                                                             <!-- fin estado -->
@@ -921,37 +947,66 @@ and open the template in the editor.
                                                             <!-- Estado  -->
                                                             <div class="row">
 
+                                                                <div class="col-lg-5 col-lg-offset-1">   
+                                                                    <div class="col-lg-4">
+                                                                        <div class="form-group">
+                                                                            <label class="control-label">Estado de Etapa:</label>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-lg-5">
+                                                                        <div class="form-group">
 
-                                                                <div class="col-lg-2 col-lg-offset-7">
-                                                                    <div class="form-group">
-                                                                        <label class="control-label">Estado de Etapa:</label>
+
+                                                                            <select id="estado2" class="form-control m-b" name="account" onchange="pintandoPanels()" <?php
+                                                                                if (!$usuarioPermisos->getEncargadotfg()) {
+                                                                                    echo "disabled"
+                                                                                    ?> <?php } ?>>
+                                                                                <option value="Aprobada">Aprobada</option>
+                                                                                <option value="Aprobada con Observaciones">Aprobada con Observaciones</option>
+                                                                                <option value="No Aprobada">No Aprobada</option>    
+                                                                                <option value="En ejecución">En ejecución</option>  
+                                                                                <option value="Inactiva">Inactiva</option>
+                                                                            </select> 
+
+                                                                        </div>
+                                                                    </div>  
+
+                                                                    <div class="col-lg-4">
+                                                                        <div class="form-group">
+                                                                            <?php if ($usuarioPermisos->getEncargadotfg()) { ?> 
+                                                                                <input id="BE2" estado="estado2" etapa="2" type="button" class="btn btn-primary" value="Guardar Estado">
+                                                                            <?php } ?>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-lg-2">
-                                                                    <div class="form-group">
+                                                                <div class="col-lg-5 col-lg-offset-1">
 
 
-                                                                        <select id="estado2" class="form-control m-b" name="account" onchange="pintandoPanels()" <?php
-                                                                        if (!$usuarioPermisos->getEncargadotfg()) {
-                                                                            echo "disabled"
-                                                                            ?> <?php } ?>>
-                                                                            <option value="Aprobada">Aprobada</option>
-                                                                            <option value="Aprobada con Observaciones">Aprobada con Observaciones</option>
-                                                                            <option value="No Aprobada">No Aprobada</option>    
-                                                                            <option value="En ejecución">En ejecución</option>  
-                                                                            <option value="Inactiva">Inactiva</option>
-                                                                        </select> 
-
+                                                                    <div class="col-lg-3">
+                                                                        <div class="form-group">
+                                                                            <label class="control-label">Fecha de finalizacion:</label>
+                                                                        </div>
                                                                     </div>
-                                                                </div>  
-                                                            </div>
-                                                            <div class="row"> 
-                                                                <div class="col-lg-2 col-lg-offset-9">
-                                                                    <div class="form-group">
-                                                                        <?php if ($usuarioPermisos->getEncargadotfg()) { ?> 
-                                                                            <input id="BE2" estado="estado2" etapa="2" type="button" class="btn btn-primary" value="Guardar Estado">
-                                                                        <?php } ?>
+
+                                                                    <div class="col-lg-6">
+                                                                        <div class="form-group" id="">
+                                                                            <div class="input-group date">
+                                                                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input <?php
+                                                                            if (!$usuarioPermisos->getEncargadotfg()) {
+                                                                                echo "disabled"
+                                                                                ?> <?php } ?>
+                                                                                    type="text" id="FTFG2" class="form-control" value="<?php echo substr($fecha2, 0, 11) ?>">
+                                                                            </div>
+                                                                        </div>
                                                                     </div>
+                                                                    <?php if ($usuarioPermisos->getEncargadotfg()) { ?>
+                                                                        <div class="col-lg-4 col-lg-offset-1">
+                                                                            <div class="form-group">
+                                                                                <input id="BFTFG2" estado="FTFG2" type="button" etapa="2" class="btn btn-primary" value="Guardar Fecha">
+                                                                            </div>
+                                                                        </div>
+                                                                    <?php } ?>
+
                                                                 </div>
                                                             </div>
                                                             <!-- fin estado -->
@@ -1316,42 +1371,73 @@ and open the template in the editor.
                                                             <!-- fin comentarios -->
                                                             <!-- Estado  -->
                                                             <div class="row">
-                                                                <div class="col-lg-2 col-lg-offset-7">
-                                                                    <div class="form-group">
-                                                                        <label class="control-label">Estado de Etapa:</label>
+                                                                <div class="col-lg-5 col-lg-offset-1">  
+                                                                    <div class="col-lg-4">
+                                                                        <div class="form-group">
+                                                                            <label class="control-label">Estado de Etapa:</label>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-lg-5">
+                                                                        <div class="form-group">
+
+
+
+                                                                            <select id="estado3" class="form-control m-b" name="account" onchange="pintandoPanels()" <?php
+                                                                                    if (!$usuarioPermisos->getEncargadotfg()) {
+                                                                                        echo "disabled"
+                                                                                        ?> <?php } ?>>
+
+                                                                                <option value="Aprobada">Aprobada</option>
+                                                                                <option value="Aprobada con Observaciones">Aprobada con Observaciones</option>
+                                                                                <option value="No Aprobada">No Aprobada</option>    
+                                                                                <option value="En ejecución">En ejecución</option>  
+                                                                                <option value="Inactiva">Inactiva</option>
+                                                                            </select> 
+
+                                                                        </div>
+                                                                    </div>  
+
+                                                                    <div class="col-lg-4">
+                                                                        <div class="form-group">
+
+                                                                            <?php if ($usuarioPermisos->getEncargadotfg()) { ?> 
+                                                                                <input id="BE3" estado="estado3" etapa="3" type="button" class="btn btn-primary" value="Guardar Estado">
+                                                                            <?php } ?>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-lg-2">
-                                                                    <div class="form-group">
+                                                                <div class="col-lg-5 col-lg-offset-1">
 
 
-
-                                                                        <select id="estado3" class="form-control m-b" name="account" onchange="pintandoPanels()" <?php
-                                                                        if (!$usuarioPermisos->getEncargadotfg()) {
-                                                                            echo "disabled"
-                                                                            ?> <?php } ?>>
-
-                                                                            <option value="Aprobada">Aprobada</option>
-                                                                            <option value="Aprobada con Observaciones">Aprobada con Observaciones</option>
-                                                                            <option value="No Aprobada">No Aprobada</option>    
-                                                                            <option value="En ejecución">En ejecución</option>  
-                                                                            <option value="Inactiva">Inactiva</option>
-                                                                        </select> 
-
+                                                                    <div class="col-lg-3">
+                                                                        <div class="form-group">
+                                                                            <label class="control-label">Fecha de finalizacion:</label>
+                                                                        </div>
                                                                     </div>
-                                                                </div>  
-                                                            </div>
-                                                            <div class="row"> 
-                                                                <div class="col-lg-2 col-lg-offset-9">
-                                                                    <div class="form-group">
 
-                                                                        <?php if ($usuarioPermisos->getEncargadotfg()) { ?> 
-                                                                            <input id="BE3" estado="estado3" etapa="3" type="button" class="btn btn-primary" value="Guardar Estado">
-                                                                        <?php } ?>
+                                                                    <div class="col-lg-6">
+                                                                        <div class="form-group" id="">
+                                                                            <div class="input-group date">
+                                                                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input <?php
+                                                                            if (!$usuarioPermisos->getEncargadotfg()) {
+                                                                                echo "disabled"
+                                                                                ?> <?php } ?>
+                                                                                    type="text" id="FTFG3" class="form-control" value="<?php echo substr($fecha3, 0, 11) ?>">
+                                                                            </div>
+                                                                        </div>
                                                                     </div>
+                                                                    <?php if ($usuarioPermisos->getEncargadotfg()) { ?>
+                                                                        <div class="col-lg-4 col-lg-offset-1">
+                                                                            <div class="form-group">
+                                                                                <input id="BFTFG3" estado="FTFG3" type="button" etapa="3" class="btn btn-primary" value="Guardar Fecha">
+                                                                            </div>
+                                                                        </div>
+                                                                    <?php } ?>
+
                                                                 </div>
                                                             </div>
                                                             <!-- fin estado -->
+
                                                         </div>
                                                     </div>
                                                 </div>
@@ -1363,433 +1449,487 @@ and open the template in the editor.
 
 
                                     <!-- estado final -->
-                                    <div class="row">
-                                        <div class="col-lg-5 col-lg-offset-1">
-                                            <div class="col-lg-4">
-                                                <div class="form-group">
-                                                    <label class="control-label">Estado del TFG:</label>
-                                                </div>
-                                            </div>
+                                    <div class="wrapper wrapper-content animated fadeIn">
+                                        <div class="col-lg-12">
+                                            <div class="ibox collapsed">
+                                                <div id="" class="ibox-title panel-success">
+                                                    <br>
+                                                    <div class="row">
+                                                        <div class="col-lg-5 col-lg-offset-1">
+                                                            <div class="col-lg-4">
+                                                                <div class="form-group">
+                                                                    <label class="control-label">Estado del TFG:</label>
+                                                                </div>
+                                                            </div>
 
 
-                                            <div class="col-lg-4">
-                                                <div class="form-group">
-                                                    <select id="estadotfg" class="form-control m-b" name="estadotfg" <?php
-                                                    if (!$usuarioPermisos->getEncargadotfg()) {
-                                                        echo "disabled"
-                                                        ?> <?php } ?>>
-                                                        <option>Activo</option>
-                                                        <option>Aprobado para defensa</option>
-                                                        <option>Inactivo</option>
-                                                        <option>Finalizado</option>
-                                                    </select> 
+                                                            <div class="col-lg-4">
+                                                                <div class="form-group">
+                                                                    <select id="estadotfg" class="form-control m-b" name="estadotfg" <?php
+                                                                    if (!$usuarioPermisos->getEncargadotfg()) {
+                                                                        echo "disabled"
+                                                                        ?> <?php } ?>>
+                                                                        <option>Activo</option>
+                                                                        <option>Aprobado para defensa</option>
+                                                                        <option>Inactivo</option>
+                                                                        <option>Finalizado</option>
+                                                                    </select> 
 
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-3 col-lg-offset-2">
-                                                <div class="form-group">
-                                                    <?php if ($usuarioPermisos->getEncargadotfg()) { ?> 
-                                                        <input id="BTFG" estado="estadotfg" type="button" class="btn btn-primary" value="Guardar Estado">
-                                                    <?php } ?>
-                                                </div>
-                                            </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-3 col-lg-offset-2">
+                                                                <div class="form-group">
+                                                                    <?php if ($usuarioPermisos->getEncargadotfg()) { ?> 
+                                                                        <input id="BTFG" estado="estadotfg" type="button" class="btn btn-primary" value="Guardar Estado">
+                                                                    <?php } ?>
+                                                                </div>
+                                                            </div>
 
-                                        </div>
-                                        <div class="col-lg-5 col-lg-offset-1">
-                                            <div class="col-lg-3">
-                                                <div class="form-group">
-                                                    <label class="control-label">Fecha de finalizacion:</label>
-                                                </div>
-                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-5 col-lg-offset-1">
+                                                            <div class="col-lg-3">
+                                                                <div class="form-group">
+                                                                    <label class="control-label">Fecha de finalizacion:</label>
+                                                                </div>
+                                                            </div>
 
-                                            <div class="col-lg-6">
-                                                <div class="form-group" id="">
-                                                    <div class="input-group date">
-                                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input <?php
-                                                        if (!$usuarioPermisos->getEncargadotfg()) {
-                                                            echo "disabled"
-                                                            ?> <?php } ?>
-                                                            type="text" id="fecha" class="form-control" value="<?php echo substr($data['fechaFinal'], 0, 11) ?>">
+                                                            <div class="col-lg-6">
+                                                                <div class="form-group" id="">
+                                                                    <div class="input-group date">
+                                                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input <?php
+                                                                    if (!$usuarioPermisos->getEncargadotfg()) {
+                                                                        echo "disabled"
+                                                                        ?> <?php } ?>
+                                                                            type="text" id="fecha" class="form-control" value="<?php echo substr($data['fechaFinal'], 0, 11) ?>">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <?php if ($usuarioPermisos->getEncargadotfg()) { ?>
+                                                                <div class="col-lg-4 col-lg-offset-1">
+                                                                    <div class="form-group">
+                                                                        <input id="FTFG" estado="fechatfg" type="button" class="btn btn-primary" value="Guardar Fecha">
+                                                                    </div>
+                                                                </div>
+                                                            <?php } ?>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </div>
-                                            <?php if ($usuarioPermisos->getEncargadotfg()) { ?>
-                                                <div class="col-lg-3 col-lg-offset-2">
-                                                    <div class="form-group">
-                                                        <input id="FTFG" estado="fechatfg" type="button" class="btn btn-primary" value="Guardar Fecha">
-                                                    </div>
-                                                </div>
-                                            <?php } ?>
-                                        </div>
+
+                                                </div></div></div></div>
+
+
+
+
+                                    <!-- fin estado final -->
+                                    <!--fin adentro panel mas grande -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="footer">
+                        Universidad Nacional  &copy; 2015-2016
+                    </div>
+
+                </div>
+            </div>
+
+            <script src="js/jquery-2.1.1.js"></script>
+            <script src="js/bootstrap.min.js"></script>
+            <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
+            <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+            <script src="js/plugins/jeditable/jquery.jeditable.js"></script>
+
+            <script src="js/plugins/dataTables/datatables.min.js"></script>
+            <script src="js/plugins/metisMenu/jquery.metisMenu.js" type="text/javascript"></script>
+            <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+            <!-- Custom and plugin javascript -->
+            <script src="js/inspinia.js"></script>
+            <script src="js/plugins/pace/pace.min.js"></script>
+            <script src="js/plugins/datapicker/bootstrap-datepicker.js"></script>
+            <!-- SUMMERNOTE -->
+            <script src="js/plugins/summernote/summernote.min.js"></script>
+            <script src="js/fileUpload.js" type="text/javascript"></script>
+            <!-- Page-Level Scripts -->
+            <?php
+
+            function comentarioMiembro($cod, $eta, $conn) {
+                $consulta = "select comentario from tfgcomentarioscomision where etapa = " . $eta . " and tfg ='$cod'";
+                $query = mysqli_query($conn, $consulta);
+                $data = mysqli_fetch_assoc($query);
+                echo " " . $data["comentario"] . " ";
+            }
+
+            function comentarioAsesor($cod, $eta, $ide, $conn) {
+                $consulta = "select comentario from tfgcomentariosasesores where etapa = $eta and tfg ='$cod' and asesor = $ide";
+                $query = mysqli_query($conn, $consulta);
+                $data = mysqli_fetch_assoc($query);
+                echo " " . $data["comentario"] . " ";
+            }
+
+            function etapas($cod, $conn) {
+                $consulta = "select numero,estado,fechaAprobacion from tfgetapas where tfg ='$cod'";
+                $query = mysqli_query($conn, $consulta);
+                while ($data = mysqli_fetch_assoc($query)) {
+                    $etapas = "etapa" . $data["numero"];
+                    $fechas = "fecha" . $data["numero"];
+                    global $$etapas;
+                    global $$fechas;
+                    $$etapas = $data['estado'];
+                    $$fechas = $data['fechaAprobacion'];
+                }
+            }
+
+            function cantidadAsesores($cod, $conn) {
+
+                $cantAsesor = "select count(*) as asesores from tfg,tfgasesores,
+                               tfgasesoran where tfg.codigo = tfgasesoran.tfg and 
+                               tfgasesoran.asesor =  tfgasesores.id and tfg.codigo ='$cod' and tfgasesoran.estado = 1";
+                $query = mysqli_query($conn, $cantAsesor);
+                $data = mysqli_fetch_assoc($query);
+                global $cantAsesor;
+                $cantAsesor = $data['asesores'];
+            }
+
+            function asesores($cod, $conn) {
+                global $asesoresCorreos;
+                $asesoresCorreos = array();
+                $consulta = "select tfgasesores.id, tfgasesores.correo from tfg,tfgasesores,"
+                        . "tfgasesoran where tfg.codigo = tfgasesoran.tfg and "
+                        . "tfgasesoran.asesor =  tfgasesores.id and tfg.codigo ='$cod' and tfgasesoran.estado = 1";
+
+                $query = mysqli_query($conn, $consulta);
+                $cont = 1;
+                while ($data = mysqli_fetch_assoc($query)) {
+                    $asesores = "asesor$cont";
+                    global $$asesores;
+                    $$asesores = $data["id"];
+                    $cont++;
+
+                    array_push($asesoresCorreos, $data["correo"]);
+                }
+            }
+
+            function verificarAsesor($usuarioId) {//valida si es asesor
+                global $asesor1;
+                global $asesor2;
+                if (isset($asesor1)) {
+                    if ($usuarioId == $asesor1) {
+                        return true;
+                    }
+                }
+                if (isset($asesor2)) {
+                    if ($usuarioId == $asesor2) {
+                        return true;
+                    }
+                }
+
+                return false;
+            }
+            ?>
+
+            <div id="mod-info" class="modal fade" aria-hidden="true" style="display: none;">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="text-center"><h3 id="titulo-modal" class="m-t-none m-b"></h3>
+                                    <div class="text-center">
+                                        <label id="texto-modal"></label>
+                                        <br>
+                                        <button class="btn btn-sm btn-primary" id="cerrar" type="button" name="cerrar" data-dismiss="modal">Cerrar</button>
+
                                     </div>
 
                                 </div>
-                                <div class="row">
-
-                                </div>
-
-                                <!-- fin estado final -->
-                                <!--fin adentro panel mas grande -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="footer">
-                    Universidad Nacional  &copy; 2015-2016
-                </div>
-
-            </div>
-        </div>
-
-        <script src="js/jquery-2.1.1.js"></script>
-        <script src="js/bootstrap.min.js"></script>
-        <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
-        <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-        <script src="js/plugins/jeditable/jquery.jeditable.js"></script>
-
-        <script src="js/plugins/dataTables/datatables.min.js"></script>
-        <script src="js/plugins/metisMenu/jquery.metisMenu.js" type="text/javascript"></script>
-        <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-        <!-- Custom and plugin javascript -->
-        <script src="js/inspinia.js"></script>
-        <script src="js/plugins/pace/pace.min.js"></script>
-        <script src="js/plugins/datapicker/bootstrap-datepicker.js"></script>
-        <!-- SUMMERNOTE -->
-        <script src="js/plugins/summernote/summernote.min.js"></script>
-        <script src="js/fileUpload.js" type="text/javascript"></script>
-        <!-- Page-Level Scripts -->
-        <?php
-
-        function comentarioMiembro($cod, $eta, $conn) {
-            $consulta = "select comentario from tfgcomentarioscomision where etapa = " . $eta . " and tfg ='$cod'";
-            $query = mysqli_query($conn, $consulta);
-            $data = mysqli_fetch_assoc($query);
-            echo " " . $data["comentario"] . " ";
-        }
-
-        function comentarioAsesor($cod, $eta, $ide, $conn) {
-            $consulta = "select comentario from tfgcomentariosasesores where etapa = $eta and tfg ='$cod' and asesor = $ide";
-            $query = mysqli_query($conn, $consulta);
-            $data = mysqli_fetch_assoc($query);
-            echo " " . $data["comentario"] . " ";
-        }
-
-        function etapas($cod, $conn) {
-            $consulta = "select numero,estado from tfgetapas where tfg ='$cod'";
-            $query = mysqli_query($conn, $consulta);
-            while ($data = mysqli_fetch_assoc($query)) {
-                $etapas = "etapa" . $data["numero"];
-                global $$etapas;
-                $$etapas = $data['estado'];
-            }
-        }
-
-        function cantidadAsesores($cod, $conn) {
-
-            $cantAsesor = "select count(*) as asesores from tfg,tfgasesores,
-                               tfgasesoran where tfg.codigo = tfgasesoran.tfg and 
-                               tfgasesoran.asesor =  tfgasesores.id and tfg.codigo ='$cod' and tfgasesoran.estado = 1";
-            $query = mysqli_query($conn, $cantAsesor);
-            $data = mysqli_fetch_assoc($query);
-            global $cantAsesor;
-            $cantAsesor = $data['asesores'];
-        }
-
-        function asesores($cod, $conn) {
-            global $asesoresCorreos;
-            $asesoresCorreos = array();
-            $consulta = "select tfgasesores.id, tfgasesores.correo from tfg,tfgasesores,"
-                    . "tfgasesoran where tfg.codigo = tfgasesoran.tfg and "
-                    . "tfgasesoran.asesor =  tfgasesores.id and tfg.codigo ='$cod' and tfgasesoran.estado = 1";
-
-            $query = mysqli_query($conn, $consulta);
-            $cont = 1;
-            while ($data = mysqli_fetch_assoc($query)) {
-                $asesores = "asesor$cont";
-                global $$asesores;
-                $$asesores = $data["id"];
-                $cont++;
-
-                array_push($asesoresCorreos, $data["correo"]);
-            }
-        }
-
-        function verificarAsesor($usuarioId) {//valida si es asesor
-            global $asesor1;
-            global $asesor2;
-            if (isset($asesor1)) {
-                if ($usuarioId == $asesor1) {
-                    return true;
-                }
-            }
-            if (isset($asesor2)) {
-                if ($usuarioId == $asesor2) {
-                    return true;
-                }
-            }
-
-            return false;
-        }
-        ?>
-
-        <div id="mod-info" class="modal fade" aria-hidden="true" style="display: none;">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="text-center"><h3 id="titulo-modal" class="m-t-none m-b"></h3>
-                                <div class="text-center">
-                                    <label id="texto-modal"></label>
-                                    <br>
-                                    <button class="btn btn-sm btn-primary" id="cerrar" type="button" name="cerrar" data-dismiss="modal">Cerrar</button>
-
-                                </div>
-
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <script>
-                                                                            String.prototype.trim = function () {
-                                                                                return this.replace(/^\s+|\s+$/g, "");
-                                                                            };
-                                                                            $(document).ready(function () {
-                                                                                $('.summernote').summernote();
-                                                                            });
-                                                                            $('#fecha').datepicker({
-                                                                                format: 'yyyy-mm-dd',
-                                                                                todayBtn: "linked",
-                                                                                keyboardNavigation: false,
-                                                                                forceParse: false,
-                                                                                calendarWeeks: true,
-                                                                                autoclose: true
-                                                                            });
-                                                                            var edit1 = function (comen) {
-                                                                                $('#' + comen + '.click1edit').summernote({focus: true});
-                                                                            };
-                                                                            var save1 = function (comen) {
-                                                                                var aHTML = $('#' + comen + '.click1edit').code(); //save HTML If you need(aHTML: array).
-                                                                                $('#' + comen + '.click1edit').destroy();
-                                                                            };
-                                                                            var edit2 = function (comen) {
-                                                                                $('#' + comen + '.click2edit').summernote({focus: true});
-                                                                            };
-                                                                            var save2 = function (comen) {
-                                                                                var aHTML = $('#' + comen + '.click2edit').code(); //save HTML If you need(aHTML: array).
-                                                                                $('#' + comen + '.click2edit').destroy();
-                                                                            };
-                                                                            var edit3 = function (comen) {
-                                                                                $('#' + comen + '.click3edit').summernote({focus: true});
-                                                                            };
-                                                                            var save3 = function (comen) {
-                                                                                var aHTML = $('#' + comen + '.click3edit').code(); //save HTML If you need(aHTML: array).
-                                                                                $('#' + comen + '.click3edit').destroy();
-                                                                            };
-                                                                            $(document).ready(function () {
-                                                                                //init de botones
-                                                                                guardarComentarioMiembro("BM11");
-                                                                                guardarComentarioAsesor("BA11");
-                                                                                guardarComentarioAsesor("BA21");
-                                                                                guardarComentarioAsesor("BA12");
-                                                                                guardarComentarioAsesor("BA13");
-                                                                                guardarComentarioAsesor("BA22");
-                                                                                guardarComentarioAsesor("BA23");
-                                                                                guardarComentarioMiembro("BM12");
-                                                                                guardarComentarioMiembro("BM13");
-                                                                                guardarEstado("BE1");
-                                                                                guardarEstado("BE2");
-                                                                                guardarEstado("BE3");
-                                                                                guardarEstadoFin("BTFG");
-                                                                                guardarFecha();
-                                                                                //init de panels y otras cosas 
-                                                                                initSelects();
-                                                                                pintandoPanels();
-                                                                                inac(1);
-                                                                                inac(2);
-                                                                                inac(3);
-                                                                                permiso = "<?php echo $usuarioPermisos->getEncargadotfg() ?>";
-                                                                                etapa(1);
-                                                                                etapa(2);
-                                                                            });
-                                                                            //sets de informacion a la base de datos
-                                                                            function guardarComentarioAsesor(btn) { // btn boton del save para asesores
-                                                                                $("#" + btn).click(function (evento) {
-                                                                                    evento.preventDefault();
-                                                                                    var cod = "<?php echo $codigo ?>";
-                                                                                    var ide = <?php echo $usuarioSesion->getId() ?>;
-                                                                                    var eta = $("#" + btn).attr("etapa");
-                                                                                    var coment = $("#" + btn).attr("comentario");
-                                                                                    var com = $("#" + coment).text();
-                                                                                    com = com.trim();
-                                                                                    $.get("funcionalidad/ComentarioAsesor.php", {comentario: com, tfg: cod, etapa: eta, id: ide}, function (data) {
-                                                                                        modal(" Se guardo el comentario con exito", data);
-                                                                                    }).fail(function (data) {
-                                                                                        modal("Ocurrio algun problema", data);
-                                                                                    });
+            <script>
+                                                                                String.prototype.trim = function () {
+                                                                                    return this.replace(/^\s+|\s+$/g, "");
+                                                                                };
+                                                                                $(document).ready(function () {
+                                                                                    $('.summernote').summernote();
                                                                                 });
-                                                                            }
-
-                                                                            function guardarComentarioMiembro(btn) {
-                                                                                $("#" + btn).click(function (evento) {
-                                                                                    evento.preventDefault();
-                                                                                    var cod = "<?php echo $codigo ?>";
-                                                                                    var ide = "<?php echo $usuarioSesion->getId() ?>";
-                                                                                    var eta = $("#" + btn).attr("etapa");
-                                                                                    var coment = $("#" + btn).attr("comentario");
-                                                                                    var com = $("#" + coment).text();
-                                                                                    com = com.trim();
-                                                                                    $.get("funcionalidad/ComentarioMiembro.php", {comentario: com, tfg: cod, etapa: eta, id: ide}, function (data) {
-                                                                                        modal(" Se guardo el comentario con exito", data);
-                                                                                    }).fail(function (data) {
-                                                                                        modal("Ocurrio algun problema", data);
-                                                                                    });
+                                                                                $('#fecha').datepicker({
+                                                                                    format: 'yyyy-mm-dd',
+                                                                                    todayBtn: "linked",
+                                                                                    keyboardNavigation: false,
+                                                                                    forceParse: false,
+                                                                                    calendarWeeks: true,
+                                                                                    autoclose: true
                                                                                 });
-                                                                            }
+                                                                                $('#FTFG1').datepicker({
+                                                                                    format: 'yyyy-mm-dd',
+                                                                                    todayBtn: "linked",
+                                                                                    keyboardNavigation: false,
+                                                                                    forceParse: false,
+                                                                                    calendarWeeks: true,
+                                                                                    autoclose: true
+                                                                                });
+                                                                                $('#FTFG2').datepicker({
+                                                                                    format: 'yyyy-mm-dd',
+                                                                                    todayBtn: "linked",
+                                                                                    keyboardNavigation: false,
+                                                                                    forceParse: false,
+                                                                                    calendarWeeks: true,
+                                                                                    autoclose: true
+                                                                                });
+                                                                                $('#FTFG3').datepicker({
+                                                                                    format: 'yyyy-mm-dd',
+                                                                                    todayBtn: "linked",
+                                                                                    keyboardNavigation: false,
+                                                                                    forceParse: false,
+                                                                                    calendarWeeks: true,
+                                                                                    autoclose: true
+                                                                                });
 
-                                                                            function guardarEstado(btn) { // btn boton de guardar la etapa 
-                                                                                $("#" + btn).click(function (evento) {
-                                                                                    evento.preventDefault();
+
+                                                                                var edit1 = function (comen) {
+                                                                                    $('#' + comen + '.click1edit').summernote({focus: true});
+                                                                                };
+                                                                                var save1 = function (comen) {
+                                                                                    var aHTML = $('#' + comen + '.click1edit').code(); //save HTML If you need(aHTML: array).
+                                                                                    $('#' + comen + '.click1edit').destroy();
+                                                                                };
+                                                                                var edit2 = function (comen) {
+                                                                                    $('#' + comen + '.click2edit').summernote({focus: true});
+                                                                                };
+                                                                                var save2 = function (comen) {
+                                                                                    var aHTML = $('#' + comen + '.click2edit').code(); //save HTML If you need(aHTML: array).
+                                                                                    $('#' + comen + '.click2edit').destroy();
+                                                                                };
+                                                                                var edit3 = function (comen) {
+                                                                                    $('#' + comen + '.click3edit').summernote({focus: true});
+                                                                                };
+                                                                                var save3 = function (comen) {
+                                                                                    var aHTML = $('#' + comen + '.click3edit').code(); //save HTML If you need(aHTML: array).
+                                                                                    $('#' + comen + '.click3edit').destroy();
+                                                                                };
+                                                                                $(document).ready(function () {
+                                                                                    //init de botones
+                                                                                    guardarComentarioMiembro("BM11");
+                                                                                    guardarComentarioAsesor("BA11");
+                                                                                    guardarComentarioAsesor("BA21");
+                                                                                    guardarComentarioAsesor("BA12");
+                                                                                    guardarComentarioAsesor("BA13");
+                                                                                    guardarComentarioAsesor("BA22");
+                                                                                    guardarComentarioAsesor("BA23");
+                                                                                    guardarComentarioMiembro("BM12");
+                                                                                    guardarComentarioMiembro("BM13");
+                                                                                    guardarFechaEstado("BFTFG1");
+                                                                                    guardarFechaEstado("BFTFG2");
+                                                                                    guardarFechaEstado("BFTFG3");
+                                                                                    guardarEstado("BE1");
+                                                                                    guardarEstado("BE2");
+                                                                                    guardarEstado("BE3");
+                                                                                    guardarEstadoFin("BTFG");
+                                                                                    guardarFecha();
+                                                                                    //init de panels y otras cosas 
+                                                                                    initSelects();
+                                                                                    pintandoPanels();
+                                                                                    inac(1);
+                                                                                    inac(2);
+                                                                                    inac(3);
+                                                                                    permiso = "<?php echo $usuarioPermisos->getEncargadotfg() ?>";
                                                                                     etapa(1);
                                                                                     etapa(2);
-                                                                                    var cod = "<?php echo $codigo ?>";
-                                                                                    var titulo = "<?php echo $data['titulo'] ?>";
-                                                                                    var dir = "<?php echo $data["correodirector"] ?>";
-                                                                                    var eta = $("#" + btn).attr("etapa");
-                                                                                    var est = $("#" + btn).attr("estado");
-                                                                                    var estad = $("#" + est).val();
-
-                                                                                    var estudiantesC = <?php echo '["' . implode('", "', $arrayEstCorreos) . '"]' ?>;
-                                                                                    var asesores = <?php echo '["' . implode('", "', $asesoresCorreos) . '"]' ?>;
-
-                                                                                    var asesoresC = {};
-                                                                                    asesoresC = JSON.stringify(asesores);
-
-                                                                                    var estC = {};
-                                                                                    estC = JSON.stringify(estudiantesC);
-
-                                                                                    $.get("funcionalidad/TFGestado.php", {estado: estad, tfg: cod, titulo: titulo, etapa: eta, estCorreos: estC, director: dir, asesores: asesoresC}, function (data) {
-                                                                                        modal(" Se guardó el estado de la etapa con éxito.", data);
-                                                                                    }).fail(function (data) {
-                                                                                        modal("Ocurrió algún problema.", data);
+                                                                                });
+                                                                                //sets de informacion a la base de datos
+                                                                                function guardarComentarioAsesor(btn) { // btn boton del save para asesores
+                                                                                    $("#" + btn).click(function (evento) {
+                                                                                        evento.preventDefault();
+                                                                                        var cod = "<?php echo $codigo ?>";
+                                                                                        var ide = <?php echo $usuarioSesion->getId() ?>;
+                                                                                        var eta = $("#" + btn).attr("etapa");
+                                                                                        var coment = $("#" + btn).attr("comentario");
+                                                                                        var com = $("#" + coment).text();
+                                                                                        com = com.trim();
+                                                                                        $.get("funcionalidad/ComentarioAsesor.php", {comentario: com, tfg: cod, etapa: eta, id: ide}, function (data) {
+                                                                                            modal(" Se guardo el comentario con exito", data);
+                                                                                        }).fail(function (data) {
+                                                                                            modal("Ocurrio algun problema", data);
+                                                                                        });
                                                                                     });
-
-                                                                                });
-                                                                            }
-
-                                                                            function guardarEstadoFin(btn) { // btn boton del guardar estado final
-                                                                                $("#" + btn).click(function (evento) {
-                                                                                    evento.preventDefault();
-                                                                                    var cod = "<?php echo $codigo ?>";
-                                                                                    var est = $("#" + btn).attr("estado");
-                                                                                    var estad = $("#" + est).val();
-                                                                                    var etapa = "Final";
-                                                                                    var titulo = "<?php echo $data['titulo'] ?>";
-                                                                                    var estudiantesC = <?php echo '["' . implode('", "', $arrayEstCorreos) . '"]' ?>;
-                                                                                    var asesores = <?php echo '["' . implode('", "', $asesoresCorreos) . '"]' ?>;
-                                                                                    var dir = "<?php echo $data["correodirector"] ?>";
-
-                                                                                    var estC = {};
-                                                                                    estC = JSON.stringify(estudiantesC);
-
-                                                                                    var asesoresC = {};
-                                                                                    asesoresC = JSON.stringify(asesores);
-
-                                                                                    $.get("funcionalidad/TFGestadoFin.php", {estado: estad, tfg: cod, titulo: titulo, etapa: etapa, director: dir, estCorreos: estC, asesores: asesoresC}, function (data) {
-                                                                                        modal(" Se guardó el estado final con éxito", data);
-                                                                                    }).fail(function (data) {
-                                                                                        modal("Ocurrió algún problema", data);
-                                                                                    });
-                                                                                });
-                                                                            }
-                                                                            function guardarFecha() {
-                                                                                $("#FTFG").click(function (evento) {
-                                                                                    evento.preventDefault();
-                                                                                    var cod = "<?php echo $codigo ?>";
-                                                                                    var fecha = $("#fecha").val();
-                                                                                    $.get("funcionalidad/TFGfecha.php", {fecha: fecha, tfg: cod}, function (data) {
-                                                                                        modal(" Se guardó la fecha con exito", data);
-                                                                                    }).fail(function (data) {
-                                                                                        modal("Ocurrió algún problema", data);
-                                                                                    });
-                                                                                });
-                                                                            }
-                                                                            function modal(titulo, msj) {
-                                                                                $('#mod-info').modal('show');
-                                                                                $("#titulo-modal").text(titulo);
-                                                                                $("#texto-modal").text(msj);
-
-                                                                            }
-
-
-                                                                            //pintar panels
-                                                                            var estados = {Aprobada: "panel-primary", AprobadaconObservaciones: "panel-warning",
-                                                                                NoAprobada: "panel-danger", Enejecución: "panel-success", Inactiva: "panel", Activo: "panel-success",
-                                                                                Aprobadaparadefensa: "panel-primary", Inactivo: "panel-danger", Finalizado: "panel-primary"};
-                                                                            var estadosant = {ant1: "<?php echo $etapa1 ?>", ant2: "<?php echo $etapa2 ?>", ant3: "<?php echo $etapa3 ?>", ant4: "<?php echo $data["estado"] ?>"};
-                                                                            function pintando(estado, panel, estadoan, n) {
-                                                                                estado = estado.replace(/\s/g, "");
-                                                                                estadoan = estado.replace(/\s/g, "");
-                                                                                $("#" + panel).removeClass(estados[estadosant["ant" + n]] + "").addClass(estados[estado]);
-                                                                                //elimino el color anterior y inserto la clase del nuevo
-                                                                                estadosant["ant" + n] = estado;
-                                                                            }
-                                                                            function pintandoPanels() {
-                                                                                pintando($("#estado1").val(), "panelEstado1", estadosant["ant1"], 1);
-                                                                                pintando($("#estado2").val(), "panelEstado2", estadosant["ant2"], 2);
-                                                                                pintando($("#estado3").val(), "panelEstado3", estadosant["ant3"], 3);
-                                                                                pintando($("#estadotfg").val(), "panelEstadoFinal", estadosant["ant4"], 4);
-                                                                            }
-                                                                            function initSelects() {
-                                                                                // alert("<?php echo $etapa1 ?>");
-                                                                                $("#estado1").val("<?php echo $etapa1 ?>");
-                                                                                $("#estado2").val("<?php echo $etapa2 ?>");
-                                                                                $("#estado3").val("<?php echo $etapa3 ?>");
-                                                                                $("#estadotfg").val("<?php echo $data["estado"] ?>");
-                                                                            }
-                                                                            //metodo para que el usuario no pueda marcar la opcion de inactivo en una etapa
-                                                                            function inac(etapa) {
-                                                                                //alert(etapa);
-                                                                                $("#estado" + etapa).focus(function () {
-                                                                                    $("#estado" + etapa + " option[value='Inactiva']").remove();
-                                                                                });
-                                                                                $("#estado" + etapa).focus();
-                                                                                $("#estado" + etapa).focusout(function () {
-                                                                                    $("#estado" + etapa).append("<option value='Inactiva'>Inactiva</option>");
-
-                                                                                });
-                                                                            }
-                                                                            //metodo para habilitar/deshabilitar la siguiente etapa 
-
-                                                                            var permiso;
-                                                                            function etapa(etapa) {
-                                                                                
-                                                                                var estado = $("#estado" + etapa).val();
-                                                                                var etapasig = etapa + 1;
-
-                                                                                if (estado === "Aprobada" || estado === "Aprobada con Observaciones") {
-                                                                                    if (permiso === "1") {
-                                                                                        $("#estado" + etapasig).prop('disabled', false);
-                                                                                        $("#BE" + etapasig).prop('disabled', false);
-                                                                                    }
-                                                                                    $("#panelEstado" + etapasig + " .permiso").prop('disabled', false);
-
-                                                                                } else {
-                                                                                    if (permiso === "1") {
-                                                                                        $("#estado" + etapasig).prop('disabled', true);
-                                                                                        $("#BE" + etapasig).prop('disabled', true);
-                                                                                    }
-                                                                                    $("#panelEstado" + etapasig + " .permiso").prop('disabled', true);
                                                                                 }
-                                                                            }
+
+                                                                                function guardarComentarioMiembro(btn) {
+                                                                                    $("#" + btn).click(function (evento) {
+                                                                                        evento.preventDefault();
+                                                                                        var cod = "<?php echo $codigo ?>";
+                                                                                        var ide = "<?php echo $usuarioSesion->getId() ?>";
+                                                                                        var eta = $("#" + btn).attr("etapa");
+                                                                                        var coment = $("#" + btn).attr("comentario");
+                                                                                        var com = $("#" + coment).text();
+                                                                                        com = com.trim();
+                                                                                        $.get("funcionalidad/ComentarioMiembro.php", {comentario: com, tfg: cod, etapa: eta, id: ide}, function (data) {
+                                                                                            modal(" Se guardo el comentario con exito", data);
+                                                                                        }).fail(function (data) {
+                                                                                            modal("Ocurrio algun problema", data);
+                                                                                        });
+                                                                                    });
+                                                                                }
+
+                                                                                function guardarEstado(btn) { // btn boton de guardar la etapa 
+                                                                                    $("#" + btn).click(function (evento) {
+                                                                                        evento.preventDefault();
+                                                                                        etapa(1);
+                                                                                        etapa(2);
+                                                                                        var cod = "<?php echo $codigo ?>";
+                                                                                        var titulo = "<?php echo $data['titulo'] ?>";
+                                                                                        var dir = "<?php echo $data["correodirector"] ?>";
+                                                                                        var eta = $("#" + btn).attr("etapa");
+                                                                                        var est = $("#" + btn).attr("estado");
+                                                                                        var estad = $("#" + est).val();
+
+                                                                                        var estudiantesC = <?php echo '["' . implode('", "', $arrayEstCorreos) . '"]' ?>;
+                                                                                        var asesores = <?php echo '["' . implode('", "', $asesoresCorreos) . '"]' ?>;
+
+                                                                                        var asesoresC = {};
+                                                                                        asesoresC = JSON.stringify(asesores);
+
+                                                                                        var estC = {};
+                                                                                        estC = JSON.stringify(estudiantesC);
+
+                                                                                        $.get("funcionalidad/TFGestado.php", {estado: estad, tfg: cod, titulo: titulo, etapa: eta, estCorreos: estC, director: dir, asesores: asesoresC}, function (data) {
+                                                                                            modal(" Se guardó el estado de la etapa con éxito.", data);
+                                                                                        }).fail(function (data) {
+                                                                                            modal("Ocurrió algún problema.", data);
+                                                                                        });
+
+                                                                                    });
+                                                                                }
+
+                                                                                function guardarEstadoFin(btn) { // btn boton del guardar estado final
+                                                                                    $("#" + btn).click(function (evento) {
+                                                                                        evento.preventDefault();
+                                                                                        var cod = "<?php echo $codigo ?>";
+                                                                                        var est = $("#" + btn).attr("estado");
+                                                                                        var estad = $("#" + est).val();
+                                                                                        var etapa = "Final";
+                                                                                        var titulo = "<?php echo $data['titulo'] ?>";
+                                                                                        var estudiantesC = <?php echo '["' . implode('", "', $arrayEstCorreos) . '"]' ?>;
+                                                                                        var asesores = <?php echo '["' . implode('", "', $asesoresCorreos) . '"]' ?>;
+                                                                                        var dir = "<?php echo $data["correodirector"] ?>";
+
+                                                                                        var estC = {};
+                                                                                        estC = JSON.stringify(estudiantesC);
+
+                                                                                        var asesoresC = {};
+                                                                                        asesoresC = JSON.stringify(asesores);
+
+                                                                                        $.get("funcionalidad/TFGestadoFin.php", {estado: estad, tfg: cod, titulo: titulo, etapa: etapa, director: dir, estCorreos: estC, asesores: asesoresC}, function (data) {
+                                                                                            modal(" Se guardó el estado final con exito", data);
+                                                                                        }).fail(function (data) {
+                                                                                            modal("Ocurrió algún problema", data);
+                                                                                        });
+                                                                                    });
+                                                                                }
+                                                                                function guardarFecha() {
+                                                                                    $("#FTFG").click(function (evento) {
+                                                                                        evento.preventDefault();
+                                                                                        var cod = "<?php echo $codigo ?>";
+                                                                                        var fecha = $("#fecha").val();
+                                                                                        $.get("funcionalidad/TFGfecha.php", {fecha: fecha, tfg: cod}, function (data) {
+                                                                                            modal(" Se guardó la fecha con exito", data);
+                                                                                        }).fail(function (data) {
+                                                                                            modal("Ocurrió algún problema", data);
+                                                                                        });
+                                                                                    });
+                                                                                }
+                                                                                function guardarFechaEstado(btn) {
+                                                                                    $("#" + btn).click(function (evento) {
+                                                                                        evento.preventDefault();
+                                                                                        var cod = "<?php echo $codigo ?>";
+                                                                                        var fech = $("#" + btn).attr("estado");
+                                                                                        var fecha = $("#" + fech).val();
+                                                                                        var eta = $("#" + btn).attr("etapa");
+                                                                                        $.get("funcionalidad/TFGfecha.php", {fecha: fecha, tfg: cod, etapa: eta, fechaetapa: 1}, function (data) {
+                                                                                            modal(" Se guardó la fecha con exito", data);
+                                                                                        }).fail(function (data) {
+                                                                                            modal("Ocurrió algún problema", data);
+                                                                                        });
+                                                                                    });
+                                                                                }
+
+                                                                                function modal(titulo, msj) {
+                                                                                    $('#mod-info').modal('show');
+                                                                                    $("#titulo-modal").text(titulo);
+                                                                                    $("#texto-modal").text(msj);
+
+                                                                                }
+
+
+                                                                                //pintar panels
+                                                                                var estados = {Aprobada: "panel-primary", AprobadaconObservaciones: "panel-warning",
+                                                                                    NoAprobada: "panel-danger", Enejecución: "panel-success", Inactiva: "panel", Activo: "panel-success",
+                                                                                    Aprobadaparadefensa: "panel-primary", Inactivo: "panel-danger", Finalizado: "panel-primary"};
+                                                                                var estadosant = {ant1: "<?php echo $etapa1 ?>", ant2: "<?php echo $etapa2 ?>", ant3: "<?php echo $etapa3 ?>", ant4: "<?php echo $data["estado"] ?>"};
+                                                                                function pintando(estado, panel, estadoan, n) {
+                                                                                    estado = estado.replace(/\s/g, "");
+                                                                                    estadoan = estado.replace(/\s/g, "");
+                                                                                    $("#" + panel).removeClass(estados[estadosant["ant" + n]] + "").addClass(estados[estado]);
+                                                                                    //elimino el color anterior y inserto la clase del nuevo
+                                                                                    estadosant["ant" + n] = estado;
+                                                                                }
+                                                                                function pintandoPanels() {
+                                                                                    pintando($("#estado1").val(), "panelEstado1", estadosant["ant1"], 1);
+                                                                                    pintando($("#estado2").val(), "panelEstado2", estadosant["ant2"], 2);
+                                                                                    pintando($("#estado3").val(), "panelEstado3", estadosant["ant3"], 3);
+                                                                                    pintando($("#estadotfg").val(), "panelEstadoFinal", estadosant["ant4"], 4);
+                                                                                }
+                                                                                function initSelects() {
+                                                                                    // alert("<?php echo $etapa1 ?>");
+                                                                                    $("#estado1").val("<?php echo $etapa1 ?>");
+                                                                                    $("#estado2").val("<?php echo $etapa2 ?>");
+                                                                                    $("#estado3").val("<?php echo $etapa3 ?>");
+                                                                                    $("#estadotfg").val("<?php echo $data["estado"] ?>");
+                                                                                }
+
+
+                                                                                //metodo para que el usuario no pueda marcar la opcion de inactivo en una etapa
+                                                                                function inac(etapa) {
+                                                                                    //alert(etapa);
+                                                                                    $("#estado" + etapa).focus(function () {
+                                                                                        $("#estado" + etapa + " option[value='Inactiva']").remove();
+                                                                                    });
+                                                                                    $("#estado" + etapa).focus();
+                                                                                    $("#estado" + etapa).focusout(function () {
+                                                                                        $("#estado" + etapa).append("<option value='Inactiva'>Inactiva</option>");
+
+                                                                                    });
+                                                                                }
+                                                                                //metodo para habilitar/deshabilitar la siguiente etapa 
+
+                                                                                var permiso;
+                                                                                function etapa(etapa) {
+
+                                                                                    var estado = $("#estado" + etapa).val();
+                                                                                    var etapasig = etapa + 1;
+
+                                                                                    if (estado === "Aprobada" || estado === "Aprobada con Observaciones") {
+                                                                                        if (permiso === "1") {
+                                                                                            $("#estado" + etapasig).prop('disabled', false);
+                                                                                            $("#BE" + etapasig).prop('disabled', false);
+                                                                                        }
+                                                                                        $("#panelEstado" + etapasig + " .permiso").prop('disabled', false);
+
+                                                                                    } else {
+                                                                                        if (permiso === "1") {
+                                                                                            $("#estado" + etapasig).prop('disabled', true);
+                                                                                            $("#BE" + etapasig).prop('disabled', true);
+                                                                                        }
+                                                                                        $("#panelEstado" + etapasig + " .permiso").prop('disabled', true);
+                                                                                    }
+                                                                                }
 
 
 
 
-        </script>    
+            </script>    
 
 
     </body>
