@@ -1,13 +1,29 @@
 <?php
+
 session_start();
+if (isset($_REQUEST["fechaetapa"])) {
+    $etapa = $_REQUEST["etapa"];
+    $tfg = $_REQUEST["tfg"];
+    $fecha = $_REQUEST["fecha"];
+    
+    $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
 
-$tfg = $_REQUEST["tfg"];
-$fecha = $_REQUEST["fecha"];
+    if ($connection) {
+        $consulta = "UPDATE uned_db.tfgetapas SET fechaAprobacion='$fecha' WHERE numero='$etapa' and tfg ='$tfg'";
+        $query = mysqli_query($connection, $consulta);
+        mysqli_close($connection);
+    }
+    
+} else {
+    
+    $tfg = $_REQUEST["tfg"];
+    $fecha = $_REQUEST["fecha"];
 
-$connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
+    $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
 
-if ($connection) {
-    $consulta = "update uned_db.tfg set fechaFinal ='$fecha' where codigo = '$tfg'";
-    $query = mysqli_query($connection, $consulta);
-    mysqli_close($connection);
+    if ($connection) {
+        $consulta = "update uned_db.tfg set fechaFinal ='$fecha' where codigo = '$tfg'";
+        $query = mysqli_query($connection, $consulta);
+        mysqli_close($connection);
+    }
 }

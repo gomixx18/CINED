@@ -1,13 +1,29 @@
 <?php
+
 session_start();
 
-$ie = $_REQUEST["ie"];
-$fecha = $_REQUEST["fecha"];
+if (isset($_REQUEST["fechaetapa"])) {
+    $etapa = $_REQUEST["etapa"];
+    $ie = $_REQUEST["ie"];
+    $fecha = $_REQUEST["fecha"];
 
-$connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
+    $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
 
-if ($connection) {
-    $consulta = "update uned_db.ieproyectos set fechaFinal ='$fecha' where codigo = '$ie'";
-    $query = mysqli_query($connection, $consulta);
-    mysqli_close($connection);
+    if ($connection) {
+        $consulta = "UPDATE uned_db.ieetapas SET fechaAprobacion='$fecha' WHERE numero='$etapa' and proyecto ='$ie'";
+        $query = mysqli_query($connection, $consulta);
+        mysqli_close($connection);
+    }
+    echo "lala";
+} else {
+    $ie = $_REQUEST["ie"];
+    $fecha = $_REQUEST["fecha"];
+
+    $connection = mysqli_connect("localhost", "root", "cined123", "uned_db");
+
+    if ($connection) {
+        $consulta = "update uned_db.ieproyectos set fechaFinal ='$fecha' where codigo = '$ie'";
+        $query = mysqli_query($connection, $consulta);
+        mysqli_close($connection);
+    }
 }
