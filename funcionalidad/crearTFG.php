@@ -76,12 +76,20 @@ if ($connection) {
     }
 
     //crear etapas probar                       
-    $sqlEtapas1 = "INSERT INTO tfgetapas (numero, estado, tfg) VALUES (1, 'En ejecución', '" . $codigo . "')";
+    $nuevafecha= strtotime ( '+5 week' , strtotime ( $fechaInicio) ) ;
+    $nuevafecha= date ( 'Y-m-d' , $nuevafecha );
+    $sqlEtapas1 = "INSERT INTO tfgetapas (numero, estado, tfg, fechaEntrega) VALUES (1, 'En ejecución', '" . $codigo . "', '". $nuevafecha ."')";
     $resultadoEtapas1 = mysqli_query($connection, $sqlEtapas1);
-    $sqlEtapas2 = "INSERT INTO tfgetapas (numero, estado, tfg) VALUES (2, 'Inactiva', '" . $codigo . "')";
+    $nuevafecha= strtotime ( '+14 week' , strtotime ( $nuevafecha) ) ;
+    $nuevafecha= date ( 'Y-m-d' , $nuevafecha );
+    $sqlEtapas2 = "INSERT INTO tfgetapas (numero, estado, tfg, fechaEntrega) VALUES (2, 'Inactiva', '" . $codigo . "', '". $nuevafecha ."')";
     $resultadoEtapas2 = mysqli_query($connection, $sqlEtapas2);
-    $sqlEtapas3 = "INSERT INTO tfgetapas (numero, estado, tfg) VALUES (3, 'Inactiva', '" . $codigo . "')";
+    $nuevafecha= strtotime ( '+20 week' , strtotime ( $nuevafecha) ) ;
+    $nuevafecha= date ( 'Y-m-d' , $nuevafecha );
+    $sqlEtapas3 = "INSERT INTO tfgetapas (numero, estado, tfg, fechaEntrega) VALUES (3, 'Inactiva', '" . $codigo . "', '". $nuevafecha ."')";
     $resultadoEtapas3 = mysqli_query($connection, $sqlEtapas3);
+	
+	
     //enviar correo a usuarios asociados
     $infoTFG = array();
     array_push($infoTFG, $titulo);

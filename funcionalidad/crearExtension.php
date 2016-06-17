@@ -78,11 +78,17 @@ if ($connection) {
     }
     
     //crear etapas probar                       
-    $sqlEtapas1 = "INSERT INTO ieetapas (numero, estado, proyecto) VALUES (1, 'En ejecución', '".$codigo."')";
+    $nuevafecha= strtotime ( '+5 week' , strtotime ( $fechaInicio) ) ;
+    $nuevafecha= date ( 'Y-m-d' , $nuevafecha );
+    $sqlEtapas1 = "INSERT INTO ieetapas (numero, estado, proyecto, fechaEntrega) VALUES (1, 'En ejecución', '".$codigo. "', '". $nuevafecha ."')";
     $resultadoEtapas1 = mysqli_query($connection, $sqlEtapas1);
-    $sqlEtapas2 = "INSERT INTO ieetapas (numero, estado, proyecto) VALUES (2, 'Inactiva', '".$codigo."')";
+    $nuevafecha= strtotime ( '+14 week' , strtotime ( $nuevafecha) ) ;
+    $nuevafecha= date ( 'Y-m-d' , $nuevafecha );
+    $sqlEtapas2 = "INSERT INTO ieetapas (numero, estado, proyecto, fechaEntrega) VALUES (2, 'Inactiva', '".$codigo. "', '". $nuevafecha ."')";
     $resultadoEtapas2 = mysqli_query($connection, $sqlEtapas2);
-    $sqlEtapas3 = "INSERT INTO ieetapas (numero, estado, proyecto) VALUES (3, 'Inactiva', '".$codigo."')";
+    $nuevafecha= strtotime ( '+20 week' , strtotime ( $nuevafecha) ) ;
+    $nuevafecha= date ( 'Y-m-d' , $nuevafecha );
+    $sqlEtapas3 = "INSERT INTO ieetapas (numero, estado, proyecto, fechaEntrega) VALUES (3, 'Inactiva', '".$codigo. "', '". $nuevafecha ."')";
     $resultadoEtapas3 = mysqli_query($connection, $sqlEtapas3);
     
     $infoExt = array();
