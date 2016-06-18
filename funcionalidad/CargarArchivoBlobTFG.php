@@ -5,6 +5,7 @@ include '../clases/UsuarioPermisos.php';
 include '../clases/UsuarioInvestigadorSimple.php';
 include '../clases/UsuarioInvestigadorComplejo.php';
 require_once '..\WindowsAzure\WindowsAzure.php';
+require 'email.php';
 use WindowsAzure\Common\ServicesBuilder;
 use WindowsAzure\Common\ServiceException;
 
@@ -15,6 +16,7 @@ $usuario = $_SESSION['user']->getId();
 $codigo = $_POST['codigoTFG'];
 $etapa = $_POST['etapa'];
 $tipo = $_POST['tipo'];
+$titulo = $_POST['titulo'];
 $arrayCorreos = array();
 
 if(isset($_FILES['archivo']['name'])){
@@ -141,39 +143,32 @@ try {
             while ($data6 = mysqli_fetch_assoc($resultadoMiembros)) {
                 array_push($arrayCorreos, $data6["correo"]);
             }
+           
             
-                        
-            //quita esto y descomenta lo que esta abajo los echos aqui ya consigue todos los correos entonces nada mas 
-            //es llamar el metodo para enviarlos
-            foreach ($arrayCorreos as $value) {
-                echo $value;
-            }
+            $info = array();
+            array_push($info, $titulo, $etapa);
+            alarmaArchivoTFG($info, $arrayCorreos);
             
         
-//    echo '<html>';
-//
-//    echo '<head>';
-//    echo '<title></title>';
-//
-//    echo '</head>';
-//
-//    echo '<body onload="enviar()" hidden>';
-//        echo '<script language="JavaScript">';
-//        echo 'function enviar(){';
-//        echo 'document.form.submit();';
-//        echo '}';
-//        echo '</script>';
-//        echo '<form id="form" name="form" method="POST" action="../consulta_TFG.php" >';
-//        echo '<input type="text" value="' . $codigo . '" name="codigo" />';
-//        echo '<input type="text" value="1" name="exito"';
-//        echo '</form>';
-//
-//
-//        echo '</body>';
-//
-//        echo '</html>';
+    echo '<html>';
+    echo '<head>';
+    echo '<title></title>';
+    echo '</head>';
 
+    echo '<body onload="enviar()" hidden>';
+        echo '<script language="JavaScript">';
+        echo 'function enviar(){';
+        echo 'document.form.submit();';
+        echo '}';
+        echo '</script>';
+        echo '<form id="form" name="form" method="POST" action="../consulta_TFG.php" >';
+        echo '<input type="text" value="' . $codigo . '" name="codigo" />';
+        echo '<input type="text" value="1" name="exito"';
+        echo '</form>';
+        echo '</body>';
+        echo '</html>';
         exit();
+        
     }else{
    
     $_SESSION["error"] = "¡Error al Cargar el archivo! Error Insert BD";

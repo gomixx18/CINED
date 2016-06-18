@@ -5,6 +5,7 @@ include '../clases/UsuarioPermisos.php';
 include '../clases/UsuarioInvestigadorSimple.php';
 include '../clases/UsuarioInvestigadorComplejo.php';
 require_once '..\WindowsAzure\WindowsAzure.php';
+require 'email.php';
 use WindowsAzure\Common\ServicesBuilder;
 use WindowsAzure\Common\ServiceException;
 
@@ -15,6 +16,7 @@ $usuario = $_SESSION['user']->getId();
 $codigo = $_POST['codigoProyecto'];
 $etapa = $_POST['etapa'];
 $tipo = $_POST['tipo'];
+$titulo = $_POST['titulo'];
 $isInvestigacion = $_POST['isInvestigacion'];
 $arrayCorreosIE = array();
 
@@ -127,39 +129,39 @@ try {
                 array_push($arrayCorreosIE, $data6IE["correo"]);
             }
             
-            //quita esto y descomenta lo que esta abajo los echos aqui ya consigue todos los correos entonces nada mas 
-            //es llamar el metodo para enviarlos
-            foreach ($arrayCorreosIE as $value) {
-                echo $value.'    ';
-            }
+            $info = array();
+            array_push($info, $titulo, $etapa);
+            alarmaArchivoIE($info, $arrayCorreosIE);
+        
+            
             
             
         
         
         
         if($isInvestigacion){
-//    echo '<html>';
-//
-//    echo '<head>';
-//    echo '<title></title>';
-//
-//    echo '</head>';
-//
-//    echo '<body onload="enviar()" hidden>';
-//        echo '<script language="JavaScript">';
-//        echo 'function enviar(){';
-//        echo 'document.form.submit();';
-//        echo '}';
-//        echo '</script>';
-//        echo '<form id="form" name="form" method="POST" action="../consulta_Extension.php" >';
-//        echo '<input type="text" value="' . $codigo . '" name="codigo" />';
-//        echo '</form>';
-//
-//
-//        echo '</body>';
-//
-//        echo '</html>';
-//        exit();
+    echo '<html>';
+
+    echo '<head>';
+    echo '<title></title>';
+
+    echo '</head>';
+
+    echo '<body onload="enviar()" hidden>';
+        echo '<script language="JavaScript">';
+        echo 'function enviar(){';
+        echo 'document.form.submit();';
+        echo '}';
+        echo '</script>';
+        echo '<form id="form" name="form" method="POST" action="../consulta_Extension.php" >';
+        echo '<input type="text" value="' . $codigo . '" name="codigo" />';
+        echo '</form>';
+
+
+        echo '</body>';
+
+        echo '</html>';
+        exit();
     }
 
     }else{

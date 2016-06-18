@@ -80,6 +80,7 @@ and open the template in the editor.
                                     $query = mysqli_query($connection, $consulta);
                                     $data = mysqli_fetch_assoc($query);
                                     etapas($codigo, $connection);
+                                    $titulo = $data["titulo"];
                                     //echo $data["estado"];
                                     ?> 
 
@@ -242,6 +243,8 @@ and open the template in the editor.
                                                                                                     <input class = 'form-control' name = 'codigoTFG' id='codigoTFG' type="hidden" value='<?php echo $codigo ?>'>
                                                                                                     <input class = 'form-control' name = 'etapa' id = 'etapa' value ='1' type="hidden">   
                                                                                                     <input class = 'form-control' name = 'tipo' id = 'tipo' value ='archivoMiembroComision' type="hidden">   
+                                                                                                     <input class = 'form-control' name = 'titulo' id='titulo' type="hidden" value='<?php echo $titulo ?>'>
+                                                                                       
                                                                                                     <label>Adjuntar Documento:</label>
                                                                                                     <input accept=".docx,.doc,.pdf" type="file" name="archivo" id="archivo" onchange="uploadFile()" class ="btn btn-primary btn-outline permiso">
                                                                                                     <div hidden id="divProgress" class="progress progress-striped active">
@@ -285,6 +288,8 @@ and open the template in the editor.
                                                                                                     <input class = 'form-control' name = 'codigoTFG' id='codigoTFG' type="hidden" value='<?php echo $codigo ?>'>
                                                                                                     <input class = 'form-control' name = 'etapa' id = 'etapa' value ='1' type="hidden">   
                                                                                                     <input class = 'form-control' name = 'tipo' id = 'tipo' value ='archivoDirector' type="hidden">   
+                                                                                                    <input class = 'form-control' name = 'titulo' id='titulo' type="hidden" value='<?php echo $titulo ?>'>
+                                                                                       
                                                                                                     <label>Adjuntar Documento:</label>
                                                                                                     <input accept=".docx,.doc,.pdf" type="file" name="archivo" id="archivo" onchange="uploadFile()" class ="btn btn-primary btn-outline permiso">
                                                                                                     <div hidden id="divProgress" class="progress progress-striped active">
@@ -331,6 +336,8 @@ and open the template in the editor.
                                                                                                     <input class = 'form-control' name = 'codigoTFG' id='codigoTFG' type="hidden" value='<?php echo $codigo ?>'>
                                                                                                     <input class = 'form-control' name = 'etapa' id = 'etapa' value ='1' type="hidden">   
                                                                                                     <input class = 'form-control' name = 'tipo' id = 'tipo' value ='archivoAsesor' type="hidden">
+                                                                                                     <input class = 'form-control' name = 'titulo' id='titulo' type="hidden" value='<?php echo $titulo ?>'>
+                                                                                       
                                                                                                     <label>Adjuntar Documento:</label>
                                                                                                     <input accept=".docx,.doc,.pdf" type="file" name="archivo" id="archivo" onchange="uploadFile()" class ="btn btn-primary btn-outline permiso">
                                                                                                     <div hidden id="divProgress" class="progress progress-striped active">
@@ -377,6 +384,8 @@ and open the template in the editor.
                                                                                                         <input class = 'form-control' name = 'codigoTFG' id='codigoTFG' type="hidden" value='<?php echo $codigo ?>'>
                                                                                                         <input class = 'form-control' name = 'etapa' id = 'etapa' value ='1' type="hidden">   
                                                                                                         <input class = 'form-control' name = 'tipo' id = 'tipo' value ='archivoAsesor' type="hidden">   
+                                                                                                        <input class = 'form-control' name = 'titulo' id='titulo' type="hidden" value='<?php echo $titulo ?>'>
+                                                                                       
                                                                                                         <label>Adjuntar Documento:</label>
                                                                                                         <input accept=".docx,.doc,.pdf" type="file" name="archivo" id="archivo" onchange="uploadFile()" class ="btn btn-primary btn-outline">
                                                                                                         <div hidden id="divProgress" class="progress progress-striped active">
@@ -406,6 +415,7 @@ and open the template in the editor.
                                                                                         <input type='hidden' name='etapa' value='1'>
                                                                                         <input type='hidden' name='director' value='<?php echo $data['directorId'] ?>'>
                                                                                         <input type="hidden" name='asesor1' value="<?php echo $asesor1 ?>">
+                                                                                                    
                                                                                         <input id="input-1" type="submit"  class="btn btn-primary" value="Registro de Archivos">
                                                                                     </div>
                                                                                 </form>
@@ -560,7 +570,7 @@ and open the template in the editor.
 
                                                                     <div class="col-lg-3">
                                                                         <div class="form-group">
-                                                                            <label class="control-label">Fecha de finalizacion:</label>
+                                                                            <label class="control-label">Fecha de finalización:</label>
                                                                         </div>
                                                                     </div>
 
@@ -660,7 +670,10 @@ and open the template in the editor.
                                                                                                 <div class="form-group"> 
                                                                                                     <input class = 'form-control' name = 'codigoTFG' id='codigoTFG' type="hidden" value='<?php echo $codigo ?>'>
                                                                                                     <input class = 'form-control' name = 'etapa' id = 'etapa' value ='2' type="hidden">   
-                                                                                                    <input class = 'form-control' name = 'tipo' id = 'tipo' value ='archivoMiembroComision' type="hidden">   
+                                                                                                    <input class = 'form-control' name = 'tipo' id = 'tipo' value ='archivoMiembroComision' type="hidden">  
+                                                                                                    <input class = 'form-control' name = 'titulo' id='titulo' type="hidden" value='<?php echo $titulo ?>'>
+                                                                                                   
+                                                                                                    
                                                                                                     <label>Adjuntar Documento:</label>
                                                                                                     <input accept=".docx,.doc,.pdf" type="file" name="archivo2" id="archivo" onchange="uploadFile2()" class ="btn btn-primary btn-outline permiso">
                                                                                                     <div hidden id="divProgress2" class="progress progress-striped active">
@@ -704,6 +717,8 @@ and open the template in the editor.
                                                                                                     <input class = 'form-control' name = 'codigoTFG' id='codigoTFG' type="hidden" value='<?php echo $codigo ?>'>
                                                                                                     <input class = 'form-control' name = 'etapa' id = 'etapa' value ='2' type="hidden">   
                                                                                                     <input class = 'form-control' name = 'tipo' id = 'tipo' value ='archivoDirector' type="hidden">   
+                                                                                                     <input class = 'form-control' name = 'titulo' id='titulo' type="hidden" value='<?php echo $titulo ?>'>
+                                                                                       
                                                                                                     <label>Adjuntar Documento:</label>
                                                                                                     <input accept=".docx,.doc,.pdf" type="file" name="archivo" id="archivo2" onchange="uploadFile2()" class ="btn btn-primary btn-outline permiso">
                                                                                                     <div hidden id="divProgress2" class="progress progress-striped active">
@@ -750,6 +765,8 @@ and open the template in the editor.
                                                                                                     <input class = 'form-control' name = 'codigoTFG' id='codigoTFG' type="hidden" value='<?php echo $codigo ?>'>
                                                                                                     <input class = 'form-control' name = 'etapa' id = 'etapa' value ='2' type="hidden">   
                                                                                                     <input class = 'form-control' name = 'tipo' id = 'tipo' value ='archivoAsesor' type="hidden">
+                                                                                                     <input class = 'form-control' name = 'titulo' id='titulo' type="hidden" value='<?php echo $titulo ?>'>
+                                                                                       
                                                                                                     <label>Adjuntar Documento:</label>
                                                                                                     <input accept=".docx,.doc,.pdf" type="file" name="archivo" id="archivo2" onchange="uploadFile2()" class ="btn btn-primary btn-outline permiso">
                                                                                                     <div hidden id="divProgress2" class="progress progress-striped active">
@@ -796,6 +813,8 @@ and open the template in the editor.
                                                                                                         <input class = 'form-control' name = 'codigoTFG' id='codigoTFG' type="hidden" value='<?php echo $codigo ?>'>
                                                                                                         <input class = 'form-control' name = 'etapa' id = 'etapa' value ='2' type="hidden">   
                                                                                                         <input class = 'form-control' name = 'tipo' id = 'tipo' value ='archivoAsesor' type="hidden">   
+                                                                                                         <input class = 'form-control' name = 'titulo' id='titulo' type="hidden" value='<?php echo $titulo ?>'>
+                                                                                       
                                                                                                         <label>Adjuntar Documento:</label>
                                                                                                         <input accept=".docx,.doc,.pdf" type="file" name="archivo" id="archivo2" onchange="uploadFile2()" class ="btn btn-primary btn-outline permiso">
                                                                                                         <div hidden id="divProgress2" class="progress progress-striped active">
@@ -856,7 +875,7 @@ and open the template in the editor.
                                                                                     <div class="ibox float-e-margins">
                                                                                         <div class="ibox-title">
 
-                                                                                            <h5>Comision TFG</h5>
+                                                                                            <h5>Comisión TFG</h5>
                                                                                             <?php if ($usuarioPermisos->getMiembrocomisiontfg()) { ?>
                                                                                                 <button comentario="CM12" class="btn btn-primary btn-xs m-l-sm permiso" onclick="edit1('CM12')" type="button">Editar</button>
                                                                                                 <button id="BM12" etapa="2" comentario="CM12" class="btn btn-primary  btn-xs permiso" onclick="save1('CM12')" type="button">Guardar</button>
@@ -984,7 +1003,7 @@ and open the template in the editor.
 
                                                                     <div class="col-lg-3">
                                                                         <div class="form-group">
-                                                                            <label class="control-label">Fecha de finalizacion:</label>
+                                                                            <label class="control-label">Fecha de finalización:</label>
                                                                         </div>
                                                                     </div>
 
@@ -1082,7 +1101,9 @@ and open the template in the editor.
                                                                                                 <div class="form-group"> 
                                                                                                     <input class = 'form-control' name = 'codigoTFG' id='codigoTFG' type="hidden" value='<?php echo $codigo ?>'>
                                                                                                     <input class = 'form-control' name = 'etapa' id = 'etapa' value ='3' type="hidden">   
-                                                                                                    <input class = 'form-control' name = 'tipo' id = 'tipo' value ='archivoMiembroComision' type="hidden">   
+                                                                                                    <input class = 'form-control' name = 'tipo' id = 'tipo' value ='archivoMiembroComision' type="hidden"> 
+                                                                                                    <input class = 'form-control' name = 'titulo' id='titulo' type="hidden" value='<?php echo $titulo ?>'>
+                                                                                                   
                                                                                                     <label>Adjuntar Documento:</label>
                                                                                                     <input accept=".docx,.doc,.pdf" type="file" name="archivo" id="archivo3" onchange="uploadFile3()" class ="btn btn-primary btn-outline permiso">
                                                                                                     <div hidden id="divProgress3" class="progress progress-striped active">
@@ -1125,7 +1146,9 @@ and open the template in the editor.
                                                                                                 <div class="form-group">
                                                                                                     <input class = 'form-control' name = 'codigoTFG' id='codigoTFG' type="hidden" value='<?php echo $codigo ?>'>
                                                                                                     <input class = 'form-control' name = 'etapa' id = 'etapa' value ='3' type="hidden">   
-                                                                                                    <input class = 'form-control' name = 'tipo' id = 'tipo' value ='archivoDirector' type="hidden">   
+                                                                                                    <input class = 'form-control' name = 'tipo' id = 'tipo' value ='archivoDirector' type="hidden">  
+                                                                                                    <input class = 'form-control' name = 'titulo' id='titulo' type="hidden" value='<?php echo $titulo ?>'>
+                                                                                                   
                                                                                                     <label>Adjuntar Documento:</label>
                                                                                                     <input accept=".docx,.doc,.pdf" type="file" name="archivo" id="archivo3" onchange="uploadFile3()" class ="btn btn-primary btn-outline permiso">
                                                                                                     <div hidden id="divProgress3" class="progress progress-striped active">
@@ -1172,6 +1195,8 @@ and open the template in the editor.
                                                                                                     <input class = 'form-control' name = 'codigoTFG' id='codigoTFG' type="hidden" value='<?php echo $codigo ?>'>
                                                                                                     <input class = 'form-control' name = 'etapa' id = 'etapa' value ='3' type="hidden">   
                                                                                                     <input class = 'form-control' name = 'tipo' id = 'tipo' value ='archivoAsesor' type="hidden">
+                                                                                                    <input class = 'form-control' name = 'titulo' id='titulo' type="hidden" value='<?php echo $titulo ?>'>
+                                                                                                   
                                                                                                     <label>Adjuntar Documento:</label>
                                                                                                     <input accept=".docx,.doc,.pdf" type="file" name="archivo" id="archivo3" onchange="uploadFile()" class ="btn btn-primary btn-outline permiso">
                                                                                                     <div hidden id="divProgress3" class="progress progress-striped active">
@@ -1217,6 +1242,9 @@ and open the template in the editor.
                                                                                                         <input class = 'form-control' name = 'codigoTFG' id='codigoTFG' type="hidden" value='<?php echo $codigo ?>'>
                                                                                                         <input class = 'form-control' name = 'etapa' id = 'etapa' value ='3' type="hidden">   
                                                                                                         <input class = 'form-control' name = 'tipo' id = 'tipo' value ='archivoAsesor' type="hidden">   
+                                                                                                        <input class = 'form-control' name = 'titulo' id='titulo' type="hidden" value='<?php echo $titulo ?>'>
+                                                                                                   
+                                                                                                        
                                                                                                         <label>Adjuntar Documento:</label>
                                                                                                         <input accept=".docx,.doc,.pdf" type="file" name="archivo" id="archivo3" onchange="uploadFile3()" class ="btn btn-primary btn-outline permiso">
                                                                                                         <div hidden id="divProgress3" class="progress progress-striped active">
@@ -1260,7 +1288,7 @@ and open the template in the editor.
                                                             <div class="col-lg-12">
                                                                 <div class="ibox collapsed">
                                                                     <div class="ibox-title panel panel-success">
-                                                                        <h5>Comentrios</h5>
+                                                                        <h5>Comentarios</h5>
                                                                         <div id="collapse1" class="ibox-tools">
                                                                             <a id="col1" class="collapse-link">                                               
                                                                                 <i class="fa fa-chevron-up"></i>
@@ -1489,7 +1517,7 @@ and open the template in the editor.
                                                         <div class="col-lg-5 col-lg-offset-1">
                                                             <div class="col-lg-3">
                                                                 <div class="form-group">
-                                                                    <label class="control-label">Fecha de finalizacion:</label>
+                                                                    <label class="control-label">Fecha de finalización:</label>
                                                                 </div>
                                                             </div>
 

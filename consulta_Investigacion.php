@@ -76,6 +76,7 @@
 
                                     $query = mysqli_query($connection, $consulta);
                                     $data = mysqli_fetch_assoc($query);
+                                    $titulo = $data["titulo"];
                                     etapas($codigo, $connection);
                                     //echo $data["estado"];
                                     ?>
@@ -229,6 +230,8 @@
                                                                                                     <input class = 'form-control' name = 'etapa' id = 'etapa' value ='1' type="hidden">
                                                                                                     <input class = 'form-control' name = 'tipo' id = 'tipo' value ='archivoComiex' type="hidden">
                                                                                                     <input class = 'form-control' name = 'isInvestigacion' value= '1' type="hidden">
+                                                                                                    <input class = 'form-control' name = 'titulo' id='titulo' type="hidden" value='<?php echo $titulo ?>'>
+                                                                                       
                                                                                                     <label>Adjuntar Documento:</label>
                                                                                                     <input accept=".docx,.doc,.pdf" type="file" name="archivo" id="archivo" onchange="uploadFile()" class ="btn btn-primary btn-outline permiso">
                                                                                                     <div hidden id="divProgress" class="progress progress-striped active">
@@ -273,6 +276,8 @@
                                                                                                     <input class = 'form-control' name = 'etapa' id = 'etapa' value ='1' type="hidden">
                                                                                                     <input class = 'form-control' name = 'tipo' id = 'tipo' value ='archivoInvestigador' type="hidden">
                                                                                                     <input class = 'form-control' name = 'isInvestigacion' id = 'isInvestigacion' value= '1' type="hidden">
+                                                                                                     <input class = 'form-control' name = 'titulo' id='titulo' type="hidden" value='<?php echo $titulo ?>'>
+                                                                                       
                                                                                                     <label>Adjuntar Documento:</label>
                                                                                                     <input accept=".docx,.doc,.pdf" type="file" name="archivo" id="archivo" onchange="uploadFile()" class ="btn btn-primary btn-outline permiso">
                                                                                                     <div hidden id="divProgress" class="progress progress-striped active">
@@ -320,6 +325,8 @@
                                                                                                     <input class = 'form-control' name = 'etapa' id = 'etapa' value ='1' type="hidden">
                                                                                                     <input class = 'form-control' name = 'tipo' id = 'tipo' value ='archivoEvaluador' type="hidden">
                                                                                                     <input class = 'form-control' name = 'isInvestigacion' value= '1' type="hidden">
+                                                                                                     <input class = 'form-control' name = 'titulo' id='titulo' type="hidden" value='<?php echo $titulo ?>'>
+                                                                                       
                                                                                                     <label>Adjuntar Documento:</label>
                                                                                                     <input accept=".docx,.doc,.pdf" type="file" name="archivo" id="archivo" onchange="uploadFile()" class ="btn btn-primary btn-outline permiso">
                                                                                                     <div hidden id="divProgress" class="progress progress-striped active">
@@ -367,6 +374,8 @@
                                                                                                         <input class = 'form-control' name = 'etapa' id = 'etapa' value ='1' type="hidden">
                                                                                                         <input class = 'form-control' name = 'tipo' id = 'tipo' value ='archivoEvaluador' type="hidden">
                                                                                                         <input class = 'form-control' name = 'isInvestigacion' value= '1' type="hidden">
+                                                                                                         <input class = 'form-control' name = 'titulo' id='titulo' type="hidden" value='<?php echo $titulo ?>'>
+                                                                                       
                                                                                                         <label>Adjuntar Documento:</label>
                                                                                                         <input accept=".docx,.doc,.pdf" type="file" name="archivo" id="archivo" onchange="uploadFile()" class ="btn btn-primary btn-outline permiso">
                                                                                                         <div hidden id="divProgress" class="progress progress-striped active">
@@ -576,7 +585,7 @@
                                                                     
                                                                         <div class="col-lg-3">
                                                                             <div class="form-group">
-                                                                                <label class="control-label">Fecha de finalizacion:</label>
+                                                                                <label class="control-label">Fecha de finalización:</label>
                                                                             </div>
                                                                         </div>
 
@@ -676,6 +685,8 @@
                                                                                                     <input class = 'form-control' name = 'etapa' id = 'etapa' value ='2' type="hidden">
                                                                                                     <input class = 'form-control' name = 'tipo' id = 'tipo' value ='archivoComiex' type="hidden">
                                                                                                     <input class = 'form-control' name = 'isInvestigacion' value= '1' type="hidden">
+                                                                                                     <input class = 'form-control' name = 'titulo' id='titulo' type="hidden" value='<?php echo $titulo ?>'>
+                                                                                       
                                                                                                     <label>Adjuntar Documento:</label>
                                                                                                     <input accept=".docx,.doc,.pdf" type="file" name="archivo" id="archivo2" onchange="uploadFile2()" class ="btn btn-primary btn-outline permiso">
                                                                                                     <div hidden id="divProgress2" class="progress progress-striped active">
@@ -718,6 +729,8 @@
                                                                                                     <input class = 'form-control' name = 'etapa' id = 'etapa' value ='2' type="hidden">
                                                                                                     <input class = 'form-control' name = 'tipo' id = 'tipo' value ='archivoInvestigador' type="hidden">
                                                                                                     <input class = 'form-control' name = 'isInvestigacion' id = 'isInvestigacion' value= '2' type="hidden">
+                                                                                                     <input class = 'form-control' name = 'titulo' id='titulo' type="hidden" value='<?php echo $titulo ?>'>
+                                                                                       
                                                                                                     <label>Adjuntar Documento:</label>
                                                                                                     <input accept=".docx,.doc,.pdf" type="file" name="archivo" id="archivo2" onchange="uploadFile2()" class ="btn btn-primary btn-outline permiso">
                                                                                                     <div hidden id="divProgress2" class="progress progress-striped active">
@@ -763,6 +776,8 @@
                                                                                                     <input class = 'form-control' name = 'etapa' id = 'etapa' value ='2' type="hidden">
                                                                                                     <input class = 'form-control' name = 'tipo' id = 'tipo' value ='archivoEvaluador' type="hidden">
                                                                                                     <input class = 'form-control' name = 'isInvestigacion' value= '1' type="hidden">
+                                                                                                     <input class = 'form-control' name = 'titulo' id='titulo' type="hidden" value='<?php echo $titulo ?>'>
+                                                                                       
                                                                                                     <label>Adjuntar Documento:</label>
                                                                                                     <input accept=".docx,.doc,.pdf" type="file" name="archivo" id="archivo2" onchange="uploadFile()" class ="btn btn-primary btn-outline permiso">
                                                                                                     <div hidden id="divProgress2" class="progress progress-striped active">
@@ -808,6 +823,8 @@
                                                                                                         <input class = 'form-control' name = 'etapa' id = 'etapa' value ='2' type="hidden">
                                                                                                         <input class = 'form-control' name = 'tipo' id = 'tipo' value ='archivoEvaluador' type="hidden">
                                                                                                         <input class = 'form-control' name = 'isInvestigacion' value= '1' type="hidden">
+                                                                                                        <input class = 'form-control' name = 'titulo' id='titulo' type="hidden" value='<?php echo $titulo ?>'>
+                                                                                       
                                                                                                         <label>Adjuntar Documento:</label>
                                                                                                         <input accept=".docx,.doc,.pdf" type="file" name="archivo" id="archivo" onchange="uploadFile()" class ="btn btn-primary btn-outline permiso">
                                                                                                         <div hidden id="divProgress" class="progress progress-striped active">
@@ -1124,6 +1141,8 @@
                                                                                                     <input class = 'form-control' name = 'etapa' id = 'etapa' value ='3' type="hidden">
                                                                                                     <input class = 'form-control' name = 'tipo' id = 'tipo' value ='archivoComiex' type="hidden">
                                                                                                     <input class = 'form-control' name = 'isInvestigacion' value= '1' type="hidden">
+                                                                                                     <input class = 'form-control' name = 'titulo' id='titulo' type="hidden" value='<?php echo $titulo ?>'>
+                                                                                       
                                                                                                     <label>Adjuntar Documento:</label>
                                                                                                     <input accept=".docx,.doc,.pdf" type="file" name="archivo" id="archivo3" onchange="uploadFile3()" class ="btn btn-primary btn-outline permiso">
                                                                                                     <div hidden id="divProgress3" class="progress progress-striped active">
@@ -1168,6 +1187,8 @@
                                                                                                     <input class = 'form-control' name = 'etapa' id = 'etapa' value ='3' type="hidden">
                                                                                                     <input class = 'form-control' name = 'tipo' id = 'tipo' value ='archivoInvestigador' type="hidden">
                                                                                                     <input class = 'form-control' name = 'isInvestigacion' id = 'isInvestigacion' value= '2' type="hidden">
+                                                                                                    <input class = 'form-control' name = 'titulo' id='titulo' type="hidden" value='<?php echo $titulo ?>'>
+                                                                                       
                                                                                                     <label>Adjuntar Documento:</label>
                                                                                                     <input accept=".docx,.doc,.pdf" type="file" name="archivo" id="archivo3" onchange="uploadFile3()" class ="btn btn-primary btn-outline permiso">
                                                                                                     <div hidden id="divProgress3" class="progress progress-striped active">
@@ -1215,6 +1236,8 @@
                                                                                                     <input class = 'form-control' name = 'etapa' id = 'etapa' value ='3' type="hidden">
                                                                                                     <input class = 'form-control' name = 'tipo' id = 'tipo' value ='archivoEvaluador' type="hidden">
                                                                                                     <input class = 'form-control' name = 'isInvestigacion' value= '1' type="hidden">
+                                                                                                    <input class = 'form-control' name = 'titulo' id='titulo' type="hidden" value='<?php echo $titulo ?>'>
+                                                                                       
                                                                                                     <label>Adjuntar Documento:</label>
                                                                                                     <input accept=".docx,.doc,.pdf" type="file" name="archivo" id="archivo3" onchange="uploadFile3()" class ="btn btn-primary btn-outline permiso">
                                                                                                     <div hidden id="divProgress3" class="progress progress-striped active">
@@ -1262,6 +1285,8 @@
                                                                                                         <input class = 'form-control' name = 'etapa' id = 'etapa' value ='3' type="hidden">
                                                                                                         <input class = 'form-control' name = 'tipo' id = 'tipo' value ='archivoEvaluador' type="hidden">
                                                                                                         <input class = 'form-control' name = 'isInvestigacion' value= '1' type="hidden">
+                                                                                                        <input class = 'form-control' name = 'titulo' id='titulo' type="hidden" value='<?php echo $titulo ?>'>
+                                                                                       
                                                                                                         <label>Adjuntar Documento:</label>
                                                                                                         <input accept=".docx,.doc,.pdf" type="file" name="archivo" id="archivo3" onchange="uploadFile3()" class ="btn btn-primary btn-outline permiso">
                                                                                                         <div hidden id="divProgress3" class="progress progress-striped active">
@@ -1475,7 +1500,7 @@
                                                                     
                                                                         <div class="col-lg-3">
                                                                             <div class="form-group">
-                                                                                <label class="control-label">Fecha de finalizacion:</label>
+                                                                                <label class="control-label">Fecha de finalización:</label>
                                                                             </div>
                                                                         </div>
 

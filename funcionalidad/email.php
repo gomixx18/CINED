@@ -333,7 +333,6 @@ function alarmaIE($info, $correos) {
 }
 
 function alarmaArchivoTFG($info, $correos) {
-  
     $mail = new PHPMailer();
     $mail->IsSMTP();
     $mail->SMTPAuth = true;
@@ -362,6 +361,50 @@ function alarmaArchivoTFG($info, $correos) {
     </style></head>";
     $body .= "<h3> </h3><br />"
             . "Se le informa que se ha realizado una entrega en la etapa #" . $info[1] . " del TFG: " . $info[0] . "<br />";
+    
+    $body .= "<form action='http://cined.cloudapp.net/login.php'>
+              <input type='submit' value='Ir al sitio'>
+              </form>";
+   
+
+    $mail->Body = $body;
+  
+    for ($index = 0; $index < count($correos); $index++) {
+        $mail->AddAddress($correos[$index]);
+       
+    }
+    return $mail->send();
+}
+
+function alarmaArchivoIE($info, $correos) {
+    $mail = new PHPMailer();
+    $mail->IsSMTP();
+    $mail->SMTPAuth = true;
+    $mail->SMTPSecure = 'ssl';
+    $mail->Host = "smtp.gmail.com";
+    $mail->Port = 465;
+    $mail->IsHTML(true);
+    $mail->CharSet = "UTF-8";
+    $mail->Username = "cined.web@gmail.com";
+    $mail->Password = "cined1234";
+    $mail->SetFrom("cined.web@gmail.com");
+    $mail->WordWrap = 100;
+
+    $mail->Subject = "CINED - Notificación de Entrega";
+    $body = "<head>"
+            . "<style>"
+            . " input {
+        background-color: #00519e;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        border-radius: 4px;
+        
+    }
+    </style></head>";
+    $body .= "<h3> </h3><br />"
+            . "Se le informa que se ha realizado una entrega en la etapa #" . $info[1] . " del proyecto: " . $info[0] . "<br />";
     
     $body .= "<form action='http://cined.cloudapp.net/login.php'>
               <input type='submit' value='Ir al sitio'>
