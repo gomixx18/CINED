@@ -15,6 +15,7 @@ $usuario = $_SESSION['user']->getId();
 $codigo = $_POST['codigoTFG'];
 $etapa = $_POST['etapa'];
 $tipo = $_POST['tipo'];
+$arrayCorreos = array();
 
 if(isset($_FILES['archivo']['name'])){
   $nombre_archivo = $_FILES['archivo']['name'];
@@ -75,7 +76,7 @@ try {
     //Upload blob
     $blobRestProxy->createBlockBlob("tfg",$blob_name, $content);
     $fecha = date('Y-m-d H:i:s');
-    echo $fecha;
+    
     if ($tipo == "archivoDirector") {
         
         existeDirector($nombre_archivo, $codigo, $etapa, $usuario);
@@ -90,33 +91,87 @@ try {
        $consulta  = "INSERT INTO tfgarchivoscomision (miembrocomision, etapa, tfg, ruta, fecha, nom_archivo) VALUES ( '".$usuario."' , ".$etapa.
                  " , '".$codigo."','".$archivo_bases."' ,'".$fecha."','".$nombre_archivo."');";
     }
-   // echo $consulta;
+    
+    
+    
+    
     $resultado = mysqli_query($connection, $consulta);
     
     if($resultado){
         
-    echo '<html>';
-
-    echo '<head>';
-    echo '<title></title>';
-
-    echo '</head>';
-
-    echo '<body onload="enviar()" hidden>';
-        echo '<script language="JavaScript">';
-        echo 'function enviar(){';
-        echo 'document.form.submit();';
-        echo '}';
-        echo '</script>';
-        echo '<form id="form" name="form" method="POST" action="../consulta_TFG.php" >';
-        echo '<input type="text" value="' . $codigo . '" name="codigo" />';
-        echo '<input type="text" value="1" name="exito"';
-        echo '</form>';
-
-
-        echo '</body>';
-
-        echo '</html>';
+        
+        //SELECT DE LOS CORREOS TODOS LOS CORREOS SE GUARDAN EN ARRAYCORREOS
+        //estudiantes
+            $sentenciaEstudiantes = "select tfgestudiantes.correo from tfg, tfgestudiantes, tfgrealizan
+                                    where tfg.codigo = tfgrealizan.tfg and tfgestudiantes.id = tfgrealizan.estudiante and
+                                    tfgrealizan.estado= 1 and tfg.codigo = '". $codigo ."'";
+            $resultadoEstudiantes = mysqli_query($connection, $sentenciaEstudiantes);
+            while ($data2 = mysqli_fetch_assoc($resultadoEstudiantes)) {
+                array_push($arrayCorreos, $data2["correo"]);
+            }
+            
+            //director
+            $sentenciaDirector = "select tfgdirectores.correo from tfg, tfgdirectores 
+                                    where tfg.directortfg = tfgdirectores.id and tfg.codigo = '". $codigo ."'";
+            $resultadoDirector = mysqli_query($connection, $sentenciaDirector);
+            $data3 = mysqli_fetch_assoc($resultadoDirector);
+            array_push($arrayCorreos, $data3["correo"]);
+            
+            //encargado
+            $sentenciaEncargado = "select tfgencargados.correo from tfg, tfgencargados 
+                                    where tfg.encargadotfg = tfgencargados.id and tfg.codigo = '". $codigo ."'";
+            $resultadoEncargado = mysqli_query($connection, $sentenciaEncargado);
+            $data4 = mysqli_fetch_assoc($resultadoEncargado);
+            array_push($arrayCorreos, $data4["correo"]);
+            
+            //asesores
+            $sentenciaAsesores = "select tfgasesores.correo from tfg, tfgasesores, tfgasesoran
+                                where tfg.codigo = tfgasesoran.tfg and tfgasesores.id = tfgasesoran.asesor and
+                                tfgasesoran.estado= 1 and tfg.codigo = '". $codigo ."'";
+            $resultadoAsesores = mysqli_query($connection, $sentenciaAsesores);
+            while ($data5 = mysqli_fetch_assoc($resultadoAsesores)) {
+                array_push($arrayCorreos, $data5["correo"]);
+            }
+            
+            // miembros
+            $sentenciaMiembros = "select tfgmiembroscomision.correo from tfg, tfgmiembroscomision, tfgevaluan
+                                where tfg.codigo = tfgevaluan.tfg and tfgmiembroscomision.id = tfgevaluan.miembrocomisiontfg and
+                                tfgevaluan.estado= 1 and tfg.codigo = '". $codigo ."'";
+            $resultadoMiembros= mysqli_query($connection, $sentenciaMiembros);
+            while ($data6 = mysqli_fetch_assoc($resultadoMiembros)) {
+                array_push($arrayCorreos, $data6["correo"]);
+            }
+            
+                        
+            //quita esto y descomenta lo que esta abajo los echos aqui ya consigue todos los correos entonces nada mas 
+            //es llamar el metodo para enviarlos
+            foreach ($arrayCorreos as $value) {
+                echo $value;
+            }
+            
+        
+//    echo '<html>';
+//
+//    echo '<head>';
+//    echo '<title></title>';
+//
+//    echo '</head>';
+//
+//    echo '<body onload="enviar()" hidden>';
+//        echo '<script language="JavaScript">';
+//        echo 'function enviar(){';
+//        echo 'document.form.submit();';
+//        echo '}';
+//        echo '</script>';
+//        echo '<form id="form" name="form" method="POST" action="../consulta_TFG.php" >';
+//        echo '<input type="text" value="' . $codigo . '" name="codigo" />';
+//        echo '<input type="text" value="1" name="exito"';
+//        echo '</form>';
+//
+//
+//        echo '</body>';
+//
+//        echo '</html>';
 
         exit();
     }else{
@@ -170,7 +225,7 @@ function annadirnum($string,$iteracion){
             $stringFinal = $stringFinal.$valor;
         }
     }
-    echo $stringFinal." ";
+    
     return $stringFinal;
 }
 

@@ -16,6 +16,7 @@ $codigo = $_POST['codigoProyecto'];
 $etapa = $_POST['etapa'];
 $tipo = $_POST['tipo'];
 $isInvestigacion = $_POST['isInvestigacion'];
+$arrayCorreosIE = array();
 
 
 if(isset($_FILES['archivo']['name'])){
@@ -66,7 +67,6 @@ if(!$content){
    exit();
 }
 $blob_name = $ubicacionArchivo.$nombre_archivo;
-echo $blob_name;
 
 try {
     //Upload blob
@@ -90,35 +90,80 @@ try {
     
     if($resultado){
         
+         //investigadores
+            $sentenciaInvestigadoresIE = "select ieinvestigadores.correo from ieproyectos, ieinvestigadores, ieinvestigan
+                                    where ieproyectos.codigo = ieinvestigan.proyecto and ieinvestigadores.id = ieinvestigan.investigador and
+                                    ieinvestigan.estado= 1 and ieproyectos.codigo = '". $codigo ."'";
+            $resultadoInvestigadoresIE = mysqli_query($connection, $sentenciaInvestigadoresIE);
+            while ($data2IE = mysqli_fetch_assoc($resultadoInvestigadoresIE)) {
+                array_push($arrayCorreosIE, $data2IE["correo"]);
+            }
+            
+            //coordinador
+            $sentenciaCoordiandorIE = "select iecoordinadoresinvestigacion.correo from ieproyectos, iecoordinadoresinvestigacion 
+                                    where ieproyectos.coordinador = iecoordinadoresinvestigacion.id and ieproyectos.codigo = '". $codigo ."'";
+            $resultadoCoordiandorIE = mysqli_query($connection, $sentenciaCoordiandorIE);
+            $data3IE = mysqli_fetch_assoc($resultadoCoordiandorIE);
+            array_push($arrayCorreosIE, $data3IE["correo"]);
+            
+          
+            
+            //evaluadores
+            $sentenciaAsesoresIE = "select ieevaluadores.correo from ieproyectos, ieevaluadores, ieevaluan
+                                where ieproyectos.codigo = ieevaluan.proyecto and ieevaluadores.id = ieevaluan.evaluador and
+                                ieevaluan.estado= 1 and ieproyectos.codigo = '". $codigo ."'";
+            $resultadoAsesoresIE = mysqli_query($connection, $sentenciaAsesoresIE);
+            while ($data5IE = mysqli_fetch_assoc($resultadoAsesoresIE)) {
+                array_push($arrayCorreosIE, $data5IE["correo"]);
+            }
+            
+            
+            //comiex
+            $sentenciaComiexIE = "select iemiembroscomiex.correo from ieproyectos, iemiembroscomiex, ierevisan
+                                where ieproyectos.codigo = ierevisan.proyecto and iemiembroscomiex.id = ierevisan.miembrocomiex and
+                                ierevisan.estado= 1 and ieproyectos.codigo = '". $codigo ."'";
+            $resultadoComiexIE = mysqli_query($connection, $sentenciaComiexIE);
+            while ($data6IE = mysqli_fetch_assoc($resultadoComiexIE)) {
+                array_push($arrayCorreosIE, $data6IE["correo"]);
+            }
+            
+            //quita esto y descomenta lo que esta abajo los echos aqui ya consigue todos los correos entonces nada mas 
+            //es llamar el metodo para enviarlos
+            foreach ($arrayCorreosIE as $value) {
+                echo $value.'    ';
+            }
+            
+            
+        
         
         
         if($isInvestigacion){
-          echo '<html>';
-
-    echo '<head>';
-    echo '<title></title>';
-
-    echo '</head>';
-
-    echo '<body onload="enviar()" hidden>';
-        echo '<script language="JavaScript">';
-        echo 'function enviar(){';
-        echo 'document.form.submit();';
-        echo '}';
-        echo '</script>';
-        echo '<form id="form" name="form" method="POST" action="../consulta_Extension.php" >';
-        echo '<input type="text" value="' . $codigo . '" name="codigo" />';
-        echo '</form>';
-
-
-        echo '</body>';
-
-        echo '</html>';
-        exit();
+//    echo '<html>';
+//
+//    echo '<head>';
+//    echo '<title></title>';
+//
+//    echo '</head>';
+//
+//    echo '<body onload="enviar()" hidden>';
+//        echo '<script language="JavaScript">';
+//        echo 'function enviar(){';
+//        echo 'document.form.submit();';
+//        echo '}';
+//        echo '</script>';
+//        echo '<form id="form" name="form" method="POST" action="../consulta_Extension.php" >';
+//        echo '<input type="text" value="' . $codigo . '" name="codigo" />';
+//        echo '</form>';
+//
+//
+//        echo '</body>';
+//
+//        echo '</html>';
+//        exit();
     }
 
     }else{
-    $_SESSION["error"] = "¡Error al Cargar el archivo! Error Insert BD".$consulta;
+    $_SESSION["error"] = "¡Error al Cargar el archivo! Error Insert BD";
     header("Location: ../navegacion/500.php");
     exit();
     }
@@ -165,7 +210,7 @@ function annadirnum($string,$iteracion){
             $stringFinal = $stringFinal.$valor;
         }
     }
-    echo $stringFinal." ";
+    ;
     return $stringFinal;
 }
 
